@@ -250,10 +250,3 @@ ab :small_left_bold: ◀
 ab :small_right_bold: ▶
 ab :small_right_thin: ❮
 ab :small_right_thin: ❯
-
-
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-set completeopt=menu,menuone,noselect
