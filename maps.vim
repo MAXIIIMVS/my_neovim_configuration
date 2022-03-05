@@ -1,7 +1,7 @@
 " Description: Keymaps
 
 " Delete a word backwards
-nnoremap dw vb"_d
+" nnoremap dw vb"_d
 
 " Select all
 nmap <C-a> gg<S-v>G
@@ -33,8 +33,8 @@ nmap <Tab> :tabnext<Return>
 " Windows
 
 " Split window
-nmap ss :split<Return><C-w>w
-nmap sv :vsplit<Return><C-w>w
+" nmap ss :split<Return><C-w>w
+" nmap sv :vsplit<Return><C-w>w
 " Resize window
 nmap <C-w><left> <C-w><
 nmap <C-w><right> <C-w>>
@@ -68,11 +68,11 @@ nnoremap <space>h <c-w>h
 nnoremap <silent> [b :bprev<CR>
 nnoremap <silent> ]b :bnext<CR>
 
-" delete current buffer
-" nnoremap <space>bdc :bd<CR
+" delete all buffers other than the current one, put the cursor back
+nnoremap <space>bo :%bd\|e#\|bd#<CR>\|'"
 
 " delete all buffers
-nnoremap <space>bda :bufdo bd<CR>
+nnoremap <space>ba :bufdo bd<CR>
 
 " map ^a, ^e, ^k and ^t in insert mode to act like they do in terminal
 inoremap <c-a> <c-o>I

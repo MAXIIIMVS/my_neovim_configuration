@@ -230,6 +230,7 @@ ab :telephone: 📞
 ab :email: 📧
 ab :computer: 💻
 ab :rocket: 🚀
+ab :palette: 🎨
 ab :crown: 👑
 ab :robot: 🤖
 ab :poop: 💩
