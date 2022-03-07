@@ -42,7 +42,7 @@ o.showmatch = false
 o.lazyredraw = true
 o.ignorecase = true -- NOTE: I'm not sure about this or smartcase
 o.smarttab = true
-b.filetype = 'plugin, indent on'
+cmd('filetype plugin indent on')
 b.shiftwidth = 2
 b.tabstop = 2
 b.ai = true
