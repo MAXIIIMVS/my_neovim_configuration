@@ -14,7 +14,6 @@ w.number = true
 w.relativenumber = true
 w.signcolumn= 'number'
 cmd('syntax on')
-cmd('syntax enable')
 o.fileencodings= 'utf-8,sjis,euc-jp,latin'
 o.encoding= 'utf-8'
 o.title = true
@@ -97,3 +96,21 @@ autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 ]])
 -- }}}
+
+-- Syntax theme "{{{
+-----------------------------------------------------------------------
+-- true color
+if vim.fn.exists("&termguicolors") == 1 and vim.fn.exists("&winblend") then
+  cmd('syntax enable')
+  o.termguicolors = true
+  w.winblend = 0
+  o.wildoptions = 'pum'
+  o.pumblend = 5
+  o.background = 'dark'
+  -- Use NeoSolarized
+  -- vim.g.neosolarized_termtrans = 1
+  -- require('colors')
+  -- cmd('colorscheme NeoSolarized')
+end
+-- }}}
+
