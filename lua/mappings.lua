@@ -13,7 +13,7 @@ u.map('n', '<c-w><down>', '<c-w>+')
 
 --insert a blank line around the cursor
 u.map('n', ']<space>', 'o<ESC>k')
-u.map('n', '[<space>', 'o<ESC>j')
+u.map('n', '[<space>', 'O<ESC>j')
 
 -- Go to the next or previous tab
 -- NOTE: you can use [t & ]t for other tasks 
