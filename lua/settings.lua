@@ -155,6 +155,8 @@ autocmd InsertLeave * highlight  CursorLine ctermbg=232
 
 -- NOTE: put this at the end
 o.secure = true -- BUG: security risk; don't switch this off
+
+vim.cmd('colorscheme aurora')
 -- }}}
 
 -- emoji shortcuts {{{
