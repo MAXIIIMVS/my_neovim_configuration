@@ -82,3 +82,18 @@ utils.create_augroup({
     {'WinLeave', '*', 'set', 'nocul'}
 }, 'BgHighlight')
 -- }}}
+
+-- File types {{{
+-----------------------------------------------------------------------
+cmd([[
+au BufNewFile,BufRead *.es6 setf javascript
+au BufNewFile,BufRead *.tsx setf typescriptreact
+au BufNewFile,BufRead *.md set filetype=markdown
+au BufNewFile,BufRead *.mdx set filetype=markdown
+au BufNewFile,BufRead *.flow set filetype=javascript
+au BufNewFile,BufRead *.fish set filetype=fish
+autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
+autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+]])
+-- }}}
