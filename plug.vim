@@ -5,7 +5,6 @@ endif
 call plug#begin()
 
 Plug 'szw/vim-maximizer'
-Plug 'luochen1990/rainbow'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'ctrlpvim/ctrlp.vim'
@@ -63,6 +62,7 @@ endif
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'luochen1990/rainbow'
 " VimDevIcons: add icons to your plugins
 Plug 'ryanoasis/vim-devicons'
 
