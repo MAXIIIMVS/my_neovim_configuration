@@ -1,3 +1,4 @@
+-- TODO: remove unused variables
 local cmd = vim.cmd
 local g = vim.g
 local o = vim.o

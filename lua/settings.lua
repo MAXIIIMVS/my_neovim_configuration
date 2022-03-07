@@ -1,10 +1,10 @@
 -- TODO: remove unused variables
 local utils = require('utils')
-local cmd = vim.cmd
 local g = vim.g
 local o = vim.o
 local w = vim.wo
 local b = vim.bo
+local cmd = vim.cmd
 
 -- Fundamental {{{
 -- NOTE: I'm not sure about this, remove if not necessary
@@ -67,8 +67,8 @@ w.cursorline = true
 
 -- Set cursor line color on visual mode
 -- NOTE: I'm not sure about syntax and the if statement
-cmd [[highlight Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40]]
-cmd [[highlight LineNr cterm=none ctermfg=240 guifg=#2b506e guibg=#000000]]
+cmd([[highlight Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40]])
+cmd([[highlight LineNr cterm=none ctermfg=240 guifg=#2b506e guibg=#000000]])
 
 cmd([[
 if &term =~ "screen"
@@ -77,7 +77,6 @@ if &term =~ "screen"
 endif
 ]])
 
--- TODO: fix the utils errors
 utils.create_augroup({
     {'WinEnter', '*', 'set', 'cul'},
     {'WinLeave', '*', 'set', 'nocul'}
