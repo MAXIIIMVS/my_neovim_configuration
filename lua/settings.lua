@@ -114,3 +114,46 @@ if vim.fn.exists("&termguicolors") == 1 and vim.fn.exists("&winblend") then
 end
 -- }}}
 
+-- Settings {{{
+-- ---------------------------------------------------------------------
+b.omnifunc = 'syntaxcomplete#Complete'
+o.errorbells = false
+o.belloff = 'all'
+o.confirm = true
+-- o.guifont= 'firaCode'
+o.guifont = 'FiraCode Nerd Font'
+-- set t_Co=256 -- TODO: what should I do?
+o.clipboard = 'unnamedplus'
+o.mouse = 'a'
+o.autoread = true
+b.swapfile = false
+b.softtabstop = 2
+o.showmode = true
+w.linebreak = true
+o.autochdir = true -- NOTE: When this option is on some plugins may not work.
+o.hidden = true
+w.colorcolumn = '80'
+-- cmd('highlight ColorColumn ctermbg=DarkBlue')
+o.wildmenu = true
+o.wildmode = 'list:longest,full'
+o.statusline = '%F'
+o.updatetime = 500
+w.foldenable = true
+o.foldlevelstart = 1 -- NOTE: -1, 0, 1, 99
+w.foldnestmax = 10
+w.foldmethod = 'manual' -- manual, indent, syntax, marker, expr, diff
+-- set exrc -- BUG: security risk, use other options
+w.conceallevel = 0
+-- python3 path: chage if it's necessary, -- NOTE: I'm not sure about this
+g.python3_host_prog = '/usr/bin/python3'
+cmd('autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact')
+cmd([[
+au FocusGained,BufEnter * :silent! !
+hi CursorLine cterm=NONE ctermbg=232
+autocmd InsertEnter * highlight  CursorLine ctermbg=17 ctermfg=None
+autocmd InsertLeave * highlight  CursorLine ctermbg=232
+]])
+
+-- NOTE: put this at the end
+o.secure = true -- BUG: security risk; don't switch this off
+-- }}}
