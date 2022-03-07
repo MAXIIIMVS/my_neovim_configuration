@@ -1,9 +1,11 @@
+-- TODO: remove unused variables
+local utils = require('utils')
 local cmd = vim.cmd
 local g = vim.g
 local o = vim.o
 local w = vim.wo
 local b = vim.bo
-local utils = require('utils')
+
 -- Fundamental {{{
 -- NOTE: I'm not sure about this, remove if not necessary
 cmd('autocmd!') -- Remove ALL autocommands for the current group.
@@ -59,3 +61,25 @@ b.formatoptions = b.formatoptions .. "r"
 --}}}
 
 
+-- Highlights {{{
+-----------------------------------------------------------------------
+w.cursorline = true
+
+-- Set cursor line color on visual mode
+-- NOTE: I'm not sure about syntax and the if statement
+cmd [[highlight Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40]]
+cmd [[highlight LineNr cterm=none ctermfg=240 guifg=#2b506e guibg=#000000]]
+
+cmd([[
+if &term =~ "screen"
+  autocmd BufEnter * if bufname("") !~ "^?[A-Za-z0-9?]*://" | silent! exe '!echo -n "\ek[`hostname`:`basename $PWD`/`basename %`]\e\\"' | endif
+  autocmd VimLeave * silent!  exe '!echo -n "\ek[`hostname`:`basename $PWD`]\e\\"'
+endif
+]])
+
+-- TODO: fix the utils errors
+utils.create_augroup({
+    {'WinEnter', '*', 'set', 'cul'},
+    {'WinLeave', '*', 'set', 'nocul'}
+}, 'BgHighlight')
+-- }}}
