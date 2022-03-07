@@ -69,13 +69,26 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["lualine.nvim"] = {
+    config = { "require('exvimmer/lualine-config')" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/home/mustafa/.local/share/nvim/site/pack/packer/opt/lualine.nvim",
+    url = "https://github.com/hoob3rt/lualine.nvim"
+  },
   ["nvim-treesitter"] = {
-    config = { "require('exvimmer.treesitter-config')" },
+    config = { "require('exvimmer/treesitter-config')" },
     loaded = false,
     needs_bufread = true,
     only_cond = false,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/opt/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -94,7 +107,7 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au BufWinEnter * ++once lua require("packer.load")({'nvim-treesitter'}, { event = "BufWinEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au BufWinEnter * ++once lua require("packer.load")({'nvim-treesitter', 'lualine.nvim'}, { event = "BufWinEnter *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
