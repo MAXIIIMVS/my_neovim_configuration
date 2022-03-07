@@ -1,4 +1,3 @@
--- TODO: remove unused variables
 local utils = require('utils')
 local g = vim.g
 local o = vim.o
@@ -156,4 +155,51 @@ autocmd InsertLeave * highlight  CursorLine ctermbg=232
 
 -- NOTE: put this at the end
 o.secure = true -- BUG: security risk; don't switch this off
+-- }}}
+
+-- emoji shortcuts {{{
+-- ---------------------------------------------------------------------
+cmd([[
+ab :check: ✅
+ab :cross: ❌
+ab :right: ➡
+ab :left: ⬅
+ab :up: ⬆
+ab :down: ⬇
+ab :point_right: 👉
+ab :point_left: 👈
+ab :point_up: 👆
+ab :point_down: 👇
+ab :bulb: 💡
+ab :pin: 📌
+ab :bomb: 💣
+ab :book: 📖
+ab :link: 🔗
+ab :wrench: 🔧
+ab :telephone: 📞
+ab :email: 📧
+ab :computer: 💻
+ab :rocket: 🚀
+ab :palette: 🎨
+ab :crown: 👑
+ab :robot: 🤖
+ab :poop: 💩
+ab :ghost: 👻
+ab :wine_glass: 🍷
+ab :mobile_phone: 📱
+ab :red_heart: ❤️
+ab :skull: 💀
+ab :alien: 👽
+ab :degree: \u02DA
+ab :black_square_button: 🔲
+ab :empty: 🔳
+ab :separator_lb: 
+ab :separator_rb: 
+ab :separator_lt: 
+ab :separator_rt: 
+ab :separator_lst: ◀
+ab :separator_rst: ▶
+ab :separator_ltt: ❮
+ab :separator_rtt: ❯
+]])
 -- }}}
