@@ -13,4 +13,10 @@ return require('packer').startup(function(use)
     event = "BufWinEnter",
     config = "require('exvimmer/lualine-config')"
   }
+  use {
+    'akinsho/bufferline.nvim',
+    requires = 'kyazdani42/nvim-web-devicons',
+    event = "BufWinEnter",
+    config = "require('exvimmer/bufferline-config')"
+  }
 end)
