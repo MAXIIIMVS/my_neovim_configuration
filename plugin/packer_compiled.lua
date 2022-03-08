@@ -134,6 +134,12 @@ _G.packer_plugins = {
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/opt/lualine.nvim",
     url = "https://github.com/hoob3rt/lualine.nvim"
   },
+  ["null-ls.nvim"] = {
+    config = { "require('exvimmer/null-ls-config')" },
+    loaded = true,
+    path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
+    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
+  },
   ["nvim-autopairs"] = {
     config = { "require('exvimmer/autopairs-config')" },
     load_after = {},
@@ -241,14 +247,18 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: nvim-lspconfig
-time([[Config for nvim-lspconfig]], true)
-require('exvimmer/lsp')
-time([[Config for nvim-lspconfig]], false)
 -- Config for: nvim-comment
 time([[Config for nvim-comment]], true)
 require('exvimmer/comment-config')
 time([[Config for nvim-comment]], false)
+-- Config for: nvim-lspconfig
+time([[Config for nvim-lspconfig]], true)
+require('exvimmer/lsp')
+time([[Config for nvim-lspconfig]], false)
+-- Config for: null-ls.nvim
+time([[Config for null-ls.nvim]], true)
+require('exvimmer/null-ls-config')
+time([[Config for null-ls.nvim]], false)
 -- Config for: lspsaga.nvim
 time([[Config for lspsaga.nvim]], true)
 require('exvimmer/lspsaga-config')

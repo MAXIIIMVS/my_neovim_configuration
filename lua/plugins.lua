@@ -53,4 +53,5 @@ return require('packer').startup(function(use)
     config = "require('exvimmer/blankline-config')",
     event = "BufRead"
   }
+  use {'jose-elias-alvarez/null-ls.nvim', config = "require('exvimmer/null-ls-config')"}
 end)

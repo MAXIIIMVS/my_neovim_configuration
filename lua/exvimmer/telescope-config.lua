@@ -1,6 +1,6 @@
-function telescope_buffer_dir()
-  return vim.fn.expand('%:p:h')
-end
+-- function telescope_buffer_dir()
+--   return vim.fn.expand('%:p:h')
+-- end
 
 local actions = require('telescope.actions')
 

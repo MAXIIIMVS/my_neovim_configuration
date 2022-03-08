@@ -17,7 +17,7 @@ u.map('n', ']<space>', 'o<ESC>k')
 u.map('n', '[<space>', 'O<ESC>j')
 
 -- Go to the next or previous tab
--- NOTE: you can use [t & ]t for other tasks 
+-- NOTE: you can use [t & ]t for other tasks
 u.map('n', '[t', 'gT', opts)
 u.map('n', ']t', 'gt', opts)
 
@@ -108,7 +108,7 @@ u.map('n', ';m', ':Telescope marks<CR>', opts)
 u.map('n', ';R', ':Telescope registers<CR>', opts)
 
 -- lspsaga
-u.map('n', '<c-j>', ':Lspsaga diagnostic_jump_next<CR>', opts)
+-- u.map('n', '<c-j>', ':Lspsaga diagnostic_jump_next<CR>', opts)
 -- u.map('n', 'K', '<cmd>lua require(\'lspsaga.hover\').render_hover_doc()<CR>', opts)
 u.map('n', 'K', ':Lspsaga hover_doc<CR>', opts)
 u.map('n', 'gh', ':Lspsaga lsp_finder<CR>', opts)
@@ -138,5 +138,5 @@ u.map('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', op
 u.map('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 u.map('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 u.map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-u.map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+u.map('n', '<space>f', ':lua vim.lsp.buf.formatting()<CR>', opts)
 -- }}}
