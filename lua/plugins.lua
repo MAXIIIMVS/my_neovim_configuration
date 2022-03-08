@@ -25,4 +25,5 @@ return require('packer').startup(function(use)
     cmd = "NvimTreeToggle",
     config = "require('exvimmer/nvim-tree-config')"
   }
+  use {'windwp/nvim-ts-autotag', event = "InsertEnter", after = "nvim-treesitter"}
 end)
