@@ -27,4 +27,7 @@ return require('packer').startup(function(use)
   }
   use {'windwp/nvim-ts-autotag', event = "InsertEnter", after = "nvim-treesitter"}
   use {'p00f/nvim-ts-rainbow', after = "nvim-treesitter"}
+  --use {'windwp/nvim-autopairs', config = "require('exvimmer/autopairs-config')", after = "nvim-cmp"}
+  -- TODO: replace with the previous one after installing nvim-cmp
+  use {'windwp/nvim-autopairs', config = "require('exvimmer/autopairs-config')"}
 end)
