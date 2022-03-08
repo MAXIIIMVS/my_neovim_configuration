@@ -48,4 +48,9 @@ return require('packer').startup(function(use)
   use {'saadparwaiz1/cmp_luasnip'}
   use {"terrortylor/nvim-comment", config = "require('exvimmer/comment-config')"}
   use {'norcalli/nvim-colorizer.lua', config = "require('exvimmer/colorizer-config')", event = "BufRead"}
+  use {
+    "lukas-reineke/indent-blankline.nvim",
+    config = "require('exvimmer/blankline-config')",
+    event = "BufRead"
+  }
 end)

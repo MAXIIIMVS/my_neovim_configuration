@@ -107,6 +107,14 @@ _G.packer_plugins = {
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["indent-blankline.nvim"] = {
+    config = { "require('exvimmer/blankline-config')" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/home/mustafa/.local/share/nvim/site/pack/packer/opt/indent-blankline.nvim",
+    url = "https://github.com/lukas-reineke/indent-blankline.nvim"
+  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
@@ -267,7 +275,7 @@ vim.cmd [[au!]]
 time([[Defining lazy-load event autocommands]], true)
 vim.cmd [[au BufWinEnter * ++once lua require("packer.load")({'nvim-treesitter', 'lualine.nvim', 'bufferline.nvim'}, { event = "BufWinEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'nvim-ts-autotag'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
-vim.cmd [[au BufRead * ++once lua require("packer.load")({'nvim-colorizer.lua'}, { event = "BufRead *" }, _G.packer_plugins)]]
+vim.cmd [[au BufRead * ++once lua require("packer.load")({'indent-blankline.nvim', 'nvim-colorizer.lua'}, { event = "BufRead *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
