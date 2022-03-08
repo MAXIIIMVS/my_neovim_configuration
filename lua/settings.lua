@@ -147,14 +147,18 @@ autocmd InsertLeave * highlight  CursorLine ctermbg=232
 -- NOTE: put this at the end
 o.secure = true -- BUG: security risk; don't switch this off
 
--- TODO: find a solution for tabs and spaces, it's fucking annoying
-b.expandtab = true -- space instead of tab
-b.tabstop = 2
-b.shiftwidth = 2
+-- TODO: enable if it's necessary
 -- o.smarttab = true
 -- b.smartindent = true
--- b.autoindent = true
-b.softtabstop = 2
+o.tabstop = 2
+b.tabstop = 2
+o.softtabstop = 2
+o.shiftwidth = 2
+b.shiftwidth = 2
+o.autoindent = true
+b.autoindent = true
+o.expandtab = true
+b.expandtab = true
 vim.cmd('colorscheme aurora')
 -- }}}
 
