@@ -19,4 +19,10 @@ return require('packer').startup(function(use)
     event = "BufWinEnter",
     config = "require('exvimmer/bufferline-config')"
   }
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons',
+    cmd = "NvimTreeToggle",
+    config = "require('exvimmer/nvim-tree-config')"
+  }
 end)

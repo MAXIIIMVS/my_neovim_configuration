@@ -1,6 +1,6 @@
 require("bufferline").setup{
   options = {
-    sort_by = 'relative_directory',
+    -- sort_by = 'relative_directory',
     -- separator_style = 'slant'
     -- diagnostics = false | "nvim_lsp" | "coc",
     -- TODO: customize custom_areas
