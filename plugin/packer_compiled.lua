@@ -139,6 +139,12 @@ _G.packer_plugins = {
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
+  ["nvim-comment"] = {
+    config = { "require('exvimmer/comment-config')" },
+    loaded = true,
+    path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/nvim-comment",
+    url = "https://github.com/terrortylor/nvim-comment"
+  },
   ["nvim-lsp-installer"] = {
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer",
@@ -223,6 +229,10 @@ time([[Defining packer_plugins]], false)
 time([[Config for nvim-lspconfig]], true)
 require('exvimmer/lsp')
 time([[Config for nvim-lspconfig]], false)
+-- Config for: nvim-comment
+time([[Config for nvim-comment]], true)
+require('exvimmer/comment-config')
+time([[Config for nvim-comment]], false)
 -- Config for: lspsaga.nvim
 time([[Config for lspsaga.nvim]], true)
 require('exvimmer/lspsaga-config')
