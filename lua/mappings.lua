@@ -83,4 +83,25 @@ vnoremap <silent> # :<C-U>
 
 -- toggle nvim-tree
 u.map('n', '<space>e', ':NvimTreeToggle<CR>', {noremap = true, silent = true})
+
+-- telescope
+-- TODO: remove useless mappings after a while
+u.map('n', ';f', ':Telescope find_files<CR>', {noremap = true, silent = true})
+u.map('n', ';r', ':Telescope live_grep<CR>', {noremap = true, silent = true})
+u.map('n', ';h', ':Telescope help_tags<CR>', {noremap = true, silent = true})
+u.map('n', ';c', ':Telescope commands<CR>', {noremap = true, silent = true})
+u.map('n', ';C', ':Telescope colorscheme<CR>', {noremap = true, silent = true})
+u.map('n', ';lr', ':Telescope lsp_references<CR>', {noremap = true, silent = true})
+u.map('n', ';lca', ':Telescope lsp_code_actions<CR>', {noremap = true, silent = true})
+u.map('n', ';le', ':Telescope diagnostics<CR>', {noremap = true, silent = true})
+u.map('n', ';ld', ':Telescope lsp_definitions<CR>', {noremap = true, silent = true})
+u.map('n', ';lt', ':Telescope lsp_definitions<CR>', {noremap = true, silent = true})
+u.map('n', ';gc', ':Telescope git_commits<CR>', {noremap = true, silent = true})
+u.map('n', ';gs', ':Telescope git_status<CR>', {noremap = true, silent = true})
+u.map('n', ';qf', ':Telescope quickfix<CR>', {noremap = true, silent = true})
+u.map('n', ';b', ':Telescope buffers<CR>', {noremap = true, silent = true})
+u.map('n', ';t', ':Telescope tags<CR>', {noremap = true, silent = true})
+u.map('n', ';s', ':Telescope search_history<CR>', {noremap = true, silent = true})
+u.map('n', ';m', ':Telescope marks<CR>', {noremap = true, silent = true})
+u.map('n', ';R', ':Telescope registers<CR>', {noremap = true, silent = true})
 -- }}}

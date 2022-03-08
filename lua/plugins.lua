@@ -30,4 +30,10 @@ return require('packer').startup(function(use)
   --use {'windwp/nvim-autopairs', config = "require('exvimmer/autopairs-config')", after = "nvim-cmp"}
   -- TODO: replace with the previous one after installing nvim-cmp
   use {'windwp/nvim-autopairs', config = "require('exvimmer/autopairs-config')"}
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {{'nvim-lua/plenary.nvim'}},
+    cmd = "Telescope",
+    config = "require('exvimmer/telescope-config')"
+  }
 end)
