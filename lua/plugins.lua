@@ -27,9 +27,7 @@ return require('packer').startup(function(use)
   }
   use {'windwp/nvim-ts-autotag', event = "InsertEnter", after = "nvim-treesitter"}
   use {'p00f/nvim-ts-rainbow', after = "nvim-treesitter"}
-  --use {'windwp/nvim-autopairs', config = "require('exvimmer/autopairs-config')", after = "nvim-cmp"}
-  -- TODO: replace with the previous one after installing nvim-cmp
-  use {'windwp/nvim-autopairs', config = "require('exvimmer/autopairs-config')"}
+  use {'windwp/nvim-autopairs', config = "require('exvimmer/autopairs-config')", after = "nvim-cmp"}
   use {
     'nvim-telescope/telescope.nvim',
     requires = {{'nvim-lua/plenary.nvim'}},
@@ -38,6 +36,8 @@ return require('packer').startup(function(use)
   }
   use {'neovim/nvim-lspconfig', config = "require('exvimmer/lsp')"}
   use {'williamboman/nvim-lsp-installer'}
+  -- NOTE: tami5/lspsaga.nvim is the maintained version
+  use {'tami5/lspsaga.nvim', config = "require('exvimmer/lspsaga-config')"}
   use {'onsails/lspkind-nvim'}
   use {'hrsh7th/cmp-nvim-lsp'}
   use {'hrsh7th/cmp-buffer'}
