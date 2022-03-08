@@ -5,8 +5,13 @@ require'nvim-tree'.setup {
 	-- auto_open = true,
 	-- auto_close = true,
 	gitignore = 1,
+	actions = {
+		open_file = {
+			quit_on_open = true
+		}
+	},
 	view = {
-		side = 'right',
+		-- side = 'right',
 		preserve_window_proportions = true
 	},
 	diagnostics = {
@@ -18,9 +23,5 @@ require'nvim-tree'.setup {
 			warning = "",
 			error = "",
 		}
-	},
-	open_file = {
-		quit_on_open = true
-		-- TODO: find a way to close nvim-tree after opening a file
 	},
 }
