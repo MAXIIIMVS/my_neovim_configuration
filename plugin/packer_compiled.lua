@@ -95,7 +95,7 @@ _G.packer_plugins = {
     url = "https://github.com/kyazdani42/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
-    after = { "nvim-ts-autotag" },
+    after = { "nvim-ts-autotag", "nvim-ts-rainbow" },
     config = { "require('exvimmer/treesitter-config')" },
     loaded = false,
     needs_bufread = true,
@@ -112,6 +112,15 @@ _G.packer_plugins = {
     only_cond = false,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/opt/nvim-ts-autotag",
     url = "https://github.com/windwp/nvim-ts-autotag"
+  },
+  ["nvim-ts-rainbow"] = {
+    load_after = {
+      ["nvim-treesitter"] = true
+    },
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/mustafa/.local/share/nvim/site/pack/packer/opt/nvim-ts-rainbow",
+    url = "https://github.com/p00f/nvim-ts-rainbow"
   },
   ["nvim-web-devicons"] = {
     loaded = true,

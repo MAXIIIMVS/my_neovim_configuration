@@ -8,11 +8,12 @@ local cmd = vim.cmd
 -- Fundamental {{{
 -- NOTE: I'm not sure about this, remove if not necessary
 cmd('autocmd!') -- Remove ALL autocommands for the current group.
+cmd('syntax on')
+cmd('filetype plugin indent on')
 -- cmd('scriptencoding utf-8') -- FIX:
 w.number = true
 w.relativenumber = true
 w.signcolumn= 'number'
-cmd('syntax on')
 o.fileencodings= 'utf-8,sjis,euc-jp,latin'
 o.encoding= 'utf-8'
 o.title = true
@@ -25,7 +26,6 @@ o.showcmd = true
 o.cmdheight = 1
 o.laststatus = 2
 o.scrolloff= 10 -- NOTE: or w.scrolloff = 10, check it
-b.expandtab = true -- space instead of tab
 
 -- incremental substitution (neovim)
 if vim.fn.has("nvim") == 1 then
@@ -35,18 +35,10 @@ end
 -- Suppress appending <PasteStart> and <PasteEnd> when pasting
 -- xterm-bracketed-paste
 -- set t_BE= -- NOTE: I don't know how to set this
-
-o.showcmd = false
 o.ruler = false
 o.showmatch = false
 o.lazyredraw = true
 o.ignorecase = true -- NOTE: I'm not sure about this or smartcase
-o.smarttab = true
-cmd('filetype plugin indent on')
-b.shiftwidth = 2
-b.tabstop = 2
-b.ai = true
-b.si = true
 o.backspace= "start,eol,indent"
 o.path = o.path .. "**" -- or w.path, IDK
 o.wildignore= o.wildignore .. "*/node_modules/*"
@@ -126,7 +118,6 @@ o.clipboard = 'unnamedplus'
 o.mouse = 'a'
 o.autoread = true
 b.swapfile = false
-b.softtabstop = 2
 o.showmode = true
 w.linebreak = true
 o.autochdir = true -- NOTE: When this option is on some plugins may not work.
@@ -156,6 +147,14 @@ autocmd InsertLeave * highlight  CursorLine ctermbg=232
 -- NOTE: put this at the end
 o.secure = true -- BUG: security risk; don't switch this off
 
+-- TODO: find a solution for tabs and spaces, it's fucking annoying
+b.expandtab = true -- space instead of tab
+b.tabstop = 2
+b.shiftwidth = 2
+-- o.smarttab = true
+-- b.smartindent = true
+-- b.autoindent = true
+b.softtabstop = 2
 vim.cmd('colorscheme aurora')
 -- }}}
 
