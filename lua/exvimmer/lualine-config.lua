@@ -1,7 +1,7 @@
 require('lualine').setup({
   options = {
     icons_enabled = true,
-    theme = 'moonfly',
+    theme = 'auto', -- or auto, moonfly, tokyonight, codedark, gruvbox, ...
     section_separators = {left = '', right = ''},
     component_separators = {left = '', right = ''},
     disabled_filetypes = {}

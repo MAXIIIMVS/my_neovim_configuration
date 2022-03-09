@@ -63,4 +63,13 @@ return require('packer').startup(function(use)
   use {'tpope/vim-surround'}
   use {'tpope/vim-repeat'}
   use {'tpope/vim-speeddating'}
+  use {'ayu-theme/ayu-vim', config = "require('exvimmer/ayu-config')"}
+  use {'srcery-colors/srcery-vim'} -- NOTE: if necessary, use gruvbox-config
+  use {'lifepillar/vim-gruvbox8', config = "require('exvimmer/gruvbox-config')"}
+  use {'tomasiser/vim-code-dark'}
+  use {
+    'folke/tokyonight.nvim',
+    event = "VimEnter",
+    config = "require('exvimmer/tokyonight-config')"
+  }
 end)
