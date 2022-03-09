@@ -18,3 +18,7 @@ g.tokyonight_dark_float = true
 -- vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
 g.tokyonight_day_brightness = 0.3 -- 0-1
 g.tokyonight_lualine_bold = false
+
+-- NOTE: comemnt out the line below and comment the colorscheme settings in the
+-- settings file
+-- vim.cmd('colorscheme tokyonight')
