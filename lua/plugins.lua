@@ -54,4 +54,5 @@ return require('packer').startup(function(use)
     event = "BufRead"
   }
   use {'jose-elias-alvarez/null-ls.nvim', config = "require('exvimmer/null-ls-config')"}
+  use {'ctrlpvim/ctrlp.vim'}
 end)

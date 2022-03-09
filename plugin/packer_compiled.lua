@@ -107,6 +107,11 @@ _G.packer_plugins = {
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["ctrlp.vim"] = {
+    loaded = true,
+    path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/ctrlp.vim",
+    url = "https://github.com/ctrlpvim/ctrlp.vim"
+  },
   ["indent-blankline.nvim"] = {
     config = { "require('exvimmer/blankline-config')" },
     loaded = false,

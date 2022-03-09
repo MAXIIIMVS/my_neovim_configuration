@@ -139,4 +139,7 @@ u.map('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_f
 u.map('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 u.map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 u.map('n', '<space>f', ':lua vim.lsp.buf.formatting()<CR>', opts)
+
+-- ctrlp
+u.map('n', '<leader>r', ':CtrlPClearCache<cr>', opts)
 -- }}}

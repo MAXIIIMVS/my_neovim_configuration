@@ -160,6 +160,10 @@ b.autoindent = true
 o.expandtab = true
 b.expandtab = true
 vim.cmd('colorscheme aurora')
+
+-- ctrlp
+g.ctrlp_custom_ignore = '\v[\\/](node_modules|target|dist)|(\\.(swp|ico|git|svn))$'
+
 -- }}}
 
 -- emoji shortcuts {{{
