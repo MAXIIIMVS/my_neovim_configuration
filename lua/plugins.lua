@@ -55,4 +55,5 @@ return require('packer').startup(function(use)
   }
   use {'jose-elias-alvarez/null-ls.nvim', config = "require('exvimmer/null-ls-config')"}
   use {'ctrlpvim/ctrlp.vim'}
+  use {'folke/todo-comments.nvim', config = "require('exvimmer/comment-config')"}
 end)

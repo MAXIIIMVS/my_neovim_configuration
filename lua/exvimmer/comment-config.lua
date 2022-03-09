@@ -3,3 +3,10 @@ require('nvim_comment').setup({
   -- operator_mapping = "<leader>c",
   comment_empty = false
 })
+
+
+require("todo-comments").setup {
+  -- your configuration comes here
+  -- or leave it empty to use the default settings
+  -- refer to the configuration section below
+}

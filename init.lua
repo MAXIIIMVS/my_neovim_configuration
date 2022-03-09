@@ -5,4 +5,4 @@ require('mappings')
 require('settings')
 
 -- NOTE: put this at the end
-o.secure = true -- BUG: security risk; don't switch this off
+o.secure = true -- XXX: security risk; don't switch this off

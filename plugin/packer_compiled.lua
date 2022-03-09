@@ -244,6 +244,12 @@ _G.packer_plugins = {
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/opt/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["todo-comments.nvim"] = {
+    config = { "require('exvimmer/comment-config')" },
+    loaded = true,
+    path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/todo-comments.nvim",
+    url = "https://github.com/folke/todo-comments.nvim"
+  },
   ["vim-aurora"] = {
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/vim-aurora",
@@ -252,22 +258,26 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: nvim-comment
-time([[Config for nvim-comment]], true)
-require('exvimmer/comment-config')
-time([[Config for nvim-comment]], false)
 -- Config for: nvim-lspconfig
 time([[Config for nvim-lspconfig]], true)
 require('exvimmer/lsp')
 time([[Config for nvim-lspconfig]], false)
--- Config for: null-ls.nvim
-time([[Config for null-ls.nvim]], true)
-require('exvimmer/null-ls-config')
-time([[Config for null-ls.nvim]], false)
+-- Config for: todo-comments.nvim
+time([[Config for todo-comments.nvim]], true)
+require('exvimmer/comment-config')
+time([[Config for todo-comments.nvim]], false)
 -- Config for: lspsaga.nvim
 time([[Config for lspsaga.nvim]], true)
 require('exvimmer/lspsaga-config')
 time([[Config for lspsaga.nvim]], false)
+-- Config for: null-ls.nvim
+time([[Config for null-ls.nvim]], true)
+require('exvimmer/null-ls-config')
+time([[Config for null-ls.nvim]], false)
+-- Config for: nvim-comment
+time([[Config for nvim-comment]], true)
+require('exvimmer/comment-config')
+time([[Config for nvim-comment]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-cmp ]]
