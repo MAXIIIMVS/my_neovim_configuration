@@ -211,7 +211,7 @@ _G.packer_plugins = {
     url = "https://github.com/kyazdani42/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
-    after = { "nvim-ts-rainbow", "nvim-ts-autotag" },
+    after = { "nvim-ts-autotag", "nvim-ts-rainbow" },
     config = { "require('exvimmer/treesitter-config')" },
     loaded = false,
     needs_bufread = true,
@@ -239,6 +239,7 @@ _G.packer_plugins = {
     url = "https://github.com/p00f/nvim-ts-rainbow"
   },
   ["nvim-web-devicons"] = {
+    config = { "require('exvimmer/nvim-web-devicons-config')" },
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
@@ -321,11 +322,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/vim-surround",
     url = "https://github.com/tpope/vim-surround"
-  },
-  vimspector = {
-    loaded = true,
-    path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/vimspector",
-    url = "https://github.com/puremourning/vimspector"
   }
 }
 
@@ -342,6 +338,10 @@ time([[Config for nvim-lspconfig]], false)
 time([[Config for lsp-colors.nvim]], true)
 require('exvimmer/lsp-colors-config')
 time([[Config for lsp-colors.nvim]], false)
+-- Config for: nvim-web-devicons
+time([[Config for nvim-web-devicons]], true)
+require('exvimmer/nvim-web-devicons-config')
+time([[Config for nvim-web-devicons]], false)
 -- Config for: vim-gruvbox8
 time([[Config for vim-gruvbox8]], true)
 require('exvimmer/gruvbox-config')
@@ -350,14 +350,14 @@ time([[Config for vim-gruvbox8]], false)
 time([[Config for nvim-comment]], true)
 require('exvimmer/comment-config')
 time([[Config for nvim-comment]], false)
--- Config for: lspsaga.nvim
-time([[Config for lspsaga.nvim]], true)
-require('exvimmer/lspsaga-config')
-time([[Config for lspsaga.nvim]], false)
 -- Config for: todo-comments.nvim
 time([[Config for todo-comments.nvim]], true)
 require('exvimmer/comment-config')
 time([[Config for todo-comments.nvim]], false)
+-- Config for: lspsaga.nvim
+time([[Config for lspsaga.nvim]], true)
+require('exvimmer/lspsaga-config')
+time([[Config for lspsaga.nvim]], false)
 -- Config for: null-ls.nvim
 time([[Config for null-ls.nvim]], true)
 require('exvimmer/null-ls-config')
@@ -386,9 +386,9 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au BufWinEnter * ++once lua require("packer.load")({'nvim-treesitter', 'bufferline.nvim', 'lualine.nvim'}, { event = "BufWinEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au BufWinEnter * ++once lua require("packer.load")({'nvim-treesitter', 'bufferline.nvim'}, { event = "BufWinEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'nvim-ts-autotag'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
-vim.cmd [[au VimEnter * ++once lua require("packer.load")({'tokyonight.nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au VimEnter * ++once lua require("packer.load")({'tokyonight.nvim', 'lualine.nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au BufRead * ++once lua require("packer.load")({'indent-blankline.nvim', 'nvim-colorizer.lua'}, { event = "BufRead *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")

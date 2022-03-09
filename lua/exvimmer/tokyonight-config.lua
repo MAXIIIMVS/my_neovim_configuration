@@ -2,7 +2,7 @@
 --
 local g = vim.g
 
-g.tokyonight_style = 'storm' -- night, storm or day
+g.tokyonight_style = 'night' -- night, storm or day
 g.tokyonight_terminal_colors = true
 g.tokyonight_italic_comments = false
 g.tokyonight_italic_keywords = false

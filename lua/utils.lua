@@ -18,6 +18,10 @@ function M.add_rtp(path)
   rtp = rtp .. ',' .. path
 end
 
+function M.get_setup(name)
+  return string.format('require("exvimmer/%s-config")', name)
+end
+
 -- Map a key with optional options
 function M.map(mode, keys, action, options)
   if options == nil then
