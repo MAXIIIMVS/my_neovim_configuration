@@ -72,4 +72,6 @@ return require('packer').startup(function(use)
     event = "VimEnter",
     config = "require('exvimmer/tokyonight-config')"
   }
+  use {'nvim-lua/popup.nvim'}
+  use {'folke/lsp-colors.nvim', config = "require('exvimmer/lsp-colors-config')"}
 end)

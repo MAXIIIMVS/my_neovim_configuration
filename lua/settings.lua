@@ -94,8 +94,8 @@ autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 if vim.fn.exists("&termguicolors") == 1 and vim.fn.exists("&winblend") then
   cmd('syntax enable')
   o.termguicolors = true
-  w.winblend = 0
   o.wildoptions = 'pum'
+  w.winblend = 0
   o.pumblend = 5
   o.background = 'dark'
   -- Use NeoSolarized
@@ -124,8 +124,8 @@ o.autochdir = true -- NOTE: When this option is on some plugins may not work.
 o.hidden = true
 w.colorcolumn = '80'
 -- cmd('highlight ColorColumn ctermbg=DarkBlue')
-o.wildmenu = true
 o.wildmode = 'list:longest,full'
+o.wildmenu = true
 -- o.statusline = '%F'
 o.updatetime = 500
 w.foldenable = true
