@@ -3,9 +3,6 @@ local cmd = vim.cmd
 local opts = { noremap=true, silent=true }
 -- MAPPINGS {{{
 -- ---------------------------------------------------------------------
-u.map('n', '<S-Tab>', ':tabprev<CR>', {silent = true})
-u.map('n', '<Tab>', ':tabnext<CR>', {silent = true})
-
 -- Resize window
 u.map('n', '<c-w><left>', '<c-w><')
 u.map('n', '<c-w><right>', '<c-w>>')
@@ -28,8 +25,10 @@ u.map('n', '<c-l>', '<c-w>l', {noremap = true})
 u.map('n', '<c-h>', '<c-w>h', {noremap = true})
 
 -- next and previous buffer
-u.map('n', '[b', ':bprev<CR>', opts)
-u.map('n', ']b', ':bnext<CR>', opts)
+-- u.map('n', '[b', ':bprev<CR>', opts)
+-- u.map('n', ']b', ':bnext<CR>', opts)
+u.map('n', '<S-Tab>', ':bprev<CR>', opts)
+u.map('n', '<Tab>', ':bnext<CR>', opts)
 
 -- delete all buffers other than the current one, put the cursor back
 -- nnoremap <space>bo :%bd\|e#\|bd#<CR>\|'"

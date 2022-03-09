@@ -75,13 +75,13 @@ _G.packer_plugins = {
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
   ["ayu-vim"] = {
-    config = { "require('exvimmer/ayu-config')" },
+    config = { 'require("exvimmer/ayu-config")' },
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/ayu-vim",
     url = "https://github.com/ayu-theme/ayu-vim"
   },
   ["bufferline.nvim"] = {
-    config = { "require('exvimmer/bufferline-config')" },
+    config = { 'require("exvimmer/bufferline-config")' },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -119,7 +119,7 @@ _G.packer_plugins = {
     url = "https://github.com/ctrlpvim/ctrlp.vim"
   },
   ["hop.nvim"] = {
-    config = { "require('exvimmer/hop-config')" },
+    config = { 'require("exvimmer/hop-config")' },
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/hop.nvim",
     url = "https://github.com/phaazon/hop.nvim"
@@ -133,7 +133,7 @@ _G.packer_plugins = {
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
   ["lsp-colors.nvim"] = {
-    config = { "require('exvimmer/lsp-colors-config')" },
+    config = { 'require("exvimmer/lsp-colors-config")' },
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/lsp-colors.nvim",
     url = "https://github.com/folke/lsp-colors.nvim"
@@ -144,13 +144,13 @@ _G.packer_plugins = {
     url = "https://github.com/onsails/lspkind-nvim"
   },
   ["lspsaga.nvim"] = {
-    config = { "require('exvimmer/lspsaga-config')" },
+    config = { 'require("exvimmer/lspsaga-config")' },
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
     url = "https://github.com/tami5/lspsaga.nvim"
   },
   ["lualine.nvim"] = {
-    config = { "require('exvimmer/lualine-config')" },
+    config = { 'require("exvimmer/lualine-config")' },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -158,13 +158,13 @@ _G.packer_plugins = {
     url = "https://github.com/hoob3rt/lualine.nvim"
   },
   ["null-ls.nvim"] = {
-    config = { "require('exvimmer/null-ls-config')" },
+    config = { 'require("exvimmer/null-ls-config")' },
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
     url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
   },
   ["nvim-autopairs"] = {
-    config = { "require('exvimmer/autopairs-config')" },
+    config = { 'require("exvimmer/autopairs-config")' },
     load_after = {},
     loaded = true,
     needs_bufread = false,
@@ -177,7 +177,7 @@ _G.packer_plugins = {
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
   ["nvim-colorizer.lua"] = {
-    config = { "require('exvimmer/colorizer-config')" },
+    config = { 'require("exvimmer/colorizer-config")' },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -185,7 +185,7 @@ _G.packer_plugins = {
     url = "https://github.com/norcalli/nvim-colorizer.lua"
   },
   ["nvim-comment"] = {
-    config = { "require('exvimmer/comment-config')" },
+    config = { 'require("exvimmer/comment-config")' },
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/nvim-comment",
     url = "https://github.com/terrortylor/nvim-comment"
@@ -203,7 +203,7 @@ _G.packer_plugins = {
   },
   ["nvim-tree.lua"] = {
     commands = { "NvimTreeToggle" },
-    config = { "require('exvimmer/nvim-tree-config')" },
+    config = { 'require("exvimmer/nvim-tree-config")' },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -212,7 +212,7 @@ _G.packer_plugins = {
   },
   ["nvim-treesitter"] = {
     after = { "nvim-ts-autotag", "nvim-ts-rainbow" },
-    config = { "require('exvimmer/treesitter-config')" },
+    config = { 'require("exvimmer/treesitter-config")' },
     loaded = false,
     needs_bufread = true,
     only_cond = false,
@@ -239,7 +239,7 @@ _G.packer_plugins = {
     url = "https://github.com/p00f/nvim-ts-rainbow"
   },
   ["nvim-web-devicons"] = {
-    config = { "require('exvimmer/nvim-web-devicons-config')" },
+    config = { 'require("exvimmer/nvim-web-devicons-config")' },
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
@@ -266,7 +266,7 @@ _G.packer_plugins = {
   },
   ["telescope.nvim"] = {
     commands = { "Telescope" },
-    config = { "require('exvimmer/telescope-config')" },
+    config = { 'require("exvimmer/telescope-config")' },
     loaded = false,
     needs_bufread = true,
     only_cond = false,
@@ -274,13 +274,13 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
   ["todo-comments.nvim"] = {
-    config = { "require('exvimmer/comment-config')" },
+    config = { 'require("exvimmer/comment-config")' },
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/todo-comments.nvim",
     url = "https://github.com/folke/todo-comments.nvim"
   },
   ["tokyonight.nvim"] = {
-    config = { "require('exvimmer/tokyonight-config')" },
+    config = { 'require("exvimmer/tokyonight-config")' },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -298,7 +298,7 @@ _G.packer_plugins = {
     url = "https://github.com/tomasiser/vim-code-dark"
   },
   ["vim-gruvbox8"] = {
-    config = { "require('exvimmer/gruvbox-config')" },
+    config = { 'require("exvimmer/gruvbox-config")' },
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/vim-gruvbox8",
     url = "https://github.com/lifepillar/vim-gruvbox8"
@@ -328,7 +328,7 @@ _G.packer_plugins = {
 time([[Defining packer_plugins]], false)
 -- Config for: hop.nvim
 time([[Config for hop.nvim]], true)
-require('exvimmer/hop-config')
+require("exvimmer/hop-config")
 time([[Config for hop.nvim]], false)
 -- Config for: nvim-lspconfig
 time([[Config for nvim-lspconfig]], true)
@@ -336,35 +336,35 @@ require('exvimmer/lsp')
 time([[Config for nvim-lspconfig]], false)
 -- Config for: lsp-colors.nvim
 time([[Config for lsp-colors.nvim]], true)
-require('exvimmer/lsp-colors-config')
+require("exvimmer/lsp-colors-config")
 time([[Config for lsp-colors.nvim]], false)
 -- Config for: nvim-web-devicons
 time([[Config for nvim-web-devicons]], true)
-require('exvimmer/nvim-web-devicons-config')
+require("exvimmer/nvim-web-devicons-config")
 time([[Config for nvim-web-devicons]], false)
 -- Config for: vim-gruvbox8
 time([[Config for vim-gruvbox8]], true)
-require('exvimmer/gruvbox-config')
+require("exvimmer/gruvbox-config")
 time([[Config for vim-gruvbox8]], false)
 -- Config for: nvim-comment
 time([[Config for nvim-comment]], true)
-require('exvimmer/comment-config')
+require("exvimmer/comment-config")
 time([[Config for nvim-comment]], false)
 -- Config for: todo-comments.nvim
 time([[Config for todo-comments.nvim]], true)
-require('exvimmer/comment-config')
+require("exvimmer/comment-config")
 time([[Config for todo-comments.nvim]], false)
 -- Config for: lspsaga.nvim
 time([[Config for lspsaga.nvim]], true)
-require('exvimmer/lspsaga-config')
+require("exvimmer/lspsaga-config")
 time([[Config for lspsaga.nvim]], false)
 -- Config for: null-ls.nvim
 time([[Config for null-ls.nvim]], true)
-require('exvimmer/null-ls-config')
+require("exvimmer/null-ls-config")
 time([[Config for null-ls.nvim]], false)
 -- Config for: ayu-vim
 time([[Config for ayu-vim]], true)
-require('exvimmer/ayu-config')
+require("exvimmer/ayu-config")
 time([[Config for ayu-vim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
@@ -372,7 +372,7 @@ vim.cmd [[ packadd nvim-cmp ]]
 vim.cmd [[ packadd nvim-autopairs ]]
 
 -- Config for: nvim-autopairs
-require('exvimmer/autopairs-config')
+require("exvimmer/autopairs-config")
 
 time([[Sequenced loading]], false)
 

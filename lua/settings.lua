@@ -163,7 +163,6 @@ b.expandtab = true
 -- ctrlp
 g.ctrlp_custom_ignore = '\v[\\/](node_modules|target|dist)|(\\.(swp|ico|git|svn))$'
 
-<<<<<<< HEAD
 vim.cmd[[colorscheme aurora]]
 
 -- hide tildes (only vim), this doesn't work for nvim-tree
