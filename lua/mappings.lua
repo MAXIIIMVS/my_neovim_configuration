@@ -148,4 +148,10 @@ u.map('n', '<space>m', ':MaximizerToggle<CR>', opts)
 
 -- choosewin
 -- u.map('n', '<space>w', ':ChooseWin<CR>', opts)
+
+-- hop
+u.map('n', '<space>;', ':HopWordMW<CR>', opts)
+u.map('n', '<space>/', ':HopPatternMW<CR>', opts)
+u.map('n', '<space>\'', ':HopLineMW<CR>', opts)
+u.map('n', '<space>,', ':HopChar1MW<CR>', opts)
 -- }}}

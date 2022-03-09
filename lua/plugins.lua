@@ -74,4 +74,7 @@ return require('packer').startup(function(use)
   }
   use {'nvim-lua/popup.nvim'}
   use {'folke/lsp-colors.nvim', config = "require('exvimmer/lsp-colors-config')"}
+  use {'phaazon/hop.nvim', config = "require('exvimmer/hop-config')"}
+  -- use {'simrat39/rust-tools.nvim'}
+  -- use {'puremourning/vimspector', config = "require('exvimmer/vimspector-config')"}
 end)
