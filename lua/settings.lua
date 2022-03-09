@@ -163,6 +163,12 @@ b.expandtab = true
 -- ctrlp
 g.ctrlp_custom_ignore = '\v[\\/](node_modules|target|dist)|(\\.(swp|ico|git|svn))$'
 
+vim.cmd('colorscheme aurora')
+
+-- hide tildes (only vim), this doesn't work for nvim-tree
+-- w.fillchars='eob: '
+-- or put this after colorscheme (vim & nvim), works for nvim-tree
+vim.cmd('hi NonText guifg=bg')
 -- }}}
 
 -- emoji shortcuts {{{
