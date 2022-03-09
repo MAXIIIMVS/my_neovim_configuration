@@ -1,6 +1,7 @@
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use {'rafalbromirski/vim-aurora'}
+  -- TODO: Install nvim-web-devicons
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ":TSUpdate",
@@ -56,4 +57,10 @@ return require('packer').startup(function(use)
   use {'jose-elias-alvarez/null-ls.nvim', config = "require('exvimmer/null-ls-config')"}
   use {'ctrlpvim/ctrlp.vim'}
   use {'folke/todo-comments.nvim', config = "require('exvimmer/comment-config')"}
+  use 'szw/vim-maximizer'
+  -- use 'styled-components/vim-styled-components', { 'branch': 'main' }
+  -- ues 't9md/vim-choosewin'
+  use {'tpope/vim-surround'}
+  use {'tpope/vim-repeat'}
+  use {'tpope/vim-speeddating'}
 end)

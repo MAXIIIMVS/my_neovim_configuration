@@ -193,7 +193,7 @@ _G.packer_plugins = {
     url = "https://github.com/kyazdani42/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
-    after = { "nvim-ts-autotag", "nvim-ts-rainbow" },
+    after = { "nvim-ts-rainbow", "nvim-ts-autotag" },
     config = { "require('exvimmer/treesitter-config')" },
     loaded = false,
     needs_bufread = true,
@@ -254,6 +254,26 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/vim-aurora",
     url = "https://github.com/rafalbromirski/vim-aurora"
+  },
+  ["vim-maximizer"] = {
+    loaded = true,
+    path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/vim-maximizer",
+    url = "https://github.com/szw/vim-maximizer"
+  },
+  ["vim-repeat"] = {
+    loaded = true,
+    path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/vim-repeat",
+    url = "https://github.com/tpope/vim-repeat"
+  },
+  ["vim-speeddating"] = {
+    loaded = true,
+    path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/vim-speeddating",
+    url = "https://github.com/tpope/vim-speeddating"
+  },
+  ["vim-surround"] = {
+    loaded = true,
+    path = "/home/mustafa/.local/share/nvim/site/pack/packer/start/vim-surround",
+    url = "https://github.com/tpope/vim-surround"
   }
 }
 

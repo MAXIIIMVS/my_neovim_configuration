@@ -142,4 +142,10 @@ u.map('n', '<space>f', ':lua vim.lsp.buf.formatting()<CR>', opts)
 
 -- ctrlp
 u.map('n', '<leader>r', ':CtrlPClearCache<cr>', opts)
+
+-- maximizer
+u.map('n', '<space>m', ':MaximizerToggle<CR>', opts)
+
+-- choosewin
+-- u.map('n', '<space>w', ':ChooseWin<CR>', opts)
 -- }}}
