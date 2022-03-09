@@ -3,7 +3,7 @@ local lsp_installer = require('nvim-lsp-installer')
 local function on_attach(client, bufnr)
   -- formatting
   -- if client.name == 'tsserver' or client.name == 'gopls' then
-  if client.name == 'tsserver' then
+  if client.name == 'tsserver' or client.name == 'html' then
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
   end
