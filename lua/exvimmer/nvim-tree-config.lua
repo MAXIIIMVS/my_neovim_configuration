@@ -18,7 +18,8 @@ require'nvim-tree'.setup {
 		-- TODO: check docs
 		enable = true,
 		icons = {
-			hint = "",
+			-- hint = "", -- original one
+      hint = "",
 			info = "",
 			warning = "",
 			error = "",

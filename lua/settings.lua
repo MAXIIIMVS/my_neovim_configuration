@@ -132,7 +132,7 @@ w.foldenable = true
 o.foldlevelstart = 1 -- NOTE: -1, 0, 1, 99
 w.foldnestmax = 10
 w.foldmethod = 'manual' -- manual, indent, syntax, marker, expr, diff
--- set exrc -- BUG: security risk, use other options
+-- set exrc -- WARNING: security risk, use other options
 w.conceallevel = 0
 -- python3 path: chage if it's necessary, -- NOTE: I'm not sure about this
 g.python3_host_prog = '/usr/bin/python3'
@@ -145,7 +145,7 @@ autocmd InsertLeave * highlight  CursorLine ctermbg=232
 ]])
 
 -- NOTE: put this at the end
-o.secure = true -- BUG: security risk; don't switch this off
+o.secure = true -- WARNING: security risk; don't switch this off
 
 -- TODO: enable if it's necessary
 -- o.smarttab = true
