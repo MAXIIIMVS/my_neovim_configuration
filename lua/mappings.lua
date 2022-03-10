@@ -124,8 +124,8 @@ u.map('n', '<space>d', ':Lspsaga show_line_diagnostics<CR>', opts)
 u.map('n', '[e', ':Lspsaga diagnostic_jump_prev<CR>', opts)
 u.map('n', ']e', ':Lspsaga diagnostic_jump_next<CR>', opts)
 u.map('n', '<leader>t', ':Lspsaga open_floaterm<CR>', opts)
--- NOTE: t for terminal
-u.map('t', '<leader>t', '<C-\\><C-n>:Lspsaga close_floaterm<CR>', opts)
+-- NOTE: t for terminal, Remove <C-d> if it makes trouble
+u.map('t', '<leader>t', '<C-d><C-\\><C-n>:Lspsaga close_floaterm<CR>', opts)
 
 -- lsp
 u.map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)

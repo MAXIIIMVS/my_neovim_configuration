@@ -4,7 +4,12 @@ local formatting = null_ls.builtins.formatting
 
 null_ls.setup({
   sources = {
-    formatting.prettier, formatting.black, formatting.djhtml,
+    formatting.prettier.with({
+      filetypes = { "javascript", "javascriptreact", "typescript",
+      "typescriptreact", "vue", "css", "scss", "less", "html", "json", "yaml",
+      "markdown", "graphql" }
+    }),
+    formatting.black, formatting.djhtml
   },
   on_attach = function(client)
     if client.resolved_capabilities.document_formatting then
