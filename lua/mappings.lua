@@ -39,13 +39,16 @@ u.map('n', '<space>bo', ':%bd|e#|bd#<CR>|\'"', {noremap = true})
 -- nnoremap <space>ba :bufdo bd<CR>
 u.map('n', '<space>ba', ':bufdo bd<CR>')
 
--- map ^a, ^e, ^k and ^t in insert mode to act like they do in terminal
 u.map('i', '<c-a>', '<c-o>I', {noremap = true})
 u.map('i', '<c-e>', '<c-o>A', {noremap = true})
 u.map('i', '<c-k>', '<c-o>C', {noremap = true})
-u.map('i', '<c-t>', '<c-o>x<LEFT><ESC>p<ESC>A', {noremap = true})
+u.map('i', '<c-u>', '<c-o>v0x', {noremap = true})
+-- u.map('i', '<c-y>', '<ESC>pa', {noremap = true})
+u.map('i', '<c-t>', '<ESC>x<LEFT>P<RIGHT>a', {noremap = true})
 u.map('i', '<c-f>', '<RIGHT>', {noremap = true})
 u.map('i', '<c-b>', '<LEFT>', {noremap = true})
+u.map('i', '<M-b>', '<C-LEFT>', opts)
+u.map('i', '<M-f>', '<C-RIGHT>', opts)
 
 -- Enter -> :noh
 u.map('n', '<CR>', ':noh<CR><CR>', {noremap = true})
