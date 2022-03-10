@@ -43,7 +43,7 @@ u.map('n', '<space>ba', ':bufdo bd<CR>')
 u.map('i', '<c-a>', '<c-o>I', {noremap = true})
 u.map('i', '<c-e>', '<c-o>A', {noremap = true})
 u.map('i', '<c-k>', '<c-o>C', {noremap = true})
-u.map('i', '<c-t>', '<Esc>x<Esc>gepa<c-d>', {noremap = true})
+u.map('i', '<c-t>', '<c-o>x<LEFT><ESC>p<ESC>A', {noremap = true})
 u.map('i', '<c-f>', '<RIGHT>', {noremap = true})
 u.map('i', '<c-b>', '<LEFT>', {noremap = true})
 
