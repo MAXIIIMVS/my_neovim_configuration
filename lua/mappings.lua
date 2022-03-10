@@ -29,6 +29,7 @@ u.map('n', '<c-h>', '<c-w>h', {noremap = true})
 -- u.map('n', ']b', ':bnext<CR>', opts)
 u.map('n', '<S-Tab>', ':bprev<CR>', opts)
 u.map('n', '<Tab>', ':bnext<CR>', opts)
+u.map('n', ';;', ':bd<CR>', opts)
 
 -- delete all buffers other than the current one, put the cursor back
 -- nnoremap <space>bo :%bd\|e#\|bd#<CR>\|'"
@@ -101,10 +102,12 @@ u.map('n', ';gc', ':Telescope git_commits<CR>', opts)
 u.map('n', ';gs', ':Telescope git_status<CR>', opts)
 u.map('n', ';qf', ':Telescope quickfix<CR>', opts)
 u.map('n', ';b', ':Telescope buffers<CR>', opts)
-u.map('n', ';t', ':Telescope tags<CR>', opts)
+u.map('n', ';T', ':Telescope tags<CR>', opts)
 u.map('n', ';s', ':Telescope search_history<CR>', opts)
 u.map('n', ';m', ':Telescope marks<CR>', opts)
 u.map('n', ';R', ':Telescope registers<CR>', opts)
+-- todo comment
+u.map('n', ';t', ':TodoTelescope<CR>', opts)
 
 -- lspsaga
 -- u.map('n', '<c-j>', ':Lspsaga diagnostic_jump_next<CR>', opts)
