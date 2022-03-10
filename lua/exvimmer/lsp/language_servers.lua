@@ -7,13 +7,13 @@ local function on_attach(client, bufnr)
     client.resolved_capabilities.document_range_formatting = false
   end
 
-  -- if client.resolved_capabilities.document_formatting then
-  --   vim.api.nvim_command [[augroup Format]]
-  --   vim.api.nvim_command [[autocmd! * <buffer>]]
-  --   vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
-  --   -- vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
-  --   vim.api.nvim_command [[augroup END]]
-  -- end
+  if client.name == "clangd" or client.name == 'gopls' then
+    vim.api.nvim_command [[augroup Format]]
+    vim.api.nvim_command [[autocmd! * <buffer>]]
+    vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
+    -- vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
+    vim.api.nvim_command [[augroup END]]
+  end
 end
 
 lsp_installer.on_server_ready(function(server)
