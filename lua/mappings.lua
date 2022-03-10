@@ -141,9 +141,11 @@ u.map('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_f
 u.map('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 u.map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 u.map('n', '<space>f', ':lua vim.lsp.buf.formatting()<CR>', opts)
+u.map('n', '<space>lI', ':LspInstallInfo<CR>', opts)
+u.map('n', '<space>li', ':LspInfo<CR>', opts)
 
 -- ctrlp
-u.map('n', '<leader>r', ':CtrlPClearCache<cr>', opts)
+u.map('n', '<leader>r', ':CtrlPClearCache<cr>', {noremap = true})
 
 -- maximizer
 u.map('n', '<space>m', ':MaximizerToggle<CR>', opts)
@@ -156,4 +158,5 @@ u.map('n', '<space>;', ':HopWordMW<CR>', opts)
 u.map('n', '<space>/', ':HopPatternMW<CR>', opts)
 u.map('n', '<space>\'', ':HopLineMW<CR>', opts)
 u.map('n', '<space>,', ':HopChar1MW<CR>', opts)
+
 -- }}}

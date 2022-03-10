@@ -79,5 +79,6 @@ return require('packer').startup(function(use)
   use {'phaazon/hop.nvim', config = u.get_setup('hop')}
   -- use {'simrat39/rust-tools.nvim'}
   -- use {'puremourning/vimspector', config = "require('exvimmer/vimspector-config')"}
-  -- TODO: Install nvim-dap (or vimspector), nvim-test
+  -- TODO: Install nvim-dap (or vimspector), nvim-test, nightfox.nvim &
+  -- sainnhe/sonokai
 end)
