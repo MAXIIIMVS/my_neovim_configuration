@@ -27,6 +27,18 @@ lsp_installer.on_server_ready(function(server)
     }, opts)
   end
 
+  if server.name == "emmet_ls" then
+    opts = vim.tbl_deep_extend("force", {
+      filetypes = {
+        "html",
+        "css",
+        "typescriptreact",
+        "javascriptreact",
+        -- "htmldjango" -- doesn't work
+      },
+    }, opts)
+  end
+
   if server.name == "sumneko_lua" then
     opts = vim.tbl_deep_extend("force", {
       settings = {

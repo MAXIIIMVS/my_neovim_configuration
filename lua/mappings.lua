@@ -8,6 +8,8 @@ u.map('n', '<c-w><left>', '<c-w><')
 u.map('n', '<c-w><right>', '<c-w>>')
 u.map('n', '<c-w><up>', '<c-w>-')
 u.map('n', '<c-w><down>', '<c-w>+')
+-- 
+-- 
 
 --insert a blank line around the cursor
 u.map('n', ']<space>', 'o<ESC>k')
@@ -85,8 +87,9 @@ vnoremap <silent> # :<C-U>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 ]])
 
--- toggle nvim-tree
+-- nvim-tree
 u.map('n', '<space>e', ':NvimTreeToggle<CR>', opts)
+--u.map('n', '<leader>n', ':NvimTreeRefresh<CR>', {noremap = true})
 
 -- telescope
 -- TODO: remove useless mappings after a while
@@ -103,6 +106,7 @@ u.map('n', ';ld', ':Telescope lsp_definitions<CR>', opts)
 u.map('n', ';lt', ':Telescope lsp_type_definitions<CR>', opts)
 u.map('n', ';gc', ':Telescope git_commits<CR>', opts)
 u.map('n', ';gs', ':Telescope git_status<CR>', opts)
+u.map('n', ';gb', ':Telescope git_branches<CR>', opts)
 u.map('n', ';qf', ':Telescope quickfix<CR>', opts)
 u.map('n', ';b', ':Telescope buffers<CR>', opts)
 u.map('n', ';T', ':Telescope tags<CR>', opts)
@@ -148,8 +152,8 @@ u.map('n', '<space>f', ':lua vim.lsp.buf.formatting()<CR>', opts)
 u.map('n', '<space>lI', ':LspInstallInfo<CR>', opts)
 u.map('n', '<space>li', ':LspInfo<CR>', opts)
 
--- ctrlp
-u.map('n', '<leader>r', ':CtrlPClearCache<cr>', {noremap = true})
+-- ctrlp, clear cache and show file path
+u.map('n', '<leader>r', ':CtrlPClearCache<cr>1<c-g>', {noremap = true})
 
 -- maximizer
 u.map('n', '<space>m', ':MaximizerToggle<CR>', opts)
@@ -160,7 +164,7 @@ u.map('n', '<space>m', ':MaximizerToggle<CR>', opts)
 -- hop
 u.map('n', '<space>;', ':HopWordMW<CR>', opts)
 u.map('n', '<space>/', ':HopPatternMW<CR>', opts)
+
 u.map('n', '<space>\'', ':HopLineMW<CR>', opts)
 u.map('n', '<space>,', ':HopChar1MW<CR>', opts)
-
 -- }}}
