@@ -4,6 +4,7 @@ vim.g.nvim_tree_indent_markers = 1
 require'nvim-tree'.setup {
   auto_open = true,
 	-- auto_close = true,
+  auto_reload_on_write = true,
 	gitignore = 1,
 	actions = {
 		open_file = {
