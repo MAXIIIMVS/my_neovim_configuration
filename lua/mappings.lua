@@ -8,8 +8,6 @@ u.map('n', '<c-w><left>', '<c-w><')
 u.map('n', '<c-w><right>', '<c-w>>')
 u.map('n', '<c-w><up>', '<c-w>-')
 u.map('n', '<c-w><down>', '<c-w>+')
--- 
--- 
 
 --insert a blank line around the cursor
 u.map('n', ']<space>', 'o<ESC>k')
@@ -166,4 +164,9 @@ u.map('n', '<space>/', ':HopPatternMW<CR>', opts)
 
 u.map('n', '<space>\'', ':HopLineMW<CR>', opts)
 u.map('n', '<space>,', ':HopChar1MW<CR>', opts)
+
+-- vim-fugitive
+u.map('n', '<space>gs', ':G<CR>', opts)
+u.map('n', '<space>gp', ':G push<CR>', opts)
+u.map('n', '<space>gP', ':G pull<CR>', opts)
 -- }}}
