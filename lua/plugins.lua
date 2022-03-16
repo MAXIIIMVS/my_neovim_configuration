@@ -82,5 +82,5 @@ return require('packer').startup(function(use)
   use {"akinsho/toggleterm.nvim", config = u.get_setup('toggleterm')}
   -- use {'simrat39/rust-tools.nvim'}
   use {'puremourning/vimspector', config = u.get_setup('vimspector')}
-  -- TODO: Install nvim-dap (or vimspector), nvim-test & sainnhe/sonokai
+  -- TODO: Install nvim-test & sainnhe/sonokai
 end)
