@@ -82,5 +82,10 @@ return require('packer').startup(function(use)
   use {"akinsho/toggleterm.nvim", config = u.get_setup('toggleterm')}
   -- use {'simrat39/rust-tools.nvim'}
   use {'puremourning/vimspector', config = u.get_setup('vimspector')}
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = {'nvim-lua/plenary.nvim'},
+    config = u.get_setup('gitsigns')
+  }
   -- TODO: Install nvim-test & sainnhe/sonokai
 end)

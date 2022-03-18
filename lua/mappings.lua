@@ -90,8 +90,6 @@ u.map('n', '<space>e', ':NvimTreeToggle<CR>', opts)
 --u.map('n', '<leader>n', ':NvimTreeRefresh<CR>', {noremap = true})
 
 -- telescope
--- TODO: remove useless mappings after a while
--- TODO: try make these look like lspsaga configs (those that are related)
 u.map('n', ';f', ':Telescope find_files<CR>', opts)
 u.map('n', ';r', ':Telescope live_grep<CR>', opts)
 u.map('n', ';h', ':Telescope help_tags<CR>', opts)
@@ -127,7 +125,7 @@ u.map('n', '<c-f>', '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga
 u.map('n', '<c-b>', '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>', opts)
 -- show signature help
 u.map('n', 'gs', '<cmd>lua require(\'lspsaga.signaturehelp\').signature_help()<CR>', opts)
-u.map('n', 'rn', '<cmd>lua require(\'lspsaga.rename\').rename()<CR> ', opts)
+u.map('n', '<space>rn', '<cmd>lua require(\'lspsaga.rename\').rename()<CR> ', opts)
 u.map('n', 'gp', ':Lspsaga preview_definition<CR>', opts)
 u.map('n', '<space>d', ':Lspsaga show_line_diagnostics<CR>', opts)
 u.map('n', '[e', ':Lspsaga diagnostic_jump_prev<CR>', opts)
@@ -173,4 +171,15 @@ u.map('n', '<space>gl', ':G log --decorate<CR>', opts)
 u.map('n', '<space>gL', ':G log --decorate -p<CR>', opts)
 u.map('n', '<space>gc', ':G commit<CR>', opts)
 u.map('n', '<space>gC', ':G commit --amend<CR>', opts)
+u.map('n', '<space>gd', ':Gvdiffsplit<CR>', opts)
+u.map('n', '<space>gb', ':G blame<CR>', opts)
+
+-- gitsigns
+u.map('n', ']s', ':Gitsigns next_hunk<CR>', opts)
+u.map('n', '[s', ':Gitsigns prev_hunk<CR>', opts)
+u.map('n', '<space>sp', ':Gitsigns preview_hunk<CR>', opts)
+u.map('n', '<space>sr', ':Gitsigns reset_hunk<CR>', opts)
+u.map('n', '<space>sb', ':Gitsigns blame_line<CR>', opts)
+u.map('n', '<space>st', ':Gitsigns toggle_current_line_blame<CR>', opts)
+u.map('n', '<space>sd', ':Gitsigns toggle_deleted<CR>', opts)
 -- }}}
