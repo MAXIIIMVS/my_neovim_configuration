@@ -13,7 +13,7 @@ cmd('filetype plugin indent on')
 -- cmd('scriptencoding utf-8') -- FIX:
 w.number = true
 -- w.relativenumber = true
-w.signcolumn= 'yes'
+w.signcolumn= 'number'
 o.fileencodings= 'utf-8,sjis,euc-jp,latin'
 o.encoding= 'utf-8'
 o.title = true
