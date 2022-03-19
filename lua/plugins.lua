@@ -67,7 +67,6 @@ return require('packer').startup(function(use)
   use {'tpope/vim-speeddating'}
   use {'tpope/vim-fugitive'}
   use {'tpope/vim-rhubarb'}
-  use {'ayu-theme/ayu-vim', config = u.get_setup('ayu')}
   use {'srcery-colors/srcery-vim'} -- NOTE: if necessary, use gruvbox-config
   use { 'lifepillar/vim-gruvbox8', config = u.get_setup('gruvbox') }
   use {'tomasiser/vim-code-dark'}
