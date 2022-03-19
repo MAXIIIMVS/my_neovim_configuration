@@ -11,9 +11,9 @@ cmd('autocmd!') -- Remove ALL autocommands for the current group.
 cmd('syntax on')
 cmd('filetype plugin indent on')
 -- cmd('scriptencoding utf-8') -- FIX:
-w.number = true
+-- w.number = true
 -- w.relativenumber = true
-w.signcolumn= 'number'
+w.signcolumn= 'yes:1'
 o.fileencodings= 'utf-8,sjis,euc-jp,latin'
 o.encoding= 'utf-8'
 o.title = true
