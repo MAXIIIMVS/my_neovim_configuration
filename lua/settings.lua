@@ -11,8 +11,8 @@ cmd('autocmd!') -- Remove ALL autocommands for the current group.
 cmd('syntax on')
 cmd('filetype plugin indent on')
 -- cmd('scriptencoding utf-8') -- FIX:
--- w.number = true
--- w.relativenumber = true
+w.number = true
+w.relativenumber = true
 w.signcolumn= 'yes:1'
 o.fileencodings= 'utf-8,sjis,euc-jp,latin'
 o.encoding= 'utf-8'
@@ -123,7 +123,7 @@ o.showmode = true
 w.linebreak = true
 o.autochdir = true -- NOTE: When this option is on some plugins may not work.
 o.hidden = true
-w.colorcolumn = '80'
+w.colorcolumn = '78'
 -- cmd('highlight ColorColumn ctermbg=DarkBlue')
 o.wildmode = 'list:longest,full'
 o.wildmenu = true
