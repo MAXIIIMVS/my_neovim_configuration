@@ -1,5 +1,6 @@
 local signs = {
-  Error = " ",
+  -- Error = " ", -- original one
+  Error = ' ',
   Warn = " ",
   -- Hint = " ",
   Info = " "

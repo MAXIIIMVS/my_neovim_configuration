@@ -23,7 +23,8 @@ require'nvim-tree'.setup {
       hint = "",
 			info = "",
 			warning = "",
-			error = "",
+			-- error = "", -- original one
+      error = ' ',
 		}
 	},
 }
