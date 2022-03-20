@@ -145,10 +145,6 @@ autocmd InsertEnter * highlight  CursorLine ctermbg=17 ctermfg=None
 autocmd InsertLeave * highlight  CursorLine ctermbg=232
 ]])
 
--- NOTE: put this at the end
-o.secure = true -- WARNING: security risk; don't switch this off
-
--- TODO: enable if it's necessary
 -- o.smarttab = true
 -- b.smartindent = true
 o.tabstop = 2
@@ -176,7 +172,9 @@ vim.cmd('hi NonText guifg=bg')
 -- ---------------------------------------------------------------------
 cmd([[
 ab :check: ✅
+ab :empty: 🔳
 ab :cross: ❌
+ab :pin: 📌
 ab :right: ➡
 ab :left: ⬅
 ab :up: ⬆
@@ -186,7 +184,6 @@ ab :point_left: 👈
 ab :point_up: 👆
 ab :point_down: 👇
 ab :bulb: 💡
-ab :pin: 📌
 ab :bomb: 💣
 ab :book: 📖
 ab :link: 🔗
@@ -207,7 +204,6 @@ ab :skull: 💀
 ab :alien: 👽
 ab :degree: \u02DA
 ab :black_square_button: 🔲
-ab :empty: 🔳
 ab :separator_lb: 
 ab :separator_rb: 
 ab :separator_lt: 
