@@ -25,8 +25,6 @@ u.map('n', '<c-l>', '<c-w>l', {noremap = true})
 u.map('n', '<c-h>', '<c-w>h', {noremap = true})
 
 -- next and previous buffer
--- u.map('n', '[b', ':bprev<CR>', opts)
--- u.map('n', ']b', ':bnext<CR>', opts)
 u.map('n', '<S-Tab>', ':bprev<CR>', opts)
 u.map('n', '<Tab>', ':bnext<CR>', opts)
 u.map('n', ';;', ':bd<CR>', opts)
@@ -36,7 +34,6 @@ u.map('n', ';;', ':bd<CR>', opts)
 u.map('n', '<space>bo', ':%bd|e#|bd#<CR>|\'"', {noremap = true})
 
 -- delete all buffers
--- nnoremap <space>ba :bufdo bd<CR>
 u.map('n', '<space>ba', ':bufdo bd<CR>')
 
 u.map('i', '<c-a>', '<c-o>I', {noremap = true})
@@ -87,43 +84,33 @@ vnoremap <silent> # :<C-U>
 
 -- nvim-tree
 u.map('n', '<space>e', ':NvimTreeToggle<CR>', opts)
---u.map('n', '<leader>n', ':NvimTreeRefresh<CR>', {noremap = true})
 
 -- telescope
 u.map('n', ';f', ':Telescope find_files<CR>', opts)
 u.map('n', ';r', ':Telescope live_grep<CR>', opts)
+u.map('n', ';R', ':Telescope registers<CR>', opts)
 u.map('n', ';h', ':Telescope help_tags<CR>', opts)
+u.map('n', ';H', ':Telescope search_history<CR>', opts)
 u.map('n', ';C', ':Telescope commands<CR>', opts)
 u.map('n', ';c', ':Telescope colorscheme<CR>', opts)
-u.map('n', ';lr', ':Telescope lsp_references<CR>', opts)
-u.map('n', ';lca', ':Telescope lsp_code_actions<CR>', opts)
-u.map('n', ';le', ':Telescope diagnostics<CR>', opts)
-u.map('n', ';ld', ':Telescope lsp_definitions<CR>', opts)
-u.map('n', ';lt', ':Telescope lsp_type_definitions<CR>', opts)
-u.map('n', ';gc', ':Telescope git_commits<CR>', opts)
-u.map('n', ';gs', ':Telescope git_status<CR>', opts)
-u.map('n', ';gb', ':Telescope git_branches<CR>', opts)
-u.map('n', ';qf', ':Telescope quickfix<CR>', opts)
 u.map('n', ';b', ':Telescope buffers<CR>', opts)
 u.map('n', ';T', ':Telescope tags<CR>', opts)
-u.map('n', ';s', ':Telescope search_history<CR>', opts)
 u.map('n', ';m', ':Telescope marks<CR>', opts)
-u.map('n', ';R', ':Telescope registers<CR>', opts)
 u.map('n', ';o', ':Telescope oldfiles<CR>', opts)
+u.map('n', ';d', ':Telescope diagnostics<CR>', opts)
+u.map('n', ';gc', ':Telescope git_commits<CR>', opts)
+u.map('n', ';gb', ':Telescope git_branches<CR>', opts)
 -- todo comment
 u.map('n', ';t', ':TodoTelescope<CR>', opts)
 
 -- lspsaga
 -- u.map('n', '<c-j>', ':Lspsaga diagnostic_jump_next<CR>', opts)
--- u.map('n', 'K', '<cmd>lua require(\'lspsaga.hover\').render_hover_doc()<CR>', opts)
 u.map('n', 'K', ':Lspsaga hover_doc<CR>', opts)
 u.map('n', 'gh', ':Lspsaga lsp_finder<CR>', opts)
--- u.map('n', '<space>ca', '<cmd>lua require(\'lspsaga.codeaction\').code_action()<CR>', opts)
 u.map('n', '<space>ca', ':Lspsaga code_action<CR>', opts)
 u.map('v', '<space>ca', ':<C-U>lua require(\'lspsaga.codeaction\').range_code_action()<CR>', opts)
 u.map('n', '<c-f>', '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(1)<CR>', opts)
 u.map('n', '<c-b>', '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>', opts)
--- show signature help
 u.map('n', 'gs', '<cmd>lua require(\'lspsaga.signaturehelp\').signature_help()<CR>', opts)
 u.map('n', '<space>rn', '<cmd>lua require(\'lspsaga.rename\').rename()<CR> ', opts)
 u.map('n', 'gp', ':Lspsaga preview_definition<CR>', opts)
@@ -137,11 +124,7 @@ u.map('t', '<leader>t', '<C-d><C-\\><C-n>:Lspsaga close_floaterm<CR>', opts)
 u.map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 u.map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 u.map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
--- u.map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-u.map('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-u.map('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-u.map('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-u.map('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+u.map('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 u.map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 u.map('n', '<space>f', ':lua vim.lsp.buf.formatting()<CR>', opts)
 u.map('n', '<space>lI', ':LspInstallInfo<CR>', opts)
