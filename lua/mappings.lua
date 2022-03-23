@@ -148,6 +148,7 @@ u.map('n', '<space>,', ':HopChar1MW<CR>', opts)
 
 -- vim-fugitive
 u.map('n', '<space>gs', ':G<CR>', opts)
+u.map('n', '<space>gf', ':G fetch<CR>', opts)
 u.map('n', '<space>gp', ':G push<CR>', opts)
 u.map('n', '<space>gP', ':G pull<CR>', opts)
 u.map('n', '<space>gl', ':G log --decorate<CR>', opts)

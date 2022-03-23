@@ -25,7 +25,7 @@ o.smartcase = true
 o.showcmd = true
 o.cmdheight = 1
 o.laststatus = 2
-o.scrolloff= 10 -- NOTE: or w.scrolloff = 10, check it
+o.scrolloff= 3
 
 -- incremental substitution (neovim)
 if vim.fn.has("nvim") == 1 then
