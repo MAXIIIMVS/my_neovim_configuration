@@ -98,8 +98,6 @@ u.map('n', ';T', ':Telescope tags<CR>', opts)
 u.map('n', ';m', ':Telescope marks<CR>', opts)
 u.map('n', ';o', ':Telescope oldfiles<CR>', opts)
 u.map('n', ';d', ':Telescope diagnostics<CR>', opts)
-u.map('n', ';gc', ':Telescope git_commits<CR>', opts)
-u.map('n', ';gb', ':Telescope git_branches<CR>', opts)
 -- todo comment
 u.map('n', ';t', ':TodoTelescope<CR>', opts)
 
@@ -129,6 +127,8 @@ u.map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 u.map('n', '<space>f', ':lua vim.lsp.buf.formatting()<CR>', opts)
 u.map('n', '<space>lI', ':LspInstallInfo<CR>', opts)
 u.map('n', '<space>li', ':LspInfo<CR>', opts)
+u.map('n', '<space>lr', ':LspRestart<CR>', opts)
+u.map('n', '<space>ls', ':LspStop ', {noremap = true})
 
 -- ctrlp, clear cache and show file path
 u.map('n', '<leader>r', ':CtrlPClearCache<cr>1<c-g>', {noremap = true})
@@ -148,7 +148,8 @@ u.map('n', '<space>,', ':HopChar1MW<CR>', opts)
 
 -- vim-fugitive
 u.map('n', '<space>gs', ':G<CR>', opts)
-u.map('n', '<space>gf', ':G fetch<CR>', opts)
+u.map('n', '<space>gS', ':G switch ', {noremap = true})
+u.map('n', '<space>gf', ':G fetch<CR>', opts) -- TODO: add prune
 u.map('n', '<space>gp', ':G push<CR>', opts)
 u.map('n', '<space>gP', ':G pull<CR>', opts)
 u.map('n', '<space>gl', ':G log --decorate<CR>', opts)
@@ -157,6 +158,8 @@ u.map('n', '<space>gc', ':G commit<CR>', opts)
 u.map('n', '<space>gC', ':G commit --amend<CR>', opts)
 u.map('n', '<space>gd', ':Gvdiffsplit<CR>', opts)
 u.map('n', '<space>gb', ':G blame<CR>', opts)
+-- git related telescope
+u.map('n', ';gb', ':Telescope git_branches<CR>', opts)
 
 -- gitsigns
 u.map('n', ']s', ':Gitsigns next_hunk<CR>', opts)
