@@ -63,7 +63,7 @@ return require('packer').startup(function(use)
   -- use 'styled-components/vim-styled-components', { 'branch': 'main' }
   -- ues 't9md/vim-choosewin'
   use {'tpope/vim-surround'}
-  use {'tpope/vim-repeat'}
+  -- use {'tpope/vim-repeat'}
   use {'tpope/vim-speeddating'}
   use {'tpope/vim-fugitive'}
   use {'tpope/vim-rhubarb'}
