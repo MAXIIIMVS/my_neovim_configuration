@@ -3,6 +3,9 @@ local cmd = vim.cmd
 local opts = { noremap=true, silent=true }
 -- MAPPINGS {{{
 -- ---------------------------------------------------------------------
+-- source the file
+u.map('n', '<leader>s', ':so %<CR>')
+
 -- Resize window
 u.map('n', '<c-w><left>', '<c-w><')
 u.map('n', '<c-w><right>', '<c-w>>')

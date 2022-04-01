@@ -4,8 +4,8 @@ require('lualine').setup({
     theme = 'auto', -- or auto, moonfly, tokyonight, codedark, gruvbox, ...
     section_separators = {left = '', right = ''},
     component_separators = {left = '', right = ''},
-    disabled_filetypes = {},
-    -- globalstatus = true, -- Neovim 0.7 or higher, or use laststatus = 3
+    -- disabled_filetypes = { 'packer', 'nvim-tree', 'fugitive', 'toggleterm' },
+    -- NOTE: globalstatus = true, -- Neovim 0.7 or higher, or use laststatus = 3
   },
   sections = {
     lualine_a = {'mode'},
