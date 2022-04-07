@@ -6,6 +6,9 @@ local opts = { noremap=true, silent=true }
 -- source the file
 u.map('n', '<leader>s', ':so %<CR>')
 
+-- quit the window
+u.map('n', '<leader>q', '<c-w>q')
+
 -- Resize window
 u.map('n', '<c-w><left>', '<c-w><')
 u.map('n', '<c-w><right>', '<c-w>>')
