@@ -130,7 +130,7 @@ u.map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 u.map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 u.map('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 u.map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-u.map('n', '<space>f', ':lua vim.lsp.buf.formatting()<CR>', opts)
+u.map('n', '<leader>f', ':lua vim.lsp.buf.formatting()<CR>', opts)
 u.map('n', '<space>lI', ':LspInstallInfo<CR>', opts)
 u.map('n', '<space>li', ':LspInfo<CR>', opts)
 u.map('n', '<space>lr', ':LspRestart<CR>', opts)
@@ -148,9 +148,8 @@ u.map('n', '<space>m', ':MaximizerToggle<CR>', opts)
 -- hop
 u.map('n', '<space>;', ':HopWordMW<CR>', opts)
 u.map('n', '<space>/', ':HopPatternMW<CR>', opts)
-
 u.map('n', '<space>\'', ':HopLineMW<CR>', opts)
-u.map('n', '<space>,', ':HopChar1MW<CR>', opts)
+u.map('n', '<space>f', ':HopChar1MW<CR>', opts)
 
 -- vim-fugitive
 u.map('n', '<space>gs', ':G<CR>', opts)
