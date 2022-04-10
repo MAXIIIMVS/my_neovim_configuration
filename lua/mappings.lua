@@ -121,8 +121,8 @@ u.map('n', 'gp', ':Lspsaga preview_definition<CR>', opts)
 u.map('n', '<space>d', ':Lspsaga show_line_diagnostics<CR>', opts)
 u.map('n', '[d', ':Lspsaga diagnostic_jump_prev<CR>', opts)
 u.map('n', ']d', ':Lspsaga diagnostic_jump_next<CR>', opts)
-u.map('n', '<leader>t', ':Lspsaga open_floaterm<CR>', opts)
-u.map('t', '<leader>t', '<C-d><C-\\><C-n>:Lspsaga close_floaterm<CR>', opts)
+-- u.map('n', '<leader>t', ':Lspsaga open_floaterm<CR>', opts)
+-- u.map('t', '<leader>t', '<C-d><C-\\><C-n>:Lspsaga close_floaterm<CR>', opts)
 
 -- lsp
 u.map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
@@ -174,4 +174,8 @@ u.map('n', '<space>sr', ':Gitsigns reset_hunk<CR>', opts)
 u.map('n', '<space>sb', ':Gitsigns blame_line<CR>', opts)
 u.map('n', '<space>st', ':Gitsigns toggle_current_line_blame<CR>', opts)
 u.map('n', '<space>sd', ':Gitsigns toggle_deleted<CR>', opts)
+
+-- toggleterm: the rest is in the lua file
+u.map('n', '<space>tv', ':ToggleTerm size=80 direction=vertical<CR>', opts)
+u.map('n', '<space>tf', ':ToggleTerm size=160 direction=float<CR>', opts)
 -- }}}
