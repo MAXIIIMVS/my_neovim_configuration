@@ -23,9 +23,9 @@ require"toggleterm".setup {
   direction = 'horizontal',
   float_opts = {
     border = 'single',
-    width = 200,
+    width = 140,
     height = 200,
-    winblend = 3,
+    winblend = 0,
   },
 }
 
@@ -36,6 +36,9 @@ local lazygit = Terminal:new({
   dir = "git_dir",
   direction = "float",
   float_opts = {
+    width = 200,
+    height = 200,
+    winblend = 0,
     border = "double",
   },
   close_on_exit = true,
