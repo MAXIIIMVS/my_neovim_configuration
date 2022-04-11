@@ -26,7 +26,7 @@ u.map('n', ']t', 'gt', opts)
 
 -- Switch between windows
 u.map('n', '<c-j>', '<c-w>j', {noremap = true})
-u.map('n', '<c-k>', '<c-w>k', {noremap = true}) -- NOTE: you need something else for signature
+u.map('n', '<c-k>', '<c-w>k', {noremap = true})
 u.map('n', '<c-l>', '<c-w>l', {noremap = true})
 u.map('n', '<c-h>', '<c-w>h', {noremap = true})
 
@@ -132,8 +132,8 @@ u.map('n', '<space>m', ':MaximizerToggle<CR>', opts)
 u.map('n', '<space>gs', ':G<CR>', opts)
 u.map('n', '<space>gS', ':G switch ', {noremap = true})
 u.map('n', '<space>gf', ':G fetch<CR>', opts) -- TODO: add prune
-u.map('n', '<space>gp', ':G push<CR>', opts)
-u.map('n', '<space>gP', ':G pull<CR>', opts)
+u.map('n', '<space>gP', ':G push<CR>', opts)
+u.map('n', '<space>gp', ':G pull<CR>', opts)
 u.map('n', '<space>gl', ':G log --decorate<CR>', opts)
 u.map('n', '<space>gL', ':G log --decorate -p<CR>', opts)
 u.map('n', '<space>gc', ':G commit<CR>', opts)
