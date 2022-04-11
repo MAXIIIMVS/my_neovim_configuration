@@ -107,23 +107,6 @@ u.map('n', ';d', ':Telescope diagnostics<CR>', opts)
 -- todo comment
 u.map('n', ';t', ':TodoTelescope<CR>', opts)
 
--- lspsaga
--- u.map('n', '<c-j>', ':Lspsaga diagnostic_jump_next<CR>', opts)
-u.map('n', 'K', ':Lspsaga hover_doc<CR>', opts)
-u.map('n', 'gh', ':Lspsaga lsp_finder<CR>', opts)
-u.map('n', '<space>ca', ':Lspsaga code_action<CR>', opts)
-u.map('v', '<space>ca', ':<C-U>lua require(\'lspsaga.codeaction\').range_code_action()<CR>', opts)
-u.map('n', '<c-f>', '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(1)<CR>', opts)
-u.map('n', '<c-b>', '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>', opts)
-u.map('n', 'gs', '<cmd>lua require(\'lspsaga.signaturehelp\').signature_help()<CR>', opts)
-u.map('n', '<space>rn', '<cmd>lua require(\'lspsaga.rename\').rename()<CR> ', opts)
-u.map('n', 'gp', ':Lspsaga preview_definition<CR>', opts)
-u.map('n', '<space>d', ':Lspsaga show_line_diagnostics<CR>', opts)
-u.map('n', '[d', ':Lspsaga diagnostic_jump_prev<CR>', opts)
-u.map('n', ']d', ':Lspsaga diagnostic_jump_next<CR>', opts)
--- u.map('n', '<leader>t', ':Lspsaga open_floaterm<CR>', opts)
--- u.map('t', '<leader>t', '<C-d><C-\\><C-n>:Lspsaga close_floaterm<CR>', opts)
-
 -- lsp
 u.map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 u.map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
