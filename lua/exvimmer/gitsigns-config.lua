@@ -1,3 +1,6 @@
+local u = require('utils')
+local opts = { noremap=true, silent=true }
+
 require('gitsigns').setup{
   attach_to_untracked = true,
   current_line_blame = false,
@@ -12,8 +15,6 @@ require('gitsigns').setup{
 
 vim.cmd('highlight GitSignsCurrentLineBlame guifg=#666666')
 
-local u = require('utils')
-local opts = { noremap=true, silent=true }
 u.map('n', ']s', ':Gitsigns next_hunk<CR>', opts)
 u.map('n', '[s', ':Gitsigns prev_hunk<CR>', opts)
 u.map('n', '<space>sp', ':Gitsigns preview_hunk<CR>', opts)

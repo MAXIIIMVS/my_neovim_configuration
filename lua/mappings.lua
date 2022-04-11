@@ -142,8 +142,4 @@ u.map('n', '<space>gd', ':Gvdiffsplit<CR>', opts)
 u.map('n', '<space>gb', ':G blame<CR>', opts)
 -- git related telescope
 u.map('n', ';gb', ':Telescope git_branches<CR>', opts)
-
--- toggleterm: the rest is in the lua file
-u.map('n', '<space>tv', ':ToggleTerm size=80 direction=vertical<CR>', opts)
-u.map('n', '<space>tf', ':ToggleTerm size=160 direction=float<CR>', opts)
 -- }}}

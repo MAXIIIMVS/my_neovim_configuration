@@ -1,3 +1,6 @@
+local u = require('utils')
+local opts = { noremap=true, silent=true }
+
 local lspsaga = require 'lspsaga'
 lspsaga.setup {
   debug = false,
@@ -33,10 +36,6 @@ lspsaga.setup {
   diagnostic_prefix_format = "%d. "
 }
 
-local u = require('utils')
-local opts = { noremap=true, silent=true }
-
--- lspsaga
 -- u.map('n', '<c-j>', ':Lspsaga diagnostic_jump_next<CR>', opts)
 u.map('n', 'K', ':Lspsaga hover_doc<CR>', opts)
 u.map('n', 'gh', ':Lspsaga lsp_finder<CR>', opts)
@@ -52,4 +51,3 @@ u.map('n', '[d', ':Lspsaga diagnostic_jump_prev<CR>', opts)
 u.map('n', ']d', ':Lspsaga diagnostic_jump_next<CR>', opts)
 -- u.map('n', '<leader>t', ':Lspsaga open_floaterm<CR>', opts)
 -- u.map('t', '<leader>t', '<C-d><C-\\><C-n>:Lspsaga close_floaterm<CR>', opts)
-
