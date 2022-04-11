@@ -1,8 +1,16 @@
-vim.g.nvim_tree_width = 25
-vim.g.nvim_tree_indent_markers = 1
-
 require'nvim-tree'.setup {
   auto_open = true,
+  -- auto_resize = true,
+  view = {
+    -- side = 'right',
+    width = 25
+
+  },
+  renderer = {
+    indent_markers = {
+      enable = true,
+    }
+  },
 	-- auto_close = true,
   auto_reload_on_write = true,
 	gitignore = 1,
