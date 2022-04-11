@@ -11,3 +11,14 @@ require('gitsigns').setup{
 }
 
 vim.cmd('highlight GitSignsCurrentLineBlame guifg=#666666')
+
+local u = require('utils')
+local opts = { noremap=true, silent=true }
+u.map('n', ']s', ':Gitsigns next_hunk<CR>', opts)
+u.map('n', '[s', ':Gitsigns prev_hunk<CR>', opts)
+u.map('n', '<space>sp', ':Gitsigns preview_hunk<CR>', opts)
+u.map('n', '<space>sr', ':Gitsigns reset_hunk<CR>', opts)
+u.map('n', '<space>sb', ':Gitsigns blame_line<CR>', opts)
+u.map('n', '<space>st', ':Gitsigns toggle_current_line_blame<CR>', opts)
+u.map('n', '<space>sd', ':Gitsigns toggle_deleted<CR>', opts)
+

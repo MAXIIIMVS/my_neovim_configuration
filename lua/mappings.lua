@@ -143,15 +143,6 @@ u.map('n', '<space>gb', ':G blame<CR>', opts)
 -- git related telescope
 u.map('n', ';gb', ':Telescope git_branches<CR>', opts)
 
--- gitsigns
-u.map('n', ']s', ':Gitsigns next_hunk<CR>', opts)
-u.map('n', '[s', ':Gitsigns prev_hunk<CR>', opts)
-u.map('n', '<space>sp', ':Gitsigns preview_hunk<CR>', opts)
-u.map('n', '<space>sr', ':Gitsigns reset_hunk<CR>', opts)
-u.map('n', '<space>sb', ':Gitsigns blame_line<CR>', opts)
-u.map('n', '<space>st', ':Gitsigns toggle_current_line_blame<CR>', opts)
-u.map('n', '<space>sd', ':Gitsigns toggle_deleted<CR>', opts)
-
 -- toggleterm: the rest is in the lua file
 u.map('n', '<space>tv', ':ToggleTerm size=80 direction=vertical<CR>', opts)
 u.map('n', '<space>tf', ':ToggleTerm size=160 direction=float<CR>', opts)
