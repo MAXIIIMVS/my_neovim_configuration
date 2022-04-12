@@ -140,6 +140,7 @@ u.map('n', '<space>gc', ':G commit<CR>', opts)
 u.map('n', '<space>gC', ':G commit --amend<CR>', opts)
 u.map('n', '<space>gd', ':Gvdiffsplit<CR>', opts)
 u.map('n', '<space>gb', ':G blame<CR>', opts)
+u.map('n', '<space>go', ':GBrowse<CR>', opts)
 -- git related telescope
 u.map('n', ';gb', ':Telescope git_branches<CR>', opts)
 -- }}}
