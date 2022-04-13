@@ -104,6 +104,7 @@ u.map('n', ';T', ':Telescope tags<CR>', opts)
 u.map('n', ';m', ':Telescope marks<CR>', opts)
 u.map('n', ';o', ':Telescope oldfiles<CR>', opts)
 u.map('n', ';d', ':Telescope diagnostics<CR>', opts)
+u.map('n', ';a', ':Telescope lsp_code_actions<CR>', opts)
 -- todo comment
 u.map('n', ';t', ':TodoTelescope<CR>', opts)
 
