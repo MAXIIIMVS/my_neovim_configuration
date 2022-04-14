@@ -6,9 +6,6 @@ local opts = { noremap=true, silent=true }
 -- source the file
 u.map('n', '<leader>s', ':so %<CR>')
 
--- quit the window
-u.map('n', '<leader>q', '<c-w>q')
-
 -- Resize window
 u.map('n', '<c-w><left>', '<c-w><')
 u.map('n', '<c-w><right>', '<c-w>>')
@@ -34,6 +31,8 @@ u.map('n', '<c-h>', '<c-w>h', {noremap = true})
 u.map('n', '<S-Tab>', ':bprev<CR>', opts)
 u.map('n', '<Tab>', ':bnext<CR>', opts)
 u.map('n', ';;', ':bd<CR>', opts)
+-- close the window
+u.map('n', ';q', '<c-w>q')
 
 -- delete all buffers other than the current one, put the cursor back
 -- nnoremap <space>bo :%bd\|e#\|bd#<CR>\|'"
