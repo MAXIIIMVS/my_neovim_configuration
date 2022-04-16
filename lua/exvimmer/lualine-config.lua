@@ -5,8 +5,9 @@ require('lualine').setup({
     section_separators = {left = '', right = ''},
     component_separators = {left = '', right = ''},
     -- disabled_filetypes = { 'packer', 'NvimTree', 'fugitive', 'toggleterm'},
-    disabled_filetypes = { 'packer', 'NvimTree'}
-    -- NOTE: globalstatus = true, -- Neovim 0.7 or higher, or use laststatus = 3
+    -- disabled_filetypes = { 'packer', 'NvimTree'},
+    disabled_filetypes = { 'packer' },
+    globalstatus = true, -- NOTE: Neovim 0.7 or higher, or use laststatus = 3
   },
   sections = {
     lualine_a = {'mode'},
