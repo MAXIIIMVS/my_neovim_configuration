@@ -51,28 +51,6 @@ b.formatoptions = b.formatoptions .. "r"
 --}}}
 
 
--- Highlights {{{
------------------------------------------------------------------------
-w.cursorline = true
-
--- Set cursor line color on visual mode
--- NOTE: I'm not sure about syntax and the if statement
-cmd([[highlight Visual cterm=NONE ctermbg=236 ctermfg=NONE guibg=Grey40]])
-cmd([[highlight LineNr cterm=none ctermfg=240 guifg=#2b506e guibg=#000000]])
-
-cmd([[
-if &term =~ "screen"
-  autocmd BufEnter * if bufname("") !~ "^?[A-Za-z0-9?]*://" | silent! exe '!echo -n "\ek[`hostname`:`basename $PWD`/`basename %`]\e\\"' | endif
-  autocmd VimLeave * silent!  exe '!echo -n "\ek[`hostname`:`basename $PWD`]\e\\"'
-endif
-]])
-
-utils.create_augroup({
-    {'WinEnter', '*', 'set', 'cul'},
-    {'WinLeave', '*', 'set', 'nocul'}
-}, 'BgHighlight')
--- }}}
-
 -- File types {{{
 -----------------------------------------------------------------------
 cmd([[
@@ -166,6 +144,26 @@ vim.cmd[[colorscheme aurora]]
 w.fillchars='eob: '
 -- or put this after colorscheme (vim & nvim), works for nvim-tree
 vim.cmd('hi NonText guifg=bg')
+-- }}}
+
+-- Highlights {{{
+-----------------------------------------------------------------------
+w.cursorline = true
+
+cmd([[
+if &term =~ "screen"
+  autocmd BufEnter * if bufname("") !~ "^?[A-Za-z0-9?]*://" | silent! exe '!echo -n "\ek[`hostname`:`basename $PWD`/`basename %`]\e\\"' | endif
+  autocmd VimLeave * silent!  exe '!echo -n "\ek[`hostname`:`basename $PWD`]\e\\"'
+endif
+]])
+
+utils.create_augroup({
+    {'WinEnter', '*', 'set', 'cul'},
+    {'WinLeave', '*', 'set', 'nocul'}
+}, 'BgHighlight')
+
+-- change the split bar color to yellow
+cmd('highlight VertSplit guifg=#32afff')
 -- }}}
 
 -- emoji shortcuts {{{
