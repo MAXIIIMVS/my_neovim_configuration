@@ -1,20 +1,8 @@
+local u = require('utils')
+local opts = { noremap=true, silent=true }
+
 require('nvim_comment').setup({
-  -- Linters prefer comment and line to have a space in between markers
-  marker_padding = true,
-  -- should comment out empty or whitespace only lines
   comment_empty = false,
-  -- trim empty comment whitespace
-  comment_empty_trim_whitespace = true,
-  -- Should key mappings be created
-  create_mappings = true,
-  -- Normal mode mapping left hand side
-  line_mapping = "<c-_>", -- this is the replacement for <c-/>
-  -- Visual/Operator mapping left hand side
-  operator_mapping = "gc",
-  -- text object mapping, comment chunk,,
-  comment_chunk_text_object = "ic",
-  -- Hook function to call before commenting takes place
-  hook = nil
 })
 
 
@@ -23,3 +11,7 @@ require("todo-comments").setup {
   -- or leave it empty to use the default settings
   -- refer to the configuration section below
 }
+
+u.map('n', '<c-_>', ':CommentToggle<CR>', opts)
+u.map('v', '<c-_>', ':CommentToggle<CR>', opts)
+u.map('i', '<c-_>', '<ESC>:CommentToggle<CR>', opts)
