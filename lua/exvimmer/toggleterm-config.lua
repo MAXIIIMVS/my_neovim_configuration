@@ -56,4 +56,5 @@ end
 vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
 
 u.map('n', '<space>tv', ':ToggleTerm size=80 direction=vertical<CR>', opts)
+u.map('n', '<space>th', ':ToggleTerm direction=horizontal<CR>', opts)
 u.map('n', '<space>tf', ':ToggleTerm size=160 direction=float<CR>', opts)
