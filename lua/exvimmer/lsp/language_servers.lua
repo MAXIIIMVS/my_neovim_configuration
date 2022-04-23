@@ -32,8 +32,8 @@ lsp_installer.on_server_ready(function(server)
       filetypes = {
         "html",
         "css",
-        "javascript",
-        "typescript",
+        -- "javascript",
+        -- "typescript",
         "typescriptreact",
         "javascriptreact",
         -- "htmldjango" -- doesn't work
