@@ -1,5 +1,4 @@
 require'nvim-tree'.setup {
-  auto_open = true,
   -- auto_resize = true,
   view = {
     -- side = 'right',
@@ -13,7 +12,6 @@ require'nvim-tree'.setup {
   },
 	-- auto_close = true,
   auto_reload_on_write = true,
-	gitignore = 1,
 	actions = {
 		open_file = {
 			quit_on_open = true
