@@ -38,6 +38,7 @@ lsp_installer.on_server_ready(function(server)
       filetypes = {
         "html",
         "css",
+        "vue",
         -- "javascript",
         -- "typescript",
         "typescriptreact",

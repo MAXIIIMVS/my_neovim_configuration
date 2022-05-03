@@ -1,5 +1,13 @@
 local u = require('utils')
 
+-- automatically install and set up packer.nvim on any machine you clone your
+-- configuration to
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
+
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use {'rafalbromirski/vim-aurora'}
@@ -86,4 +94,9 @@ return require('packer').startup(function(use)
   }
   use {"rebelot/kanagawa.nvim", config = u.get_setup('kanagawa')}
   -- TODO: Install nvim-test & sainnhe/sonokai
+
+  -- put this at the end after all plugins
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)
