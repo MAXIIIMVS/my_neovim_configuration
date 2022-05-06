@@ -94,7 +94,7 @@ vnoremap <silent> # :<C-U>
 u.map('n', '<space>e', ':NvimTreeToggle<CR>', opts)
 
 -- telescope
-u.map('n', ';f', ':Telescope find_files cwd=' .. vim.fn.systemlist("git rev-parse --show-toplevel")[1] .. ' hidden=true<CR>', opts)
+u.map('n', ';f', ':Telescope find_files cwd=' .. vim.fn.systemlist("git rev-parse --show-toplevel")[1] .. '<CR>', opts)
 u.map('n', ';r', ':Telescope live_grep cwd=' .. vim.fn.systemlist("git rev-parse --show-toplevel")[1] .. '<CR>', opts)
 u.map('n', ';R', ':Telescope registers<CR>', opts)
 u.map('n', ';h', ':Telescope help_tags<CR>', opts)
