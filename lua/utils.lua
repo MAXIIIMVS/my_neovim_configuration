@@ -55,6 +55,17 @@ function M.map_lua_buf(mode, keys, action, options, buf_nr)
   vim.api.nvim_buf_set_keymap(buf, mode, keys, "<cmd>lua " .. action .. "<cr>", options)
 end
 
+M.my_fd = function(opts)
+  opts = opts or {}
+  opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  require'telescope.builtin'.find_files(opts)
+end
+
+M.my_rg = function(opts)
+  opts = opts or {}
+  opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  require'telescope.builtin'.live_grep(opts)
+end
 -- We want to be able to access utils in all our configuration files
 -- so we add the module to the _G global variable.
 _G.utils = M
