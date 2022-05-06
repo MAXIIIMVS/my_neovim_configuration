@@ -66,7 +66,7 @@ return require('packer').startup({function(use)
     event = "BufRead"
   }
   use {'jose-elias-alvarez/null-ls.nvim', config = u.get_setup('null-ls')}
-  use {'ctrlpvim/ctrlp.vim'}
+  -- use {'ctrlpvim/ctrlp.vim'}
   use 'szw/vim-maximizer'
   -- use 'styled-components/vim-styled-components', { 'branch': 'main' }
   -- ues 't9md/vim-choosewin'

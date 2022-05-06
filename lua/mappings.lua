@@ -94,8 +94,8 @@ vnoremap <silent> # :<C-U>
 u.map('n', '<space>e', ':NvimTreeToggle<CR>', opts)
 
 -- telescope
-u.map('n', ';f', ':Telescope find_files<CR>', opts)
-u.map('n', ';r', ':Telescope live_grep<CR>', opts)
+u.map('n', ';f', ':Telescope find_files cwd=' .. vim.fn.systemlist("git rev-parse --show-toplevel")[1] .. ' hidden=true<CR>', opts)
+u.map('n', ';r', ':Telescope live_grep cwd=' .. vim.fn.systemlist("git rev-parse --show-toplevel")[1] .. '<CR>', opts)
 u.map('n', ';R', ':Telescope registers<CR>', opts)
 u.map('n', ';h', ':Telescope help_tags<CR>', opts)
 u.map('n', ';H', ':Telescope search_history<CR>', opts)
@@ -121,9 +121,6 @@ u.map('n', '<space>lI', ':LspInstallInfo<CR>', opts)
 u.map('n', '<space>li', ':LspInfo<CR>', opts)
 u.map('n', '<space>lr', ':LspRestart<CR>', opts)
 u.map('n', '<space>ls', ':LspStop ', {noremap = true})
-
--- ctrlp, clear cache and show file path
-u.map('n', '<leader>r', ':CtrlPClearCache<cr>1<c-g>', {noremap = true})
 
 -- maximizer
 u.map('n', '<space>m', ':MaximizerToggle<CR>', opts)
