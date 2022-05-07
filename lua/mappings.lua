@@ -95,8 +95,9 @@ u.map('n', '<space>e', ':NvimTreeToggle<CR>', opts)
 
 -- telescope
 u.map('n', ';f', ':Telescope find_files cwd=' .. vim.fn.systemlist("git rev-parse --show-toplevel")[1] .. '<CR>', opts)
+u.map('n', ';F', ':Telescope find_files<CR>', opts)
 u.map('n', ';r', ':Telescope live_grep cwd=' .. vim.fn.systemlist("git rev-parse --show-toplevel")[1] .. '<CR>', opts)
-u.map('n', ';R', ':Telescope registers<CR>', opts)
+u.map('n', ';R', ':Telescope live_grep<CR>', opts)
 u.map('n', ';h', ':Telescope help_tags<CR>', opts)
 u.map('n', ';H', ':Telescope search_history<CR>', opts)
 u.map('n', ';C', ':Telescope commands<CR>', opts)
