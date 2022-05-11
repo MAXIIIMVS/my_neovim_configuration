@@ -55,6 +55,21 @@ function M.map_lua_buf(mode, keys, action, options, buf_nr)
   vim.api.nvim_buf_set_keymap(buf, mode, keys, "<cmd>lua " .. action .. "<cr>", options)
 end
 
+function M.get_top_level()
+  local tl = ""
+  if pcall(vim.fn.systemlist("git rev-parse --show-toplevel")[1]) then
+    tl = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+    if tl == "" then
+      return "."
+    end
+
+    return tl
+  else
+    return "."
+  end
+
+end
+
 M.my_fd = function(opts)
   opts = opts or {}
   opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
