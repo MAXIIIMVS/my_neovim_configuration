@@ -55,6 +55,18 @@ function M.map_lua_buf(mode, keys, action, options, buf_nr)
   vim.api.nvim_buf_set_keymap(buf, mode, keys, "<cmd>lua " .. action .. "<cr>", options)
 end
 
+function M.get_top_level()
+  local tl = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  local sub = string.sub(tl, 1, 1)
+
+  -- NOTE: you might need to change this on windows
+  if sub ~= "/" and sub ~= "." then
+    return "."
+  else
+    return tl
+  end
+end
+
 M.my_fd = function(opts)
   opts = opts or {}
   opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
