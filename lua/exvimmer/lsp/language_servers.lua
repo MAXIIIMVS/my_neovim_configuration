@@ -15,6 +15,7 @@ lspinstaller.setup({
     "html",
     "jsonls",
     "prismals",
+    "dockerls",
     "sumneko_lua",
     "vuels",
   },
@@ -48,9 +49,9 @@ local function on_attach(client, bufnr)
   end
 end
 
-local opts = {}
 
 for _, server in ipairs(lspinstaller.get_installed_servers()) do
+  local opts = {}
   if server.name == "tsserver" then
     opts = vim.tbl_deep_extend(
     "force", {

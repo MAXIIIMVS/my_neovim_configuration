@@ -60,7 +60,7 @@ function M.get_top_level()
   local sub = string.sub(tl, 1, 1)
 
   -- NOTE: you might need to change this on windows
-  if sub ~= "/" and sub ~= "." then
+  if sub ~= "/" or sub == "f" then
     return "."
   else
     return tl
