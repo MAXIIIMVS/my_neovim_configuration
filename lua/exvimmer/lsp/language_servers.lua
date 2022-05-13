@@ -8,6 +8,7 @@ lspinstaller.setup({
     "rust_analyzer",
     "bashls",
     "tsserver",
+    "vuels",
     "pyright",
     "cssls",
     "emmet_ls",
@@ -17,7 +18,8 @@ lspinstaller.setup({
     "prismals",
     "dockerls",
     "sumneko_lua",
-    "vuels",
+    "yamlls",
+    "sqlls",
   },
   automatic_installation = true,
   ui = {

@@ -1,10 +1,5 @@
 require'nvim-tree'.setup {
   -- auto_resize = true,
-  view = {
-    -- side = 'right',
-    width = 25
-
-  },
   renderer = {
     indent_markers = {
       enable = true,
@@ -19,10 +14,10 @@ require'nvim-tree'.setup {
 	},
 	view = {
 		-- side = 'right',
+    width = 33,
 		preserve_window_proportions = true
 	},
 	diagnostics = {
-		-- TODO: check docs
 		enable = true,
 		icons = {
 			-- hint = "", -- original one
