@@ -37,6 +37,7 @@ local function on_attach(client, bufnr)
       or client.name == "html"
       or client.name == "cssls"
       or client.name == "jsonls"
+      or client.name == "rust_analyzer"
     ) then
       client.resolved_capabilities.document_formatting = false
       client.resolved_capabilities.document_range_formatting = false
