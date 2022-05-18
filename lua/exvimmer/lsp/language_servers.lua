@@ -96,6 +96,26 @@ for _, server in ipairs(lspinstaller.get_installed_servers()) do
         }
       }
     }, opts)
+  elseif server.name == "rust_analyzer" then
+    opts = vim.tbl_deep_extend("force", {
+      settings = {
+        ["rust-analyzer"] = {
+          assist = {
+            importGranularity = "module",
+            importPrefix = "self",
+          },
+          cargo = {
+            loadOutDirsFromCheck = true
+          },
+          procMacro = {
+            enable = true
+          },
+          checkOnSave = {
+            command = "clippy"
+          },
+        }
+      }
+    }, opts)
   end
 
   lspconfig[server.name].setup{
