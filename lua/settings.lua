@@ -101,7 +101,7 @@ o.showmode = true
 w.linebreak = true
 o.autochdir = true -- NOTE: When this option is on some plugins may not work.
 o.hidden = true
-w.colorcolumn = '78'
+w.colorcolumn = '80'
 -- cmd('highlight ColorColumn ctermbg=DarkBlue')
 o.wildmode = 'full'
 o.wildmenu = true
@@ -135,8 +135,6 @@ o.autoindent = true
 b.autoindent = true
 o.expandtab = true
 b.expandtab = true
-
-vim.cmd[[colorscheme catppuccin]]
 
 -- hide tildes (only vim), this doesn't work for nvim-tree
 w.fillchars='eob: '

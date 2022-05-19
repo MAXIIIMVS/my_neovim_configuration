@@ -10,7 +10,6 @@ end
 
 return require('packer').startup({function(use)
   use 'wbthomason/packer.nvim'
-  use {'rafalbromirski/vim-aurora'}
   use {'kyazdani42/nvim-web-devicons', config = u.get_setup('nvim-web-devicons')}
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -76,11 +75,6 @@ return require('packer').startup({function(use)
   use {'tpope/vim-fugitive'}
   use {'tpope/vim-rhubarb'}
   use {'tomasiser/vim-code-dark'}
-  use {
-    'folke/tokyonight.nvim',
-    event = "VimEnter",
-    config = u.get_setup('tokyonight')
-  }
   use {'nvim-lua/popup.nvim'}
   use {'folke/lsp-colors.nvim', config = u.get_setup('lsp-colors')}
   use {'phaazon/hop.nvim', config = u.get_setup('hop')}
@@ -92,7 +86,7 @@ return require('packer').startup({function(use)
     requires = {'nvim-lua/plenary.nvim'},
     config = u.get_setup('gitsigns')
   }
-  use {"rebelot/kanagawa.nvim", config = u.get_setup('kanagawa')}
+  use {'rafalbromirski/vim-aurora'}
   use({
     "catppuccin/nvim",
     as = "catppuccin",
