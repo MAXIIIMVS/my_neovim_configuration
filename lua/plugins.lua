@@ -93,7 +93,11 @@ return require('packer').startup({function(use)
     config = u.get_setup('gitsigns')
   }
   use {"rebelot/kanagawa.nvim", config = u.get_setup('kanagawa')}
-  -- TODO: Install nvim-test & sainnhe/sonokai
+  use({
+    "catppuccin/nvim",
+    as = "catppuccin",
+    config = u.get_setup('catppuccin')
+  })
 
   -- put this at the end after all plugins
   if packer_bootstrap then

@@ -136,7 +136,7 @@ b.autoindent = true
 o.expandtab = true
 b.expandtab = true
 
-vim.cmd[[colorscheme aurora]]
+vim.cmd[[colorscheme catppuccin]]
 
 -- hide tildes (only vim), this doesn't work for nvim-tree
 w.fillchars='eob: '
