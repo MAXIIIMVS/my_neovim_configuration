@@ -17,7 +17,7 @@ cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 require"toggleterm".setup {
   size = 13,
-  open_mapping = [[<c-\>]],
+  open_mapping = [[<space>th]],
   close_on_exit = true, -- close the terminal window when the process exits
   shade_filetypes = {},
   shade_terminals = true,
@@ -28,7 +28,7 @@ require"toggleterm".setup {
   float_opts = {
     border = 'single',
     width = 140,
-    height = 200,
+    height = 30,
     winblend = 0,
   },
 }
