@@ -56,7 +56,7 @@ catppuccin.setup({
     bufferline = true,
     markdown = true,
     lightspeed = false,
-    ts_rainbow = false,
+    ts_rainbow = true,
     hop = true,
     notify = false,
     telekasten = true,

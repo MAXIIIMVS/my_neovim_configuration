@@ -17,7 +17,7 @@ cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 require"toggleterm".setup {
   size = 13,
-  open_mapping = [[<space>th]],
+  open_mapping = [[<c-\>]],
   close_on_exit = true, -- close the terminal window when the process exits
   shade_filetypes = {},
   shade_terminals = true,
