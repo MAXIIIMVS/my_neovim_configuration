@@ -119,6 +119,7 @@ u.map('n', '<leader>f', ':lua vim.lsp.buf.formatting()<CR>', opts)
 u.map('n', '<space>lI', ':LspInstallInfo<CR>', opts)
 u.map('n', '<space>li', ':LspInfo<CR>', opts)
 u.map('n', '<space>lr', ':LspRestart<CR>', opts)
+u.map('n', '<space>ls', ':LspStart<CR>', opts)
 u.map('n', '<space>lx', ':LspStop<CR>', {noremap = true})
 
 -- maximizer
