@@ -8,7 +8,8 @@ lspinstaller.setup({
     "rust_analyzer",
     "bashls",
     "tsserver",
-    "vuels",
+    -- "vuels",
+    "volar",
     "pyright",
     "cssls",
     "emmet_ls",
@@ -36,6 +37,7 @@ local function on_attach(client, bufnr)
       client.name == "tsserver"
       or client.name == "html"
       or client.name == "cssls"
+      or client.name == "volar"
       or client.name == "jsonls"
       or client.name == "rust_analyzer"
     ) then
