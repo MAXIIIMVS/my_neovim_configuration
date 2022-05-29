@@ -94,8 +94,8 @@ vnoremap <silent> # :<C-U>
 u.map('n', '<space>e', ':NvimTreeToggle<CR>', opts)
 
 -- telescope
-u.map('n', ';f', ':Telescope find_files cwd=' .. u.get_top_level() .. '<CR>', opts)
-u.map('n', ';r', ':Telescope live_grep cwd=' .. u.get_top_level() .. '<CR>', opts)
+u.map('n', ';f', ':Telescope find_files hidden=true cwd=' .. u.get_top_level() .. '<CR>', opts)
+u.map('n', ';r', ':Telescope live_grep hidden=true cwd=' .. u.get_top_level() .. '<CR>', opts)
 u.map('n', ';h', ':Telescope help_tags<CR>', opts)
 u.map('n', ';H', ':Telescope search_history<CR>', opts)
 u.map('n', ';C', ':Telescope commands<CR>', opts)

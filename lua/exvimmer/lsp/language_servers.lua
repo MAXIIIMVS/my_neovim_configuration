@@ -8,6 +8,7 @@ lspinstaller.setup({
     "rust_analyzer",
     "bashls",
     "tsserver",
+    "eslint",
     -- "vuels",
     "volar",
     "pyright",
