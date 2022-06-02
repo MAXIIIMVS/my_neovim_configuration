@@ -8,6 +8,9 @@ u.map('n', '<leader>s', ':so %<CR>')
 -- set filetype
 u.map('n', '<leader>y', ':set filetype=')
 
+-- open the current file with the default app in linux
+u.map('n', '<leader>o', ':!xdg-open %<CR>', opts)
+u.map('n', '<leader>O', ':!xdg-open .<CR>', opts)
 
 -- Resize window
 u.map('n', '<c-w><left>', '<c-w><')
@@ -94,8 +97,10 @@ vnoremap <silent> # :<C-U>
 u.map('n', '<space>e', ':NvimTreeToggle<CR>', opts)
 
 -- telescope
-u.map('n', ';f', ':Telescope find_files hidden=true cwd=' .. u.get_top_level() .. '<CR>', opts)
-u.map('n', ';r', ':Telescope live_grep hidden=true cwd=' .. u.get_top_level() .. '<CR>', opts)
+u.map('n', ';f', ':Telescope find_files cwd=' .. u.get_top_level() .. '<CR>', opts)
+u.map('n', ';F', ':Telescope find_files hidden=true cwd=' .. u.get_top_level() .. '<CR>', opts)
+u.map('n', ';r', ':Telescope live_grep cwd=' .. u.get_top_level() .. '<CR>', opts)
+u.map('n', ';R', ':Telescope live_grep hidden=true cwd=' .. u.get_top_level() .. '<CR>', opts)
 u.map('n', ';h', ':Telescope help_tags<CR>', opts)
 u.map('n', ';H', ':Telescope search_history<CR>', opts)
 u.map('n', ';C', ':Telescope commands<CR>', opts)
