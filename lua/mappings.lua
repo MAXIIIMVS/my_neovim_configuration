@@ -62,9 +62,9 @@ u.map('i', '<M-f>', '<C-RIGHT>', opts)
 u.map('n', '<CR>', ':noh<CR><CR>', {noremap = true})
 
 -- Ctrl+s -> :w
-u.map('n', '<c-s>', ':w<CR>', {noremap = true})
-u.map('i', '<c-s>', '<ESC>:w<CR>', {noremap = true})
-u.map('v', '<c-s>', '<ESC>:w<CR>', {noremap = true})
+u.map('n', '<c-s>', ':noh<CR>:w<CR>', {noremap = true})
+u.map('i', '<c-s>', '<ESC>:noh<CR>:w<CR>', {noremap = true})
+u.map('v', '<c-s>', '<ESC>:noh<CR>:w<CR>', {noremap = true})
 
 -- Delete the characer after cursor
 u.map('i', '<C-d>', '<Del>', {noremap = true})
