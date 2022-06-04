@@ -65,7 +65,6 @@ return require('packer').startup({function(use)
     event = "BufRead"
   }
   use {'jose-elias-alvarez/null-ls.nvim', config = u.get_setup('null-ls')}
-  -- use {'ctrlpvim/ctrlp.vim'}
   use 'szw/vim-maximizer'
   -- use 'styled-components/vim-styled-components', { 'branch': 'main' }
   -- ues 't9md/vim-choosewin'
@@ -74,7 +73,6 @@ return require('packer').startup({function(use)
   use {'tpope/vim-speeddating'}
   use {'tpope/vim-fugitive'}
   use {'tpope/vim-rhubarb'}
-  use {'tomasiser/vim-code-dark'}
   use {'nvim-lua/popup.nvim'}
   use {'folke/lsp-colors.nvim', config = u.get_setup('lsp-colors')}
   use {'phaazon/hop.nvim', config = u.get_setup('hop')}
@@ -86,7 +84,6 @@ return require('packer').startup({function(use)
     requires = {'nvim-lua/plenary.nvim'},
     config = u.get_setup('gitsigns')
   }
-  use {'rafalbromirski/vim-aurora'}
   use({
     "catppuccin/nvim",
     as = "catppuccin",
