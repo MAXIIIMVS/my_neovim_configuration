@@ -22,6 +22,8 @@ lspinstaller.setup({
     "sumneko_lua",
     "yamlls",
     "sqlls",
+    "marksman",
+    "ltex",
   },
   automatic_installation = true,
   ui = {
