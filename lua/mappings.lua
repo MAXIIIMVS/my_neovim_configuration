@@ -117,7 +117,7 @@ u.map('n', ';o', ':Telescope oldfiles<CR>', opts)
 u.map('n', ';d', ':Telescope diagnostics<CR>', opts)
 u.map('n', ';a', ':Telescope lsp_code_actions<CR>', opts)
 -- todo comment
-u.map('n', ';t', ':TodoTelescope<CR>', opts)
+u.map('n', ';t', ':TodoTelescope cwd=' .. u.get_top_level() .. '<CR>', opts)
 
 -- lsp
 u.map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
