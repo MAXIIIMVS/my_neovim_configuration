@@ -114,7 +114,7 @@ u.map('n', ';b', ':Telescope buffers<CR>', opts)
 u.map('n', ';T', ':Telescope tags<CR>', opts)
 u.map('n', ';m', ':Telescope marks<CR>', opts)
 u.map('n', ';o', ':Telescope oldfiles<CR>', opts)
-u.map('n', ';d', ':Telescope diagnostics<CR>', opts)
+u.map('n', ';d', ':Telescope diagnostics cwd=' .. u.get_top_level() .. '<CR>', opts)
 u.map('n', ';a', ':Telescope lsp_code_actions<CR>', opts)
 -- todo comment
 u.map('n', ';t', ':TodoTelescope cwd=' .. u.get_top_level() .. '<CR>', opts)
