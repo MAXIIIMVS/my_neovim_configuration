@@ -84,11 +84,14 @@ return require('packer').startup({function(use)
     requires = {'nvim-lua/plenary.nvim'},
     config = u.get_setup('gitsigns')
   }
+
   use({
     "catppuccin/nvim",
     as = "catppuccin",
     config = u.get_setup('catppuccin')
   })
+
+  use {'rafalbromirski/vim-aurora'}
 
   -- put this at the end after all plugins
   if packer_bootstrap then
