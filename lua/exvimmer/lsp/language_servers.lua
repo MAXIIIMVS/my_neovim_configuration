@@ -82,6 +82,9 @@ for _, server in ipairs(lspinstaller.get_installed_servers()) do
       filetypes = {
         "html",
         "css",
+        "sass",
+        "scss",
+        "less",
         "vue",
         -- "javascript",
         -- "typescript",

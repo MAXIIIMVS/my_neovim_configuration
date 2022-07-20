@@ -153,4 +153,8 @@ u.map('n', '<space>gb', ':G blame<CR>', opts)
 u.map('n', '<space>go', ':GBrowse<CR>', opts)
 -- git related telescope
 u.map('n', ';gb', ':Telescope git_branches<CR>', opts)
+
+-- vCoolor.vim
+u.map('i', '<M-h>', '<c-o>:VCoolor<CR>', opts) -- for hex color
+-- other shortcuts are alt-v (for hsl) alt-r (rgb) alt-w (rgba)
 -- }}}
