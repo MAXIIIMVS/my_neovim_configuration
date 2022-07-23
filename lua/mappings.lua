@@ -57,6 +57,7 @@ u.map('i', '<c-f>', '<RIGHT>', {noremap = true})
 u.map('i', '<c-b>', '<LEFT>', {noremap = true})
 u.map('i', '<M-b>', '<C-LEFT>', opts)
 u.map('i', '<M-f>', '<C-RIGHT>', opts)
+u.map('i', '<M-d>', '<C-o>de', opts)
 
 -- Enter -> :noh
 u.map('n', '<CR>', ':noh<CR><CR>', {noremap = true})
