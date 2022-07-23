@@ -37,6 +37,8 @@ end
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
+      { name = 'buffer' },
+      { name = 'path' },
       -- { name = 'vsnip' }, -- For vsnip users.
       { name = 'luasnip' }, -- For luasnip users.
       -- { name = 'ultisnips' }, -- For ultisnips users.
@@ -72,6 +74,17 @@ end
       { name = 'cmdline' }
     })
   })
+
+-- local lspkind = require('lspkind')
+-- cmp.setup {
+--   formatting = {
+--     format = lspkind.cmp_format({
+--       -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+--       mode = 'text_symbol', -- show only symbol annotations
+--       maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+--     })
+--   }
+-- }
 
   -- Setup lspconfig.
   -- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
