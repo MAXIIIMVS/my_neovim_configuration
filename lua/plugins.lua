@@ -76,7 +76,7 @@ return require('packer').startup({function(use)
   use {'nvim-lua/popup.nvim'}
   use {'folke/lsp-colors.nvim', config = u.get_setup('lsp-colors')}
   use {'phaazon/hop.nvim', config = u.get_setup('hop')}
-  use {"akinsho/toggleterm.nvim", config = u.get_setup('toggleterm')}
+  -- use {"akinsho/toggleterm.nvim", config = u.get_setup('toggleterm')}
   -- use {'simrat39/rust-tools.nvim'}
   use {'puremourning/vimspector', config = u.get_setup('vimspector')}
   use {
