@@ -66,11 +66,13 @@ u.map('n', '<CR>', ':noh<CR><CR>', {noremap = true})
 u.map('n', '<c-s>', ':noh<CR>:w<CR>', {noremap = true})
 u.map('i', '<c-s>', '<ESC>:noh<CR>:w<CR>', {noremap = true})
 u.map('v', '<c-s>', '<ESC>:noh<CR>:w<CR>', {noremap = true})
+u.map('s', '<c-s>', '<ESC>:noh<CR>:w<CR>', {noremap = true})
 
 -- Alt+s -> :wall
 u.map('n', '<M-s>', ':noh<CR>:wall<CR>', {noremap = true})
 u.map('i', '<M-s>', '<ESC>:noh<CR>:wall<CR>', {noremap = true})
 u.map('v', '<M-s>', '<ESC>:noh<CR>:wall<CR>', {noremap = true})
+u.map('s', '<M-s>', '<ESC>:noh<CR>:wall<CR>', {noremap = true})
 
 -- Delete the characer after cursor
 u.map('i', '<C-d>', '<Del>', {noremap = true})
