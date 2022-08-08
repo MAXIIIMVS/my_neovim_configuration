@@ -44,8 +44,9 @@ return require('packer').startup({function(use)
     cmd = "Telescope",
     config = u.get_setup('telescope')
   }
+  use {"williamboman/mason.nvim"}
+  use {"williamboman/mason-lspconfig.nvim"}
   use {'neovim/nvim-lspconfig', config = "require('exvimmer/lsp')"}
-  use {'williamboman/nvim-lsp-installer'}
   -- NOTE: tami5/lspsaga.nvim is the maintained version
   use {'tami5/lspsaga.nvim', config = u.get_setup('lspsaga')}
   use {'onsails/lspkind-nvim'}

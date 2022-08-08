@@ -1,39 +1,23 @@
 local lspconfig = require("lspconfig")
-local lspinstaller= require("nvim-lsp-installer")
+local lspinstaller= require("mason")
+local mason_lspconfig= require("mason-lspconfig")
 
-lspinstaller.setup({
-  ensure_installed = {
-    "clangd",
-    "gopls",
-    "rust_analyzer",
-    "bashls",
-    "tsserver",
-    "eslint",
-    -- "vuels",
-    "volar",
-    "pyright",
-    "cssls",
-    "emmet_ls",
-    "graphql",
-    "html",
-    "jsonls",
-    "prismals",
-    "dockerls",
-    "sumneko_lua",
-    "yamlls",
-    "sqlls",
-    "marksman",
-    "ltex",
-  },
-  automatic_installation = true,
+local DEFAULT_SETTINGS = {
   ui = {
+    border = "none",
     icons = {
-      server_installed = "✓",
-      server_pending = "➜",
-      server_uninstalled = "✗"
-    }
-  }
-})
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗"
+    },
+  },
+  -- Limit for the maximum amount of packages to be installed at the same time.
+  -- Once this limit is reached, any further packages that are requested to be
+  -- installed will be put in a queue.
+  max_concurrent_installers = 1,
+}
+
+lspinstaller.setup(DEFAULT_SETTINGS)
 
 local function on_attach(client, bufnr)
   if (
@@ -57,10 +41,12 @@ local function on_attach(client, bufnr)
   end
 end
 
+mason_lspconfig.setup()
+mason_lspconfig.setup_handlers {
+  function (server_name)
 
-for _, server in ipairs(lspinstaller.get_installed_servers()) do
   local opts = {}
-  if server.name == "tsserver" then
+  if server_name == "tsserver" then
     opts = vim.tbl_deep_extend(
     "force", {
       filetypes = {
@@ -73,11 +59,11 @@ for _, server in ipairs(lspinstaller.get_installed_servers()) do
       }
     },
     opts)
-  elseif server.name == "html" then
+  elseif server_name == "html" then
     opts = vim.tbl_deep_extend("force", {
       filetypes = {"html","handlebars","htmldjango","blade"}
     }, opts)
-  elseif server.name == "emmet_ls" then
+  elseif server_name == "emmet_ls" then
     opts = vim.tbl_deep_extend("force", {
       filetypes = {
         "html",
@@ -93,7 +79,7 @@ for _, server in ipairs(lspinstaller.get_installed_servers()) do
         -- "htmldjango" -- doesn't work
       },
     }, opts)
-  elseif server.name == "sumneko_lua" then
+  elseif server_name == "sumneko_lua" then
     opts = vim.tbl_deep_extend("force", {
       settings = {
         Lua = {
@@ -104,7 +90,7 @@ for _, server in ipairs(lspinstaller.get_installed_servers()) do
         }
       }
     }, opts)
-  elseif server.name == "rust_analyzer" then
+  elseif server_name == "rust_analyzer" then
     opts = vim.tbl_deep_extend("force", {
       settings = {
         ["rust-analyzer"] = {
@@ -125,11 +111,11 @@ for _, server in ipairs(lspinstaller.get_installed_servers()) do
       }
     }, opts)
   end
-
-  lspconfig[server.name].setup{
-    on_attach = on_attach,
-    capabilities = require('cmp_nvim_lsp').update_capabilities(
+    lspconfig[server_name].setup {
+      on_attach = on_attach,
+      capabilities = require('cmp_nvim_lsp').update_capabilities(
       vim.lsp.protocol.make_client_capabilities()),
-    opts = opts,
-  }
-end
+      opts = opts,
+    }
+  end,
+}
