@@ -62,11 +62,12 @@ u.map('i', '<M-d>', '<C-o>de', opts)
 -- Enter -> :noh
 u.map('n', '<CR>', ':noh<CR><CR>', {noremap = true})
 
--- Ctrl+s -> :w
-u.map('n', '<c-s>', ':noh<CR>:w<CR>', {noremap = true})
-u.map('i', '<c-s>', '<ESC>:noh<CR>:w<CR>', {noremap = true})
-u.map('v', '<c-s>', '<ESC>:noh<CR>:w<CR>', {noremap = true})
-u.map('s', '<c-s>', '<ESC>:noh<CR>:w<CR>', {noremap = true})
+-- write to buffer only if buffer has changed: Ctrl+s -> :update
+u.map('n', '<c-s>', ':noh<CR>:update<CR>', {noremap = true})
+u.map('i', '<c-s>', '<ESC>:noh<CR>:update<CR>', {noremap = true})
+u.map('v', '<c-s>', '<ESC>:noh<CR>:update<CR>', {noremap = true})
+u.map('s', '<c-s>', '<ESC>:noh<CR>:update<CR>', {noremap = true})
+-- NOTE: use :w to write to the buffer intentionally, don't use keymaps
 
 -- Alt+s -> :wall
 u.map('n', '<M-s>', ':noh<CR>:wall<CR>', {noremap = true})
