@@ -111,17 +111,14 @@ u.map('n', ';F', ':Telescope find_files hidden=true cwd=' .. u.get_top_level() .
 u.map('n', ';r', ':Telescope live_grep cwd=' .. u.get_top_level() .. '<CR>', opts)
 u.map('n', ';R', ':Telescope live_grep hidden=true cwd=' .. u.get_top_level() .. '<CR>', opts)
 u.map('n', ';h', ':Telescope help_tags<CR>', opts)
-u.map('n', ';H', ':Telescope search_history<CR>', opts)
-u.map('n', ';C', ':Telescope commands<CR>', opts)
 u.map('n', ';c', ':Telescope colorscheme<CR>', opts)
 u.map('n', ';b', ':Telescope buffers<CR>', opts)
+u.map('n', ';t', ':TodoTelescope cwd=' .. u.get_top_level() .. '<CR>', opts)
 u.map('n', ';T', ':Telescope tags<CR>', opts)
-u.map('n', ';m', ':Telescope marks<CR>', opts)
+u.map('n', ';m', ':Telescope man_pages<CR>', opts)
 u.map('n', ';o', ':Telescope oldfiles<CR>', opts)
 u.map('n', ';d', ':Telescope diagnostics cwd=' .. u.get_top_level() .. '<CR>', opts)
-u.map('n', ';a', ':Telescope lsp_code_actions<CR>', opts)
--- todo comment
-u.map('n', ';t', ':TodoTelescope cwd=' .. u.get_top_level() .. '<CR>', opts)
+u.map('n', ';<space>', ':Telescope<CR>', opts)
 
 -- lsp
 u.map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
