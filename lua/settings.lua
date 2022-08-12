@@ -13,9 +13,9 @@ cmd('filetype plugin indent on')
 -- cmd('scriptencoding utf-8') -- FIX:
 w.number = true
 w.relativenumber = true
-w.signcolumn= 'yes:1'
-o.fileencodings= 'utf-8,sjis,euc-jp,latin'
-o.encoding= 'utf-8'
+w.signcolumn = 'yes:1'
+o.fileencodings = 'utf-8,sjis,euc-jp,latin'
+o.encoding = 'utf-8'
 o.title = true
 o.autoindent = true
 o.backup = false
@@ -24,12 +24,12 @@ o.incsearch = true
 o.smartcase = true
 o.showcmd = true
 o.cmdheight = 1
-o.laststatus = 2
-o.scrolloff= 3
+o.laststatus = 3
+o.scrolloff = 3
 
 -- incremental substitution (neovim)
 if vim.fn.has("nvim") == 1 then
-  o.inccommand= 'split'
+  o.inccommand = 'split'
 end
 
 -- Suppress appending <PasteStart> and <PasteEnd> when pasting
@@ -39,9 +39,9 @@ o.ruler = false
 o.showmatch = false
 o.lazyredraw = true
 o.ignorecase = true -- NOTE: I'm not sure about this or smartcase
-o.backspace= "start,eol,indent"
+o.backspace = "start,eol,indent"
 o.path = o.path .. "**" -- or w.path, IDK
-o.wildignore= o.wildignore .. "*/node_modules/*"
+o.wildignore = o.wildignore .. "*/node_modules/*"
 
 -- Turn off paste mode when leaving insert
 cmd('autocmd InsertLeave * set nopaste')
@@ -139,7 +139,7 @@ b.expandtab = true
 
 -- vim.cmd[[colorscheme aurora]]
 -- hide tildes (only vim), this doesn't work for nvim-tree
-w.fillchars='eob: '
+w.fillchars = 'eob: '
 -- or put this after colorscheme (vim & nvim), works for nvim-tree
 vim.cmd('hi NonText guifg=bg')
 -- }}}
@@ -156,8 +156,8 @@ endif
 ]])
 
 utils.create_augroup({
-    {'WinEnter', '*', 'set', 'cul'},
-    {'WinLeave', '*', 'set', 'nocul'}
+  { 'WinEnter', '*', 'set', 'cul' },
+  { 'WinLeave', '*', 'set', 'nocul' }
 }, 'BgHighlight')
 
 -- change the split bar color to yellow

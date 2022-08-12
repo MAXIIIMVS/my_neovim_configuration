@@ -1,7 +1,7 @@
 local u = require('utils')
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 
-require'hop'.setup()
+require 'hop'.setup()
 
 u.map('n', 'F', ':HopWordMW<CR>', opts)
 u.map('n', '<space>;', ':HopChar1MW<CR>', opts)

@@ -1,9 +1,9 @@
 local u = require('utils')
 local cmd = vim.cmd
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 
 function _G.set_terminal_keymaps()
-  local opts = {noremap = true}
+  local opts = { noremap = true }
   vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
@@ -15,7 +15,7 @@ end
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
-require"toggleterm".setup {
+require "toggleterm".setup {
   size = 13,
   open_mapping = [[<c-\>]],
   close_on_exit = true, -- close the terminal window when the process exits
@@ -34,8 +34,8 @@ require"toggleterm".setup {
 }
 
 -- lazygit
-local Terminal  = require('toggleterm.terminal').Terminal
-local lazygit = Terminal:new({
+local Terminal = require('toggleterm.terminal').Terminal
+local lazygit  = Terminal:new({
   cmd = "lazygit",
   dir = "git_dir",
   direction = "float",
@@ -53,7 +53,7 @@ function _lazygit_toggle()
   lazygit:toggle()
 end
 
-vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
 
 u.map('n', '<space>tv', ':ToggleTerm size=80 direction=vertical<CR>', opts)
 u.map('n', '<space>th', ':ToggleTerm direction=horizontal<CR>', opts)

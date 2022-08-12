@@ -1,5 +1,5 @@
 local u = require('utils')
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 
 local lspsaga = require 'lspsaga'
 lspsaga.setup {
@@ -14,7 +14,7 @@ lspsaga.setup {
   diagnostic_header_icon = "   ",
   -- code action title icon
   -- code_action_icon = " ",
-  code_action_prompt = {enable = false, sign = false, sign_priority = 40, virtual_text = true},
+  code_action_prompt = { enable = false, sign = false, sign_priority = 40, virtual_text = true },
   finder_definition_icon = "  ",
   finder_reference_icon = "  ",
   max_preview_lines = 10,
@@ -26,8 +26,8 @@ lspsaga.setup {
     scroll_down = "<C-f>",
     scroll_up = "<C-b>"
   },
-  code_action_keys = {quit = "q", exec = "<CR>"},
-  rename_action_keys = {quit = "<C-c>", exec = "<CR>"},
+  code_action_keys = { quit = "q", exec = "<CR>" },
+  rename_action_keys = { quit = "<C-c>", exec = "<CR>" },
   definition_preview_icon = "  ",
   -- border_style = "single",
   border_style = "round",

@@ -1,7 +1,7 @@
 local u = require('utils')
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 
-require('gitsigns').setup{
+require('gitsigns').setup {
   attach_to_untracked = true,
   current_line_blame = false,
   current_line_blame_opts = {
@@ -22,4 +22,3 @@ u.map('n', '<space>sr', ':Gitsigns reset_hunk<CR>', opts)
 u.map('n', '<space>sb', ':Gitsigns blame_line<CR>', opts)
 u.map('n', '<space>st', ':Gitsigns toggle_current_line_blame<CR>', opts)
 u.map('n', '<space>sd', ':Gitsigns toggle_deleted<CR>', opts)
-

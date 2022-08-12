@@ -70,13 +70,13 @@ end
 M.my_fd = function(opts)
   opts = opts or {}
   opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
-  require'telescope.builtin'.find_files(opts)
+  require 'telescope.builtin'.find_files(opts)
 end
 
 M.my_rg = function(opts)
   opts = opts or {}
   opts.cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
-  require'telescope.builtin'.live_grep(opts)
+  require 'telescope.builtin'.live_grep(opts)
 end
 -- We want to be able to access utils in all our configuration files
 -- so we add the module to the _G global variable.
