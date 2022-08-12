@@ -116,6 +116,7 @@ w.foldmethod = 'manual' -- manual, indent, syntax, marker, expr, diff
 w.conceallevel = 0
 -- python3 path: chage if it's necessary, -- NOTE: I'm not sure about this
 g.python3_host_prog = '/usr/bin/python3'
+cmd('autocmd FileType javascript set filetype=javascriptreact')
 cmd('autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact')
 cmd([[
 au FocusGained,BufEnter * :silent! !
@@ -198,7 +199,7 @@ ab :red_heart: ❤️
 ab :skull: 💀
 ab :alien: 👽
 ab :degree: \u02DA
-ab :black_square_button: 🔲
+ab :filled: 🔲
 ab :separator_lb: 
 ab :separator_rb: 
 ab :separator_lt: 
