@@ -1,12 +1,11 @@
 local null_ls = require('null-ls')
 
 local formatting = null_ls.builtins.formatting
-local code_actions = null_ls.builtins.code_actions
 
 null_ls.setup({
   sources = {
     formatting.prettierd, formatting.black, formatting.djhtml,
-    formatting.rustfmt, code_actions.eslint_d
+    formatting.rustfmt
   },
   on_attach = function(client)
     if client.resolved_capabilities.document_formatting then

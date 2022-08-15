@@ -58,6 +58,7 @@ u.map('i', '<c-b>', '<LEFT>', { noremap = true })
 u.map('i', '<M-b>', '<C-LEFT>', opts)
 u.map('i', '<M-f>', '<C-RIGHT>', opts)
 u.map('i', '<M-d>', '<C-o>de', opts)
+u.map('s', '<M-d>', '<ESC>dei', opts)
 
 -- Enter -> :noh
 u.map('n', '<CR>', ':noh<CR><CR>', { noremap = true })
@@ -77,6 +78,7 @@ u.map('s', '<M-s>', '<ESC>:noh<CR>:wall<CR>', { noremap = true })
 
 -- Delete the characer after cursor
 u.map('i', '<C-d>', '<Del>', { noremap = true })
+u.map('s', '<C-d>', '<ESC><Del>i', { noremap = true })
 
 -- make . to work with visually selected lines
 u.map('v', '.', ':normal.<CR>', { noremap = true })
