@@ -40,6 +40,9 @@ u.map('n', ';;', ':bd<CR>', opts)
 -- close the window
 u.map('n', ';q', '<c-w>q')
 
+-- substitution in visual mode
+u.map('v', ';s', ':s/')
+
 -- delete all buffers other than the current one, put the cursor back
 -- nnoremap <space>bo :%bd\|e#\|bd#<CR>\|'"
 u.map('n', '<space>bo', ':%bd|e#|bd#<CR>|\'"', { noremap = true })
