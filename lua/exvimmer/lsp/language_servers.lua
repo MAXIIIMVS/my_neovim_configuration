@@ -2,7 +2,6 @@ local lspconfig = require("lspconfig")
 local lspformat = require("lsp-format")
 local lspinstaller = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
-local util = require 'vim.lsp.util'
 
 local DEFAULT_SETTINGS = {
   ui = {
@@ -20,13 +19,6 @@ local DEFAULT_SETTINGS = {
 }
 
 lspinstaller.setup(DEFAULT_SETTINGS)
-
-local formatting_callback = function(client, bufnr)
-  vim.keymap.set('n', '<space>f', function()
-    local params = util.make_formatting_params({})
-    client.request('textDocument/formatting', params, nil, bufnr)
-  end, { buffer = bufnr })
-end
 
 mason_lspconfig.setup()
 mason_lspconfig.setup_handlers {
@@ -99,10 +91,7 @@ mason_lspconfig.setup_handlers {
       }, opts)
     end
     lspconfig[server_name].setup {
-      on_attach = function(client, bufnr)
-        lspformat.on_attach(client, bufnr)
-        formatting_callback(client, bufnr)
-      end,
+      on_attach = lspformat.on_attach,
       capabilities = require('cmp_nvim_lsp').update_capabilities(
         vim.lsp.protocol.make_client_capabilities()),
       opts = opts,

@@ -164,6 +164,9 @@ utils.create_augroup({
 cmd('highlight VertSplit guifg=#32afff')
 -- }}}
 
+-- format files when using :wq and not using sync in lsp formatting
+vim.cmd [[cabbrev wq execute "Format sync" <bar> wq]]
+
 -- emoji shortcuts {{{
 -- ---------------------------------------------------------------------
 cmd([[
