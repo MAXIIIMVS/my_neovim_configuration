@@ -51,6 +51,8 @@ return require('packer').startup({ function(use)
   -- NOTE: tami5/lspsaga.nvim is the maintained version
   use { 'tami5/lspsaga.nvim', config = u.get_setup('lspsaga') }
   use { 'onsails/lspkind-nvim' }
+  use "lukas-reineke/lsp-format.nvim"
+  use { 'folke/lsp-colors.nvim', config = u.get_setup('lsp-colors') }
   use { 'hrsh7th/nvim-cmp' }
   use { 'hrsh7th/cmp-nvim-lsp' }
   use { 'hrsh7th/cmp-buffer' }
@@ -66,7 +68,6 @@ return require('packer').startup({ function(use)
     config = "require('exvimmer/blankline-config')",
     event = "BufRead"
   }
-  use "lukas-reineke/lsp-format.nvim"
   use 'szw/vim-maximizer'
   -- use 'styled-components/vim-styled-components', { 'branch': 'main' }
   -- ues 't9md/vim-choosewin'
@@ -76,11 +77,10 @@ return require('packer').startup({ function(use)
   use { 'tpope/vim-fugitive' }
   use { 'tpope/vim-rhubarb' }
   use { 'nvim-lua/popup.nvim' }
-  use { 'folke/lsp-colors.nvim', config = u.get_setup('lsp-colors') }
   use { 'phaazon/hop.nvim', config = u.get_setup('hop') }
   -- use {"akinsho/toggleterm.nvim", config = u.get_setup('toggleterm')}
   -- use {'simrat39/rust-tools.nvim'}
-  use { 'puremourning/vimspector', config = u.get_setup('vimspector') }
+  -- use { 'puremourning/vimspector', config = u.get_setup('vimspector') }
   use {
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
@@ -93,7 +93,7 @@ return require('packer').startup({ function(use)
     config = u.get_setup('catppuccin')
   })
 
-  use { 'rafalbromirski/vim-aurora' }
+  -- use { 'rafalbromirski/vim-aurora' }
   use { 'KabbAmine/vCoolor.vim' }
 
   -- put this at the end after all plugins
