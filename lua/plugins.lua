@@ -66,7 +66,6 @@ return require('packer').startup({ function(use)
     config = "require('exvimmer/blankline-config')",
     event = "BufRead"
   }
-  use { 'jose-elias-alvarez/null-ls.nvim', config = u.get_setup('null-ls') }
   use "lukas-reineke/lsp-format.nvim"
   use 'szw/vim-maximizer'
   -- use 'styled-components/vim-styled-components', { 'branch': 'main' }

@@ -100,17 +100,9 @@ mason_lspconfig.setup_handlers {
     end
     lspconfig[server_name].setup {
       on_attach = function(client, bufnr)
-        -- if client.name == "clangd" or client.name == "gopls" then
-        --   vim.api.nvim_command [[augroup Format]]
-        --   vim.api.nvim_command [[autocmd! * <buffer>]]
-        --   vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
-        --   vim.api.nvim_command [[augroup END]]
-        -- end
-
         lspformat.on_attach(client, bufnr)
         formatting_callback(client, bufnr)
       end,
-      -- on_attach =  lspformat.on_attach,
       capabilities = require('cmp_nvim_lsp').update_capabilities(
         vim.lsp.protocol.make_client_capabilities()),
       opts = opts,
