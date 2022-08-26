@@ -1,6 +1,8 @@
 local lspconfig = require("lspconfig")
+local lspformat = require("lsp-format")
 local lspinstaller = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
+local util = require 'vim.lsp.util'
 
 local DEFAULT_SETTINGS = {
   ui = {
@@ -19,26 +21,11 @@ local DEFAULT_SETTINGS = {
 
 lspinstaller.setup(DEFAULT_SETTINGS)
 
-local function on_attach(client, bufnr)
-  if (
-      client.name == "tsserver"
-          or client.name == "html"
-          or client.name == "cssls"
-          or client.name == "volar"
-          or client.name == "jsonls"
-          or client.name == "rust_analyzer"
-      ) then
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
-  end
-
-  if client.name == "clangd" or client.name == "gopls" then
-    vim.api.nvim_command [[augroup Format]]
-    vim.api.nvim_command [[autocmd! * <buffer>]]
-    vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
-    -- vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
-    vim.api.nvim_command [[augroup END]]
-  end
+local formatting_callback = function(client, bufnr)
+  vim.keymap.set('n', '<space>f', function()
+    local params = util.make_formatting_params({})
+    client.request('textDocument/formatting', params, nil, bufnr)
+  end, { buffer = bufnr })
 end
 
 mason_lspconfig.setup()
@@ -112,7 +99,18 @@ mason_lspconfig.setup_handlers {
       }, opts)
     end
     lspconfig[server_name].setup {
-      on_attach = on_attach,
+      on_attach = function(client, bufnr)
+        -- if client.name == "clangd" or client.name == "gopls" then
+        --   vim.api.nvim_command [[augroup Format]]
+        --   vim.api.nvim_command [[autocmd! * <buffer>]]
+        --   vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
+        --   vim.api.nvim_command [[augroup END]]
+        -- end
+
+        lspformat.on_attach(client, bufnr)
+        formatting_callback(client, bufnr)
+      end,
+      -- on_attach =  lspformat.on_attach,
       capabilities = require('cmp_nvim_lsp').update_capabilities(
         vim.lsp.protocol.make_client_capabilities()),
       opts = opts,

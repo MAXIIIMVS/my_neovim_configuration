@@ -67,6 +67,7 @@ return require('packer').startup({ function(use)
     event = "BufRead"
   }
   use { 'jose-elias-alvarez/null-ls.nvim', config = u.get_setup('null-ls') }
+  use "lukas-reineke/lsp-format.nvim"
   use 'szw/vim-maximizer'
   -- use 'styled-components/vim-styled-components', { 'branch': 'main' }
   -- ues 't9md/vim-choosewin'
