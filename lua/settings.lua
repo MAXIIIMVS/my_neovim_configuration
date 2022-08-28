@@ -204,12 +204,23 @@ ab :alien: 👽
 ab :degree: \u02DA
 ab :filled: 🔲
 ab :gift: 🎁
+ab :warning: ⚠️
+ab :no: 🚫
+ab :biohazard: ☣️
+ab :radioactive: ☢️
+ab :key: 🔑
+ab :shield: 🛡️
+ab :beetle: 🐞
 ab :kite: 🪁
+ab :fire: 🔥
 ab :diamond: 💎
 ab :notebook: 📔
 ab :locked: 🔒
 ab :unlocked: 🔓
 ab :8ball: 🎱
+ab :100: 💯
+ab :joker: 🃏
+ab :bell: 🔔
 ab :balloon: 🎈
 ab :bullseye: 🎯
 ab :medal: 🥇
@@ -235,5 +246,17 @@ ab :separator_lst: ◀
 ab :separator_rst: ▶
 ab :separator_ltt: ❮
 ab :separator_rtt: ❯
+ab :aries: ♈
+ab :taurus: ♉
+ab :gemini: ♊
+ab :cancer: ♋
+ab :leo: ♌
+ab :virgo: ♍
+ab :libra: ♎
+ab :scorpio: ♏
+ab :sagittarius: ♐
+ab :capricorn: ♑
+ab :aquarius: ♒
+ab :pisces: ♓
 ]])
 -- }}}
