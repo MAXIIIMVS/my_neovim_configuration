@@ -7,11 +7,33 @@ require('nvim_comment').setup({
 
 
 require("todo-comments").setup {
-  -- your configuration comes here
-  -- or leave it empty to use the default settings
-  -- refer to the configuration section below
+  keywords = {
+    FIX = {
+      icon = " ", -- icon used for the sign, and in search results
+      color = "error", -- can be a hex color, or a named color (see below)
+      alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+      -- signs = false, -- configure signs for some keywords individually
+    },
+    TODO = { icon = "⚓", color = "#2563EB" },
+    HACK = { icon = " ", color = "#7C3AED" },
+    WARN = { icon = " ", color = "#FBBF24", alt = { "WARNING", "XXX" } },
+    PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+    NOTE = { icon = " ", color = "#10B981", alt = { "INFO" } },
+  },
 }
-
 u.map('n', '<c-_>', ':CommentToggle<CR>', opts)
 u.map('v', '<c-_>', ':CommentToggle<CR>', opts)
 u.map('i', '<c-_>', '<ESC>:CommentToggle<CR>', opts)
+
+u.map('n', ';ct', 'ITODO: (M.H)<ESC>:CommentToggle<CR>A ', opts)
+u.map('n', ';cT', 'ITODO: <ESC>:CommentToggle<CR>^', opts)
+u.map('n', ';cn', 'INOTE: (M.H) <ESC>:CommentToggle<CR>A ', opts)
+u.map('n', ';cN', 'INOTE: <ESC>:CommentToggle<CR>^', opts)
+u.map('n', ';cf', 'IFIX: (M.H) <ESC>:CommentToggle<CR>A ', opts)
+u.map('n', ';cF', 'IFIX: <ESC>:CommentToggle<CR>^', opts)
+u.map('n', ';cw', 'IWARN: (M.H) <ESC>:CommentToggle<CR>A ', opts)
+u.map('n', ';cW', 'IWARN: <ESC>:CommentToggle<CR>^', opts)
+u.map('n', ';ch', 'IHACK: (M.H) <ESC>:CommentToggle<CR>A ', opts)
+u.map('n', ';cH', 'IHACK: <ESC>:CommentToggle<CR>^', opts)
+u.map('n', ';cp', 'IPERF: (M.H) <ESC>:CommentToggle<CR>A ', opts)
+u.map('n', ';cP', 'IPERF: <ESC>:CommentToggle<CR>^', opts)
