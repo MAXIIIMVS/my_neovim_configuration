@@ -29,8 +29,8 @@ require 'nvim-tree'.setup {
     }
   },
   filters = {
-    dotfiles = false,
+    dotfiles = true,
     custom = { ".git" },
-    exclude = { ".gitignore", ".env" },
+    exclude = { ".gitignore", ".env", ".github" },
   },
 }

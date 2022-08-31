@@ -85,7 +85,7 @@ end
 
 -- Settings {{{
 -- ---------------------------------------------------------------------
-b.omnifunc = 'syntaxcomplete#Complete'
+o.omnifunc = 'syntaxcomplete#Complete'
 o.errorbells = false
 o.belloff = 'all'
 o.confirm = true
@@ -136,6 +136,7 @@ o.autoindent = true
 b.autoindent = true
 o.expandtab = true
 b.expandtab = true
+-- o.nrformats = "alpha,bin,hex"
 
 -- vim.cmd[[colorscheme aurora]]
 -- hide tildes (only vim), this doesn't work for nvim-tree
