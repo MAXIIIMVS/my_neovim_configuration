@@ -66,6 +66,11 @@ autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 ]])
 -- }}}
 
+-- run prettier before save
+-- cmd([[
+-- autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html :silent !prettier -w %
+-- ]])
+
 -- Syntax theme "{{{
 -----------------------------------------------------------------------
 -- true color

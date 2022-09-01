@@ -12,6 +12,9 @@ u.map('n', '<leader>y', ':set filetype=')
 u.map('n', '<leader>o', ':!xdg-open %<CR>', opts)
 u.map('n', '<leader>O', ':!xdg-open .<CR>', opts)
 
+-- run prettier in the current directory
+u.map('n', '<leader>p', ':silent !prettier --ignore-path .gitignore -w .<CR>', opts)
+
 -- Resize window
 u.map('n', '<c-w><left>', '<c-w><')
 u.map('n', '<c-w><right>', '<c-w>>')
