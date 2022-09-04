@@ -13,9 +13,10 @@ u.map('n', '<leader>o', ':!xdg-open %<CR>', opts)
 u.map('n', '<leader>O', ':!xdg-open .<CR>', opts)
 
 -- run prettier in the current directory
-u.map('n', '<leader>p',
+u.map('n', '<leader>P',
   ':silent !cd ' .. u.get_top_level() .. '&& prettier --ignore-path .gitignore -w .<CR>:redraw!<CR>',
   opts)
+u.map('n', '<leader>p', ':silent !prettier -w %<CR>:redraw!<CR>')
 
 -- Resize window
 u.map('n', '<c-w><left>', '<c-w><')
