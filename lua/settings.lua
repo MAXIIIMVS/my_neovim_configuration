@@ -104,7 +104,7 @@ o.autoread = true
 b.swapfile = false
 o.showmode = true
 w.linebreak = true
-o.autochdir = true -- NOTE: When this option is on some plugins may not work.
+o.autochdir = true -- NOTE: When this option is on, some plugins may not work.
 o.hidden = true
 w.colorcolumn = '80'
 -- cmd('highlight ColorColumn ctermbg=DarkBlue')
@@ -114,10 +114,9 @@ g.wildmenu = true
 -- o.statusline = '%F'
 o.updatetime = 500
 w.foldenable = true
-o.foldlevelstart = 1 -- NOTE: -1, 0, 1, 99
-w.foldnestmax = 10
-w.foldmethod = 'manual' -- manual, indent, syntax, marker, expr, diff
--- set exrc -- WARNING: security risk, use other options
+o.foldlevelstart = 99 -- NOTE: -1, 0, 1, 99
+-- w.foldnestmax = 10
+w.foldmethod = 'indent' -- manual, indent, syntax, marker, expr, diff
 w.conceallevel = 0
 -- python3 path: chage if it's necessary, -- NOTE: I'm not sure about this
 g.python3_host_prog = '/usr/bin/python3'
