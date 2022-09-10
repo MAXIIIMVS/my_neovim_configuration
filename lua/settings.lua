@@ -200,7 +200,7 @@ ab :rocket: 🚀
 ab :ninja: 🥷
 ab :palette: 🎨
 ab :low_brightness: 🔅
-ab :hight_brightness: 🔆
+ab :high_brightness: 🔆
 ab :crown: 👑
 ab :trident: 🔱
 ab :robot: 🤖

@@ -8,16 +8,11 @@ require('nvim_comment').setup({
 
 require("todo-comments").setup {
   keywords = {
-    FIX = {
-      icon = "⚓", -- icon used for the sign, and in search results
-      color = "error", -- can be a hex color, or a named color (see below)
-      alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
-      -- signs = false, -- configure signs for some keywords individually
-    },
-    TODO = { icon = "🔔", color = "#00A3FF" },
-    HACK = { icon = "🔥", color = "#F945C1" },
-    WARN = { icon = "⚠️", color = "#FBBF24", alt = { "WARNING", "XXX" } },
-    PERF = { icon = "🚀", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+    FIX = { icon = "🐞", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+    TODO = { icon = "⚓", color = "#00A3FF" },
+    HACK = { icon = "💀", color = "#F945C1" },
+    WARN = { icon = "💡", color = "#FBBF24", alt = { "WARNING", "XXX" } },
+    PERF = { icon = "🎭", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
     NOTE = { icon = "📝", color = "#10B981", alt = { "INFO" } },
   },
 }
