@@ -10,7 +10,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require('packer').startup({ function(use)
-  use 'wbthomason/packer.nvim'
+  use { 'wbthomason/packer.nvim' }
   use { 'kyazdani42/nvim-web-devicons', config = u.get_setup('nvim-web-devicons') }
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -51,7 +51,7 @@ return require('packer').startup({ function(use)
   -- NOTE: tami5/lspsaga.nvim is the maintained version
   use { 'tami5/lspsaga.nvim', config = u.get_setup('lspsaga') }
   use { 'onsails/lspkind-nvim' }
-  use "lukas-reineke/lsp-format.nvim"
+  use { "lukas-reineke/lsp-format.nvim" }
   use { 'folke/lsp-colors.nvim', config = u.get_setup('lsp-colors') }
   use { 'hrsh7th/nvim-cmp' }
   use { 'hrsh7th/cmp-nvim-lsp' }
@@ -68,11 +68,8 @@ return require('packer').startup({ function(use)
     config = "require('exvimmer/blankline-config')",
     event = "BufRead"
   }
-  use 'szw/vim-maximizer'
-  -- ues 't9md/vim-choosewin'
+  use { 'szw/vim-maximizer' }
   use { 'tpope/vim-surround' }
-  -- use {'tpope/vim-repeat'}
-  use { 'tpope/vim-speeddating' }
   use { 'tpope/vim-fugitive' }
   use { 'tpope/vim-rhubarb' }
   use { 'nvim-lua/popup.nvim' }
@@ -104,4 +101,5 @@ end,
     display = {
       open_fn = require('packer.util').float,
     }
-  } })
+  }
+})
