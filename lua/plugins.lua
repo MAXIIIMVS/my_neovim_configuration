@@ -62,14 +62,13 @@ return require('packer').startup({ function(use)
   use { 'saadparwaiz1/cmp_luasnip' }
   use { "terrortylor/nvim-comment", config = u.get_setup('comment') }
   use { 'folke/todo-comments.nvim', config = u.get_setup('comment') }
-  use { 'norcalli/nvim-colorizer.lua', config = u.get_setup('colorizer'), event = "BufRead" }
+  use { 'NvChad/nvim-colorizer.lua', config = u.get_setup('colorizer'), event = "BufRead" }
   use {
     "lukas-reineke/indent-blankline.nvim",
     config = "require('exvimmer/blankline-config')",
     event = "BufRead"
   }
   use 'szw/vim-maximizer'
-  -- use 'styled-components/vim-styled-components', { 'branch': 'main' }
   -- ues 't9md/vim-choosewin'
   use { 'tpope/vim-surround' }
   -- use {'tpope/vim-repeat'}
@@ -78,7 +77,6 @@ return require('packer').startup({ function(use)
   use { 'tpope/vim-rhubarb' }
   use { 'nvim-lua/popup.nvim' }
   use { 'phaazon/hop.nvim', config = u.get_setup('hop') }
-  -- use {"akinsho/toggleterm.nvim", config = u.get_setup('toggleterm')}
   -- use {'simrat39/rust-tools.nvim'}
   -- use { 'puremourning/vimspector', config = u.get_setup('vimspector') }
   use {
@@ -95,6 +93,7 @@ return require('packer').startup({ function(use)
 
   -- use { 'rafalbromirski/vim-aurora' }
   use { 'KabbAmine/vCoolor.vim' }
+  use { 'uga-rosa/ccc.nvim', config = u.get_setup('ccc') }
 
   -- put this at the end after all plugins
   if packer_bootstrap then

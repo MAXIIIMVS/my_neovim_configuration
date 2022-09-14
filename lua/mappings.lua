@@ -170,5 +170,9 @@ u.map('n', '<space>go', ':GBrowse<CR>', opts)
 
 -- vCoolor.vim
 u.map('i', '<M-h>', '<c-o>:VCoolor<CR>', opts) -- for hex color
--- other shortcuts are alt-v (for hsl) alt-r (rgb) alt-w (rgba)
+-- other shortcuts are alt-v (for hsl) alt-r (rgb) alt-w (rgba) and alt-c
+
+-- ccc color picker
+u.map('n', '<M-p>', ':CccPick<CR>', opts)
+u.map('i', '<M-p>', '<ESC>:CccPick<CR>', opts)
 -- }}}
