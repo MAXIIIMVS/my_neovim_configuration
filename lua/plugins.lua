@@ -90,7 +90,6 @@ return require('packer').startup({ function(use)
 
   -- use { 'rafalbromirski/vim-aurora' }
   use { 'KabbAmine/vCoolor.vim' }
-  use { 'uga-rosa/ccc.nvim', config = u.get_setup('ccc') }
 
   -- put this at the end after all plugins
   if packer_bootstrap then

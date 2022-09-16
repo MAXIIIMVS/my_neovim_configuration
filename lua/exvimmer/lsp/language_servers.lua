@@ -23,7 +23,6 @@ lspinstaller.setup(DEFAULT_SETTINGS)
 mason_lspconfig.setup()
 mason_lspconfig.setup_handlers {
   function(server_name)
-
     local opts = {}
     if server_name == "tsserver" then
       opts = vim.tbl_deep_extend(

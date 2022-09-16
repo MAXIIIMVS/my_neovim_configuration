@@ -14,9 +14,18 @@ u.map('n', '<leader>O', ':!xdg-open .<CR>', opts)
 
 -- run prettier in the current directory
 u.map('n', '<leader>P',
-  ':silent !cd ' .. u.get_top_level() .. '&& prettier --ignore-path .gitignore -w .<CR>:redraw!<CR>',
+  ':silent !cd ' .. u.get_top_level() .. '&& prettier --ignore-path .gitignore -w .<CR>',
   opts)
-u.map('n', '<leader>p', ':silent !prettier --ignore-path .gitignore -w %<CR>:redraw!<CR>')
+u.map('n', '<leader>p', ':silent !prettier --ignore-path .gitignore -w %<CR>', opts)
+
+-- close and open the file again
+u.map('n', '<leader>r', ':bd<CR><c-o>', opts)
+
+-- Ctrl+c = ESC, but I use Ctrl+[
+u.map('n', '<c-c>', '<ESC>')
+u.map('v', '<c-c>', '<ESC>')
+u.map('i', '<c-c>', '<ESC>')
+u.map('s', '<c-c>', '<ESC>')
 
 -- Resize window
 u.map('n', '<c-w><left>', '<c-w><')
@@ -171,8 +180,4 @@ u.map('n', '<space>go', ':GBrowse<CR>', opts)
 -- vCoolor.vim
 u.map('i', '<M-h>', '<c-o>:VCoolor<CR>', opts) -- for hex color
 -- other shortcuts are alt-v (for hsl) alt-r (rgb) alt-w (rgba) and alt-c
-
--- ccc color picker
-u.map('n', '<M-p>', ':CccPick<CR>', opts)
-u.map('i', '<M-p>', '<ESC>:CccPick<CR>', opts)
 -- }}}
