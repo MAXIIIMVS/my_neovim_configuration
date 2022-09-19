@@ -275,6 +275,16 @@ ab :separator_lst: ◀
 ab :separator_rst: ▶
 ab :separator_ltt: ❮
 ab :separator_rtt: ❯
+ab :1: ❶
+ab :2: ❷
+ab :3: ❸
+ab :4: ❹
+ab :5: ❺
+ab :6: ❻
+ab :7: ❼
+ab :8: ❽
+ab :9: ❾
+ab :10: ❿
 ab :aries: ♈
 ab :taurus: ♉
 ab :gemini: ♊

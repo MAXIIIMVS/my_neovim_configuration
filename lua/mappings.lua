@@ -49,8 +49,8 @@ u.map('n', '<c-l>', '<c-w>l', { noremap = true })
 u.map('n', '<c-h>', '<c-w>h', { noremap = true })
 
 -- next and previous buffer
-u.map('n', '<S-Tab>', ':bprev<CR>', opts)
-u.map('n', '<Tab>', ':bnext<CR>', opts)
+-- u.map('n', '<S-Tab>', ':bprev<CR>', opts)
+-- u.map('n', '<Tab>', ':bnext<CR>', opts)
 u.map('n', ';;', ':bd<CR>', opts)
 -- close the window
 u.map('n', ';q', '<c-w>q')
