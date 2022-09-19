@@ -6,7 +6,6 @@ require("bufferline").setup {
     sort_by = 'relative_directory',
     separator_style = 'slant',
     diagnostics = "nvim_lsp",
-    -- TODO: customize custom_areas
     custom_areas = {
       right = function()
         local result = {}
@@ -41,6 +40,8 @@ u.map('n', '<S-Tab>', '::BufferLineCyclePrev<CR>', opts)
 u.map('n', '<Tab>', '::BufferLineCycleNext<CR>', opts)
 u.map('n', ']b', ':BufferLineMoveNext<CR>', opts)
 u.map('n', '[b', ':BufferLineMovePrev<CR>', opts)
+u.map('n', ']c', ':BufferLineCloseRight<CR>', opts)
+u.map('n', '[c', ':BufferLineCloseLeft<CR>', opts)
 u.map('n', '<space>p', ':BufferLinePick<CR>', opts)
 u.map('n', '<space>P', ':BufferLinePickClose<CR>', opts)
 u.map('n', ';p', ':BufferLineTogglePin<CR>', opts)
