@@ -4,6 +4,7 @@ local opts = { noremap = true, silent = true }
 require("bufferline").setup {
   options = {
     sort_by = 'relative_directory',
+    -- numbers = "ordinal",
     separator_style = 'slant',
     diagnostics = "nvim_lsp",
     custom_areas = {
@@ -44,4 +45,5 @@ u.map('n', ']c', ':BufferLineCloseRight<CR>', opts)
 u.map('n', '[c', ':BufferLineCloseLeft<CR>', opts)
 u.map('n', '<space>p', ':BufferLinePick<CR>', opts)
 u.map('n', '<space>P', ':BufferLinePickClose<CR>', opts)
+-- u.map('n', '<leader>g', ':BufferLineGoToBuffer ')
 u.map('n', ';p', ':BufferLineTogglePin<CR>', opts)
