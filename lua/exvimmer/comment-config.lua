@@ -7,6 +7,11 @@ require('nvim_comment').setup({
 
 
 require("todo-comments").setup {
+  highlight = {
+    before = "",
+    keyword = "wide_bg",
+    after = "",
+  },
   keywords = {
     FIX = { icon = "🐞", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
     TODO = { icon = "⚓", color = "#00A3FF" },
@@ -33,3 +38,11 @@ u.map('n', ';ch', 'IHACK: <ESC>:CommentToggle<CR>^', opts)
 u.map('n', ';cP', 'OPERF: <ESC>:CommentToggle<CR>f:a ', opts)
 u.map('n', ';cp', 'IPERF: <ESC>:CommentToggle<CR>^', opts)
 u.map('n', ';cl', ':TodoLocList<CR>', opts)
+
+vim.keymap.set("n", "]T", function()
+  require("todo-comments").jump_next()
+end, { desc = "Next todo comment" })
+
+vim.keymap.set("n", "[T", function()
+  require("todo-comments").jump_prev()
+end, { desc = "Previous todo comment" })

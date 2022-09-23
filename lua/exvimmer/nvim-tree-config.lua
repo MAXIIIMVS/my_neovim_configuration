@@ -60,6 +60,7 @@ require 'nvim-tree'.setup {
   },
   view = {
     width = 39,
+    relativenumber = false,
     preserve_window_proportions = true
   },
   diagnostics = {

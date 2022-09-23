@@ -250,6 +250,8 @@ ab :moai: 🗿
 ab :pencil: ✏️
 ab :pen: 🖊️
 ab :note: 📝
+ab :stethoscope: 🩺
+ab :thread: 🧵
 ab :love_letter: 💌
 ab :hourglass: ⏳
 ab :watch: ⌚

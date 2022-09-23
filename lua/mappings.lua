@@ -54,6 +54,8 @@ u.map('n', '<c-h>', '<c-w>h', { noremap = true })
 u.map('n', ';;', ':bd<CR>', opts)
 -- close the window
 u.map('n', ';q', '<c-w>q')
+u.map('n', ']t', ':tabnext<CR>', opts)
+u.map('n', '[t', ':tabprevious<CR>', opts)
 
 -- substitution and insertion in visual mode
 u.map('n', ';s', ':s/')
