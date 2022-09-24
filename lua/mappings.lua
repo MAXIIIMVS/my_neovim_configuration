@@ -37,11 +37,6 @@ u.map('n', '<c-w><down>', '<c-w>+')
 u.map('n', ']<space>', 'o<ESC>k')
 u.map('n', '[<space>', 'O<ESC>j')
 
--- Go to the next or previous tab
--- NOTE: you can use [t & ]t for other tasks
-u.map('n', '[t', 'gT', opts)
-u.map('n', ']t', 'gt', opts)
-
 -- Switch between windows
 u.map('n', '<c-j>', '<c-w>j', { noremap = true })
 u.map('n', '<c-k>', '<c-w>k', { noremap = true })
@@ -54,8 +49,6 @@ u.map('n', '<c-h>', '<c-w>h', { noremap = true })
 u.map('n', ';;', ':bd<CR>', opts)
 -- close the window
 u.map('n', ';q', '<c-w>q')
-u.map('n', ']t', ':tabnext<CR>', opts)
-u.map('n', '[t', ':tabprevious<CR>', opts)
 
 -- substitution and insertion in visual mode
 u.map('n', ';s', ':s/')
