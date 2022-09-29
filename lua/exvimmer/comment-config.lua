@@ -8,7 +8,7 @@ require('nvim_comment').setup({
 
 require("todo-comments").setup {
   keywords = {
-    FIX = { icon = "🐞", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+    FIX = { icon = "🩺", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
     TODO = { icon = "⚓", color = "#00A3FF" },
     HACK = { icon = "💀", color = "#F945C1" },
     WARN = { icon = "💡", color = "#FBBF24", alt = { "WARNING", "XXX" } },

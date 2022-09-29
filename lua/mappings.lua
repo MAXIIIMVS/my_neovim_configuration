@@ -14,9 +14,9 @@ u.map('n', '<leader>O', ':!xdg-open .<CR>', opts)
 
 -- run prettier in the current directory
 u.map('n', '<leader>P',
-  ':silent !cd ' .. u.get_top_level() .. '&& prettier --ignore-path .gitignore -w .<CR>',
+  ':silent !cd ' .. u.get_top_level() .. '&& prettier --ignore-path .gitignore -w .<CR>:bd<CR><c-o>',
   opts)
-u.map('n', '<leader>p', ':silent !prettier --ignore-path .gitignore -w %<CR>', opts)
+u.map('n', '<leader>p', ':silent !prettier --ignore-path .gitignore -w %<CR>:bd<CR><c-o>', opts)
 
 -- close and open the file again
 u.map('n', '<leader>r', ':bd<CR><c-o>', opts)
@@ -38,10 +38,10 @@ u.map('n', ']<space>', 'o<ESC>k')
 u.map('n', '[<space>', 'O<ESC>j')
 
 -- Switch between windows
-u.map('n', '<c-j>', '<c-w>j', { noremap = true })
-u.map('n', '<c-k>', '<c-w>k', { noremap = true })
-u.map('n', '<c-l>', '<c-w>l', { noremap = true })
-u.map('n', '<c-h>', '<c-w>h', { noremap = true })
+u.map('n', ';j', '<c-w>j', { noremap = true })
+u.map('n', ';k', '<c-w>k', { noremap = true })
+u.map('n', ';l', '<c-w>l', { noremap = true })
+u.map('n', ';h', '<c-w>h', { noremap = true })
 
 -- next and previous buffer
 -- u.map('n', '<S-Tab>', ':bprev<CR>', opts)
@@ -127,12 +127,8 @@ u.map('n', ';f', ':Telescope find_files cwd=' .. u.get_top_level() .. '<CR>', op
 u.map('n', ';F', ':Telescope find_files hidden=true cwd=' .. u.get_top_level() .. '<CR>', opts)
 u.map('n', ';g', ':Telescope live_grep cwd=' .. u.get_top_level() .. '<CR>', opts)
 u.map('n', ';G', ':Telescope live_grep hidden=true cwd=' .. u.get_top_level() .. '<CR>', opts)
-u.map('n', ';h', ':Telescope help_tags<CR>', opts)
--- u.map('n', ';c', ':Telescope colorscheme<CR>', opts)
 u.map('n', ';b', ':Telescope buffers<CR>', opts)
 u.map('n', ';t', ':TodoTelescope cwd=' .. u.get_top_level() .. '<CR>', opts)
--- u.map('n', ';T', ':Telescope tags<CR>', opts)
--- u.map('n', ';m', ':Telescope man_pages<CR>', opts)
 u.map('n', ';o', ':Telescope oldfiles<CR>', opts)
 u.map('n', ';d', ':Telescope diagnostics cwd=' .. u.get_top_level() .. '<CR>', opts)
 u.map('n', ';<space>', ':Telescope<CR>', opts)
@@ -144,14 +140,13 @@ u.map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 u.map('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 u.map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 u.map('n', '<leader>f', ':lua vim.lsp.buf.formatting()<CR>', opts)
-u.map('n', '<space>lI', ':Mason<CR>', opts)
-u.map('n', '<space>li', ':LspInfo<CR>', opts)
-u.map('n', '<space>lr', ':LspRestart<CR>', opts)
-u.map('n', '<space>ls', ':LspStart<CR>', opts)
-u.map('n', '<space>lx', ':LspStop<CR>', { noremap = true })
+u.map('n', '<space>mI', ':Mason<CR>', opts)
+u.map('n', '<space>mi', ':LspInfo<CR>', opts)
+u.map('n', '<space>ms', ':LspStart<CR>', opts)
+u.map('n', '<space>mx', ':LspStop<CR>', { noremap = true })
 
 -- maximizer
-u.map('n', '<space>m', ':MaximizerToggle<CR>', opts)
+u.map('n', '<leader>m', ':MaximizerToggle<CR>', opts)
 
 -- choosewin
 -- u.map('n', '<space>w', ':ChooseWin<CR>', opts)
