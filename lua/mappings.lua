@@ -105,19 +105,19 @@ u.map('v', '<c-k>', ':m \'<-2<CR>gv=gv', { noremap = true })
 -- repeat the last command
 u.map('n', '<space>.', ':<UP><CR>', { noremap = true })
 
--- search the visually selected text
-cmd([[
-vnoremap <silent> * :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy/<C-R><C-R>=substitute(
-  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-vnoremap <silent> # :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy?<C-R><C-R>=substitute(
-  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-]])
+-- search the visually selected text, not required in nvim>0.8
+-- cmd([[
+-- vnoremap <silent> * :<C-U>
+--   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+--   \gvy/<C-R><C-R>=substitute(
+--   \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+--   \gV:call setreg('"', old_reg, old_regtype)<CR>
+-- vnoremap <silent> # :<C-U>
+--   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+--   \gvy?<C-R><C-R>=substitute(
+--   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+--   \gV:call setreg('"', old_reg, old_regtype)<CR>
+-- ]])
 
 -- nvim-tree
 u.map('n', '<space>e', ':NvimTreeToggle<CR>', opts)
@@ -139,7 +139,7 @@ u.map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 u.map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 u.map('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 u.map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-u.map('n', '<leader>f', ':lua vim.lsp.buf.formatting()<CR>', opts)
+u.map('n', '<leader>f', ':lua vim.lsp.buf.format {async = true}<CR>', opts)
 u.map('n', '<space>mI', ':Mason<CR>', opts)
 u.map('n', '<space>mi', ':LspInfo<CR>', opts)
 u.map('n', '<space>ms', ':LspStart<CR>', opts)
@@ -154,7 +154,7 @@ u.map('n', '<leader>m', ':MaximizerToggle<CR>', opts)
 -- vim-fugitive
 u.map('n', '<space>gs', ':G<CR>', opts)
 u.map('n', '<space>gS', ':G switch ', { noremap = true })
-u.map('n', '<space>gf', ':G fetch<CR>', opts) -- TODO: add prune
+u.map('n', '<space>gf', ':G fetch<CR>', opts)
 u.map('n', '<space>gP', ':G push<CR>', opts)
 u.map('n', '<space>gp', ':G pull<CR>', opts)
 u.map('n', '<space>gl', ':G log --decorate<CR>', opts)
