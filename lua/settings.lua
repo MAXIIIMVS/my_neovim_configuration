@@ -56,6 +56,7 @@ b.formatoptions = b.formatoptions .. "r"
 cmd([[
 au BufNewFile,BufRead *.es6 setf javascript
 au BufNewFile,BufRead *.tsx setf typescriptreact
+au BufNewFile,BufRead *.jsx setf javascriptreact
 au BufNewFile,BufRead *.md set filetype=markdown
 au BufNewFile,BufRead *.mdx set filetype=markdown
 au BufNewFile,BufRead *.flow set filetype=javascript
@@ -121,7 +122,8 @@ w.conceallevel = 0
 -- python3 path: chage if it's necessary, -- NOTE: I'm not sure about this
 g.python3_host_prog = '/usr/bin/python3'
 -- cmd('autocmd FileType javascript set filetype=javascriptreact')
-cmd('autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact')
+-- cmd('autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact')
+-- cmd('autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact')
 cmd([[
 au FocusGained,BufEnter * :silent! !
 hi CursorLine cterm=NONE ctermbg=232

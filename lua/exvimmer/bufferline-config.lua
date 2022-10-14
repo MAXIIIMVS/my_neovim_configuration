@@ -3,6 +3,14 @@ local opts = { noremap = true, silent = true }
 
 require("bufferline").setup {
   options = {
+    offsets = {
+      {
+        filetype = "NvimTree",
+        text = "File Explorer",
+        highlight = "Directory",
+        separator = true -- use a "true" to enable the default, or set your own character
+      }
+    },
     sort_by = 'relative_directory',
     -- numbers = "ordinal",
     separator_style = 'slant',

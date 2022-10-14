@@ -38,10 +38,10 @@ u.map('n', ']<space>', 'o<ESC>k')
 u.map('n', '[<space>', 'O<ESC>j')
 
 -- Switch between windows
-u.map('n', ';j', '<c-w>j', { noremap = true })
-u.map('n', ';k', '<c-w>k', { noremap = true })
-u.map('n', ';l', '<c-w>l', { noremap = true })
-u.map('n', ';h', '<c-w>h', { noremap = true })
+u.map('n', ';j', '<c-w>j', opts)
+u.map('n', ';k', '<c-w>k', opts)
+u.map('n', ';l', '<c-w>l', opts)
+u.map('n', ';h', '<c-w>h', opts)
 
 -- next and previous buffer
 -- u.map('n', '<S-Tab>', ':bprev<CR>', opts)
@@ -62,21 +62,21 @@ u.map('n', '<space>bo', ':%bd|e#|bd#<CR>|\'"', { noremap = true })
 -- delete all buffers
 u.map('n', '<space>ba', ':bufdo bd<CR>')
 
-u.map('i', '<c-a>', '<c-o>I', { noremap = true })
-u.map('i', '<c-e>', '<c-o>A', { noremap = true })
-u.map('i', '<c-k>', '<c-o>C', { noremap = true })
-u.map('i', '<c-u>', '<LEFT><c-o>v0x', { noremap = true })
+u.map('i', '<c-a>', '<c-o>I', opts)
+u.map('i', '<c-e>', '<c-o>A', opts)
+u.map('i', '<c-k>', '<c-o>C', opts)
+u.map('i', '<c-u>', '<LEFT><c-o>v0x', opts)
 -- u.map('i', '<c-y>', '<ESC>pa', {noremap = true})
-u.map('i', '<c-t>', '<ESC>x<LEFT>P<RIGHT>a', { noremap = true })
-u.map('i', '<c-f>', '<RIGHT>', { noremap = true })
-u.map('i', '<c-b>', '<LEFT>', { noremap = true })
+u.map('i', '<c-t>', '<ESC>x<LEFT>P<RIGHT>a', opts)
+u.map('i', '<c-f>', '<RIGHT>', opts)
+u.map('i', '<c-b>', '<LEFT>', opts)
 u.map('i', '<M-b>', '<C-LEFT>', opts)
 u.map('i', '<M-f>', '<C-RIGHT>', opts)
 u.map('i', '<M-d>', '<C-o>de', opts)
 u.map('s', '<M-d>', '<ESC>dei', opts)
 
 -- Enter -> :noh
-u.map('n', '<CR>', ':noh<CR><CR>', { noremap = true })
+u.map('n', '<CR>', ':noh<CR><CR>', opts)
 
 -- write to buffer only if buffer has changed: Ctrl+s -> :update
 u.map('n', '<c-s>', ':noh<CR>:update<CR>', { noremap = true })
@@ -92,18 +92,15 @@ u.map('v', '<M-s>', '<ESC>:noh<CR>:wall<CR>', { noremap = true })
 u.map('s', '<M-s>', '<ESC>:noh<CR>:wall<CR>', { noremap = true })
 
 -- Delete the characer after cursor
-u.map('i', '<C-d>', '<Del>', { noremap = true })
-u.map('s', '<C-d>', '<ESC><Del>i', { noremap = true })
+u.map('i', '<C-d>', '<Del>', opts)
+u.map('s', '<C-d>', '<ESC><Del>i', opts)
 
 -- make . to work with visually selected lines
-u.map('v', '.', ':normal.<CR>', { noremap = true })
+u.map('v', '.', ':normal.<CR>', opts)
 
 -- Move visual selection
-u.map('v', '<c-j>', ':m \'>+1<CR>gv=gv', { noremap = true })
-u.map('v', '<c-k>', ':m \'<-2<CR>gv=gv', { noremap = true })
-
--- repeat the last command
-u.map('n', '<space>.', ':<UP><CR>', { noremap = true })
+u.map('v', '<c-j>', ':m \'>+1<CR>gv=gv', opts)
+u.map('v', '<c-k>', ':m \'<-2<CR>gv=gv', opts)
 
 -- search the visually selected text, not required in nvim>0.8
 -- cmd([[

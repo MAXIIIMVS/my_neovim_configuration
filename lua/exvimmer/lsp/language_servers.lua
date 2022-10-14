@@ -1,7 +1,9 @@
 local lspconfig = require("lspconfig")
+local cmp_nvim_lsp = require('cmp_nvim_lsp')
 local lspformat = require("lsp-format")
 local lspinstaller = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
+local capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local DEFAULT_SETTINGS = {
   ui = {
@@ -91,8 +93,7 @@ mason_lspconfig.setup_handlers {
     end
     lspconfig[server_name].setup {
       on_attach = lspformat.on_attach,
-      capabilities = require('cmp_nvim_lsp').update_capabilities(
-        vim.lsp.protocol.make_client_capabilities()),
+      capabilities = capabilities,
       opts = opts,
     }
   end,
