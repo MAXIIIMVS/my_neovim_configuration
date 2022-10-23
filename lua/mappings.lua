@@ -38,10 +38,10 @@ u.map('n', ']<space>', 'o<ESC>k')
 u.map('n', '[<space>', 'O<ESC>j')
 
 -- Switch between windows
-u.map('n', ';j', '<c-w>j', opts)
-u.map('n', ';k', '<c-w>k', opts)
-u.map('n', ';l', '<c-w>l', opts)
-u.map('n', ';h', '<c-w>h', opts)
+u.map('n', '<space>j', '<c-w>j', opts)
+u.map('n', '<space>k', '<c-w>k', opts)
+u.map('n', '<space>l', '<c-w>l', opts)
+u.map('n', '<space>h', '<c-w>h', opts)
 
 -- next and previous buffer
 -- u.map('n', '<S-Tab>', ':bprev<CR>', opts)

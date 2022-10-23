@@ -2,7 +2,7 @@ local u = require('utils')
 local opts = { noremap = true, silent = true }
 
 require('nvim_comment').setup({
-  comment_empty = false,
+  comment_empty = true,
 })
 
 

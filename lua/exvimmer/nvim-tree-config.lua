@@ -1,4 +1,5 @@
 require 'nvim-tree'.setup {
+  create_in_closed_folder = true,
   hijack_netrw = true,
   renderer = {
     highlight_git = true,
