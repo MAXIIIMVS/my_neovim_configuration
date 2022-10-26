@@ -3,7 +3,7 @@ local cmp_nvim_lsp = require('cmp_nvim_lsp')
 local lspformat = require("lsp-format")
 local lspinstaller = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
-local capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local DEFAULT_SETTINGS = {
   ui = {
