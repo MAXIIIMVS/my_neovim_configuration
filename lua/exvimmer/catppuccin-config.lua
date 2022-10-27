@@ -1,65 +1,42 @@
-local catppuccin = require("catppuccin")
-
-catppuccin.setup({
-  transparent_background = false,
-  term_colors = true,
-  styles = {
-    comments = "italic",
-    functions = "italic",
-    keywords = "italic",
-    strings = "NONE",
-    variables = "italic",
+require("catppuccin").setup({
+  flavour = "mocha", -- latte, frappe, macchiato, mocha
+  background = { -- :h background
+    light = "latte",
+    dark = "mocha",
   },
+  compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
+  transparent_background = false,
+  term_colors = false,
+  dim_inactive = {
+    enabled = true,
+    shade = "dark",
+    percentage = 0.45,
+  },
+  styles = {
+    comments = { "italic" },
+    conditionals = { "italic" },
+    loops = {},
+    functions = {},
+    keywords = {},
+    strings = {},
+    variables = {},
+    numbers = {},
+    booleans = {},
+    properties = {},
+    types = {},
+    operators = {},
+  },
+  color_overrides = {},
+  custom_highlights = {},
   integrations = {
-    treesitter = true,
-    native_lsp = {
-      enabled = true,
-      virtual_text = {
-        errors = "italic",
-        hints = "italic",
-        warnings = "italic",
-        information = "italic",
-      },
-      underlines = {
-        errors = "underline",
-        hints = "underline",
-        warnings = "underline",
-        information = "underline",
-      },
-    },
-    lsp_trouble = false,
     cmp = true,
-    lsp_saga = true,
-    gitgutter = false,
     gitsigns = true,
+    nvimtree = true,
     telescope = true,
-    nvimtree = {
-      enabled = true,
-      show_root = false,
-      transparent_panel = false,
-    },
-    neotree = {
-      enabled = false,
-      show_root = false,
-      transparent_panel = false,
-    },
-    which_key = false,
-    indent_blankline = {
-      enabled = true,
-      colored_indent_levels = true,
-    },
-    dashboard = false,
-    neogit = false,
-    vim_sneak = false,
-    fern = false,
-    barbar = false,
-    bufferline = true,
-    markdown = true,
-    lightspeed = false,
-    ts_rainbow = true,
+    treesitter = true,
     hop = true,
-    notify = false,
-    telekasten = true,
-    symbols_outline = true,
-  }
+    mason = true,
+    ts_rainbow = true,
+    -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+  },
 })

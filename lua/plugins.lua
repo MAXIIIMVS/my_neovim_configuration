@@ -91,7 +91,7 @@ return require('packer').startup({ function(use)
   -- use { 'rafalbromirski/vim-aurora' }
   use { 'KabbAmine/vCoolor.vim' }
 
-  -- put this at the end after all plugins
+  -- put this at the end, after all plugins
   if packer_bootstrap then
     require('packer').sync()
   end

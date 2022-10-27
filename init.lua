@@ -8,5 +8,4 @@ require('settings')
 o.secure = true
 -- WARNING: 👆 security risk; don't switch this off
 
-vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
 vim.cmd [[colorscheme catppuccin]]
