@@ -104,6 +104,7 @@ o.mouse = 'a'
 o.autoread = true
 b.swapfile = false
 o.showmode = true
+b.textwidth = 80
 w.linebreak = true
 o.autochdir = true -- NOTE: When this option is on, some plugins may not work.
 o.hidden = true

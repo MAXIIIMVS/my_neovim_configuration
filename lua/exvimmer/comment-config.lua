@@ -14,6 +14,12 @@ require("todo-comments").setup {
     WARN = { icon = "💡", color = "#FBBF24", alt = { "WARNING", "XXX" } },
     PERF = { icon = "🎭", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
     NOTE = { icon = "📝", color = "#10B981", alt = { "INFO" } },
+    TEST = { icon = "🛡️", color = "#FFFD00", alt = { "TESTING", "PASSED", "FAILED" } },
+  },
+  highlight = {
+    multiline = true, -- enable multine todo comments
+    comments_only = false,
+    -- exclude = {}, -- list of file types to exclude highlighting
   },
 }
 
@@ -22,6 +28,8 @@ u.map('v', '<c-_>', ':CommentToggle<CR>', opts)
 u.map('i', '<c-_>', '<ESC>:CommentToggle<CR>', opts)
 u.map('n', ';cT', 'OTODO: <ESC>:CommentToggle<CR>f:a ', opts)
 u.map('n', ';ct', 'ITODO: <ESC>:CommentToggle<CR>^', opts)
+u.map('n', ';cE', 'OTEST: <ESC>:CommentToggle<CR>f:a ', opts)
+u.map('n', ';ce', 'ITEST: <ESC>:CommentToggle<CR>^', opts)
 u.map('n', ';cN', 'ONOTE: <ESC>:CommentToggle<CR>f:a ', opts)
 u.map('n', ';cn', 'INOTE: <ESC>:CommentToggle<CR>^', opts)
 u.map('n', ';cF', 'OFIX: <ESC>:CommentToggle<CR>f:a ', opts)
