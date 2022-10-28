@@ -48,8 +48,7 @@ return require('packer').startup({ function(use)
   use { "williamboman/mason.nvim" }
   use { "williamboman/mason-lspconfig.nvim" }
   use { 'neovim/nvim-lspconfig', config = "require('exvimmer/lsp')" }
-  -- NOTE: tami5/lspsaga.nvim is the maintained version
-  use { 'tami5/lspsaga.nvim', config = u.get_setup('lspsaga') }
+  use { 'glepnir/lspsaga.nvim', branch = "main", config = u.get_setup('lspsaga') }
   use { 'onsails/lspkind-nvim' }
   use { "lukas-reineke/lsp-format.nvim" }
   use { 'folke/lsp-colors.nvim', config = u.get_setup('lsp-colors') }

@@ -127,7 +127,7 @@ u.map('n', ';G', ':Telescope live_grep hidden=true cwd=' .. u.get_top_level() ..
 u.map('n', ';b', ':Telescope buffers<CR>', opts)
 u.map('n', ';t', ':TodoTelescope cwd=' .. u.get_top_level() .. '<CR>', opts)
 u.map('n', ';o', ':Telescope oldfiles<CR>', opts)
-u.map('n', ';d', ':Telescope diagnostics cwd=' .. u.get_top_level() .. '<CR>', opts)
+u.map('n', ';e', ':Telescope diagnostics cwd=' .. u.get_top_level() .. '<CR>', opts)
 u.map('n', ';<space>', ':Telescope<CR>', opts)
 
 -- lsp
@@ -136,6 +136,8 @@ u.map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 u.map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 u.map('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 u.map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+-- TODO: Replace gs with the lspsaga version when it's supported again
+u.map('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 u.map('n', '<leader>f', ':lua vim.lsp.buf.format {async = true}<CR>', opts)
 u.map('n', '<space>mI', ':Mason<CR>', opts)
 u.map('n', '<space>mi', ':LspInfo<CR>', opts)
