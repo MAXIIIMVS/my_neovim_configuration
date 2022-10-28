@@ -13,8 +13,8 @@ require("catppuccin").setup({
     percentage = 0.45,
   },
   styles = {
-    comments = { "italic", "bold" },
-    conditionals = { "italic" },
+    comments = { "bold" },
+    conditionals = {},
     loops = {},
     functions = {},
     keywords = {},
