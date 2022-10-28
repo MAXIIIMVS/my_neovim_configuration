@@ -1,4 +1,5 @@
 local o = vim.o
+require("plugins")
 require('mappings')
 require('settings')
 

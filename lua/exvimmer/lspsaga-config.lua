@@ -1,6 +1,5 @@
 local u = require('utils')
 local opts = { noremap = true, silent = true }
-local keymap = vim.keymap.set
 local saga = require('lspsaga')
 
 saga.init_lsp_saga({
@@ -17,7 +16,6 @@ saga.init_lsp_saga({
     sign_priority = 20,
     virtual_text = true,
   },
-  -- finder icons
   finder_icons = {
     def = '  ',
     ref = '諭 ',
@@ -39,8 +37,7 @@ saga.init_lsp_saga({
   }
 })
 
--- Outline
-keymap("n", "<leader>S", "<cmd>LSoutlineToggle<CR>", { silent = true })
+u.map("n", "<leader>S", "<cmd>LSoutlineToggle<CR>", opts)
 u.map('n', 'K', '<cmd>Lspsaga hover_doc<CR>', opts)
 u.map('n', 'gh', ':Lspsaga lsp_finder<CR>', opts)
 u.map('n', '<space>ca', ':Lspsaga code_action<CR>', opts)
