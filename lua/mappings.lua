@@ -74,6 +74,8 @@ u.map('i', '<M-b>', '<C-LEFT>', opts)
 u.map('i', '<M-f>', '<C-RIGHT>', opts)
 u.map('i', '<M-d>', '<C-o>de', opts)
 u.map('s', '<M-d>', '<ESC>dei', opts)
+u.map('s', '<c-e>', '<ESC>A', opts)
+u.map('s', '<c-a>', '<ESC>I', opts)
 
 -- Enter -> :noh
 u.map('n', '<CR>', ':noh<CR><CR>', opts)
@@ -128,6 +130,7 @@ u.map('n', ';b', ':Telescope buffers<CR>', opts)
 u.map('n', ';t', ':TodoTelescope cwd=' .. u.get_top_level() .. '<CR>', opts)
 u.map('n', ';o', ':Telescope oldfiles<CR>', opts)
 u.map('n', ';e', ':Telescope diagnostics cwd=' .. u.get_top_level() .. '<CR>', opts)
+u.map('n', ';h', '<cmd>Telescope help_tags<CR>', opts)
 u.map('n', ';<space>', ':Telescope<CR>', opts)
 
 -- lsp
