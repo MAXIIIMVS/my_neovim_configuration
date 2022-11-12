@@ -1,28 +1,14 @@
 require 'nvim-treesitter.configs'.setup {
-  -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = { 'c', 'cpp', 'css', 'go', 'gomod', 'gowork', 'graphql',
-    'html', 'javascript', 'jsdoc', 'json', 'lua', 'markdown', 'prisma', 'pug',
-    'python', 'rust', 'scss', 'typescript', 'tsx', 'vim', 'bash', 'dockerfile',
-    'vue', 'java', 'cmake', 'regex', 'svelte', 'json5', 'swift', 'solidity',
-    'llvm', 'c_sharp', 'make', 'http', 'latex', 'yaml', 'kotlin', 'ruby', 'toml'
-  },
-
-  -- Install languages synchronously (only applied to `ensure_installed`)
+  ensure_installed = "all",
   sync_install = false,
-
-  -- List of parsers to ignore installing
   ignore_install = {},
-
   indent = {
     enable = false,
     disable = {},
   },
-
   highlight = {
     -- `false` will disable the whole extension
     enable = true,
-
-    -- list of language that will be disabled
     disable = {},
 
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
