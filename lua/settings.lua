@@ -116,7 +116,9 @@ g.wildmenu = true
 -- o.statusline = '%F'
 o.updatetime = 500
 w.foldenable = true
-o.foldlevelstart = 99 -- NOTE: -1, 0, 1, 99
+-- NOTE: foldlevelstart: -1: default, 0: all folds closed, 1: some folds
+-- closed, 99: no folds closed
+o.foldlevelstart = 0
 -- w.foldnestmax = 10
 w.foldmethod = 'indent' -- manual, indent, syntax, marker, expr, diff
 w.conceallevel = 0
