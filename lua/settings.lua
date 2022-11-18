@@ -118,7 +118,7 @@ o.updatetime = 500
 w.foldenable = true
 -- NOTE: foldlevelstart: -1: default, 0: all folds closed, 1: some folds
 -- closed, 99: no folds closed
-o.foldlevelstart = 0
+o.foldlevelstart = 99
 -- w.foldnestmax = 10
 w.foldmethod = 'indent' -- manual, indent, syntax, marker, expr, diff
 w.conceallevel = 0

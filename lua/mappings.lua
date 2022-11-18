@@ -161,13 +161,15 @@ u.map('n', '<space>gP', ':G push<CR>', opts)
 u.map('n', '<space>gp', ':G pull<CR>', opts)
 u.map('n', '<space>gl', ':G log --decorate<CR>', opts)
 u.map('n', '<space>gL', ':G log --decorate -p<CR>', opts)
+u.map('n', '<space>gn', ':G log --stat<CR>', opts)
 u.map('n', '<space>gc', ':G commit<CR>', opts)
 u.map('n', '<space>gC', ':G commit --amend<CR>', opts)
 u.map('n', '<space>gd', ':Gvdiffsplit<CR>', opts)
+u.map('n', '<space>gD', ':Gvdiffsplit HEAD~<CR>', opts)
 u.map('n', '<space>gb', ':G blame<CR>', opts)
+u.map('n', '<space>gB', ':Telescope git_bcommits<CR>', opts)
 u.map('n', '<space>go', ':GBrowse<CR>', opts)
--- git related telescope
--- u.map('n', ';gb', ':Telescope git_branches<CR>', opts)
+u.map('n', '<space>gO', ':G checkout ', opts)
 
 -- vCoolor.vim
 u.map('i', '<M-h>', '<c-o>:VCoolor<CR>', opts) -- for hex color
