@@ -8,7 +8,7 @@ u.map('n', '<leader>s', ':so %<CR>')
 -- set filetype
 u.map('n', '<leader>y', ':set filetype=')
 
--- open the current file with the default app in linux
+-- open the current file with the default app in linux, or use open command
 u.map('n', '<leader>o', ':!xdg-open %<CR>', opts)
 u.map('n', '<leader>O', ':!xdg-open .<CR>', opts)
 
@@ -154,22 +154,26 @@ u.map('n', '<leader>m', ':MaximizerToggle<CR>', opts)
 -- u.map('n', '<space>w', ':ChooseWin<CR>', opts)
 
 -- vim-fugitive
-u.map('n', '<space>gs', ':G<CR>', opts)
-u.map('n', '<space>gS', ':G switch ', { noremap = true })
-u.map('n', '<space>gf', ':G fetch<CR>', opts)
-u.map('n', '<space>gP', ':G push<CR>', opts)
-u.map('n', '<space>gp', ':G pull<CR>', opts)
-u.map('n', '<space>gl', ':G log --decorate<CR>', opts)
-u.map('n', '<space>gL', ':G log --decorate -p<CR>', opts)
-u.map('n', '<space>gn', ':G log --stat<CR>', opts)
-u.map('n', '<space>gc', ':G commit<CR>', opts)
-u.map('n', '<space>gC', ':G commit --amend<CR>', opts)
-u.map('n', '<space>gd', ':Gvdiffsplit<CR>', opts)
-u.map('n', '<space>gD', ':Gvdiffsplit HEAD~<CR>', opts)
-u.map('n', '<space>gb', ':G blame<CR>', opts)
-u.map('n', '<space>gB', ':Telescope git_bcommits<CR>', opts)
-u.map('n', '<space>go', ':GBrowse<CR>', opts)
-u.map('n', '<space>gO', ':G checkout ', opts)
+u.map('n', '<space>gs', ':silent G<CR>', opts)
+u.map('n', '<space>gS', ':silent G switch ', { noremap = true })
+u.map('n', '<space>gf', ':silent G fetch<CR>', opts)
+u.map('n', '<space>gP', ':silent G push<CR>', opts)
+u.map('n', '<space>gp', ':silent G pull<CR>', opts)
+u.map('n', '<space>gl', ':silent G log --decorate<CR>', opts)
+u.map('n', '<space>gL', ':silent G log --decorate -p<CR>', opts)
+u.map('n', '<space>gn', ':silent G log --stat<CR>', opts)
+u.map('n', '<space>gc', ':silent G commit<CR>', opts)
+u.map('n', '<space>gC', ':silent G commit --amend<CR>', opts)
+u.map('n', '<space>gd', ':silent Gvdiffsplit<CR>', opts)
+u.map('n', '<space>gD', ':silent Gvdiffsplit HEAD~<CR>', opts)
+u.map('n', '<space>gb', ':silent G blame<CR>', opts)
+u.map('n', '<space>gB', ':silent Telescope git_bcommits<CR>', opts)
+u.map('n', '<space>go', ':silent GBrowse<CR>', opts)
+u.map('n', '<space>gO', ':silent G checkout ', opts)
+u.map('n', '<space>g[', ':silent G checkout HEAD^<CR>', opts)
+u.map('n', '<space>g]',
+  ":silent !git checkout $(git rev-list --topo-order HEAD..$(git remote show origin | sed -n '/HEAD branch/s/.*: //p') | tail -1)<CR>"
+  , opts)
 
 -- vCoolor.vim
 u.map('i', '<M-h>', '<c-o>:VCoolor<CR>', opts) -- for hex color
