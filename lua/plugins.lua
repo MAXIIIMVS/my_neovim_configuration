@@ -71,7 +71,6 @@ return require('packer').startup({ function(use)
     config = "require('exvimmer/blankline-config')",
     event = "BufRead"
   }
-  use { 'szw/vim-maximizer' }
   use { 'tpope/vim-surround' }
   use { 'tpope/vim-fugitive' }
   use { 'tpope/vim-rhubarb' }

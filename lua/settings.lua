@@ -91,7 +91,7 @@ end
 
 -- Settings {{{
 -- ---------------------------------------------------------------------
-o.omnifunc = 'syntaxcomplete#Complete'
+-- o.omnifunc = 'syntaxcomplete#Complete'
 o.errorbells = false
 o.belloff = 'all'
 o.confirm = true
