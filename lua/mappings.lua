@@ -27,12 +27,6 @@ u.map('v', '<c-c>', '<ESC>')
 u.map('i', '<c-c>', '<ESC>')
 u.map('s', '<c-c>', '<ESC>')
 
--- Resize window
-u.map('n', '<c-w><left>', '<c-w><')
-u.map('n', '<c-w><right>', '<c-w>>')
-u.map('n', '<c-w><up>', '<c-w>-')
-u.map('n', '<c-w><down>', '<c-w>+')
-
 --insert a blank line around the cursor
 u.map('n', ']<space>', 'o<ESC>k')
 u.map('n', '[<space>', 'O<ESC>j')
