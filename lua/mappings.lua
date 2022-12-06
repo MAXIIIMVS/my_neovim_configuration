@@ -1,6 +1,5 @@
 local u = require('utils')
 local opts = { noremap = true, silent = true }
-local expr_opts = { noremap = true, expr = true, silent = true }
 -- MAPPINGS {{{
 -- ---------------------------------------------------------------------
 -- source the file
@@ -28,6 +27,9 @@ u.map("n", "<C-Left>", ":vertical resize +2<CR>", opts)
 u.map("n", "<C-Right>", ":vertical resize -1<CR>", opts)
 u.map("n", "<C-Up>", ":resize -1<CR>", opts)
 u.map("n", "<C-Down>", ":resize +1<CR>", opts)
+
+-- Paste over currently selected text without yanking it
+u.map("v", "p", '"_dP', opts)
 
 -- run prettier in the current directory
 u.map('n', '<leader>P',
