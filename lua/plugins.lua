@@ -55,7 +55,6 @@ return require('packer').startup({ function(use)
   })
   use { 'onsails/lspkind-nvim' }
   use { "lukas-reineke/lsp-format.nvim" }
-  use { 'folke/lsp-colors.nvim', config = u.get_setup('lsp-colors') }
   use { 'hrsh7th/nvim-cmp' }
   use { 'hrsh7th/cmp-nvim-lsp' }
   use { 'hrsh7th/cmp-buffer' }
@@ -65,6 +64,8 @@ return require('packer').startup({ function(use)
   use { 'saadparwaiz1/cmp_luasnip' }
   use { "terrortylor/nvim-comment", config = u.get_setup('comment') }
   use { 'folke/todo-comments.nvim', config = u.get_setup('comment') }
+  use { 'folke/lsp-colors.nvim', config = u.get_setup('lsp-colors') }
+  use { "folke/which-key.nvim", config = u.get_setup('which-key') }
   use { 'NvChad/nvim-colorizer.lua', config = u.get_setup('colorizer'), event = "BufRead" }
   use {
     "lukas-reineke/indent-blankline.nvim",
