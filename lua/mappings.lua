@@ -1,6 +1,6 @@
 local u = require('utils')
-local cmd = vim.cmd
 local opts = { noremap = true, silent = true }
+local expr_opts = { noremap = true, expr = true, silent = true }
 -- MAPPINGS {{{
 -- ---------------------------------------------------------------------
 -- source the file
@@ -11,6 +11,23 @@ u.map('n', '<leader>y', ':set filetype=')
 -- open the current file with the default app in linux, or use open command
 u.map('n', '<leader>o', ':!xdg-open %<CR>', opts)
 u.map('n', '<leader>O', ':!xdg-open .<CR>', opts)
+
+-- Center search results
+u.map("n", "n", "nzz", opts)
+u.map("n", "N", "Nzz", opts)
+
+-- Better indent
+u.map("v", "<", "<gv", opts)
+u.map("v", ">", ">gv", opts)
+
+-- Paste over currently selected text without yanking it
+u.map("v", "p", '"_dP', opts)
+
+-- Resizing panes
+u.map("n", "<C-Left>", ":vertical resize +2<CR>", opts)
+u.map("n", "<C-Right>", ":vertical resize -1<CR>", opts)
+u.map("n", "<C-Up>", ":resize -1<CR>", opts)
+u.map("n", "<C-Down>", ":resize +1<CR>", opts)
 
 -- run prettier in the current directory
 u.map('n', '<leader>P',
@@ -141,9 +158,6 @@ u.map('n', '<space>mI', ':Mason<CR>', opts)
 u.map('n', '<space>mi', ':LspInfo<CR>', opts)
 u.map('n', '<space>ms', ':LspStart<CR>', opts)
 u.map('n', '<space>mx', ':LspStop<CR>', { noremap = true })
-
--- choosewin
--- u.map('n', '<space>w', ':ChooseWin<CR>', opts)
 
 -- vim-fugitive
 u.map('n', '<space>gs', ':silent G<CR>', opts)
