@@ -186,4 +186,7 @@ u.map('n', '<space>g]',
 -- vCoolor.vim
 u.map('i', '<M-h>', '<c-o>:VCoolor<CR>', opts) -- for hex color
 -- other shortcuts are alt-v (for hsl) alt-r (rgb) alt-w (rgba) and alt-c
+
+-- zen-mode
+u.map('n', ';z', '<cmd>ZenMode<CR>')
 -- }}}

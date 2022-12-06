@@ -66,6 +66,12 @@ return require('packer').startup({ function(use)
   use { 'folke/todo-comments.nvim', config = u.get_setup('comment') }
   use { 'folke/lsp-colors.nvim', config = u.get_setup('lsp-colors') }
   use { "folke/which-key.nvim", config = u.get_setup('which-key') }
+  use {
+    "folke/zen-mode.nvim",
+    config = function()
+      require("zen-mode").setup {}
+    end
+  }
   use { 'NvChad/nvim-colorizer.lua', config = u.get_setup('colorizer'), event = "BufRead" }
   use {
     "lukas-reineke/indent-blankline.nvim",
