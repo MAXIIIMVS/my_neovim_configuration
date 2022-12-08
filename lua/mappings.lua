@@ -12,15 +12,12 @@ u.map('n', '<leader>o', ':!xdg-open %<CR>', opts)
 u.map('n', '<leader>O', ':!xdg-open .<CR>', opts)
 
 -- Center search results
-u.map("n", "n", "nzz", opts)
-u.map("n", "N", "Nzz", opts)
+-- u.map("n", "n", "nzz", opts)
+-- u.map("n", "N", "Nzz", opts)
 
 -- Better indent
 u.map("v", "<", "<gv", opts)
 u.map("v", ">", ">gv", opts)
-
--- Paste over currently selected text without yanking it
-u.map("v", "p", '"_dP', opts)
 
 -- Resizing panes
 u.map("n", "<C-Left>", ":vertical resize +2<CR>", opts)
