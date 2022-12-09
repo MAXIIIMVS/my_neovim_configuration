@@ -35,7 +35,10 @@ u.map('n', '<leader>P',
 u.map('n', '<leader>p', ':silent !prettier --ignore-path .gitignore -w %<CR>:bd<CR><c-o>', opts)
 
 -- close and open the file again
-u.map('n', '<leader>r', ':bd<CR><c-o>', opts)
+-- u.map('n', '<leader>r', ':bd<CR><c-o>', opts)
+
+-- toggle rainbow off an on
+u.map('n', '<leader>r', '<cmd>TSDisable rainbow | TSEnable rainbow<CR>', opts)
 
 -- Ctrl+c = ESC, but I use Ctrl+[
 u.map('n', '<c-c>', '<ESC>')
