@@ -57,9 +57,7 @@ return require('packer').startup({ function(use)
   -- use { "lukas-reineke/lsp-format.nvim" }
   use({
     "jose-elias-alvarez/null-ls.nvim",
-    config = function()
-      require("null-ls").setup()
-    end,
+    config = u.get_setup("null_ls"),
     requires = { "nvim-lua/plenary.nvim" },
   })
   use { 'hrsh7th/nvim-cmp' }
