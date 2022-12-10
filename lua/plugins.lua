@@ -54,7 +54,14 @@ return require('packer').startup({ function(use)
     config = u.get_setup("lspsaga")
   })
   use { 'onsails/lspkind-nvim' }
-  use { "lukas-reineke/lsp-format.nvim" }
+  -- use { "lukas-reineke/lsp-format.nvim" }
+  use({
+    "jose-elias-alvarez/null-ls.nvim",
+    config = function()
+      require("null-ls").setup()
+    end,
+    requires = { "nvim-lua/plenary.nvim" },
+  })
   use { 'hrsh7th/nvim-cmp' }
   use { 'hrsh7th/cmp-nvim-lsp' }
   use { 'hrsh7th/cmp-buffer' }
@@ -75,7 +82,7 @@ return require('packer').startup({ function(use)
   use { 'NvChad/nvim-colorizer.lua', config = u.get_setup('colorizer'), event = "BufRead" }
   use {
     "lukas-reineke/indent-blankline.nvim",
-    config = "require('exvimmer/blankline-config')",
+    config = "require('exvimmer/blankline')",
     event = "BufRead"
   }
   use { 'tpope/vim-surround' }
@@ -96,8 +103,6 @@ return require('packer').startup({ function(use)
     as = "catppuccin",
     config = u.get_setup('catppuccin')
   })
-
-  -- use { 'rafalbromirski/vim-aurora' }
   use { 'KabbAmine/vCoolor.vim' }
 
   -- put this at the end, after all plugins
