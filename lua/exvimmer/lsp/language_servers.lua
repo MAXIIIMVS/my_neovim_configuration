@@ -44,6 +44,32 @@ local on_attach = function(client, bufnr)
 end
 
 local mason_default_settings = {
+	ensure_installed = {
+		"black",
+		"clangd",
+		"cmake-language-server",
+		"cmakelang",
+		"csharp-language-server",
+		"csharpier",
+		"css-lsp",
+		"dockerfile-language-server",
+		"emmet-ls",
+		"eslint-lsp",
+		"gopls",
+		"graphql-language-service-cli",
+		"html-lsp",
+		"json-lsp",
+		"lua-language-server",
+		"prettier",
+		"prisma-language-server",
+		"pyright",
+		"rust-analyzer",
+		"stylua",
+		"typescript-language-server",
+		"vue-language-server",
+		"yaml-language-server",
+	},
+	automatic_installation = false,
 	ui = {
 		border = "single",
 		icons = {

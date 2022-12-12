@@ -55,7 +55,6 @@ return require("packer").startup({
 			config = u.get_setup("lspsaga"),
 		})
 		use({ "onsails/lspkind-nvim" })
-		-- use { "lukas-reineke/lsp-format.nvim" }
 		use({
 			"jose-elias-alvarez/null-ls.nvim",
 			config = u.get_setup("null_ls"),

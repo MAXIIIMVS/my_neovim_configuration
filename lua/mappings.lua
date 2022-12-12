@@ -154,31 +154,6 @@ u.map("n", "<space>mi", ":LspInfo<CR>", opts)
 u.map("n", "<space>ms", ":LspStart<CR>", opts)
 u.map("n", "<space>mx", ":LspStop<CR>", { noremap = true })
 
--- vim-fugitive
-u.map("n", "<space>gs", ":silent G<CR>", opts)
-u.map("n", "<space>gS", ":silent G switch ", { noremap = true })
-u.map("n", "<space>gf", ":silent G fetch<CR>", opts)
-u.map("n", "<space>gP", ":silent G push<CR>", opts)
-u.map("n", "<space>gp", ":silent G pull<CR>", opts)
-u.map("n", "<space>gl", ":silent G log --decorate<CR>", opts)
-u.map("n", "<space>gL", ":silent G log --decorate -p<CR>", opts)
-u.map("n", "<space>gn", ":silent G log --stat<CR>", opts)
-u.map("n", "<space>gc", ":silent G commit<CR>", opts)
-u.map("n", "<space>gC", ":silent G commit --amend<CR>", opts)
-u.map("n", "<space>gd", ":silent Gvdiffsplit<CR>", opts)
-u.map("n", "<space>gD", ":silent Gvdiffsplit HEAD~<CR>", opts)
-u.map("n", "<space>gb", ":silent G blame<CR>", opts)
-u.map("n", "<space>gB", ":silent Telescope git_bcommits<CR>", opts)
-u.map("n", "<space>go", ":silent GBrowse<CR>", opts)
-u.map("n", "<space>gO", ":silent G checkout ", opts)
-u.map("n", "<space>g[", ":silent G checkout HEAD^<CR>", opts)
-u.map(
-	"n",
-	"<space>g]",
-	":silent !git checkout $(git rev-list --topo-order HEAD..$(git remote show origin | sed -n '/HEAD branch/s/.*: //p') | tail -1)<CR>",
-	opts
-)
-
 -- vCoolor.vim
 u.map("i", "<M-h>", "<c-o>:VCoolor<CR>", opts) -- for hex color
 -- other shortcuts are alt-v (for hsl) alt-r (rgb) alt-w (rgba) and alt-c

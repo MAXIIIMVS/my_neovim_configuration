@@ -1,4 +1,4 @@
-local utils = require('utils')
+local utils = require("utils")
 local g = vim.g
 local o = vim.o
 local w = vim.wo
@@ -7,15 +7,15 @@ local cmd = vim.cmd
 
 -- Fundamental {{{
 -- NOTE: I'm not sure about this, remove if not necessary
-cmd('autocmd!') -- Remove ALL autocommands for the current group.
-cmd('syntax on')
-cmd('filetype plugin indent on')
+cmd("autocmd!") -- Remove ALL autocommands for the current group.
+cmd("syntax on")
+cmd("filetype plugin indent on")
 -- cmd('scriptencoding utf-8') -- FIX:
 w.number = true
 w.relativenumber = true
-w.signcolumn = 'yes:1'
-o.fileencodings = 'utf-8,sjis,euc-jp,latin'
-o.encoding = 'utf-8'
+w.signcolumn = "yes:1"
+o.fileencodings = "utf-8,sjis,euc-jp,latin"
+o.encoding = "utf-8"
 o.title = true
 o.autoindent = true
 o.backup = false
@@ -29,7 +29,7 @@ o.laststatus = 3
 o.timeoutlen = 300
 -- incremental substitution (neovim)
 if vim.fn.has("nvim") == 1 then
-  o.inccommand = 'split'
+	o.inccommand = "split"
 end
 
 -- Suppress appending <PasteStart> and <PasteEnd> when pasting
@@ -44,12 +44,11 @@ o.path = o.path .. "**" -- or w.path, IDK
 o.wildignore = o.wildignore .. "*/node_modules/*"
 
 -- Turn off paste mode when leaving insert
-cmd('autocmd InsertLeave * set nopaste')
+cmd("autocmd InsertLeave * set nopaste")
 
 -- Add asterisks in block comments
 b.formatoptions = b.formatoptions .. "r"
 --}}}
-
 
 -- File types {{{
 -----------------------------------------------------------------------
@@ -76,16 +75,16 @@ autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 -----------------------------------------------------------------------
 -- true color
 if vim.fn.exists("&termguicolors") == 1 and vim.fn.exists("&winblend") then
-  cmd('syntax enable')
-  o.termguicolors = true
-  o.wildoptions = 'pum'
-  w.winblend = 0
-  o.pumblend = 5
-  o.background = 'dark'
-  -- Use NeoSolarized
-  -- vim.g.neosolarized_termtrans = 1
-  -- require('colors')
-  -- cmd('colorscheme NeoSolarized')
+	cmd("syntax enable")
+	o.termguicolors = true
+	o.wildoptions = "pum"
+	w.winblend = 0
+	o.pumblend = 5
+	o.background = "dark"
+	-- Use NeoSolarized
+	-- vim.g.neosolarized_termtrans = 1
+	-- require('colors')
+	-- cmd('colorscheme NeoSolarized')
 end
 -- }}}
 
@@ -93,14 +92,14 @@ end
 -- ---------------------------------------------------------------------
 -- o.omnifunc = 'syntaxcomplete#Complete'
 o.errorbells = false
-o.belloff = 'all'
+o.belloff = "all"
 o.confirm = true
 -- o.guifont= 'firaCode'
-o.guifont = 'FiraMono Nerd Font Medium'
+o.guifont = "FiraMono Nerd Font Medium"
 vim.go.t_Co = "256"
 -- vim.go.t_ut = ""
-o.clipboard = 'unnamedplus'
-o.mouse = 'a'
+o.clipboard = "unnamedplus"
+o.mouse = "a"
 o.autoread = true
 b.swapfile = false
 o.showmode = true
@@ -108,9 +107,9 @@ b.textwidth = 80
 w.linebreak = true
 o.autochdir = true -- NOTE: When this option is on, some plugins may not work.
 o.hidden = true
-w.colorcolumn = '80'
+w.colorcolumn = "80"
 -- cmd('highlight ColorColumn ctermbg=DarkBlue')
-o.wildmode = 'full'
+o.wildmode = "full"
 o.wildmenu = true
 g.wildmenu = true
 -- o.statusline = '%F'
@@ -120,10 +119,10 @@ w.foldenable = true
 -- closed, 99: no folds closed
 o.foldlevelstart = 99
 -- w.foldnestmax = 10
-w.foldmethod = 'indent' -- manual, indent, syntax, marker, expr, diff
+w.foldmethod = "indent" -- manual, indent, syntax, marker, expr, diff
 w.conceallevel = 0
 -- python3 path: chage if it's necessary, -- NOTE: I'm not sure about this
-g.python3_host_prog = '/usr/bin/python3'
+g.python3_host_prog = "/usr/bin/python3"
 -- cmd('autocmd FileType javascript set filetype=javascriptreact')
 -- cmd('autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact')
 -- cmd('autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact')
@@ -149,9 +148,9 @@ b.expandtab = true
 
 -- vim.cmd[[colorscheme aurora]]
 -- hide tildes (only vim), this doesn't work for nvim-tree
-w.fillchars = 'eob: '
+w.fillchars = "eob: "
 -- or put this after colorscheme (vim & nvim), works for nvim-tree
-vim.cmd('hi NonText guifg=bg')
+vim.cmd("hi NonText guifg=bg")
 -- }}}
 
 -- Highlights {{{
@@ -166,16 +165,16 @@ endif
 ]])
 
 utils.create_augroup({
-  { 'WinEnter', '*', 'set', 'cul' },
-  { 'WinLeave', '*', 'set', 'nocul' }
-}, 'BgHighlight')
+	{ "WinEnter", "*", "set", "cul" },
+	{ "WinLeave", "*", "set", "nocul" },
+}, "BgHighlight")
 
 -- change the split bar color to yellow
-cmd('highlight VertSplit guifg=#32afff')
+cmd("highlight VertSplit guifg=#32afff")
 -- }}}
 
 -- format files when using :wq and not using sync in lsp formatting
-vim.cmd [[cabbrev wq execute "Format sync" <bar> wq]]
+vim.cmd([[cabbrev wq execute "Format sync" <bar> wq]])
 
 -- emoji shortcuts {{{
 -- ---------------------------------------------------------------------
