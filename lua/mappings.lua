@@ -148,12 +148,6 @@ u.map("n", ";e", ":Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", o
 u.map("n", ";h", "<cmd>Telescope help_tags<CR>", opts)
 u.map("n", ";<space>", ":Telescope<CR>", opts)
 
--- lsp
-u.map("n", "<space>mI", ":Mason<CR>", opts)
-u.map("n", "<space>mi", ":LspInfo<CR>", opts)
-u.map("n", "<space>ms", ":LspStart<CR>", opts)
-u.map("n", "<space>mx", ":LspStop<CR>", { noremap = true })
-
 -- vCoolor.vim
 u.map("i", "<M-h>", "<c-o>:VCoolor<CR>", opts) -- for hex color
 -- other shortcuts are alt-v (for hsl) alt-r (rgb) alt-w (rgba) and alt-c
