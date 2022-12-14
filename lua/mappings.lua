@@ -93,7 +93,7 @@ u.map("s", "<c-e>", "<ESC>A", opts)
 u.map("s", "<c-a>", "<ESC>I", opts)
 
 -- Enter -> :noh
-u.map("n", "<CR>", ":noh<CR><CR>", opts)
+-- u.map("n", "<CR>", ":noh<CR><CR>", opts)
 
 -- write to buffer only if buffer has changed: Ctrl+s -> :update
 u.map("n", "<c-s>", ":noh<CR>:update<CR>", { noremap = true })

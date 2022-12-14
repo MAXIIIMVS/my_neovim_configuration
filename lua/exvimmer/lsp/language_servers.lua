@@ -25,14 +25,14 @@ local on_attach = function(client, bufnr)
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+	vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", bufopts)
+	vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", bufopts)
+	vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", bufopts)
 	-- TODO: Replace gs with the lspsaga version when it's supported again
-	vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, bufopts)
+	vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
 	vim.keymap.set("i", "<C-x>", "<c-o><cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
-	vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, bufopts)
-	vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+	vim.keymap.set("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", bufopts)
+	vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", bufopts)
 	vim.keymap.set("n", "<leader>f", function()
 		vim.lsp.buf.format({ async = true })
 	end, bufopts)
@@ -40,8 +40,8 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<space>mi", ":LspInfo<CR>", bufopts)
 	vim.keymap.set("n", "<space>ms", ":LspStart<CR>", bufopts)
 	vim.keymap.set("n", "<space>mS", ":LspStop<CR>", { noremap = true })
-	vim.keymap.set("n", "<space>ma", vim.lsp.buf.add_workspace_folder, bufopts)
-	vim.keymap.set("n", "<space>mr", vim.lsp.buf.remove_workspace_folder, bufopts)
+	vim.keymap.set("n", "<space>ma", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", bufopts)
+	vim.keymap.set("n", "<space>mr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", bufopts)
 	vim.keymap.set("n", "<space>ml", function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, bufopts)
@@ -58,13 +58,15 @@ local mason_default_settings = {
 		"css-lsp",
 		"dockerfile-language-server",
 		"emmet-ls",
-		"eslint-lsp",
+		-- "eslint-lsp",
+		"eslint_d",
 		"gopls",
 		"graphql-language-service-cli",
 		"html-lsp",
 		"json-lsp",
 		"lua-language-server",
-		"prettier",
+		-- "prettier",
+		"prettierd",
 		"prisma-language-server",
 		"pyright",
 		"rust-analyzer",
@@ -120,8 +122,8 @@ mason_lspconfig.setup_handlers({
 					"javascript.jsx",
 					"typescript.tsx",
 					-- "htmldjango" -- doesn't work
-					-- "gohtml" -- TODO: check
-					-- "tmpl.html" -- TODO: check
+					"gohtml",
+					"tmpl.html",
 				},
 			},
 		})
@@ -132,7 +134,14 @@ mason_lspconfig.setup_handlers({
 			on_attach = on_attach,
 			capabilities = lsp_defaults.capabilities,
 			opts = {
-				filetypes = { "html", "handlebars", "htmldjango", "blade" },
+				filetypes = {
+					"html",
+					"handlebars",
+					"htmldjango",
+					"blade",
+					"gohtml",
+					"tmpl.html",
+				},
 			},
 		})
 	end,

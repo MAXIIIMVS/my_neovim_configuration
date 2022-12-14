@@ -28,7 +28,7 @@ require("telescope").setup({
 		border = {},
 		borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
 		color_devicons = true,
-		-- use_less = true,
+		use_less = true,
 		set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
 		file_previewer = require("telescope.previewers").vim_buffer_cat.new,
 		grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
@@ -38,9 +38,11 @@ require("telescope").setup({
 			n = {
 				["q"] = actions.close,
 				["<C-h>"] = "which_key",
+				-- ["<C-r>"] = "delete_buffer",
 			}, -- n
 			i = {
 				["<C-h>"] = "which_key",
+				-- ["<C-r>"] = "delete_buffer",
 			}, -- i
 		}, -- mappings
 	},

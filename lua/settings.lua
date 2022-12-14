@@ -25,7 +25,7 @@ o.smartcase = true
 o.showcmd = true
 o.cmdheight = 1
 o.laststatus = 3
--- o.scrolloff = 3
+o.scrolloff = 2
 o.timeoutlen = 300
 -- incremental substitution (neovim)
 if vim.fn.has("nvim") == 1 then
@@ -174,7 +174,7 @@ cmd("highlight VertSplit guifg=#32afff")
 -- }}}
 
 -- format files when using :wq and not using sync in lsp formatting
-vim.cmd([[cabbrev wq execute "Format sync" <bar> wq]])
+-- vim.cmd([[cabbrev wq execute "Format sync" <bar> wq]])
 
 -- emoji shortcuts {{{
 -- ---------------------------------------------------------------------
@@ -223,6 +223,10 @@ ab :snake: 🐍
 ab :octopus: 🐙
 ab :duck: 🦆
 ab :gorilla: 🦍
+ab :koala: 🐨
+ab :lady_beetle: 🐞
+ab :ox: 🐂
+ab :turtle: 🐢
 ab :rhino: 🦏
 ab :zombie: 🧟
 ab :maple_leaf: 🍁
