@@ -26,7 +26,7 @@ o.showcmd = true
 o.cmdheight = 1
 o.laststatus = 3
 o.scrolloff = 2
-o.timeoutlen = 300
+o.timeoutlen = 400
 -- incremental substitution (neovim)
 if vim.fn.has("nvim") == 1 then
 	o.inccommand = "split"
@@ -299,6 +299,7 @@ ab :separator_lst: ◀
 ab :separator_rst: ▶
 ab :separator_ltt: ❮
 ab :separator_rtt: ❯
+ab :ellipsis: …
 ab :1: ❶
 ab :2: ❷
 ab :3: ❸

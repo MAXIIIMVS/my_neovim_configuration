@@ -32,7 +32,7 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
 	vim.keymap.set("i", "<C-x>", "<c-o><cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
 	vim.keymap.set("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", bufopts)
-	vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", bufopts)
+	vim.keymap.set("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", bufopts)
 	vim.keymap.set("n", "<leader>f", function()
 		vim.lsp.buf.format({ async = true })
 	end, bufopts)
@@ -56,6 +56,7 @@ local mason_default_settings = {
 		"csharp-language-server",
 		"csharpier",
 		"css-lsp",
+		-- "djlint", -- if djlint is problematic (it's unmaintained) install djhtml manually
 		"dockerfile-language-server",
 		"emmet-ls",
 		-- "eslint-lsp",
@@ -153,7 +154,7 @@ mason_lspconfig.setup_handlers({
 		})
 	end,
 	["tsserver"] = function()
-		lspconfig["tsserver"].setup({
+		lspconfig.tsserver.setup({
 			on_attach = on_attach,
 			capabilities = lsp_defaults.capabilities,
 			opts = {

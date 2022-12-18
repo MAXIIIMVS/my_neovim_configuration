@@ -134,7 +134,7 @@ u.map("v", "<c-k>", ":m '<-2<CR>gv=gv", opts)
 -- ]])
 
 -- nvim-tree
-u.map("n", "<space>e", ":NvimTreeToggle<CR>", opts)
+u.map("n", "<space>e", "<cmd>NvimTreeToggle<CR>", opts)
 
 -- telescope
 u.map("n", ";f", ":Telescope find_files cwd=" .. u.get_top_level() .. "<CR>", opts)
@@ -145,7 +145,7 @@ u.map("n", ";b", ":Telescope buffers<CR>", opts)
 u.map("n", ";t", ":TodoTelescope cwd=" .. u.get_top_level() .. "<CR>", opts)
 u.map("n", ";o", ":Telescope oldfiles<CR>", opts)
 u.map("n", ";e", ":Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", opts)
-u.map("n", ";h", "<cmd>Telescope help_tags<CR>", opts)
+u.map("n", ";H", "<cmd>Telescope help_tags<CR>", opts)
 u.map("n", ";<space>", ":Telescope<CR>", opts)
 
 -- vCoolor.vim
