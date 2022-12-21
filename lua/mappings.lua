@@ -12,10 +12,6 @@ u.map("n", "<leader>y", ":set filetype=")
 u.map("n", "<leader>o", ":!xdg-open %<CR>", opts)
 u.map("n", "<leader>O", ":!xdg-open .<CR>", opts)
 
--- Center search results
--- u.map("n", "n", "nzz", opts)
--- u.map("n", "N", "Nzz", opts)
-
 -- Better indent
 u.map("v", "<", "<gv", opts)
 u.map("v", ">", ">gv", opts)
@@ -41,12 +37,6 @@ u.map("v", "p", '"_dP', opts)
 
 -- toggle rainbow off an on
 u.map("n", "<leader>r", "<cmd>TSDisable rainbow<CR><cmd>TSEnable rainbow<CR>", opts)
-
--- Ctrl+c = ESC, but I use Ctrl+[
-u.map("n", "<c-c>", "<ESC>")
-u.map("v", "<c-c>", "<ESC>")
-u.map("i", "<c-c>", "<ESC>")
-u.map("s", "<c-c>", "<ESC>")
 
 --insert a blank line around the cursor
 u.map("n", "]<space>", "o<ESC>k")
@@ -77,23 +67,11 @@ u.map("n", "<space>bo", ":%bd|e#|bd#<CR>|'\"", { noremap = true })
 -- delete all buffers
 u.map("n", "<space>ba", ":bufdo bd<CR>")
 
-u.map("i", "<c-a>", "<c-o>I", opts)
-u.map("i", "<c-e>", "<c-o>A", opts)
+-- use vim-rsi instead
 u.map("i", "<c-k>", "<c-o>C", opts)
-u.map("i", "<c-u>", "<LEFT><c-o>v0x", opts)
--- u.map('i', '<c-y>', '<ESC>pa', {noremap = true})
-u.map("i", "<c-t>", "<ESC>x<LEFT>P<RIGHT>a", opts)
-u.map("i", "<c-f>", "<RIGHT>", opts)
-u.map("i", "<c-b>", "<LEFT>", opts)
-u.map("i", "<M-b>", "<C-LEFT>", opts)
-u.map("i", "<M-f>", "<C-RIGHT>", opts)
-u.map("i", "<M-d>", "<C-o>de", opts)
 u.map("s", "<M-d>", "<ESC>dei", opts)
 u.map("s", "<c-e>", "<ESC>A", opts)
 u.map("s", "<c-a>", "<ESC>I", opts)
-
--- Enter -> :noh
--- u.map("n", "<CR>", ":noh<CR><CR>", opts)
 
 -- write to buffer only if buffer has changed: Ctrl+s -> :update
 u.map("n", "<c-s>", ":noh<CR>:update<CR>", { noremap = true })
@@ -107,10 +85,6 @@ u.map("n", "<M-s>", ":noh<CR>:wall<CR>", { noremap = true })
 u.map("i", "<M-s>", "<ESC>:noh<CR>:wall<CR>", { noremap = true })
 u.map("v", "<M-s>", "<ESC>:noh<CR>:wall<CR>", { noremap = true })
 u.map("s", "<M-s>", "<ESC>:noh<CR>:wall<CR>", { noremap = true })
-
--- Delete the characer after cursor
-u.map("i", "<C-d>", "<Del>", opts)
-u.map("s", "<C-d>", "<ESC><Del>i", opts)
 
 -- make . to work with visually selected lines
 u.map("v", ".", ":normal.<CR>", opts)

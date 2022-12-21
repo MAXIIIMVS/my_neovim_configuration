@@ -87,6 +87,7 @@ return require("packer").startup({
 		use({ "tpope/vim-surround" })
 		use({ "tpope/vim-fugitive" })
 		use({ "tpope/vim-rhubarb" })
+		use({ "tpope/vim-rsi" })
 		use({ "nvim-lua/popup.nvim" })
 		use({ "phaazon/hop.nvim", config = u.get_setup("hop") })
 		-- use {'simrat39/rust-tools.nvim'}
