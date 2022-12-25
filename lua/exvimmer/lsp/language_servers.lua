@@ -110,22 +110,20 @@ mason_lspconfig.setup_handlers({
 		lspconfig.emmet_ls.setup({
 			on_attach = on_attach,
 			capabilities = lsp_defaults.capabilities,
-			opts = {
-				filetypes = {
-					"html",
-					"css",
-					"sass",
-					"scss",
-					"less",
-					"vue",
-					"javascriptreact",
-					"typescriptreact",
-					"javascript.jsx",
-					"typescript.tsx",
-					-- "htmldjango" -- doesn't work
-					"gohtml",
-					"tmpl.html",
-				},
+			filetypes = {
+				"html",
+				"css",
+				"sass",
+				"scss",
+				"less",
+				"vue",
+				"javascriptreact",
+				"typescriptreact",
+				"jsx",
+				"tsx",
+				"htmldjango", -- doesn't work
+				"gohtml",
+				"tmpl.html",
 			},
 		})
 	end,
@@ -134,15 +132,13 @@ mason_lspconfig.setup_handlers({
 		lspconfig.html.setup({
 			on_attach = on_attach,
 			capabilities = lsp_defaults.capabilities,
-			opts = {
-				filetypes = {
-					"html",
-					"handlebars",
-					"htmldjango",
-					"blade",
-					"gohtml",
-					"tmpl.html",
-				},
+			filetypes = {
+				"html",
+				"handlebars",
+				"htmldjango",
+				"blade",
+				"gohtml",
+				"tmpl.html",
 			},
 		})
 	end,
@@ -157,15 +153,13 @@ mason_lspconfig.setup_handlers({
 		lspconfig.tsserver.setup({
 			on_attach = on_attach,
 			capabilities = lsp_defaults.capabilities,
-			opts = {
-				filetypes = {
-					"javascript",
-					"typescript",
-					"javascriptreact",
-					"typescriptreact",
-					"javascript.jsx",
-					"typescript.tsx",
-				},
+			filetypes = {
+				"javascript",
+				"typescript",
+				"javascriptreact",
+				"typescriptreact",
+				"jsx",
+				"tsx",
 			},
 		})
 	end,

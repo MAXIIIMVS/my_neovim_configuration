@@ -37,11 +37,11 @@ require("telescope").setup({
 		mappings = {
 			n = {
 				["q"] = actions.close,
-				["<C-h>"] = "which_key",
+				-- ["<C-h>"] = "which_key",
 				-- ["<C-r>"] = "delete_buffer",
 			}, -- n
 			i = {
-				["<C-h>"] = "which_key",
+				-- ["<C-h>"] = "which_key",
 				-- ["<C-r>"] = "delete_buffer",
 			}, -- i
 		}, -- mappings

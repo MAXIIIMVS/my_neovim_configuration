@@ -9,8 +9,8 @@ u.map("n", "<leader>s", ":so %<CR>")
 u.map("n", "<leader>y", ":set filetype=")
 
 -- open the current file with the default app in linux, or use open command
-u.map("n", "<leader>o", ":!xdg-open %<CR>", opts)
-u.map("n", "<leader>O", ":!xdg-open .<CR>", opts)
+u.map("n", ";x", ":silent !xdg-open %<CR>", opts)
+u.map("n", ";X", ":silent !xdg-open .<CR>", opts)
 
 -- Better indent
 u.map("v", "<", "<gv", opts)
@@ -70,6 +70,8 @@ u.map("n", "<space>ba", ":bufdo bd<CR>")
 -- use vim-rsi instead
 u.map("i", "<c-k>", "<c-o>C", opts)
 u.map("s", "<M-d>", "<ESC>dei", opts)
+u.map("s", "<M-b>", "<ESC>bi", opts)
+u.map("s", "<M-f>", "<ESC>ei", opts)
 u.map("s", "<c-e>", "<ESC>A", opts)
 u.map("s", "<c-a>", "<ESC>I", opts)
 
@@ -118,8 +120,8 @@ u.map("n", ";G", ":Telescope live_grep hidden=true cwd=" .. u.get_top_level() ..
 u.map("n", ";b", ":Telescope buffers<CR>", opts)
 u.map("n", ";t", ":TodoTelescope cwd=" .. u.get_top_level() .. "<CR>", opts)
 u.map("n", ";o", ":Telescope oldfiles<CR>", opts)
-u.map("n", ";e", ":Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", opts)
-u.map("n", ";H", "<cmd>Telescope help_tags<CR>", opts)
+u.map("n", ";E", ":Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", opts)
+u.map("n", ";h", "<cmd>Telescope help_tags<CR>", opts)
 u.map("n", ";<space>", ":Telescope<CR>", opts)
 
 -- vCoolor.vim

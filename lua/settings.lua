@@ -6,11 +6,6 @@ local b = vim.bo
 local cmd = vim.cmd
 
 -- Fundamental {{{
--- NOTE: I'm not sure about this, remove if not necessary
-cmd("autocmd!") -- Remove ALL autocommands for the current group.
-cmd("syntax on")
-cmd("filetype plugin indent on")
--- cmd('scriptencoding utf-8') -- FIX:
 w.number = true
 w.relativenumber = true
 w.signcolumn = "yes:1"
@@ -49,27 +44,6 @@ cmd("autocmd InsertLeave * set nopaste")
 -- Add asterisks in block comments
 b.formatoptions = b.formatoptions .. "r"
 --}}}
-
--- File types {{{
------------------------------------------------------------------------
-cmd([[
-au BufNewFile,BufRead *.es6 setf javascript
-au BufNewFile,BufRead *.tsx setf typescriptreact
-au BufNewFile,BufRead *.jsx setf javascriptreact
-au BufNewFile,BufRead *.md set filetype=markdown
-au BufNewFile,BufRead *.mdx set filetype=markdown
-au BufNewFile,BufRead *.flow set filetype=javascript
-au BufNewFile,BufRead *.fish set filetype=fish
-autocmd FileType coffee setlocal shiftwidth=2 tabstop=2
-autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
-autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
-]])
--- }}}
-
--- run prettier before save
--- cmd([[
--- autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html :silent !prettier -w %
--- ]])
 
 -- Syntax theme "{{{
 -----------------------------------------------------------------------
@@ -181,6 +155,7 @@ cmd("highlight VertSplit guifg=#32afff")
 cmd([[
 ab :check: ✅
 ab :empty: 🔳
+ab :check_mark: ✓
 ab :cross: ❌
 ab :pin: 📌
 ab :right: ➡
