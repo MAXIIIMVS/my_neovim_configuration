@@ -1,4 +1,10 @@
-require("catppuccin").setup({
+local present, catppuccin = pcall(require, "catppuccin")
+
+if not present then
+	return
+end
+
+local options = {
 	flavour = "mocha", -- latte, frappe, macchiato, mocha
 	background = { -- :h background
 		light = "latte",
@@ -26,7 +32,11 @@ require("catppuccin").setup({
 		types = {},
 		operators = {},
 	},
-	color_overrides = {},
+	color_overrides = {
+		mocha = {
+			base = "#1A1A2F",
+		},
+	},
 	custom_highlights = {},
 	integrations = {
 		cmp = true,
@@ -37,6 +47,9 @@ require("catppuccin").setup({
 		hop = true,
 		mason = true,
 		ts_rainbow = true,
-		-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+		-- For more plugins integrations please scroll down
+		-- (https://github.com/catppuccin/nvim#integrations)
 	},
-})
+}
+
+catppuccin.setup(options)
