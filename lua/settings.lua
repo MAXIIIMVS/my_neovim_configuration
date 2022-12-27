@@ -156,6 +156,7 @@ cmd([[
 ab :check: ✅
 ab :empty: 🔳
 ab :check_mark: ✓
+ab :pi: 𝞹
 ab :cross: ❌
 ab :pin: 📌
 ab :right: ➡

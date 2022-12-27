@@ -36,7 +36,7 @@ u.map("v", "p", '"_dP', opts)
 -- u.map('n', '<leader>r', ':bd<CR><c-o>', opts)
 
 -- toggle rainbow off an on
-u.map("n", "<leader>r", "<cmd>TSDisable rainbow<CR><cmd>TSEnable rainbow<CR>", opts)
+u.map("n", "<leader>r", "<cmd>TSDisable rainbow<bar>TSEnable rainbow<CR>", opts)
 
 --insert a blank line around the cursor
 u.map("n", "]<space>", "o<ESC>k")

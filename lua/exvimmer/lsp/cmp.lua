@@ -1,29 +1,55 @@
 vim.g.completeopt = "menu,menuone,noselect"
 
+local present, cmp = pcall(require, "cmp")
+
+if not present then
+	return
+end
+
 require("luasnip.loaders.from_vscode").lazy_load()
 
-local has_words_before = function()
-	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+local function border(hl_name)
+	return {
+		{ "╭", hl_name },
+		{ "─", hl_name },
+		{ "╮", hl_name },
+		{ "│", hl_name },
+		{ "╯", hl_name },
+		{ "─", hl_name },
+		{ "╰", hl_name },
+		{ "│", hl_name },
+	}
 end
 
-local feedkey = function(key, mode)
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+local cmp_window = require("cmp.utils.window")
+cmp_window.info_ = cmp_window.info
+---@diagnostic disable-next-line: duplicate-set-field
+cmp_window.info = function(self)
+	local info = self:info_()
+	info.scrollable = false
+	return info
 end
 
--- Setup nvim-cmp.
-local cmp = require("cmp")
-
-cmp.setup({
-	snippet = {
-		-- REQUIRED - you must specify a snippet engine
-		expand = function(args)
-			require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-		end,
-	},
+local options = {
 	window = {
-		completion = cmp.config.window.bordered(),
-		documentation = cmp.config.window.bordered(),
+		completion = {
+			border = border("CmpBorder"),
+			winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
+			scrolloff = 0,
+			side_padding = 0,
+			col_offset = 0,
+		},
+		documentation = {
+			border = border("CmpDocBorder"),
+			scrolloff = 0,
+			side_padding = 0,
+			col_offset = 0,
+		},
+	},
+	snippet = {
+		expand = function(args)
+			require("luasnip").lsp_expand(args.body)
+		end,
 	},
 	mapping = cmp.mapping.preset.insert({
 		["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -47,15 +73,14 @@ cmp.setup({
 			end
 		end,
 	}),
-	sources = cmp.config.sources({
+	sources = {
+		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
-		{ name = "luasnip" }, -- For luasnip users.
 		{ name = "buffer" },
+		{ name = "nvim_lua" },
 		{ name = "path" },
-	}, {
-		{ name = "buffer" },
-	}),
-})
+	},
+}
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
@@ -83,3 +108,5 @@ cmp.setup.cmdline(":", {
 		{ name = "cmdline" },
 	}),
 })
+
+cmp.setup(options)
