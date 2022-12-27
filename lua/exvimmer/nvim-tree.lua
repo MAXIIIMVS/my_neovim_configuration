@@ -1,6 +1,19 @@
-require("nvim-tree").setup({
-	create_in_closed_folder = false,
+local present, nvimtree = pcall(require, "nvim-tree")
+
+if not present then
+	return
+end
+
+local options = {
+	disable_netrw = true,
 	hijack_netrw = true,
+	hijack_cursor = true,
+	hijack_unnamed_buffer_when_opening = false,
+	sync_root_with_cwd = true,
+	update_focused_file = {
+		enable = true,
+		update_root = true,
+	},
 	renderer = {
 		highlight_git = true,
 		indent_markers = {
@@ -49,6 +62,7 @@ require("nvim-tree").setup({
 	actions = {
 		open_file = {
 			quit_on_open = true,
+			resize_window = true,
 			window_picker = {
 				enable = true,
 				chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
@@ -60,7 +74,7 @@ require("nvim-tree").setup({
 		},
 	},
 	view = {
-		width = 39,
+		width = 30,
 		relativenumber = false,
 		preserve_window_proportions = true,
 	},
@@ -85,4 +99,9 @@ require("nvim-tree").setup({
 		custom = { ".git" },
 		exclude = { ".gitignore", ".env", ".github" },
 	},
-})
+	filesystem_watchers = {
+		enable = true,
+	},
+}
+
+nvimtree.setup(options)
