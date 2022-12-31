@@ -57,7 +57,7 @@ return require("packer").startup({
 			branch = "main",
 			config = u.get_setup("lspsaga"),
 		})
-		use({ "onsails/lspkind-nvim" })
+		-- use({ "onsails/lspkind-nvim" })
 		use({
 			"jose-elias-alvarez/null-ls.nvim",
 			config = u.get_setup("null_ls"),
