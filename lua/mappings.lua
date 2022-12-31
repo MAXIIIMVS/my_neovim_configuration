@@ -9,8 +9,8 @@ u.map("n", "<leader>s", ":so %<CR>")
 u.map("n", "<leader>y", ":set filetype=")
 
 -- open the current file with the default app in linux, or use open command
-u.map("n", ";x", ":silent !xdg-open %<CR>", opts)
-u.map("n", ";X", ":silent !xdg-open .<CR>", opts)
+u.map("n", ";o", ":silent !xdg-open %<CR>", opts)
+u.map("n", ";O", ":silent !xdg-open .<CR>", opts)
 
 -- Better indent
 u.map("v", "<", "<gv", opts)
@@ -119,7 +119,7 @@ u.map("n", ";g", ":Telescope live_grep cwd=" .. u.get_top_level() .. "<CR>", opt
 u.map("n", ";G", ":Telescope live_grep hidden=true cwd=" .. u.get_top_level() .. "<CR>", opts)
 u.map("n", ";b", ":Telescope buffers<CR>", opts)
 u.map("n", ";t", ":TodoTelescope cwd=" .. u.get_top_level() .. "<CR>", opts)
-u.map("n", ";o", ":Telescope oldfiles<CR>", opts)
+u.map("n", ";r", ":Telescope oldfiles<CR>", opts)
 u.map("n", ";E", ":Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", opts)
 u.map("n", ";h", "<cmd>Telescope help_tags<CR>", opts)
 u.map("n", ";<space>", ":Telescope<CR>", opts)
@@ -130,4 +130,10 @@ u.map("i", "<M-h>", "<c-o>:VCoolor<CR>", opts) -- for hex color
 
 -- zen-mode
 u.map("n", ";z", "<cmd>ZenMode<CR>")
+
+-- maximize the window
+u.map("n", ";Z", "<c-w>|<c-w>_")
+
+-- dashboard
+u.map("n", ";d", "<cmd>Dashboard<CR>", opts)
 -- }}}

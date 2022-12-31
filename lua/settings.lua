@@ -6,6 +6,7 @@ local b = vim.bo
 local cmd = vim.cmd
 
 -- Fundamental {{{
+g.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal" -- removed blank
 w.number = true
 w.relativenumber = true
 w.signcolumn = "yes:1"
@@ -150,12 +151,91 @@ cmd("highlight VertSplit guifg=#32afff")
 -- format files when using :wq and not using sync in lsp formatting
 -- vim.cmd([[cabbrev wq execute "Format sync" <bar> wq]])
 
+-- dashboard {{{
+vim.g.dashboard_default_executive = "telescope"
+
+-- local home = os.getenv("HOME")
+local db = require("dashboard")
+-- macos
+-- db.preview_command = "cat | lolcat -F 0.3"
+-- linux
+-- db.preview_command = "ueberzug"
+--
+-- db.preview_file_path = home .. "/.config/nvim/static/neovim.cat"
+db.custom_header = {
+	[[=================     ===============     ===============   ========  ========]],
+	[[\\ . . . . . . .\\   //. . . . . . .\\   //. . . . . . .\\  \\. . .\\// . . //]],
+	[[||. . ._____. . .|| ||. . ._____. . .|| ||. . ._____. . .|| || . . .\/ . . .||]],
+	[[|| . .||   ||. . || || . .||   ||. . || || . .||   ||. . || ||. . . . . . . ||]],
+	[[||. . ||   || . .|| ||. . ||   || . .|| ||. . ||   || . .|| || . | . . . . .||]],
+	[[|| . .||   ||. _-|| ||-_ .||   ||. . || || . .||   ||. _-|| ||-_.|\ . . . . ||]],
+	[[||. . ||   ||-'  || ||  `-||   || . .|| ||. . ||   ||-'  || ||  `|\_ . .|. .||]],
+	[[|| . _||   ||    || ||    ||   ||_ . || || . _||   ||    || ||   |\ `-_/| . ||]],
+	[[||_-' ||  .|/    || ||    \|.  || `-_|| ||_-' ||  .|/    || ||   | \  / |-_.||]],
+	[[||    ||_-'      || ||      `-_||    || ||    ||_-'      || ||   | \  / |  `||]],
+	[[||    `'         || ||         `'    || ||    `'         || ||   | \  / |   ||]],
+	[[||            .===' `===.         .==='.`===.         .===' /==. |  \/  |   ||]],
+	[[||         .=='   \_|-_ `===. .==='   _|_   `===. .===' _-|/   `==  \/  |   ||]],
+	[[||      .=='    _-'    `-_  `='    _-'   `-_    `='  _-'   `-_  /|  \/  |   ||]],
+	[[||   .=='    _-'          '-__\._-'         '-_./__-'         `' |. /|  |   ||]],
+	[[||.=='    _-'                                                     `' |  /==.||]],
+	[[=='    _-'                        N E O V I M                         \/   `==]],
+	[[\   _-'                                                                `-_   /]],
+	[[ `''                                                                      ``']],
+}
+
+db.custom_center = {
+	{
+		icon = "  ",
+		desc = "Recently latest session                 ",
+		shortcut = "SPC s l",
+		action = "SessionLoad",
+	},
+	{
+		icon = "  ",
+		desc = "Recently opened files                   ",
+		action = "Telescope oldfiles",
+		shortcut = "SPC f h",
+	},
+	{
+		icon = "  ",
+		desc = "Find  File                              ",
+		action = "Telescope find_files find_command=rg,--hidden,--files",
+		shortcut = "SPC f f",
+	},
+	{
+		icon = "  ",
+		desc = "File Browser                            ",
+		action = "Telescope file_browser",
+		shortcut = "SPC f b",
+	},
+	{
+		icon = "  ",
+		desc = "Find  word                              ",
+		action = "Telescope live_grep",
+		shortcut = "SPC f w",
+	},
+	{
+		icon = "  ",
+		desc = "Open Help Tags                          ",
+		action = "Telescope help_tags",
+		shortcut = "SPC f d",
+	},
+}
+db.custom_footer = { "Mustafa Hayati" }
+db.hide_statusline = true
+db.hide_tabline = true
+db.hide_winbar = true
+db.preview_file_height = 11
+db.preview_file_width = 70
+-- }}}
+
 -- emoji shortcuts {{{
 -- ---------------------------------------------------------------------
 cmd([[
 ab :check: ✅
 ab :empty: 🔳
-ab :check_mark: ✓
+ab :check_mark: ✔
 ab :pi: 𝞹
 ab :cross: ❌
 ab :pin: 📌
@@ -202,6 +282,7 @@ ab :gorilla: 🦍
 ab :koala: 🐨
 ab :lady_beetle: 🐞
 ab :ox: 🐂
+ab :dh: ⏃
 ab :turtle: 🐢
 ab :rhino: 🦏
 ab :zombie: 🧟

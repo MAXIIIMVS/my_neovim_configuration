@@ -68,7 +68,8 @@ local options = {
 		}, -- mappings
 	},
 
-	extensions_list = { "themes", "terms" },
+	-- extensions_list = { "file_browser", "themes", "terms" },
+	extensions_list = { "file_browser" },
 }
 
 telescope.setup(options)

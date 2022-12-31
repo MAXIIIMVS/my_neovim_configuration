@@ -14,6 +14,7 @@ return require("packer").startup({
 	function(use)
 		use({ "wbthomason/packer.nvim" })
 		use({ "kyazdani42/nvim-web-devicons", config = u.get_setup("nvim-web-devicons") })
+		use({ "glepnir/dashboard-nvim" })
 		use({
 			"nvim-treesitter/nvim-treesitter",
 			run = ":TSUpdate",
@@ -47,6 +48,7 @@ return require("packer").startup({
 			cmd = "Telescope",
 			config = u.get_setup("telescope"),
 		})
+		use({ "nvim-telescope/telescope-file-browser.nvim" })
 		use({ "williamboman/mason.nvim" })
 		use({ "williamboman/mason-lspconfig.nvim" })
 		use({ "neovim/nvim-lspconfig", config = "require('exvimmer/lsp')" })
