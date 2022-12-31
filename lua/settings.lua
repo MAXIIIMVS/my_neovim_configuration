@@ -222,7 +222,7 @@ db.custom_center = {
 		shortcut = "SPC f d",
 	},
 }
-db.custom_footer = { "Mustafa Hayati" }
+db.custom_footer = { "👑 Mustafa Hayati 👑" }
 db.hide_statusline = true
 db.hide_tabline = true
 db.hide_winbar = true
@@ -283,6 +283,7 @@ ab :koala: 🐨
 ab :lady_beetle: 🐞
 ab :ox: 🐂
 ab :dh: ⏃
+ab :octocat: 
 ab :turtle: 🐢
 ab :rhino: 🦏
 ab :zombie: 🧟

@@ -1,5 +1,6 @@
 local u = require("utils")
 local opts = { noremap = true, silent = true }
+local home = os.getenv("HOME")
 
 -- MAPPINGS {{{
 -- ---------------------------------------------------------------------
@@ -118,6 +119,7 @@ u.map("n", ";F", ":Telescope find_files hidden=true cwd=" .. u.get_top_level() .
 u.map("n", ";g", ":Telescope live_grep cwd=" .. u.get_top_level() .. "<CR>", opts)
 u.map("n", ";G", ":Telescope live_grep hidden=true cwd=" .. u.get_top_level() .. "<CR>", opts)
 u.map("n", ";b", ":Telescope buffers<CR>", opts)
+u.map("n", ";d", "<cmd>Telescope file_browser cwd=" .. home .. "<CR>", opts)
 u.map("n", ";t", ":TodoTelescope cwd=" .. u.get_top_level() .. "<CR>", opts)
 u.map("n", ";r", ":Telescope oldfiles<CR>", opts)
 u.map("n", ";E", ":Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", opts)
@@ -135,5 +137,5 @@ u.map("n", ";z", "<cmd>ZenMode<CR>")
 u.map("n", ";Z", "<c-w>|<c-w>_")
 
 -- dashboard
-u.map("n", ";d", "<cmd>Dashboard<CR>", opts)
+u.map("n", ";i", "<cmd>Dashboard<CR>", opts)
 -- }}}
