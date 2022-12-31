@@ -1,3 +1,4 @@
+local home = os.getenv("HOME")
 local utils = require("utils")
 local g = vim.g
 local o = vim.o
@@ -154,7 +155,6 @@ cmd("highlight VertSplit guifg=#32afff")
 -- dashboard {{{
 vim.g.dashboard_default_executive = "telescope"
 
--- local home = os.getenv("HOME")
 local db = require("dashboard")
 -- macos
 -- db.preview_command = "cat | lolcat -F 0.3"
@@ -206,7 +206,7 @@ db.custom_center = {
 	{
 		icon = "  ",
 		desc = "File Browser                            ",
-		action = "Telescope file_browser",
+		action = "Telescope file_browser cwd=" .. home,
 		shortcut = "SPC f b",
 	},
 	{

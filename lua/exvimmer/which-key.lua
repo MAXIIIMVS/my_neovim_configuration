@@ -8,7 +8,7 @@ local u = require("utils")
 
 local options = {
 	window = {
-		border = "none", -- none, single, double, shadow
+		border = "single", -- none, single, double, shadow
 		position = "bottom", -- bottom, top
 		winblend = 0,
 	},

@@ -47,8 +47,8 @@ require("bufferline").setup({
 
 u.map("n", "<S-Tab>", "::BufferLineCyclePrev<CR>", opts)
 u.map("n", "<Tab>", "::BufferLineCycleNext<CR>", opts)
-u.map("n", "]b", ":BufferLineMoveNext<CR>", opts)
-u.map("n", "[b", ":BufferLineMovePrev<CR>", opts)
+u.map("n", "]B", ":BufferLineMoveNext<CR>", opts)
+u.map("n", "[B", ":BufferLineMovePrev<CR>", opts)
 u.map("n", "]x", ":BufferLineCloseRight<CR>", opts)
 u.map("n", "[x", ":BufferLineCloseLeft<CR>", opts)
 u.map("n", "<space>bp", ":BufferLinePick<CR>", opts)

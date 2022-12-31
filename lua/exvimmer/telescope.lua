@@ -24,11 +24,15 @@ local options = {
 		layout_config = {
 			horizontal = {
 				prompt_position = "top",
-				preview_width = 0.6,
-				results_width = 0.8,
+				preview_width = 0.55,
+				-- results_width = 0.8,
 			},
 			vertical = {
-				mirror = false,
+				prompt_position = "top",
+				mirror = true,
+			},
+			flex = {
+				flip_columns = 120,
 			},
 			width = 0.90,
 			height = 0.80,
@@ -40,11 +44,11 @@ local options = {
 		initial_mode = "insert",
 		selection_strategy = "reset",
 		sorting_strategy = "ascending",
-		layout_strategy = "horizontal",
+		layout_strategy = "flex",
 		file_sorter = require("telescope.sorters").get_fuzzy_file,
 		file_ignore_patterns = { "node_modules" },
 		generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-		path_display = { "truncate" },
+		path_display = { truncate = 3 },
 		winblend = 0,
 		border = {},
 		borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },

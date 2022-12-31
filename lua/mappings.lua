@@ -50,8 +50,8 @@ u.map("n", "<space>l", "<c-w>l", opts)
 u.map("n", "<space>h", "<c-w>h", opts)
 
 -- next and previous buffer
--- u.map('n', '<S-Tab>', ':bprev<CR>', opts)
--- u.map('n', '<Tab>', ':bnext<CR>', opts)
+u.map("n", "[b", ":bprev<CR>", opts)
+u.map("n", "]b", ":bnext<CR>", opts)
 u.map("n", ";;", ":bd<CR>", opts)
 -- close the window
 u.map("n", ";q", "<c-w>q")
@@ -119,7 +119,8 @@ u.map("n", ";F", ":Telescope find_files hidden=true cwd=" .. u.get_top_level() .
 u.map("n", ";g", ":Telescope live_grep cwd=" .. u.get_top_level() .. "<CR>", opts)
 u.map("n", ";G", ":Telescope live_grep hidden=true cwd=" .. u.get_top_level() .. "<CR>", opts)
 u.map("n", ";b", ":Telescope buffers<CR>", opts)
-u.map("n", ";d", "<cmd>Telescope file_browser cwd=" .. home .. "<CR>", opts)
+u.map("n", ";D", "<cmd>Telescope file_browser cwd=" .. home .. "<CR>", opts)
+u.map("n", ";d", "<cmd>Telescope file_browser cwd=" .. u.get_top_level() .. "<CR>", opts)
 u.map("n", ";t", ":TodoTelescope cwd=" .. u.get_top_level() .. "<CR>", opts)
 u.map("n", ";r", ":Telescope oldfiles<CR>", opts)
 u.map("n", ";E", ":Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", opts)
