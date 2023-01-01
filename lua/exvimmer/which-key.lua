@@ -23,4 +23,4 @@ local options = {
 
 wk.setup(options)
 
-u.map("n", "<c-h>", "<cmd>WhichKey<CR>", { noremap = true, silent = true })
+u.map("n", "<M-h>", "<cmd>WhichKey<CR>", { noremap = true, silent = true })

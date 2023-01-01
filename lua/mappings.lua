@@ -128,7 +128,7 @@ u.map("n", ";h", "<cmd>Telescope help_tags<CR>", opts)
 u.map("n", ";<space>", ":Telescope<CR>", opts)
 
 -- vCoolor.vim
-u.map("i", "<M-h>", "<c-o>:VCoolor<CR>", opts) -- for hex color
+u.map("i", "<M-V>", "<c-o>:VCoolor<CR>", opts) -- for hex color
 -- other shortcuts are alt-v (for hsl) alt-r (rgb) alt-w (rgba) and alt-c
 
 -- zen-mode
