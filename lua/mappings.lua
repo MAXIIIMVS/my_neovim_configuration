@@ -56,10 +56,12 @@ u.map("n", ";;", ":bd<CR>", opts)
 -- close the window
 u.map("n", ";q", "<c-w>q")
 
--- substitution and insertion in visual mode
-u.map("n", ";s", ":s/")
-u.map("v", ";s", ":s/")
-u.map("s", ";s", "<ESC>:s/")
+-- substitute the word under cursor in the selected line
+vim.keymap.set("n", ";s", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+u.map("v", ";s", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+u.map("s", ";s", [[<ESC>:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+-- substitute the word under cursor in the whole file
+vim.keymap.set("n", ";S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- delete all buffers other than the current one, put the cursor back
 -- nnoremap <space>bo :%bd\|e#\|bd#<CR>\|'"
