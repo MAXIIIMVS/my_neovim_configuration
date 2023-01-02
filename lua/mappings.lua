@@ -5,98 +5,98 @@ local home = os.getenv("HOME")
 -- MAPPINGS {{{
 -- ---------------------------------------------------------------------
 -- source the file
-u.map("n", "<leader>s", ":so %<CR>")
+vim.keymap.set("n", "<leader>s", ":so %<CR>")
 -- set filetype
-u.map("n", "<leader>y", ":set filetype=")
+vim.keymap.set("n", "<leader>y", ":set filetype=")
 
 -- open the current file with the default app in linux, or use open command
-u.map("n", ";o", ":silent !xdg-open %<CR>", opts)
-u.map("n", ";O", ":silent !xdg-open .<CR>", opts)
+vim.keymap.set("n", ";o", ":silent !xdg-open %<CR>", opts)
+vim.keymap.set("n", ";O", ":silent !xdg-open .<CR>", opts)
 
 -- Better indent
-u.map("v", "<", "<gv", opts)
-u.map("v", ">", ">gv", opts)
+vim.keymap.set("v", "<", "<gv", opts)
+vim.keymap.set("v", ">", ">gv", opts)
 
 -- Resizing panes
-u.map("n", "<C-Left>", ":vertical resize +2<CR>", opts)
-u.map("n", "<C-Right>", ":vertical resize -1<CR>", opts)
-u.map("n", "<C-Up>", ":resize -1<CR>", opts)
-u.map("n", "<C-Down>", ":resize +1<CR>", opts)
+vim.keymap.set("n", "<C-Left>", ":vertical resize +2<CR>", opts)
+vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>", opts)
+vim.keymap.set("n", "<C-Up>", ":resize -1<CR>", opts)
+vim.keymap.set("n", "<C-Down>", ":resize +1<CR>", opts)
 
 -- Paste over currently selected text without yanking it
-u.map("v", "p", '"_dP', opts)
+vim.keymap.set("v", "p", '"_dP', opts)
 
 -- run prettier in the current directory
--- u.map('n', '<leader>P',
+-- vim.keymap.set('n', '<leader>P',
 --   ':silent !cd ' .. u.get_top_level() ..
 --   '&& prettier --ignore-path .gitignore -w .<CR>', opts)
--- u.map('n', '<leader>p', ':silent !prettier --ignore-path .gitignore -w %<CR>',
+-- vim.keymap.set('n', '<leader>p', ':silent !prettier --ignore-path .gitignore -w %<CR>',
 --   opts)
 
 -- close and open the file again
--- u.map('n', '<leader>r', ':bd<CR><c-o>', opts)
+-- vim.keymap.set('n', '<leader>r', ':bd<CR><c-o>', opts)
 
 -- toggle rainbow off an on
-u.map("n", "<leader>r", "<cmd>TSDisable rainbow<bar>TSEnable rainbow<CR>", opts)
+vim.keymap.set("n", "<leader>r", "<cmd>TSDisable rainbow<bar>TSEnable rainbow<CR>", opts)
 
 --insert a blank line around the cursor
-u.map("n", "]<space>", "o<ESC>k")
-u.map("n", "[<space>", "O<ESC>j")
+vim.keymap.set("n", "]<space>", "o<ESC>k")
+vim.keymap.set("n", "[<space>", "O<ESC>j")
 
 -- Switch between windows
-u.map("n", "<space>j", "<c-w>j", opts)
-u.map("n", "<space>k", "<c-w>k", opts)
-u.map("n", "<space>l", "<c-w>l", opts)
-u.map("n", "<space>h", "<c-w>h", opts)
+vim.keymap.set("n", "<space>j", "<c-w>j", opts)
+vim.keymap.set("n", "<space>k", "<c-w>k", opts)
+vim.keymap.set("n", "<space>l", "<c-w>l", opts)
+vim.keymap.set("n", "<space>h", "<c-w>h", opts)
 
 -- next and previous buffer
-u.map("n", "[b", ":bprev<CR>", opts)
-u.map("n", "]b", ":bnext<CR>", opts)
-u.map("n", ";;", ":bd<CR>", opts)
+vim.keymap.set("n", "[b", ":bprev<CR>", opts)
+vim.keymap.set("n", "]b", ":bnext<CR>", opts)
+vim.keymap.set("n", ";;", ":bd<CR>", opts)
 -- close the window
-u.map("n", ";q", "<c-w>q")
+vim.keymap.set("n", ";q", "<c-w>q")
 
 -- substitute the word under cursor in the selected line
 vim.keymap.set("n", ";s", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-u.map("v", ";s", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-u.map("s", ";s", [[<ESC>:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("v", ";s", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("s", ";s", [[<ESC>:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 -- substitute the word under cursor in the whole file
 vim.keymap.set("n", ";S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- delete all buffers other than the current one, put the cursor back
 -- nnoremap <space>bo :%bd\|e#\|bd#<CR>\|'"
-u.map("n", "<space>bo", ":%bd|e#|bd#<CR>|'\"", { noremap = true })
+vim.keymap.set("n", "<space>bo", ":%bd|e#|bd#<CR>|'\"", { noremap = true })
 
 -- delete all buffers
-u.map("n", "<space>ba", ":bufdo bd<CR>")
+vim.keymap.set("n", "<space>ba", ":bufdo bd<CR>")
 
 -- use vim-rsi instead
-u.map("i", "<c-k>", "<c-o>C", opts)
-u.map("s", "<M-d>", "<ESC>dei", opts)
-u.map("s", "<M-b>", "<ESC>bi", opts)
-u.map("s", "<M-f>", "<ESC>ei", opts)
-u.map("s", "<c-e>", "<ESC>A", opts)
-u.map("s", "<c-a>", "<ESC>I", opts)
+vim.keymap.set("i", "<c-k>", "<c-o>C", opts)
+vim.keymap.set("s", "<M-d>", "<ESC>dei", opts)
+vim.keymap.set("s", "<M-b>", "<ESC>bi", opts)
+vim.keymap.set("s", "<M-f>", "<ESC>ei", opts)
+vim.keymap.set("s", "<c-e>", "<ESC>A", opts)
+vim.keymap.set("s", "<c-a>", "<ESC>I", opts)
 
 -- write to buffer only if buffer has changed: Ctrl+s -> :update
-u.map("n", "<c-s>", ":noh<CR>:update<CR>", { noremap = true })
-u.map("i", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true })
-u.map("v", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true })
-u.map("s", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true })
+vim.keymap.set("n", "<c-s>", ":noh<CR>:update<CR>", { noremap = true })
+vim.keymap.set("i", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true })
+vim.keymap.set("v", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true })
+vim.keymap.set("s", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true })
 -- NOTE: use :w to write to the buffer intentionally, don't use keymaps
 
 -- Alt+s -> :wall
-u.map("n", "<M-s>", ":noh<CR>:wall<CR>", { noremap = true })
-u.map("i", "<M-s>", "<ESC>:noh<CR>:wall<CR>", { noremap = true })
-u.map("v", "<M-s>", "<ESC>:noh<CR>:wall<CR>", { noremap = true })
-u.map("s", "<M-s>", "<ESC>:noh<CR>:wall<CR>", { noremap = true })
+vim.keymap.set("n", "<M-s>", ":noh<CR>:wall<CR>", { noremap = true })
+vim.keymap.set("i", "<M-s>", "<ESC>:noh<CR>:wall<CR>", { noremap = true })
+vim.keymap.set("v", "<M-s>", "<ESC>:noh<CR>:wall<CR>", { noremap = true })
+vim.keymap.set("s", "<M-s>", "<ESC>:noh<CR>:wall<CR>", { noremap = true })
 
 -- make . to work with visually selected lines
-u.map("v", ".", ":normal.<CR>", opts)
+vim.keymap.set("v", ".", ":normal.<CR>", opts)
 
 -- Move visual selection
-u.map("v", "<c-j>", ":m '>+1<CR>gv=gv", opts)
-u.map("v", "<c-k>", ":m '<-2<CR>gv=gv", opts)
+vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv", opts)
+vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv", opts)
 
 -- search the visually selected text, not required in nvim>0.8
 -- cmd([[
@@ -113,32 +113,32 @@ u.map("v", "<c-k>", ":m '<-2<CR>gv=gv", opts)
 -- ]])
 
 -- nvim-tree
-u.map("n", "<space>e", "<cmd>NvimTreeToggle<CR>", opts)
+vim.keymap.set("n", "<space>e", "<cmd>NvimTreeToggle<CR>", opts)
 
 -- telescope
-u.map("n", ";f", ":Telescope find_files cwd=" .. u.get_top_level() .. "<CR>", opts)
-u.map("n", ";F", ":Telescope find_files hidden=true cwd=" .. u.get_top_level() .. "<CR>", opts)
-u.map("n", ";g", ":Telescope live_grep cwd=" .. u.get_top_level() .. "<CR>", opts)
-u.map("n", ";G", ":Telescope live_grep hidden=true cwd=" .. u.get_top_level() .. "<CR>", opts)
-u.map("n", ";b", ":Telescope buffers<CR>", opts)
-u.map("n", ";D", "<cmd>Telescope file_browser cwd=" .. home .. "<CR>", opts)
-u.map("n", ";d", "<cmd>Telescope file_browser cwd=" .. u.get_top_level() .. "<CR>", opts)
-u.map("n", ";t", ":TodoTelescope cwd=" .. u.get_top_level() .. "<CR>", opts)
-u.map("n", ";r", ":Telescope oldfiles<CR>", opts)
-u.map("n", ";E", ":Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", opts)
-u.map("n", ";h", "<cmd>Telescope help_tags<CR>", opts)
-u.map("n", ";<space>", ":Telescope<CR>", opts)
+vim.keymap.set("n", ";f", ":Telescope find_files cwd=" .. u.get_top_level() .. "<CR>", opts)
+vim.keymap.set("n", ";F", ":Telescope find_files hidden=true cwd=" .. u.get_top_level() .. "<CR>", opts)
+vim.keymap.set("n", ";g", ":Telescope live_grep cwd=" .. u.get_top_level() .. "<CR>", opts)
+vim.keymap.set("n", ";G", ":Telescope live_grep hidden=true cwd=" .. u.get_top_level() .. "<CR>", opts)
+vim.keymap.set("n", ";b", ":Telescope buffers<CR>", opts)
+vim.keymap.set("n", ";D", "<cmd>Telescope file_browser cwd=" .. home .. "<CR>", opts)
+vim.keymap.set("n", ";d", "<cmd>Telescope file_browser cwd=" .. u.get_top_level() .. "<CR>", opts)
+vim.keymap.set("n", ";t", ":TodoTelescope cwd=" .. u.get_top_level() .. "<CR>", opts)
+vim.keymap.set("n", ";r", ":Telescope oldfiles<CR>", opts)
+vim.keymap.set("n", ";E", ":Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", opts)
+vim.keymap.set("n", ";h", "<cmd>Telescope help_tags<CR>", opts)
+vim.keymap.set("n", ";<space>", ":Telescope<CR>", opts)
 
 -- vCoolor.vim
-u.map("i", "<M-V>", "<c-o>:VCoolor<CR>", opts) -- for hex color
+vim.keymap.set("i", "<M-V>", "<c-o>:VCoolor<CR>", opts) -- for hex color
 -- other shortcuts are alt-v (for hsl) alt-r (rgb) alt-w (rgba) and alt-c
 
 -- zen-mode
-u.map("n", ";z", "<cmd>ZenMode<CR>")
+vim.keymap.set("n", ";z", "<cmd>ZenMode<CR>")
 
 -- maximize the window
-u.map("n", ";Z", "<c-w>|<c-w>_")
+vim.keymap.set("n", ";Z", "<c-w>|<c-w>_")
 
 -- dashboard
-u.map("n", ";i", "<cmd>Dashboard<CR>", opts)
+vim.keymap.set("n", ";i", vim.cmd.Dashboard, opts)
 -- }}}

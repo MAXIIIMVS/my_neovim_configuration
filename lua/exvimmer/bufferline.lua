@@ -1,4 +1,3 @@
-local u = require("utils")
 local opts = { noremap = true, silent = true }
 
 require("bufferline").setup({
@@ -45,13 +44,13 @@ require("bufferline").setup({
 	},
 })
 
-u.map("n", "<S-Tab>", "::BufferLineCyclePrev<CR>", opts)
-u.map("n", "<Tab>", "::BufferLineCycleNext<CR>", opts)
-u.map("n", "]B", ":BufferLineMoveNext<CR>", opts)
-u.map("n", "[B", ":BufferLineMovePrev<CR>", opts)
-u.map("n", "]x", ":BufferLineCloseRight<CR>", opts)
-u.map("n", "[x", ":BufferLineCloseLeft<CR>", opts)
-u.map("n", "<space>bp", ":BufferLinePick<CR>", opts)
-u.map("n", "<space>bP", ":BufferLinePickClose<CR>", opts)
--- u.map('n', '<leader>g', ':BufferLineGoToBuffer ')
--- u.map("n", ";p", ":BufferLineTogglePin<CR>", opts)
+vim.keymap.set("n", "<S-Tab>", "::BufferLineCyclePrev<CR>", opts)
+vim.keymap.set("n", "<Tab>", "::BufferLineCycleNext<CR>", opts)
+vim.keymap.set("n", "]B", ":BufferLineMoveNext<CR>", opts)
+vim.keymap.set("n", "[B", ":BufferLineMovePrev<CR>", opts)
+vim.keymap.set("n", "]x", ":BufferLineCloseRight<CR>", opts)
+vim.keymap.set("n", "[x", ":BufferLineCloseLeft<CR>", opts)
+vim.keymap.set("n", "<space>bp", ":BufferLinePick<CR>", opts)
+vim.keymap.set("n", "<space>bP", ":BufferLinePickClose<CR>", opts)
+-- vim.keymap.set('n', '<leader>g', ':BufferLineGoToBuffer ')
+-- vim.keymap.set("n", ";p", ":BufferLineTogglePin<CR>", opts)

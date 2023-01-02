@@ -1,4 +1,3 @@
-local u = require("utils")
 local opts = { noremap = true, silent = true }
 local saga = require("lspsaga")
 
@@ -37,22 +36,22 @@ saga.init_lsp_saga({
 	},
 })
 
--- u.map("n", "go", "<cmd>Lspsaga outline<CR>", opts)
-u.map("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
-u.map("n", "gh", ":Lspsaga lsp_finder<CR>", opts)
-u.map("n", "ga", ":Lspsaga code_action<CR>", opts)
--- u.map('n', 'gs', '<cmd>lua require(\'lspsaga.signaturehelp\').signature_help()<CR>', opts)
-u.map("n", "gr", "<cmd>Lspsaga rename<CR>", opts)
-u.map("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts)
-u.map("n", ";e", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
+-- vim.keymap.set("n", "go", "<cmd>Lspsaga outline<CR>", opts)
+vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+vim.keymap.set("n", "gh", ":Lspsaga lsp_finder<CR>", opts)
+vim.keymap.set("n", "ga", ":Lspsaga code_action<CR>", opts)
+-- vim.keymap.set('n', 'gs', '<cmd>lua require(\'lspsaga.signaturehelp\').signature_help()<CR>', opts)
+vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", opts)
+vim.keymap.set("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts)
+vim.keymap.set("n", ";e", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
 -- keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
-u.map("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-u.map("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
 
 -- Float terminal
--- u.map("n", "<C-\\>", "<cmd>Lspsaga open_floaterm<CR>", opts)
+-- vim.keymap.set("n", "<C-\\>", "<cmd>Lspsaga open_floaterm<CR>", opts)
 -- if you want to pass some cli command into a terminal you can do it like this
 -- open lazygit in lspsaga float terminal
--- u.map("n", "<C-`>", "<cmd>Lspsaga open_floaterm lazygit<CR>", opts)
+-- vim.keymap.set("n", "<C-`>", "<cmd>Lspsaga open_floaterm lazygit<CR>", opts)
 -- close floaterm
--- u.map("t", "<C-\\>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)
+-- vim.keymap.set("t", "<C-\\>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)

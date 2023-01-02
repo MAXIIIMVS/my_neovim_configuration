@@ -4,8 +4,6 @@ if not present then
 	return
 end
 
-local u = require("utils")
-
 local options = {
 	window = {
 		border = "single", -- none, single, double, shadow
@@ -23,4 +21,4 @@ local options = {
 
 wk.setup(options)
 
-u.map("n", "<M-h>", "<cmd>WhichKey<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<M-h>", "<cmd>WhichKey<CR>", { noremap = true, silent = true })

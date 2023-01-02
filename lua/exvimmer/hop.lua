@@ -1,9 +1,8 @@
-local u = require("utils")
 local opts = { noremap = true, silent = true }
 
 require("hop").setup()
 
-u.map("n", ";w", ":HopWordMW<CR>", opts)
-u.map("n", ";c", ":HopChar1MW<CR>", opts)
-u.map("n", ";p", ":HopPatternMW<CR>", opts)
-u.map("n", ";l", ":HopLineMW<CR>", opts)
+vim.keymap.set("n", ";w", ":HopWordMW<CR>", opts)
+vim.keymap.set("n", ";c", ":HopChar1MW<CR>", opts)
+vim.keymap.set("n", ";p", ":HopPatternMW<CR>", opts)
+vim.keymap.set("n", ";l", ":HopLineMW<CR>", opts)
