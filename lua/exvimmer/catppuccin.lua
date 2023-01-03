@@ -76,7 +76,7 @@ local options = {
 		-- latte = telescopeBorderless("latte"),
 		-- frappe = telescopeBorderless("frappe"),
 		-- macchiato = telescopeBorderless("macchiato"),
-		mocha = telescopeBorderless("mocha"),
+		-- mocha = telescopeBorderless("mocha"),
 	},
 }
 
