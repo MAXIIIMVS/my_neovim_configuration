@@ -1,3 +1,4 @@
+local wk = require("which-key")
 local opts = { noremap = true, silent = true }
 
 require("gitsigns").setup({
@@ -14,32 +15,47 @@ require("gitsigns").setup({
 
 vim.cmd("highlight GitSignsCurrentLineBlame guifg=#666666")
 
-vim.keymap.set("n", "<space>gs", ":silent vertical G<CR>", opts)
-vim.keymap.set("n", "<space>gS", ":silent G switch ", { noremap = true })
-vim.keymap.set("n", "<space>gf", ":silent G fetch<CR>", opts)
-vim.keymap.set("n", "<space>gP", ":silent G push<CR>", opts)
-vim.keymap.set("n", "<space>gp", ":silent G pull<CR>", opts)
-vim.keymap.set("n", "<space>gl", ":silent vertical G log --decorate<CR>", opts)
-vim.keymap.set("n", "<space>gL", ":silent vertical G log --decorate -p<CR>", opts)
-vim.keymap.set("n", "<space>gn", ":silent vertical G log --stat<CR>", opts)
-vim.keymap.set("n", "<space>gc", ":silent vertical G commit<CR>", opts)
-vim.keymap.set("n", "<space>gC", ":silent vertical G commit --amend<CR>", opts)
-vim.keymap.set("n", "<space>gd", ":silent Gvdiffsplit<CR>", opts)
-vim.keymap.set("n", "<space>gD", ":silent Gvdiffsplit HEAD~<CR>", opts)
-vim.keymap.set("n", "<space>gb", ":silent G blame<CR>", opts)
-vim.keymap.set("n", "<space>gB", ":Gitsigns blame_line<CR>", opts)
-vim.keymap.set("n", "<space>go", ":silent GBrowse<CR>", opts)
-vim.keymap.set("n", "<space>gO", ":silent G checkout ", opts)
-vim.keymap.set("n", "<space>gr", ":Gitsigns reset_hunk<CR>", opts)
-vim.keymap.set("n", "<space>gR", ":Gitsigns toggle_deleted<CR>", opts)
-vim.keymap.set("n", "<space>gv", ":Gitsigns preview_hunk<CR>", opts)
-vim.keymap.set("n", "<space>gV", ":Gitsigns toggle_current_line_blame<CR>", opts)
-vim.keymap.set("n", "<space>g[", ":silent G checkout HEAD^<CR>", opts)
+vim.keymap.set("n", "]c", ":Gitsigns next_hunk<CR>", { noremap = true, silent = true, desc = "Jump to the next hunk" })
 vim.keymap.set(
 	"n",
-	"<space>g]",
-	":silent !git checkout $(git rev-list --topo-order HEAD..$(git remote show origin | sed -n '/HEAD branch/s/.*: //p') | tail -1)<CR>",
-	opts
+	"[c",
+	":Gitsigns prev_hunk<CR>",
+	{ noremap = true, silent = true, desc = "Jump to the previous hunk" }
 )
-vim.keymap.set("n", "]c", ":Gitsigns next_hunk<CR>", opts)
-vim.keymap.set("n", "[c", ":Gitsigns prev_hunk<CR>", opts)
+
+wk.register({
+	g = {
+		name = "Git",
+		s = { ":silent vertical Git<CR>", "Status" },
+		S = { ":silent G switch ", "Switch", silent = false },
+		f = { ":silent G fetch<CR>", "Fetch" },
+		P = { ":silent G push<CR>", "Push" },
+		p = { ":silent G pull<CR>", "Pull" },
+		l = { ":silent vertical G log --decorate<CR>", "Log" },
+		L = { ":silent vertical G log --decorate -p<CR>", "Log with differences" },
+		n = { ":silent vertical G log --stat<CR>", "Log with stats" },
+		c = { ":silent vertical G commit<CR>", "Commit" },
+		C = { ":silent G checkout ", "Checkout" },
+		["["] = { ":silent G checkout HEAD^<CR>", "Checkout previous commit" },
+		["]"] = {
+			":silent !git checkout $(git rev-list --topo-order HEAD..$(git remote show origin | sed -n '/HEAD branch/s/.*: //p') | tail -1)<CR>",
+			"Checkout next commit",
+		},
+		a = {
+			":silent vertical G commit --amend<CR>",
+			"Amend commit with staged changes",
+		},
+		d = { ":silent Gvdiffsplit<CR>", "Diff" },
+		D = { ":silent Gvdiffsplit HEAD~<CR>", "Diff with previous commit" },
+		b = { ":silent G blame<CR>", "Blame on the current file" },
+		B = { ":Gitsigns blame_line<CR>", "Blame on the current line" },
+		o = { ":silent GBrowse<CR>", "Open in the browser" },
+		r = {
+			":Gitsigns reset_hunk<CR>",
+			"Reset the lines of the hunk at the cursor position, or all lines in the given range.",
+		},
+		R = { ":Gitsigns toggle_deleted<CR>", "Toggle deleted lines" },
+		v = { ":Gitsigns preview_hunk<CR>", "Preview hunk" },
+		V = { ":Gitsigns toggle_current_line_blame<CR>", "Toggle current line blame" },
+	},
+}, { prefix = "<space>", noremap = true, silent = true, nowait = true })
