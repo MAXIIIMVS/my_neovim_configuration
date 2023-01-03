@@ -9,6 +9,7 @@ local options = {
 		border = "single", -- none, single, double, shadow
 		position = "bottom", -- bottom, top
 		winblend = 0,
+		margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
 	},
 	popup_mappings = {
 		scroll_down = "<c-d>", -- binding to scroll down inside the popup
@@ -17,6 +18,7 @@ local options = {
 	layout = {
 		spacing = 6, -- spacing between columns
 	},
+	-- triggers = "auto", -- automatically setup triggers
 }
 
 wk.setup(options)
