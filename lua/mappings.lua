@@ -7,8 +7,6 @@ local home = os.getenv("HOME")
 -- ---------------------------------------------------------------------
 -- source the file
 vim.keymap.set("n", "<leader>s", ":so %<CR>")
--- set filetype
-vim.keymap.set("n", "<leader>y", ":set filetype=")
 
 -- Better indent
 vim.keymap.set("v", "<", "<gv", opts)
