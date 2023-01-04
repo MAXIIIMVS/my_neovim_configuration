@@ -1,3 +1,4 @@
+local wk = require("which-key")
 local u = require("utils")
 local opts = { noremap = true, silent = true }
 local home = os.getenv("HOME")
@@ -8,10 +9,6 @@ local home = os.getenv("HOME")
 vim.keymap.set("n", "<leader>s", ":so %<CR>")
 -- set filetype
 vim.keymap.set("n", "<leader>y", ":set filetype=")
-
--- open the current file with the default app in linux, or use open command
-vim.keymap.set("n", ";o", ":silent !xdg-open %<CR>", opts)
-vim.keymap.set("n", ";O", ":silent !xdg-open .<CR>", opts)
 
 -- Better indent
 vim.keymap.set("v", "<", "<gv", opts)
@@ -52,16 +49,10 @@ vim.keymap.set("n", "<space>h", "<c-w>h", opts)
 -- next and previous buffer
 vim.keymap.set("n", "[b", ":bprev<CR>", opts)
 vim.keymap.set("n", "]b", ":bnext<CR>", opts)
-vim.keymap.set("n", ";;", ":bd<CR>", opts)
--- close the window
-vim.keymap.set("n", ";q", "<c-w>q")
 
 -- substitute the word under cursor in the selected line
-vim.keymap.set("n", ";s", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("v", ";s", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("s", ";s", [[<ESC>:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
--- substitute the word under cursor in the whole file
-vim.keymap.set("n", ";S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- delete all buffers other than the current one, put the cursor back
 -- nnoremap <space>bo :%bd\|e#\|bd#<CR>\|'"
@@ -115,30 +106,39 @@ vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv", opts)
 -- nvim-tree
 vim.keymap.set("n", "<space>e", "<cmd>NvimTreeToggle<CR>", opts)
 
--- telescope
-vim.keymap.set("n", ";f", ":Telescope find_files cwd=" .. u.get_top_level() .. "<CR>", opts)
-vim.keymap.set("n", ";F", ":Telescope find_files hidden=true cwd=" .. u.get_top_level() .. "<CR>", opts)
-vim.keymap.set("n", ";g", ":Telescope live_grep cwd=" .. u.get_top_level() .. "<CR>", opts)
-vim.keymap.set("n", ";G", ":Telescope live_grep hidden=true cwd=" .. u.get_top_level() .. "<CR>", opts)
-vim.keymap.set("n", ";b", ":Telescope buffers<CR>", opts)
-vim.keymap.set("n", ";D", "<cmd>Telescope file_browser cwd=" .. home .. "<CR>", opts)
-vim.keymap.set("n", ";d", "<cmd>Telescope file_browser cwd=" .. u.get_top_level() .. "<CR>", opts)
-vim.keymap.set("n", ";t", ":TodoTelescope cwd=" .. u.get_top_level() .. "<CR>", opts)
-vim.keymap.set("n", ";r", ":Telescope oldfiles<CR>", opts)
-vim.keymap.set("n", ";E", ":Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", opts)
-vim.keymap.set("n", ";h", "<cmd>Telescope help_tags<CR>", opts)
-vim.keymap.set("n", ";<space>", ":Telescope<CR>", opts)
-
 -- vCoolor.vim
 vim.keymap.set("i", "<M-V>", "<c-o>:VCoolor<CR>", opts) -- for hex color
 -- other shortcuts are alt-v (for hsl) alt-r (rgb) alt-w (rgba) and alt-c
 
--- zen-mode
-vim.keymap.set("n", ";z", "<cmd>ZenMode<CR>")
-
--- maximize the window
-vim.keymap.set("n", ";Z", "<c-w>|<c-w>_")
-
--- dashboard
-vim.keymap.set("n", ";i", vim.cmd.Dashboard, opts)
+wk.register({
+	[";"] = {
+		name = "🚀",
+		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
+		Z = { "<c-w>|<c-w>_", "Maximize the window" },
+		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
+		O = { "<cmd>silent !xdg-open .<CR>", "Open the current directory" },
+		[";"] = { ":bd<CR>", "Delete current buffer" },
+		q = { "<c-w>q", "Quit a window" },
+		s = {
+			[[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+			"Change the word under the cursor in the line",
+			silent = false,
+		},
+		S = {
+			[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+			"Change the word under the cursor in the whole file",
+			silent = false,
+		},
+		f = { "<cmd>Telescope find_files cwd=" .. u.get_top_level() .. "<CR>", "Find files" },
+		g = { "<cmd>Telescope live_grep  cwd=" .. u.get_top_level() .. "<CR>", "Live grep" },
+		G = { "<cmd>Telescope grep_string cwd=" .. u.get_top_level() .. "<CR>", "Grep string under the cursor" },
+		b = { "<cmd>Telescope buffers<CR>", "List open buffers" },
+		d = { "<cmd>Telescope file_browser cwd=" .. u.get_top_level() .. "<CR>", "File/Folder browser" },
+		t = { "<cmd>TodoTelescope cwd=" .. u.get_top_level() .. "<CR>", "Show Todos for current project" },
+		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
+		E = { "<cmd>Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", "List diagnostics" },
+		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },
+		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
+	},
+}, { prefix = "", noremap = true, silent = true, nowait = true })
 -- }}}

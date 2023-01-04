@@ -43,7 +43,12 @@ vim.keymap.set("n", "ga", ":Lspsaga code_action<CR>", opts)
 -- vim.keymap.set('n', 'gs', '<cmd>lua require(\'lspsaga.signaturehelp\').signature_help()<CR>', opts)
 vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", opts)
 vim.keymap.set("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts)
-vim.keymap.set("n", ";e", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
+vim.keymap.set(
+	"n",
+	";e",
+	"<cmd>Lspsaga show_line_diagnostics<CR>",
+	{ noremap = true, silent = true, desc = "Show line diagnostics" }
+)
 -- keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
 vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
 vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)

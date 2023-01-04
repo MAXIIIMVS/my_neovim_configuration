@@ -202,18 +202,18 @@ mason_lspconfig.setup_handlers({
 			},
 		})
 	end,
-	["sumneko_lua"] = function()
-		lspconfig.sumneko_lua.setup({
-			on_attach = on_attach,
-			capabilities = lsp_defaults.capabilities,
-			settings = {
-				Lua = {
-					runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
-					diagnostics = { globals = { "vim" } },
-					workspace = { library = vim.api.nvim_get_runtime_file("", true), checkThirdParty = false },
-					telemetry = { enable = false },
-				},
-			},
-		})
-	end,
+	-- ["sumneko_lua"] = function()
+	-- 	lspconfig.sumneko_lua.setup({
+	-- 		on_attach = on_attach,
+	-- 		capabilities = lsp_defaults.capabilities,
+	-- 		settings = {
+	-- 			Lua = {
+	-- 				runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
+	-- 				diagnostics = { globals = { "vim" } },
+	-- 				workspace = { library = vim.api.nvim_get_runtime_file("", true), checkThirdParty = false },
+	-- 				telemetry = { enable = false },
+	-- 			},
+	-- 		},
+	-- 	})
+	-- end,
 })
