@@ -20,7 +20,7 @@ o.hlsearch = true
 o.incsearch = true
 o.smartcase = true
 o.showcmd = true
-o.cmdheight = 1
+o.cmdheight = 0
 o.laststatus = 3
 o.scrolloff = 2
 o.timeoutlen = 400
@@ -34,7 +34,7 @@ end
 -- set t_BE= -- NOTE: I don't know how to set this
 o.ruler = false
 o.showmatch = false
-o.lazyredraw = false
+o.lazyredraw = true
 o.ignorecase = true -- NOTE: I'm not sure about this or smartcase
 o.backspace = "start,eol,indent"
 o.path = o.path .. "**" -- or w.path, IDK

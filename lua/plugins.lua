@@ -75,19 +75,6 @@ return require("packer").startup({
 				require("zen-mode").setup({})
 			end,
 		})
-		-- Packer
-		use({
-			"folke/noice.nvim",
-			config = u.get_setup("noice"),
-			requires = {
-				-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-				"MunifTanjim/nui.nvim",
-			},
-		})
-		use({
-			"rcarriga/nvim-notify",
-			config = u.get_setup("notify"),
-		})
 		use({ "NvChad/nvim-colorizer.lua", config = u.get_setup("colorizer"), event = "BufRead" })
 		use({
 			"lukas-reineke/indent-blankline.nvim",
