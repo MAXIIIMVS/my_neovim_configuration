@@ -410,5 +410,18 @@ ab :sagittarius: ♐
 ab :capricorn: ♑
 ab :aquarius: ♒
 ab :pisces: ♓
+ab :book_icon: 
+ab :journal: 
+ab :lamp: 
+ab :note_taking: 
+ab :task_management: 陼
+ab :empty_square: 
+ab :done: 
+ab :filled_square: 
+ab :bin: 
+ab :github: 
+ab :monitoring: 
+ab :frozen: 
+ab :earth: 
 ]])
 -- }}}

@@ -87,8 +87,11 @@ return require("packer").startup({
 			requires = {
 				-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 				"MunifTanjim/nui.nvim",
-				"rcarriga/nvim-notify",
 			},
+		})
+		use({
+			"rcarriga/nvim-notify",
+			config = u.get_setup("notify"),
 		})
 		use({ "NvChad/nvim-colorizer.lua", config = u.get_setup("colorizer"), event = "BufRead" })
 		use({
