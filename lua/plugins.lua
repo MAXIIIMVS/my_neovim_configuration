@@ -22,11 +22,6 @@ return require("packer").startup({
 			config = u.get_setup("treesitter"),
 		})
 		use({
-			"nvim-lualine/lualine.nvim",
-			requires = { "kyazdani42/nvim-web-devicons", opt = true },
-			config = u.get_setup("lualine"),
-		})
-		use({
 			"akinsho/bufferline.nvim",
 			requires = "kyazdani42/nvim-web-devicons",
 			event = "BufWinEnter",

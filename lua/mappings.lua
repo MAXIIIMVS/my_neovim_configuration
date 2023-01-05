@@ -6,7 +6,7 @@ local home = os.getenv("HOME")
 -- MAPPINGS {{{
 -- ---------------------------------------------------------------------
 -- source the file
-vim.keymap.set("n", "<leader>s", ":so %<CR>")
+vim.keymap.set("n", "<leader>s", ":silent so %<CR>", opts)
 
 -- Better indent
 vim.keymap.set("v", "<", "<gv", opts)
@@ -54,10 +54,10 @@ vim.keymap.set("s", ";s", [[<ESC>:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Lef
 
 -- delete all buffers other than the current one, put the cursor back
 -- nnoremap <space>bo :%bd\|e#\|bd#<CR>\|'"
-vim.keymap.set("n", "<space>bo", ":%bd|e#|bd#<CR>|'\"", { noremap = true })
+vim.keymap.set("n", "<space>bo", ":%bd|e#|bd#<CR>|'\"", opts)
 
 -- delete all buffers
-vim.keymap.set("n", "<space>ba", ":bufdo bd<CR>")
+vim.keymap.set("n", "<space>ba", ":bufdo bd<CR>", opts)
 
 -- use vim-rsi instead
 vim.keymap.set("i", "<c-k>", "<c-o>C", opts)
@@ -68,17 +68,17 @@ vim.keymap.set("s", "<c-e>", "<ESC>A", opts)
 vim.keymap.set("s", "<c-a>", "<ESC>I", opts)
 
 -- write to buffer only if buffer has changed: Ctrl+s -> :update
-vim.keymap.set("n", "<c-s>", ":noh<CR>:update<CR>", { noremap = true, silent = true })
-vim.keymap.set("i", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true, silent = true })
-vim.keymap.set("v", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true, silent = true })
-vim.keymap.set("s", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<c-s>", ":noh<CR>:silent update<CR>", opts)
+vim.keymap.set("i", "<c-s>", "<ESC>:noh<CR>:silent update<CR>", opts)
+vim.keymap.set("v", "<c-s>", "<ESC>:noh<CR>:silent update<CR>", opts)
+vim.keymap.set("s", "<c-s>", "<ESC>:noh<CR>:silent update<CR>", opts)
 -- NOTE: use :w to write to the buffer intentionally, don't use keymaps
 
 -- Alt+s -> :wall
-vim.keymap.set("n", "<M-s>", ":noh<CR>:wall<CR>", { noremap = true })
-vim.keymap.set("i", "<M-s>", "<ESC>:noh<CR>:wall<CR>", { noremap = true })
-vim.keymap.set("v", "<M-s>", "<ESC>:noh<CR>:wall<CR>", { noremap = true })
-vim.keymap.set("s", "<M-s>", "<ESC>:noh<CR>:wall<CR>", { noremap = true })
+vim.keymap.set("n", "<M-s>", ":noh<CR>:wall<CR>", opts)
+vim.keymap.set("i", "<M-s>", "<ESC>:noh<CR>:wall<CR>", opts)
+vim.keymap.set("v", "<M-s>", "<ESC>:noh<CR>:wall<CR>", opts)
+vim.keymap.set("s", "<M-s>", "<ESC>:noh<CR>:wall<CR>", opts)
 
 -- make . to work with visually selected lines
 vim.keymap.set("v", ".", ":normal.<CR>", opts)

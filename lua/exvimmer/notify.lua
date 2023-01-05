@@ -13,5 +13,5 @@ require("notify").setup({
 	render = "default",
 	stages = "static", -- "fade_in_slide_out", "slide", "fade"
 	timeout = 2000,
-	top_down = false,
+	top_down = true,
 })
