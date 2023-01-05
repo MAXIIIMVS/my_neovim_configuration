@@ -102,6 +102,12 @@ return require("packer").startup({
 		use({ "tpope/vim-rsi" })
 		use({ "nvim-lua/popup.nvim" })
 		use({ "phaazon/hop.nvim", config = u.get_setup("hop") })
+		use({
+			"phaazon/mind.nvim",
+			branch = "v2.2",
+			requires = { "nvim-lua/plenary.nvim" },
+			config = u.get_setup("mind"),
+		})
 		-- use {'simrat39/rust-tools.nvim'}
 		-- use { 'puremourning/vimspector', config = u.get_setup('vimspector') }
 		use({
