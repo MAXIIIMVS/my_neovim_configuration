@@ -22,9 +22,8 @@ return require("packer").startup({
 			config = u.get_setup("treesitter"),
 		})
 		use({
-			"hoob3rt/lualine.nvim",
+			"nvim-lualine/lualine.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
-			event = "VimEnter",
 			config = u.get_setup("lualine"),
 		})
 		use({
@@ -80,6 +79,16 @@ return require("packer").startup({
 			config = function()
 				require("zen-mode").setup({})
 			end,
+		})
+		-- Packer
+		use({
+			"folke/noice.nvim",
+			config = u.get_setup("noice"),
+			requires = {
+				-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+				"MunifTanjim/nui.nvim",
+				"rcarriga/nvim-notify",
+			},
 		})
 		use({ "NvChad/nvim-colorizer.lua", config = u.get_setup("colorizer"), event = "BufRead" })
 		use({

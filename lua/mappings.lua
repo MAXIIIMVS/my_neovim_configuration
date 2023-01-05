@@ -68,10 +68,10 @@ vim.keymap.set("s", "<c-e>", "<ESC>A", opts)
 vim.keymap.set("s", "<c-a>", "<ESC>I", opts)
 
 -- write to buffer only if buffer has changed: Ctrl+s -> :update
-vim.keymap.set("n", "<c-s>", ":noh<CR>:update<CR>", { noremap = true })
-vim.keymap.set("i", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true })
-vim.keymap.set("v", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true })
-vim.keymap.set("s", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true })
+vim.keymap.set("n", "<c-s>", ":noh<CR>:update<CR>", { noremap = true, silent = true })
+vim.keymap.set("i", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true, silent = true })
+vim.keymap.set("v", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true, silent = true })
+vim.keymap.set("s", "<c-s>", "<ESC>:noh<CR>:update<CR>", { noremap = true, silent = true })
 -- NOTE: use :w to write to the buffer intentionally, don't use keymaps
 
 -- Alt+s -> :wall
@@ -110,7 +110,7 @@ vim.keymap.set("i", "<M-V>", "<c-o>:VCoolor<CR>", opts) -- for hex color
 
 wk.register({
 	[";"] = {
-		name = "🚀",
+		name = "Quick",
 		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
 		Z = { "<c-w>|<c-w>_", "Maximize the window" },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
