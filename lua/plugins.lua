@@ -14,7 +14,7 @@ return require("packer").startup({
 	function(use)
 		use({ "wbthomason/packer.nvim" })
 		use({ "kyazdani42/nvim-web-devicons", config = u.get_setup("nvim-web-devicons") })
-		use({ "glepnir/dashboard-nvim" })
+		use({ "glepnir/dashboard-nvim", config = u.get_setup("dashboard") })
 		use({
 			"nvim-treesitter/nvim-treesitter",
 			run = ":TSUpdate",
