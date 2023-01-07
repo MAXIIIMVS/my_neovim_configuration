@@ -46,3 +46,9 @@ wk.register({
 		},
 	},
 }, { prefix = "<space>", noremap = true, silent = true, nowait = true })
+
+wk.register({
+	[";"] = {
+		m = { "<cmd>MindOpenMain<CR>", "Open the main Mind tree" },
+	},
+}, { prefix = "", noremap = true, silent = true, nowait = true })

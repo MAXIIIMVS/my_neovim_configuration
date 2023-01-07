@@ -6,6 +6,3 @@ require("settings")
 -- NOTE: put this at the end
 o.secure = true
 -- WARNING: 👆 security risk; don't switch this off
-
-vim.cmd([[colorscheme catppuccin]])
-vim.cmd("hi StatusLine guifg=bg")

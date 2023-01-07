@@ -1,10 +1,8 @@
-local home = os.getenv("HOME")
 local utils = require("utils")
 local g = vim.g
 local o = vim.o
 local w = vim.wo
 local b = vim.bo
-local cmd = vim.cmd
 
 -- Fundamental {{{
 g.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal" -- removed blank
@@ -22,6 +20,7 @@ o.smartcase = true
 o.showcmd = true
 o.cmdheight = 0
 o.laststatus = 3
+vim.cmd("set statusline=%=%{&modified?'🟢':''}")
 o.scrolloff = 2
 o.timeoutlen = 400
 -- incremental substitution (neovim)
@@ -41,7 +40,7 @@ o.path = o.path .. "**" -- or w.path, IDK
 o.wildignore = o.wildignore .. "*/node_modules/*"
 
 -- Turn off paste mode when leaving insert
-cmd("autocmd InsertLeave * set nopaste")
+vim.cmd("autocmd InsertLeave * set nopaste")
 
 -- Add asterisks in block comments
 b.formatoptions = b.formatoptions .. "r"
@@ -51,7 +50,7 @@ b.formatoptions = b.formatoptions .. "r"
 -----------------------------------------------------------------------
 -- true color
 if vim.fn.exists("&termguicolors") == 1 and vim.fn.exists("&winblend") then
-	cmd("syntax enable")
+	vim.cmd("syntax enable")
 	o.termguicolors = true
 	o.wildoptions = "pum"
 	w.winblend = 0
@@ -88,7 +87,6 @@ w.colorcolumn = "80"
 o.wildmode = "full"
 o.wildmenu = true
 g.wildmenu = true
--- o.statusline = '%F'
 o.updatetime = 500
 w.foldenable = true
 -- NOTE: foldlevelstart: -1: default, 0: all folds closed, 1: some folds
@@ -102,7 +100,7 @@ g.python3_host_prog = "/usr/bin/python3"
 -- cmd('autocmd FileType javascript set filetype=javascriptreact')
 -- cmd('autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact')
 -- cmd('autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact')
-cmd([[
+vim.cmd([[
 au FocusGained,BufEnter * :silent! !
 hi CursorLine cterm=NONE ctermbg=232
 autocmd InsertEnter * highlight  CursorLine ctermbg=17 ctermfg=None
@@ -133,7 +131,7 @@ vim.cmd("hi NonText guifg=bg")
 -----------------------------------------------------------------------
 w.cursorline = true
 
-cmd([[
+vim.cmd([[
 if &term =~ "screen"
   autocmd BufEnter * if bufname("") !~ "^?[A-Za-z0-9?]*://" | silent! exe '!echo -n "\ek[`hostname`:`basename $PWD`/`basename %`]\e\\"' | endif
   autocmd VimLeave * silent!  exe '!echo -n "\ek[`hostname`:`basename $PWD`]\e\\"'
@@ -145,8 +143,7 @@ utils.create_augroup({
 	{ "WinLeave", "*", "set", "nocul" },
 }, "BgHighlight")
 
--- change the split bar color to yellow
-cmd("highlight VertSplit guifg=#32afff")
+vim.cmd.highlight("VertSplit guifg=#32afff")
 -- }}}
 
 -- format files when using :wq and not using sync in lsp formatting
@@ -154,7 +151,7 @@ cmd("highlight VertSplit guifg=#32afff")
 
 -- emoji shortcuts {{{
 -- ---------------------------------------------------------------------
-cmd([[
+vim.cmd([[
 ab :check: ✅
 ab :empty: 🔳
 ab :check_mark: ✔
@@ -165,6 +162,13 @@ ab :right: ➡
 ab :left: ⬅
 ab :up: ⬆
 ab :down: ⬇
+ab :red_circle: 🔴
+ab :blue_circle: 🔵
+ab :orange_circle: 🟠
+ab :yellow_circle: 🟡
+ab :green_circle: 🟢
+ab :purple_circle: 🟣
+ab :brown_circle: 🟤
 ab :point_right: 👉
 ab :point_left: 👈
 ab :point_up: 👆

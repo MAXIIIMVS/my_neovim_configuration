@@ -68,17 +68,17 @@ vim.keymap.set("s", "<c-e>", "<ESC>A", opts)
 vim.keymap.set("s", "<c-a>", "<ESC>I", opts)
 
 -- write to buffer only if buffer has changed: Ctrl+s -> :update
-vim.keymap.set("n", "<c-s>", ":noh<CR>:silent update<CR>", opts)
-vim.keymap.set("i", "<c-s>", "<ESC>:noh<CR>:silent update<CR>", opts)
-vim.keymap.set("v", "<c-s>", "<ESC>:noh<CR>:silent update<CR>", opts)
-vim.keymap.set("s", "<c-s>", "<ESC>:noh<CR>:silent update<CR>", opts)
+vim.keymap.set("n", "<c-s>", "<cmd>silent update<CR>", opts)
+vim.keymap.set("i", "<c-s>", "<ESC><cmd>silent update<CR>", opts)
+vim.keymap.set("v", "<c-s>", "<ESC><cmd>silent update<CR>", opts)
+vim.keymap.set("s", "<c-s>", "<ESC><cmd>silent update<CR>", opts)
 -- NOTE: use :w to write to the buffer intentionally, don't use keymaps
 
 -- Alt+s -> :wall
-vim.keymap.set("n", "<M-s>", ":noh<CR>:wall<CR>", opts)
-vim.keymap.set("i", "<M-s>", "<ESC>:noh<CR>:wall<CR>", opts)
-vim.keymap.set("v", "<M-s>", "<ESC>:noh<CR>:wall<CR>", opts)
-vim.keymap.set("s", "<M-s>", "<ESC>:noh<CR>:wall<CR>", opts)
+vim.keymap.set("n", "<M-s>", "<cmd>wall<CR>", opts)
+vim.keymap.set("i", "<M-s>", "<ESC><cmd>wall<CR>", opts)
+vim.keymap.set("v", "<M-s>", "<ESC><cmd>wall<CR>", opts)
+vim.keymap.set("s", "<M-s>", "<ESC><cmd>wall<CR>", opts)
 
 -- make . to work with visually selected lines
 vim.keymap.set("v", ".", ":normal.<CR>", opts)

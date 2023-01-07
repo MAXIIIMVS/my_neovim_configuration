@@ -51,7 +51,6 @@ return require("packer").startup({
 			branch = "main",
 			config = u.get_setup("lspsaga"),
 		})
-		-- use({ "onsails/lspkind-nvim" })
 		use({
 			"jose-elias-alvarez/null-ls.nvim",
 			config = u.get_setup("null_ls"),
@@ -94,13 +93,11 @@ return require("packer").startup({
 			config = u.get_setup("mind"),
 		})
 		-- use {'simrat39/rust-tools.nvim'}
-		-- use { 'puremourning/vimspector', config = u.get_setup('vimspector') }
 		use({
 			"lewis6991/gitsigns.nvim",
 			requires = { "nvim-lua/plenary.nvim" },
 			config = u.get_setup("gitsigns"),
 		})
-
 		use({
 			"catppuccin/nvim",
 			as = "catppuccin",
