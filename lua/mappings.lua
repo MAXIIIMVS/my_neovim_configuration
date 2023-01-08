@@ -128,6 +128,7 @@ wk.register({
 			silent = false,
 		},
 		f = { "<cmd>Telescope find_files cwd=" .. u.get_top_level() .. "<CR>", "Find files" },
+		F = { "<cmd>Telescope git_files <CR>", "Fuzzy search for files tracked by Git" },
 		g = { "<cmd>Telescope live_grep  cwd=" .. u.get_top_level() .. "<CR>", "Live grep" },
 		G = { "<cmd>Telescope grep_string cwd=" .. u.get_top_level() .. "<CR>", "Grep string under the cursor" },
 		b = { "<cmd>Telescope buffers<CR>", "List open buffers" },

@@ -9,6 +9,12 @@ require("bufferline").setup({
 				highlight = "Directory",
 				separator = true, -- use a "true" to enable the default, or set your own character
 			},
+			{
+				filetype = "mind",
+				text = "Org Mode",
+				highlight = "Directory",
+				separator = true,
+			},
 		},
 		sort_by = "relative_directory",
 		-- numbers = "ordinal",
