@@ -38,8 +38,8 @@ saga.init_lsp_saga({
 
 -- vim.keymap.set("n", "go", "<cmd>Lspsaga outline<CR>", opts)
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
-vim.keymap.set("n", "gh", ":Lspsaga lsp_finder<CR>", opts)
-vim.keymap.set("n", "ga", ":Lspsaga code_action<CR>", opts)
+vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", opts)
+vim.keymap.set("n", "ga", "<cmd>Lspsaga code_action<CR>", opts)
 -- vim.keymap.set('n', 'gs', '<cmd>lua require(\'lspsaga.signaturehelp\').signature_help()<CR>', opts)
 vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", opts)
 vim.keymap.set("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts)
