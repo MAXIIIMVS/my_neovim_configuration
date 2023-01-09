@@ -71,7 +71,11 @@ return require("packer").startup({
 		use({
 			"folke/zen-mode.nvim",
 			config = function()
-				require("zen-mode").setup({})
+				require("zen-mode").setup({
+					plugins = {
+						tmux = { enabled = false }, -- disables the tmux statusline
+					},
+				})
 			end,
 		})
 		use({ "NvChad/nvim-colorizer.lua", config = u.get_setup("colorizer"), event = "BufRead" })

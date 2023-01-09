@@ -74,7 +74,8 @@ local options = {
 		},
 	},
 	view = {
-		width = 30,
+		-- side = "right",
+		width = 40,
 		relativenumber = false,
 		preserve_window_proportions = true,
 	},

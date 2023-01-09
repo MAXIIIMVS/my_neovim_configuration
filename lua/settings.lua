@@ -20,7 +20,8 @@ o.smartcase = true
 o.showcmd = true
 o.cmdheight = 0
 o.laststatus = 3
-vim.cmd("set statusline=%=%{&modified?'🟢':''}")
+vim.cmd("set statusline=%{reg_recording()}")
+vim.cmd("set statusline+=%=%{&modified?'🟢':''}")
 o.scrolloff = 2
 o.timeoutlen = 400
 -- incremental substitution (neovim)
