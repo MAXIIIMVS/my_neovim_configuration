@@ -108,6 +108,7 @@ return require("packer").startup({
 			config = u.get_setup("catppuccin"),
 		})
 		use({ "KabbAmine/vCoolor.vim" })
+		use("mbbill/undotree")
 
 		-- put this at the end, after all plugins
 		if packer_bootstrap then

@@ -3,10 +3,16 @@ local u = require("utils")
 local opts = { noremap = true, silent = true }
 local home = os.getenv("HOME")
 
+-- TODO: map all remaps to which-key
+
 -- MAPPINGS {{{
 -- ---------------------------------------------------------------------
 -- source the file
 vim.keymap.set("n", "<leader>s", ":silent so %<CR>", opts)
+
+-- make the file executable for the (u)ser , don't change (g)roup and (o)ther
+-- permissions
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod u+x %<CR>", opts)
 
 -- Better indent
 vim.keymap.set("v", "<", "<gv", opts)
@@ -137,6 +143,7 @@ wk.register({
 		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
 		E = { "<cmd>Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", "List diagnostics" },
 		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },
+		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
 	},
 }, { prefix = "", noremap = true, silent = true, nowait = true })
