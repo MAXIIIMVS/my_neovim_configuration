@@ -119,6 +119,7 @@ wk.register({
 		name = "Quick",
 		z = { "<cmd>ZenMode<CR><cmd>redraw<CR>", "Toggle Zen Mode" },
 		Z = { "<c-w>|<c-w>_", "Maximize the window" },
+		e = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show line diagnostics" },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open .<CR>", "Open the current directory" },
 		[";"] = { ":bd<CR>", "Delete current buffer" },

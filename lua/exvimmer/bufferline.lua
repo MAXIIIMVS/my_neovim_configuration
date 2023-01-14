@@ -15,6 +15,18 @@ require("bufferline").setup({
 				highlight = "Directory",
 				separator = true,
 			},
+			{
+				filetype = "undotree",
+				text = "Undo Tree",
+				highlight = "Directory",
+				separator = true,
+			},
+			{
+				filetype = "lspsagaoutline",
+				text = "Lspsaga Outline",
+				highlight = "Directory",
+				separator = true,
+			},
 		},
 		sort_by = "relative_directory",
 		-- numbers = "ordinal",
