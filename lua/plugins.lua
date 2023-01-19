@@ -43,6 +43,7 @@ return require("packer").startup({
 			config = u.get_setup("telescope"),
 		})
 		use({ "nvim-telescope/telescope-file-browser.nvim" })
+		use({ "xiyaowong/telescope-emoji.nvim" })
 		use({ "williamboman/mason.nvim" })
 		use({ "williamboman/mason-lspconfig.nvim" })
 		use({ "neovim/nvim-lspconfig", config = "require('exvimmer/lsp')" })

@@ -12,7 +12,10 @@ vim.keymap.set("n", "<leader>s", ":silent so %<CR>", opts)
 
 -- make the file executable for the (u)ser , don't change (g)roup and (o)ther
 -- permissions
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod u+x %<CR>", opts)
+vim.keymap.set("n", "<leader>x", "<cmd>silent !chmod u+x %<CR>", opts)
+
+-- select all
+vim.keymap.set("n", "<leader>a", "ggVG", opts)
 
 -- Better indent
 vim.keymap.set("v", "<", "<gv", opts)
@@ -140,6 +143,7 @@ wk.register({
 		G = { "<cmd>Telescope grep_string cwd=" .. u.get_top_level() .. "<CR>", "Grep string under the cursor" },
 		b = { "<cmd>Telescope buffers<CR>", "List open buffers" },
 		d = { "<cmd>Telescope file_browser cwd=" .. u.get_top_level() .. "<CR>", "File/Folder browser" },
+		j = { "<cmd>silent Telescope emoji<CR>", "Emoji" },
 		t = { "<cmd>TodoTelescope cwd=" .. u.get_top_level() .. "<CR>", "Show Todos for current project" },
 		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
 		E = { "<cmd>Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", "List diagnostics" },

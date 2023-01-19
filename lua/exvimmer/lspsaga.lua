@@ -4,11 +4,17 @@ local wk = require("which-key")
 
 saga.setup({
 	preview = {
-		line_below = 2,
-		lines_above = 2,
+		lines_above = 0,
+		lines_below = 0,
 	},
 	outline = {
 		win_width = 40,
+	},
+	symbol_in_winbar = {
+		enable = false, -- toggle if you like
+		hide_keyword = false,
+		folder_level = 3,
+		color_mode = true,
 	},
 	ui = {
 		theme = "round",
@@ -36,7 +42,12 @@ wk.register({
 -- vim.keymap.set("n", "<C-`>", "<cmd>Lspsaga open_floaterm lazygit<CR>", opts)
 -- close floaterm
 -- vim.keymap.set("t", "<C-\\>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)
-vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+vim.keymap.set("n", "K", "<cmd>silent Lspsaga hover_doc<CR>", {
+	noremap = true,
+	silent = true,
+	nowait = true,
+	desc = "Hover info",
+})
 vim.keymap.set(
 	"n",
 	"[e",

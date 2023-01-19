@@ -43,6 +43,9 @@ o.wildignore = o.wildignore .. "*/node_modules/*"
 -- Turn off paste mode when leaving insert
 vim.cmd("autocmd InsertLeave * set nopaste")
 
+-- hide tmux
+-- vim.cmd("autocmd VimEnter,VimLeave * silent !tmux set status")
+
 -- Add asterisks in block comments
 b.formatoptions = b.formatoptions .. "r"
 --}}}
@@ -157,127 +160,27 @@ vim.cmd.highlight("VertSplit guifg=#32afff")
 -- emoji shortcuts {{{
 -- ---------------------------------------------------------------------
 vim.cmd([[
-ab :check: ✅
-ab :empty: 🔳
 ab :check_mark: ✔
 ab :pi: 𝞹
 ab :cross: ❌
-ab :pin: 📌
 ab :right: ➡
 ab :left: ⬅
 ab :up: ⬆
 ab :down: ⬇
-ab :red_circle: 🔴
-ab :blue_circle: 🔵
-ab :orange_circle: 🟠
-ab :yellow_circle: 🟡
-ab :green_circle: 🟢
-ab :purple_circle: 🟣
-ab :brown_circle: 🟤
-ab :point_right: 👉
-ab :point_left: 👈
-ab :point_up: 👆
-ab :point_down: 👇
-ab :bulb: 💡
-ab :bomb: 💣
-ab :book: 📖
-ab :link: 🔗
-ab :wrench: 🔧
-ab :telephone: 📞
-ab :email: 📧
-ab :laptop: 💻
-ab :desktop: 🖥
-ab :rocket: 🚀
 ab :ninja: 🥷
-ab :palette: 🎨
-ab :low_brightness: 🔅
-ab :high_brightness: 🔆
-ab :crown: 👑
-ab :trident: 🔱
-ab :robot: 🤖
-ab :poop: 💩
-ab :ghost: 👻
-ab :wine_glass: 🍷
-ab :mobile_phone: 📱
-ab :red_heart: ❤️
-ab :skull: 💀
-ab :fox: 🦊
-ab :bird: 🐦
-ab :crab: 🦀
-ab :butterfly: 🦋
-ab :hedgehog: 🦔
-ab :snake: 🐍
-ab :octopus: 🐙
-ab :duck: 🦆
-ab :gorilla: 🦍
-ab :koala: 🐨
-ab :lady_beetle: 🐞
-ab :ox: 🐂
 ab :dh: ⏃
 ab :octocat: 
-ab :turtle: 🐢
-ab :rhino: 🦏
-ab :zombie: 🧟
-ab :maple_leaf: 🍁
-ab :tree: 🌳
-ab :clover: 🍀
-ab :alien: 👽
-ab :flying_saucer: 🛸
-ab :chocolate: 🍫
-ab :doughnut: 🍩
-ab :cookie: 🍪
-ab :pear: 🍐
-ab :locomotive: 🚂
-ab :helicopter: 🚁
-ab :game: 🎮
-ab :island: 🏝
-ab :performing_arts: 🎭
 ab :degree: \u02DA
 ab :filled: 🔲
-ab :gift: 🎁
-ab :warning: ⚠️
-ab :no: 🚫
 ab :biohazard: ☣️
 ab :radioactive: ☢️
-ab :key: 🔑
-ab :shield: 🛡️
-ab :beetle: 🐞
 ab :kite: 🪁
-ab :fire: 🔥
 ab :diamond: 💎
-ab :notebook: 📔
-ab :locked: 🔒
-ab :unlocked: 🔓
-ab :8ball: 🎱
-ab :100: 💯
-ab :joker: 🃏
-ab :bell: 🔔
-ab :balloon: 🎈
 ab :bullseye: 🎯
-ab :medal: 🥇
-ab :trophy: 🏆
 ab :anchor: ⚓
-ab :moai: 🗿
-ab :pencil: ✏️
-ab :pen: 🖊️
 ab :note: 📝
 ab :stethoscope: 🩺
 ab :thread: 🧵
-ab :love_letter: 💌
-ab :hourglass: ⏳
-ab :watch: ⌚
-ab :clock: ⏰
-ab :stopwatch: ⏱️
-ab :calendar: 🗓
-ab :clipboard: 📋
-ab :money: 💰
-ab :coffee: ☕
-ab :strawberry: 🍓
-ab :hamburger: 🍔
-ab :pizza: 🍕
-ab :french_fries: 🍟
-ab :mushroom: 🍄
-ab :tomato: 🍅
 ab :t_rex: 🦖
 ab :sauropod: 🦕
 ab :separator_lb: 
@@ -289,28 +192,6 @@ ab :separator_rst: ▶
 ab :separator_ltt: ❮
 ab :separator_rtt: ❯
 ab :ellipsis: …
-ab :1: ❶
-ab :2: ❷
-ab :3: ❸
-ab :4: ❹
-ab :5: ❺
-ab :6: ❻
-ab :7: ❼
-ab :8: ❽
-ab :9: ❾
-ab :10: ❿
-ab :aries: ♈
-ab :taurus: ♉
-ab :gemini: ♊
-ab :cancer: ♋
-ab :leo: ♌
-ab :virgo: ♍
-ab :libra: ♎
-ab :scorpio: ♏
-ab :sagittarius: ♐
-ab :capricorn: ♑
-ab :aquarius: ♒
-ab :pisces: ♓
 ab :book_icon: 
 ab :journal: 
 ab :lamp: 

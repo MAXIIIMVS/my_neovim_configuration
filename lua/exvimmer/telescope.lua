@@ -72,9 +72,17 @@ local options = {
 			}, -- i
 		}, -- mappings
 	},
+	extensions = {
+		emoji = {
+			action = function(emoji)
+				-- insert emoji when picked
+				vim.api.nvim_put({ emoji.value }, "c", false, true)
+			end,
+		},
+	},
 
 	-- extensions_list = { "file_browser", "themes", "terms" },
-	extensions_list = { "file_browser" },
+	extensions_list = { "file_browser", "emoji" },
 }
 
 telescope.setup(options)
