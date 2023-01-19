@@ -145,6 +145,7 @@ wk.register({
 		d = { "<cmd>Telescope file_browser cwd=" .. u.get_top_level() .. "<CR>", "File/Folder browser" },
 		j = { "<cmd>silent Telescope emoji<CR>", "Emoji" },
 		t = { "<cmd>TodoTelescope cwd=" .. u.get_top_level() .. "<CR>", "Show Todos for current project" },
+		L = { "<cmd>Telescope ToggleLSP<CR>", "Toggle LSP" },
 		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
 		E = { "<cmd>Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", "List diagnostics" },
 		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },

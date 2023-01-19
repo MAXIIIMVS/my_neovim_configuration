@@ -44,6 +44,7 @@ return require("packer").startup({
 		})
 		use({ "nvim-telescope/telescope-file-browser.nvim" })
 		use({ "xiyaowong/telescope-emoji.nvim" })
+		use({ "adoyle-h/lsp-toggle.nvim" })
 		use({ "williamboman/mason.nvim" })
 		use({ "williamboman/mason-lspconfig.nvim" })
 		use({ "neovim/nvim-lspconfig", config = "require('exvimmer/lsp')" })
