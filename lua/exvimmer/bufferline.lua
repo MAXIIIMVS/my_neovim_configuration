@@ -28,7 +28,7 @@ require("bufferline").setup({
 				separator = true,
 			},
 		},
-		sort_by = "relative_directory",
+		sort_by = "insert_at_end",
 		-- numbers = "ordinal",
 		separator_style = "slant",
 		diagnostics = "nvim_lsp",

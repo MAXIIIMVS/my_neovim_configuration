@@ -162,7 +162,6 @@ vim.cmd.highlight("VertSplit guifg=#32afff")
 vim.cmd([[
 ab :check_mark: ✔
 ab :pi: 𝞹
-ab :cross: ❌
 ab :right: ➡
 ab :left: ⬅
 ab :up: ⬆
