@@ -30,7 +30,7 @@ require("bufferline").setup({
 		},
 		sort_by = "insert_at_end",
 		-- numbers = "ordinal",
-		separator_style = "slant",
+		-- separator_style = "thick",
 		diagnostics = "nvim_lsp",
 		custom_areas = {
 			right = function()

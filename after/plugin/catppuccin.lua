@@ -24,33 +24,23 @@ local telescopeBorderless = function(flavor)
 	}
 end
 
-local options = {
+catppuccin.setup({
 	flavour = "mocha", -- latte, frappe, macchiato, mocha
 	background = { -- :h background
 		light = "latte",
 		dark = "mocha",
 	},
+	show_end_of_buffer = false,
 	compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
-	transparent_background = false,
-	term_colors = false,
+	transparent_background = true,
+	term_colors = true,
 	dim_inactive = {
-		enabled = true,
+		enabled = false,
 		shade = "dark",
 		percentage = 0.45,
 	},
 	styles = {
 		comments = { "bold" },
-		conditionals = {},
-		loops = {},
-		functions = {},
-		keywords = {},
-		strings = {},
-		variables = {},
-		numbers = {},
-		booleans = {},
-		properties = {},
-		types = {},
-		operators = {},
 	},
 	color_overrides = {
 		mocha = {
@@ -58,6 +48,12 @@ local options = {
 		},
 	},
 	custom_highlights = {},
+	highlight_overrides = {
+		-- latte = telescopeBorderless("latte"),
+		-- frappe = telescopeBorderless("frappe"),
+		-- macchiato = telescopeBorderless("macchiato"),
+		-- mocha = telescopeBorderless("mocha"),
+	},
 	integrations = {
 		cmp = true,
 		gitsigns = true,
@@ -72,16 +68,9 @@ local options = {
 		noice = true,
 		notify = true,
 		lsp_saga = true,
-		-- For more plugins integrations please scroll down
 		-- (https://github.com/catppuccin/nvim#integrations)
 	},
-	highlight_overrides = {
-		-- latte = telescopeBorderless("latte"),
-		-- frappe = telescopeBorderless("frappe"),
-		-- macchiato = telescopeBorderless("macchiato"),
-		-- mocha = telescopeBorderless("mocha"),
-	},
-}
+})
 
-catppuccin.setup(options)
+vim.keymap.set("n", "<leader>c", "<cmd>silent CatppuccinCompile<CR>")
 vim.cmd.colorscheme("catppuccin")

@@ -1,7 +1,7 @@
 local wk = require("which-key")
-local u = require("utils")
-local opts = { noremap = true, silent = true }
 local home = os.getenv("HOME")
+local utils = require("utils")
+local opts = { noremap = true, silent = true }
 
 -- TODO: map all remaps to which-key
 
@@ -32,7 +32,7 @@ vim.keymap.set("v", "p", '"_dP', opts)
 
 -- run prettier in the current directory
 -- vim.keymap.set('n', '<leader>P',
---   ':silent !cd ' .. u.get_top_level() ..
+--   ':silent !cd ' .. utils.get_top_level() ..
 --   '&& prettier --ignore-path .gitignore -w .<CR>', opts)
 -- vim.keymap.set('n', '<leader>p', ':silent !prettier --ignore-path .gitignore -w %<CR>',
 --   opts)
@@ -142,17 +142,23 @@ wk.register({
 			"Change the word under the cursor in the whole file",
 			silent = false,
 		},
-		f = { "<cmd>Telescope find_files cwd=" .. u.get_top_level() .. "<CR>", "Find files" },
+		f = { "<cmd>Telescope find_files cwd=" .. utils.get_top_level() .. "<CR>", "Find files" },
 		F = { "<cmd>Telescope git_files <CR>", "Fuzzy search for files tracked by Git" },
-		g = { "<cmd>Telescope live_grep  cwd=" .. u.get_top_level() .. "<CR>", "Live grep" },
-		G = { "<cmd>Telescope grep_string cwd=" .. u.get_top_level() .. "<CR>", "Grep string under the cursor" },
+		g = { "<cmd>Telescope live_grep  cwd=" .. utils.get_top_level() .. "<CR>", "Live grep" },
+		G = { "<cmd>Telescope grep_string cwd=" .. utils.get_top_level() .. "<CR>", "Grep string under the cursor" },
 		b = { "<cmd>Telescope buffers<CR>", "List open buffers" },
-		d = { "<cmd>Telescope file_browser cwd=" .. u.get_top_level() .. "<CR>", "File/Folder browser" },
+		C = {
+			function()
+				require("telescope.builtin").colorscheme()
+			end,
+			"List open buffers",
+		},
+		d = { "<cmd>Telescope file_browser cwd=" .. utils.get_top_level() .. "<CR>", "File/Folder browser" },
 		j = { "<cmd>silent Telescope emoji<CR>", "Emoji" },
-		t = { "<cmd>TodoTelescope cwd=" .. u.get_top_level() .. "<CR>", "Show Todos for current project" },
+		t = { "<cmd>TodoTelescope cwd=" .. utils.get_top_level() .. "<CR>", "Show Todos for current project" },
 		L = { "<cmd>Telescope ToggleLSP<CR>", "Toggle LSP" },
 		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
-		E = { "<cmd>Telescope diagnostics cwd=" .. u.get_top_level() .. "<CR>", "List diagnostics" },
+		E = { "<cmd>Telescope diagnostics cwd=" .. utils.get_top_level() .. "<CR>", "List diagnostics" },
 		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },

@@ -1,8 +1,3 @@
-local o = vim.o
-require("plugins")
-require("mappings")
-require("settings")
+require("exvimmer")
 
--- NOTE: put this at the end
-o.secure = true
--- WARNING: 👆 security risk; don't switch this off
+vim.o.secure = true

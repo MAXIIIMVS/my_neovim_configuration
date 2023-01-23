@@ -7,6 +7,11 @@ saga.setup({
 		lines_above = 0,
 		lines_below = 0,
 	},
+	ui = {
+		theme = "round",
+		border = "rounded",
+		winblend = 0,
+	},
 	outline = {
 		win_width = 40,
 	},
@@ -15,10 +20,6 @@ saga.setup({
 		hide_keyword = false,
 		folder_level = 3,
 		color_mode = true,
-	},
-	ui = {
-		theme = "round",
-		border = "rounded",
 	},
 })
 
