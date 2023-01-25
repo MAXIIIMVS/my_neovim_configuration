@@ -47,6 +47,10 @@ vim.keymap.set("n", "<leader>r", "<cmd>TSDisable rainbow<bar>TSEnable rainbow<CR
 vim.keymap.set("n", "]<space>", "o<ESC>k")
 vim.keymap.set("n", "[<space>", "O<ESC>j")
 
+vim.keymap.set("n", ";B", function()
+	vim.o.background = vim.o.background == "dark" and "light" or "dark"
+end)
+
 -- Switch between windows
 vim.keymap.set("n", "<space>j", "<c-w>j", opts)
 vim.keymap.set("n", "<space>k", "<c-w>k", opts)
@@ -54,12 +58,12 @@ vim.keymap.set("n", "<space>l", "<c-w>l", opts)
 vim.keymap.set("n", "<space>h", "<c-w>h", opts)
 
 -- next and previous buffer
-vim.keymap.set("n", "[b", ":bprev<CR>", opts)
-vim.keymap.set("n", "]b", ":bnext<CR>", opts)
+-- vim.keymap.set("n", "[b", ":bprev<CR>", opts)
+-- vim.keymap.set("n", "]b", ":bnext<CR>", opts)
 
 -- substitute the word under cursor in the selected line
-vim.keymap.set("v", ";s", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("s", ";s", [[<ESC>:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+-- vim.keymap.set("v", ";s", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+-- vim.keymap.set("s", ";s", [[<ESC>:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- delete all buffers other than the current one, put the cursor back
 -- nnoremap <space>bo :%bd\|e#\|bd#<CR>\|'"

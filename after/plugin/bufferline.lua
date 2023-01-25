@@ -62,8 +62,8 @@ require("bufferline").setup({
 	},
 })
 
-vim.keymap.set("n", "<S-Tab>", "::BufferLineCyclePrev<CR>", opts)
-vim.keymap.set("n", "<Tab>", "::BufferLineCycleNext<CR>", opts)
+vim.keymap.set("n", "[b", "::BufferLineCyclePrev<CR>", opts)
+vim.keymap.set("n", "]b", "::BufferLineCycleNext<CR>", opts)
 vim.keymap.set("n", "]B", ":BufferLineMoveNext<CR>", opts)
 vim.keymap.set("n", "[B", ":BufferLineMovePrev<CR>", opts)
 vim.keymap.set("n", "]x", ":BufferLineCloseRight<CR>", opts)
