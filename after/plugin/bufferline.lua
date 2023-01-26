@@ -1,6 +1,7 @@
 local opts = { noremap = true, silent = true }
 
 require("bufferline").setup({
+	highlights = require("catppuccin.groups.integrations.bufferline").get(),
 	options = {
 		offsets = {
 			{

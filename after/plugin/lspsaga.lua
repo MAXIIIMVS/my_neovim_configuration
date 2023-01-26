@@ -11,6 +11,8 @@ saga.setup({
 		theme = "round",
 		border = "rounded",
 		winblend = 0,
+		colors = require("catppuccin.groups.integrations.lsp_saga").custom_colors(),
+		kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
 	},
 	outline = {
 		win_width = 40,
@@ -43,7 +45,9 @@ wk.register({
 -- vim.keymap.set("n", "<C-`>", "<cmd>Lspsaga open_floaterm lazygit<CR>", opts)
 -- close floaterm
 -- vim.keymap.set("t", "<C-\\>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)
-vim.keymap.set("n", "K", "<cmd>silent Lspsaga hover_doc<CR>", {
+vim.keymap.set("n", "K", function()
+	vim.cmd("silent Lspsaga hover_doc")
+end, {
 	noremap = true,
 	silent = true,
 	nowait = true,
