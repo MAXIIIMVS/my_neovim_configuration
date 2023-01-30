@@ -1,5 +1,4 @@
 local wk = require("which-key")
-local home = os.getenv("HOME")
 local utils = require("utils")
 local opts = { noremap = true, silent = true }
 
@@ -47,30 +46,25 @@ vim.keymap.set("n", "<leader>r", "<cmd>TSDisable rainbow<bar>TSEnable rainbow<CR
 vim.keymap.set("n", "]<space>", "o<ESC>k")
 vim.keymap.set("n", "[<space>", "O<ESC>j")
 
+-- see next/previous and first/last items in QuickFix
+vim.keymap.set("n", "[q", "<cmd>silent cprev<CR>")
+vim.keymap.set("n", "]q", "<cmd>silent cnext<CR>")
+vim.keymap.set("n", "[Q", "<cmd>silent cfirst<CR>")
+vim.keymap.set("n", "]Q", "<cmd>silent clast<CR>")
+
+-- see next/previous and first/last items in local list
+vim.keymap.set("n", "[l", "<cmd>silent lprev<CR>")
+vim.keymap.set("n", "]l", "<cmd>silent lnext<CR>")
+vim.keymap.set("n", "[L", "<cmd>silent lfirst<CR>")
+vim.keymap.set("n", "]L", "<cmd>silent llast<CR>")
+
 vim.keymap.set("n", ";B", function()
 	vim.o.background = vim.o.background == "dark" and "light" or "dark"
 end)
 
--- Switch between windows
-vim.keymap.set("n", "<space>j", "<c-w>j", opts)
-vim.keymap.set("n", "<space>k", "<c-w>k", opts)
-vim.keymap.set("n", "<space>l", "<c-w>l", opts)
-vim.keymap.set("n", "<space>h", "<c-w>h", opts)
-
 -- next and previous buffer
 -- vim.keymap.set("n", "[b", ":bprev<CR>", opts)
 -- vim.keymap.set("n", "]b", ":bnext<CR>", opts)
-
--- substitute the word under cursor in the selected line
--- vim.keymap.set("v", ";s", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
--- vim.keymap.set("s", ";s", [[<ESC>:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-
--- delete all buffers other than the current one, put the cursor back
--- nnoremap <space>bo :%bd\|e#\|bd#<CR>\|'"
-vim.keymap.set("n", "<space>bo", ":%bd|e#|bd#<CR>|'\"", opts)
-
--- delete all buffers
-vim.keymap.set("n", "<space>ba", ":bufdo bd<CR>", opts)
 
 -- use vim-rsi instead
 vim.keymap.set("i", "<c-k>", "<c-o>C", opts)
@@ -114,9 +108,6 @@ vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv", opts)
 --   \gV:call setreg('"', old_reg, old_regtype)<CR>
 -- ]])
 
--- nvim-tree
-vim.keymap.set("n", "<space>e", "<cmd>NvimTreeToggle<CR>", opts)
-
 -- vCoolor.vim
 vim.keymap.set("i", "<M-V>", "<c-o>:VCoolor<CR>", opts) -- for hex color
 -- other shortcuts are alt-v (for hsl) alt-r (rgb) alt-w (rgba) and alt-c
@@ -131,7 +122,8 @@ wk.register({
 		["5"] = { "<cmd>BufferLineGoToBuffer 5<CR>", "Go to 5th buffer" },
 		z = { "<cmd>ZenMode<CR><cmd>redraw<CR>", "Toggle Zen Mode" },
 		Z = { "<c-w>|<c-w>_", "Maximize the window" },
-		e = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show line diagnostics" },
+		e = { "<cmd>Telescope diagnostics cwd=" .. utils.get_top_level() .. "<CR>", "List diagnostics" },
+		E = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show line diagnostics" },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open .<CR>", "Open the current directory" },
 		[";"] = { ":bd<CR>", "Delete current buffer" },
@@ -162,10 +154,27 @@ wk.register({
 		t = { "<cmd>TodoTelescope cwd=" .. utils.get_top_level() .. "<CR>", "Show Todos for current project" },
 		L = { "<cmd>Telescope ToggleLSP<CR>", "Toggle LSP" },
 		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
-		E = { "<cmd>Telescope diagnostics cwd=" .. utils.get_top_level() .. "<CR>", "List diagnostics" },
 		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
 	},
 }, { prefix = "", noremap = true, silent = true, nowait = true })
+
+wk.register({
+	s = {
+		name = "Session",
+		m = { "<cmd>Obsession " .. utils.get_top_level() .. "<CR>", "Make a session" },
+		d = { "<cmd>Obsession!<CR>", "Delete the session" },
+	},
+	b = {
+		name = "buffer",
+		o = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers, put the cursor back" },
+		a = { "<cmd>bufdo bd<CR>", "close all buffers" },
+	},
+	j = { "<c-w>j", "go N windows down" },
+	k = { "<c-w>k", "go N windows up" },
+	h = { "<c-w>h", "go N windows right" },
+	l = { "<c-w>l", "go N windows left" },
+	e = { "<cmd>silent NvimTreeToggle<CR>", "Toggle NvimTree" },
+}, { prefix = "<space>", noremap = true, silent = true, nowait = true })
 -- }}}
