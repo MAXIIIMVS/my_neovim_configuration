@@ -48,6 +48,7 @@ return require("packer").startup({
 		use({ "tpope/vim-rhubarb" })
 		use({ "tpope/vim-rsi" })
 		use({ "tpope/vim-obsession" })
+		use({ "tpope/vim-speeddating" })
 		use({ "nvim-lua/popup.nvim" })
 		use({ "phaazon/hop.nvim" })
 		use({ "phaazon/mind.nvim", branch = "v2.2", requires = "nvim-lua/plenary.nvim" })
