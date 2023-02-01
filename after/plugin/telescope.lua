@@ -64,11 +64,11 @@ local options = {
 			n = {
 				["q"] = actions.close,
 				["<M-h>"] = "which_key",
-				-- ["<C-r>"] = "delete_buffer",
+				["<C-r>"] = require("telescope.actions").delete_buffer,
 			}, -- n
 			i = {
 				["<M-h>"] = "which_key",
-				-- ["<C-r>"] = "delete_buffer",
+				["<C-r>"] = require("telescope.actions").delete_buffer,
 			}, -- i
 		}, -- mappings
 	},

@@ -11,7 +11,7 @@ end
 return require("packer").startup({
 	function(use)
 		use({ "wbthomason/packer.nvim" })
-		use({ "kyazdani42/nvim-web-devicons" })
+		use({ "nvim-tree/nvim-web-devicons" })
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 		use({ "akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons" })
 		use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true } })
@@ -27,6 +27,7 @@ return require("packer").startup({
 		use({ "williamboman/mason-lspconfig.nvim" })
 		use({ "neovim/nvim-lspconfig", config = "require('exvimmer/lsp')" })
 		use({ "glepnir/lspsaga.nvim", branch = "main" })
+		use({ "glepnir/dashboard-nvim", requires = { "nvim-tree/nvim-web-devicons" } })
 		use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
 		use({ "hrsh7th/nvim-cmp" })
 		use({ "hrsh7th/cmp-nvim-lsp" })
