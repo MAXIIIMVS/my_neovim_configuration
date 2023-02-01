@@ -93,18 +93,10 @@ db.setup({
 		header = randomHeader(headers),
 		center = {
 			{
-				icon = "  ",
-				desc = "Recently opened files                   ",
-				action = "Telescope oldfiles",
-				-- shortcut = "SPC f h",
-				key = "r",
-			},
-			{
-				icon = "  ",
-				desc = "Find  File                              ",
-				-- action = "Telescope find_files find_command=rg,--hidden,--files",
-				action = "Telescope find_files cwd=" .. utils.get_top_level(),
-				key = "f",
+				icon = "  ",
+				desc = "Open Notes/Todos                        ",
+				action = "MindOpenMain",
+				key = "t",
 			},
 			{
 				icon = "  ",
@@ -114,11 +106,25 @@ db.setup({
 				key = "d",
 			},
 			{
-				icon = "  ",
-				desc = "Find  Word                              ",
-				action = "Telescope live_grep",
-				key = "g",
+				icon = "  ",
+				desc = "Find  File                              ",
+				-- action = "Telescope find_files find_command=rg,--hidden,--files",
+				action = "Telescope find_files cwd=" .. utils.get_top_level(),
+				key = "f",
 			},
+			{
+				icon = "  ",
+				desc = "Recently opened files                   ",
+				action = "Telescope oldfiles",
+				-- shortcut = "SPC f h",
+				key = "r",
+			},
+			-- {
+			-- 	icon = "  ",
+			-- 	desc = "Find  Word                              ",
+			-- 	action = "Telescope live_grep",
+			-- 	key = "g",
+			-- },
 			{
 				icon = "  ",
 				desc = "Open Help Tags                          ",
@@ -132,6 +138,6 @@ db.setup({
 				key = "u",
 			},
 		},
-		-- footer = { "👑 Mustafa Hayati 👑" },
+		footer = { "👑 Mustafa Hayati 👑" },
 	},
 })

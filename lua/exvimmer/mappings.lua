@@ -9,6 +9,8 @@ local opts = { noremap = true, silent = true }
 -- source the file
 vim.keymap.set("n", "<leader>s", ":silent so %<CR>", opts)
 
+vim.keymap.set("n", "<leader>d", "<cmd>silent Dashboard<CR>", opts)
+
 -- make the file executable for the (u)ser , don't change (g)roup and (o)ther
 -- permissions
 vim.keymap.set("n", "<leader>x", "<cmd>silent !chmod u+x %<CR>", opts)
