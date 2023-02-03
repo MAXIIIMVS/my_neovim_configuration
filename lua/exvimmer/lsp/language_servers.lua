@@ -198,6 +198,23 @@ mason_lspconfig.setup_handlers({
 			},
 		})
 	end,
+	["gopls"] = function()
+		lspconfig.gopls.setup({
+			on_attach = on_attach,
+			capabilities = lsp_defaults.capabilities,
+			cmd = { "gopls", "serve" },
+			filetypes = { "go", "gomod", "gowork", "gotmpl" },
+			root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+			settings = {
+				gopls = {
+					analyses = {
+						unusedparams = true,
+					},
+					staticcheck = true,
+				},
+			},
+		})
+	end,
 	-- ["sumneko_lua"] = function()
 	-- 	lspconfig.sumneko_lua.setup({
 	-- 		on_attach = on_attach,
