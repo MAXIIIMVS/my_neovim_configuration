@@ -34,18 +34,7 @@ wk.register({
 	},
 }, { prefix = "", noremap = true, silent = true, nowait = true })
 
--- vim.keymap.set('n', 'gs', '<cmd>lua require(\'lspsaga.signaturehelp\').signature_help()<CR>', opts)
--- keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
--- Float terminal
--- vim.keymap.set("n", "<C-\\>", "<cmd>Lspsaga open_floaterm<CR>", opts)
--- if you want to pass some cli command into a terminal you can do it like this
--- open lazygit in lspsaga float terminal
--- vim.keymap.set("n", "<C-`>", "<cmd>Lspsaga open_floaterm lazygit<CR>", opts)
--- close floaterm
--- vim.keymap.set("t", "<C-\\>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)
-vim.keymap.set("n", "K", function()
-	vim.cmd("silent Lspsaga hover_doc")
-end, {
+vim.keymap.set("n", "K", "<cmd>silent Lspsaga hover_doc ++quiet<CR>", {
 	noremap = true,
 	silent = true,
 	nowait = true,

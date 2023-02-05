@@ -3,6 +3,9 @@ local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local lspinstaller = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 
+-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+require("neodev").setup({})
+
 local lsp_defaults = lspconfig.util.default_config
 lsp_defaults.capabilities = vim.tbl_deep_extend(
 	"force",
@@ -27,7 +30,6 @@ local on_attach = function(client, bufnr)
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 	vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", bufopts)
 	-- vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", bufopts)
-	-- TODO: Replace gs with the lspsaga version when it's supported again
 	vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
 	vim.keymap.set("i", "<C-x>", "<c-o><cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
 	vim.keymap.set("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", bufopts)
@@ -215,18 +217,4 @@ mason_lspconfig.setup_handlers({
 			},
 		})
 	end,
-	-- ["sumneko_lua"] = function()
-	-- 	lspconfig.sumneko_lua.setup({
-	-- 		on_attach = on_attach,
-	-- 		capabilities = lsp_defaults.capabilities,
-	-- 		settings = {
-	-- 			Lua = {
-	-- 				runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
-	-- 				diagnostics = { globals = { "vim" } },
-	-- 				workspace = { library = vim.api.nvim_get_runtime_file("", true), checkThirdParty = false },
-	-- 				telemetry = { enable = false },
-	-- 			},
-	-- 		},
-	-- 	})
-	-- end,
 })

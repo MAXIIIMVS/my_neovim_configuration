@@ -41,6 +41,7 @@ return require("packer").startup({
 		use({ "folke/lsp-colors.nvim" })
 		use({ "folke/which-key.nvim" })
 		use({ "folke/zen-mode.nvim" })
+		use({ "folke/neodev.nvim" })
 		use({ "NvChad/nvim-colorizer.lua" })
 		use({ "lukas-reineke/indent-blankline.nvim" })
 		use({ "tpope/vim-commentary" })
