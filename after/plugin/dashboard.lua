@@ -94,7 +94,7 @@ db.setup({
 		center = {
 			{
 				icon = "  ",
-				desc = "Open Notes/Todos                        ",
+				desc = "Open Notes|Todos                        ",
 				action = "MindOpenMain",
 				key = "t",
 			},

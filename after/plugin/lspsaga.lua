@@ -40,6 +40,7 @@ vim.keymap.set("n", "K", "<cmd>silent Lspsaga hover_doc ++quiet<CR>", {
 	nowait = true,
 	desc = "Hover info",
 })
+vim.keymap.set("n", "<M-k>", "<cmd>silent Lspsaga hover_doc ++keep ++quiet<CR>")
 vim.keymap.set(
 	"n",
 	"[e",

@@ -3,7 +3,7 @@ local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local lspinstaller = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 
--- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+-- NOTE: make sure to setup neodev BEFORE lspconfig
 require("neodev").setup({})
 
 local lsp_defaults = lspconfig.util.default_config

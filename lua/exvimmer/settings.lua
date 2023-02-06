@@ -15,7 +15,7 @@ vim.o.smartcase = true
 vim.o.showcmd = true
 vim.o.cmdheight = 0
 vim.o.laststatus = 3
-vim.o.scrolloff = 2
+vim.o.scrolloff = 3
 vim.o.timeoutlen = 400
 -- incremental substitution (neovim)
 if vim.fn.has("nvim") == 1 then
@@ -54,23 +54,18 @@ if vim.fn.exists("&termguicolors") == 1 and vim.fn.exists("&winblend") then
 	vim.wo.winblend = 0
 	vim.o.pumblend = 0
 	vim.o.background = "dark"
-	-- Use NeoSolarized
-	-- vim.g.neosolarized_termtrans = 1
-	-- require('colors')
-	-- cmd('colorscheme NeoSolarized')
 end
 -- }}}
 
 -- Settings {{{
 -- ---------------------------------------------------------------------
--- o.omnifunc = 'syntaxcomplete#Complete'
+-- vim.o.omnifunc = 'syntaxcomplete#Complete'
 vim.wo.winblend = 0
 vim.o.pumblend = 0
 vim.o.errorbells = false
 vim.o.belloff = "all"
 vim.o.confirm = true
--- vim.o.guifont= 'firaCode'
-vim.o.guifont = "FiraMono Nerd Font Medium"
+vim.opt.guifont = { "FiraMono Nerd Font Medium", "firaCode" }
 vim.go.t_Co = "256"
 -- vim.go.t_ut = ""
 vim.o.clipboard = "unnamedplus"
