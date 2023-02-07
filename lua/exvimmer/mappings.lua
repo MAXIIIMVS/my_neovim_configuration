@@ -1,4 +1,7 @@
-local wk = require("which-key")
+local has_wk, wk = pcall(require, "which-key")
+if not has_wk then
+	return
+end
 local utils = require("utils")
 local opts = { noremap = true, silent = true }
 
