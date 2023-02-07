@@ -1,5 +1,3 @@
--- automatically install and set up packer.nvim on any machine you clone your
--- configuration to
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 local packer_bootstrap
@@ -51,7 +49,6 @@ return require("packer").startup({
 		use({ "tpope/vim-rsi" })
 		use({ "tpope/vim-obsession" })
 		use({ "tpope/vim-speeddating" })
-		use({ "nvim-lua/popup.nvim" })
 		use({ "phaazon/hop.nvim" })
 		use({ "phaazon/mind.nvim", branch = "v2.2", requires = "nvim-lua/plenary.nvim" })
 		-- use {'simrat39/rust-tools.nvim'}
