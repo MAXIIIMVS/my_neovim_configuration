@@ -1,7 +1,3 @@
--- function telescope_buffer_dir()
---   return vim.fn.expand('%:p:h')
--- end
---
 local present, telescope = pcall(require, "telescope")
 
 if not present then
