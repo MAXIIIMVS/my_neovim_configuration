@@ -1,5 +1,4 @@
 local wk = require("which-key")
-local opts = { noremap = true, silent = true }
 
 require("gitsigns").setup({
 	attach_to_untracked = true,

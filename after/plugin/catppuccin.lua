@@ -4,6 +4,7 @@ if not present then
 	return
 end
 
+---@diagnostic disable-next-line: unused-local, unused-function
 local telescopeBorderless = function(flavor)
 	local cp = require("catppuccin.palettes").get_palette(flavor)
 
@@ -68,6 +69,10 @@ catppuccin.setup({
 		noice = true,
 		notify = true,
 		lsp_saga = true,
+		indent_blankline = {
+			enabled = true,
+			colored_indent_levels = true,
+		},
 		-- (https://github.com/catppuccin/nvim#integrations)
 	},
 })

@@ -34,6 +34,7 @@ require("nvim-treesitter.configs").setup({
 		"json5",
 		"make",
 		"markdown",
+		"markdown_inline",
 		"ninja",
 		"php",
 		"pug",
