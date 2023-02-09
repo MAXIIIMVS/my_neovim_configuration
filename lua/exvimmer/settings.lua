@@ -1,4 +1,5 @@
 local home = os.getenv("HOME")
+local utils = require("utils")
 
 -- Fundamental {{{
 vim.g.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal" -- removed blank
