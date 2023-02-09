@@ -5,7 +5,7 @@ if not vim.loop.fs_stat(lazypath) then
 		"clone",
 		"--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
+		"--branch=stable",
 		lazypath,
 	})
 end
@@ -34,7 +34,7 @@ return require("lazy").setup({
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "neovim/nvim-lspconfig" },
 	{ "glepnir/lspsaga.nvim", branch = "main" },
-	{ "glepnir/dashboard-nvim" },
+	{ "glepnir/dashboard-nvim", event = "VimEnter" },
 	{ "jose-elias-alvarez/null-ls.nvim", dependencies = "nvim-lua/plenary.nvim" },
 	{
 		"hrsh7th/nvim-cmp",

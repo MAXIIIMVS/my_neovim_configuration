@@ -69,6 +69,10 @@ catppuccin.setup({
 		noice = true,
 		notify = true,
 		lsp_saga = true,
+		indent_blankline = {
+			enabled = true,
+			colored_indent_levels = true,
+		},
 		-- (https://github.com/catppuccin/nvim#integrations)
 	},
 })

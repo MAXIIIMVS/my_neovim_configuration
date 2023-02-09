@@ -4,6 +4,8 @@ if not present then
 	return
 end
 
+math.randomseed(os.time())
+
 ---@diagnostic disable-next-line: unused-local, unused-function
 local function randomHeader(t)
 	return t[math.random(1, #t)]
@@ -89,7 +91,7 @@ local headers = {
 db.setup({
 	theme = "doom", -- hyper
 	config = {
-		header = headers[2],
+		header = randomHeader(headers),
 		center = {
 			{
 				icon = "  ",
