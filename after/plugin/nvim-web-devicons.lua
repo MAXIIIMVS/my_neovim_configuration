@@ -3,4 +3,4 @@ require("nvim-web-devicons").setup({
 	default = true,
 })
 
--- vim.cmd("silent CatppuccinCompile")
+vim.cmd("silent CatppuccinCompile")
