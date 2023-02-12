@@ -54,6 +54,12 @@ wk.register({
 			silent = false,
 		},
 		f = { "<cmd>Telescope find_files cwd=" .. utils.get_top_level() .. "<CR>", "Find files" },
+		-- f = {
+		-- 	function()
+		-- 		require("telescope.builtin").find_files({ hidden = true, cwd = utils.get_top_level(), no_ignore = true })
+		-- 	end,
+		-- 	"Find files",
+		-- },
 		F = { "<cmd>Telescope git_files <CR>", "Fuzzy search for files tracked by Git" },
 		g = { "<cmd>Telescope live_grep  cwd=" .. utils.get_top_level() .. "<CR>", "Live grep" },
 		G = { "<cmd>Telescope grep_string cwd=" .. utils.get_top_level() .. "<CR>", "Grep string under the cursor" },
@@ -97,4 +103,5 @@ wk.register({
 	h = { "<c-w>h", "go N windows right" },
 	l = { "<c-w>l", "go N windows left" },
 	e = { "<cmd>silent NvimTreeToggle<CR>", "Toggle NvimTree" },
+	E = { "<cmd>silent Ex<CR>", "Explore directory of current file" },
 }, { prefix = "<space>", noremap = true, silent = true, nowait = true })

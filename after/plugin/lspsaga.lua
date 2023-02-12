@@ -26,7 +26,7 @@ saga.setup({
 wk.register({
 	g = {
 		o = { "<cmd>Lspsaga outline<CR>", "Show lsp outline" },
-		d = { "<cmd>Lspsaga goto_definition<CR>", "Go to definition" },
+		-- d = { "<cmd>Lspsaga goto_definition<CR>", "Go to definition" },
 		p = { "<cmd>Lspsaga peek_definition<CR>", "Show the definition in a floating windows" },
 		h = { "<cmd>Lspsaga lsp_finder<CR>", "Show the defintion, reference, implementation..." },
 		a = { "<cmd>Lspsaga code_action<CR>", "Code actions" },

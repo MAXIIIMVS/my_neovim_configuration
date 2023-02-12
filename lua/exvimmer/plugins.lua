@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 return require("lazy").setup({
 	{ "catppuccin/nvim", name = "catppuccin", lazy = false, priority = 1000 },
+	{ "nvim-lua/plenary.nvim" },
 	{ "nvim-tree/nvim-web-devicons" },
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -26,9 +27,13 @@ return require("lazy").setup({
 	{ "akinsho/bufferline.nvim" },
 	{ "nvim-lualine/lualine.nvim" },
 	{ "nvim-tree/nvim-tree.lua" },
-	{ "nvim-telescope/telescope.nvim", dependencies = "nvim-lua/plenary.nvim" },
-	{ "nvim-telescope/telescope-file-browser.nvim" },
-	{ "xiyaowong/telescope-emoji.nvim" },
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			"nvim-telescope/telescope-file-browser.nvim",
+			"xiyaowong/telescope-emoji.nvim",
+		},
+	},
 	{ "adoyle-h/lsp-toggle.nvim" },
 	{ "williamboman/mason.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
@@ -75,5 +80,19 @@ return require("lazy").setup({
 }, {
 	ui = {
 		border = "single",
+		icons = {
+			cmd = "⌘",
+			config = "🛠",
+			event = "📅",
+			ft = "📂",
+			init = "⚙",
+			keys = "🗝",
+			plugin = "🔌",
+			runtime = "💻",
+			source = "📄",
+			start = "🚀",
+			task = "📌",
+			lazy = "💤 ",
+		},
 	},
 })
