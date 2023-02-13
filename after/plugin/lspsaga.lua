@@ -10,6 +10,7 @@ saga.setup({
 		theme = "round",
 		border = "rounded",
 		winblend = 0,
+		colors = require("catppuccin.groups.integrations.lsp_saga").custom_colors(),
 		kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
 	},
 	outline = {

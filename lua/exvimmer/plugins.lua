@@ -12,7 +12,17 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 return require("lazy").setup({
-	{ "catppuccin/nvim", name = "catppuccin", lazy = false, priority = 1000 },
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		lazy = false,
+		priority = 1000,
+		dependencies = {
+			"akinsho/bufferline.nvim",
+		},
+	},
+	-- { "EdenEast/nightfox.nvim" },
+	-- { "folke/tokyonight.nvim" },
 	{ "nvim-lua/plenary.nvim" },
 	{ "nvim-tree/nvim-web-devicons" },
 	{
@@ -24,7 +34,6 @@ return require("lazy").setup({
 			"windwp/nvim-autopairs",
 		},
 	},
-	{ "akinsho/bufferline.nvim" },
 	{ "nvim-lualine/lualine.nvim" },
 	{ "nvim-tree/nvim-tree.lua" },
 	{
