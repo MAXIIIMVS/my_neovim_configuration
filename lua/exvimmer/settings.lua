@@ -89,8 +89,6 @@ vim.o.wildmenu = true
 vim.g.wildmenu = true
 vim.o.updatetime = 500
 vim.wo.foldenable = true
--- NOTE: foldlevelstart: -1: default, 0: all folds closed, 1: some folds
--- closed, 99: no folds closed
 vim.o.foldlevelstart = 99
 -- vim.wo.foldnestmax = 10
 vim.wo.foldmethod = "indent" -- manual, indent, syntax, marker, expr, diff

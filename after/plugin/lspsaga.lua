@@ -6,6 +6,10 @@ saga.setup({
 		lines_above = 0,
 		lines_below = 0,
 	},
+	scroll_preview = {
+		scroll_down = "<C-d>",
+		scroll_up = "<C-u>",
+	},
 	ui = {
 		theme = "round",
 		border = "rounded",
@@ -26,7 +30,7 @@ saga.setup({
 
 wk.register({
 	g = {
-		o = { "<cmd>Lspsaga outline<CR>", "Show lsp outline" },
+		-- o = { "<cmd>Lspsaga outline<CR>", "Show lsp outline" },
 		-- d = { "<cmd>Lspsaga goto_definition<CR>", "Go to definition" },
 		p = { "<cmd>Lspsaga peek_definition<CR>", "Show the definition in a floating windows" },
 		h = { "<cmd>Lspsaga lsp_finder<CR>", "Show the defintion, reference, implementation..." },
@@ -55,8 +59,8 @@ vim.keymap.set(
 	{ noremap = true, silent = true, desc = "Jump to the next diagnostic" }
 )
 vim.keymap.set("n", "[E", function()
-	require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+	require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
 end, { noremap = true, silent = true, desc = "Jump to the previous error" })
 vim.keymap.set("n", "]E", function()
-	require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+	require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
 end, { noremap = true, silent = true, desc = "Jump to the next error" })

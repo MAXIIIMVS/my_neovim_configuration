@@ -17,12 +17,10 @@ return require("lazy").setup({
 		name = "catppuccin",
 		lazy = false,
 		priority = 1000,
-		dependencies = {
-			"akinsho/bufferline.nvim",
-		},
 	},
 	-- { "EdenEast/nightfox.nvim" },
 	-- { "folke/tokyonight.nvim" },
+	{ "akinsho/bufferline.nvim" },
 	{ "nvim-lua/plenary.nvim" },
 	{ "nvim-tree/nvim-web-devicons" },
 	{

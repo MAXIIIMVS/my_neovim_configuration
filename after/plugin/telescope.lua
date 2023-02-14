@@ -71,6 +71,7 @@ local options = {
 	extensions = {
 		emoji = {
 			action = function(emoji)
+				vim.fn.setreg("*", emoji.value) -- copy to * register, paste it with p or "*p
 				-- insert emoji when picked
 				vim.api.nvim_put({ emoji.value }, "c", false, true)
 			end,
