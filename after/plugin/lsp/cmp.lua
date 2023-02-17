@@ -1,5 +1,3 @@
-vim.g.completeopt = "menu,menuone,noselect"
-
 local present, cmp = pcall(require, "cmp")
 
 if not present then
@@ -31,6 +29,7 @@ cmp_window.info = function(self)
 end
 
 local options = {
+	preselect = cmp.PreselectMode.None,
 	window = {
 		completion = {
 			border = border("CmpBorder"),
