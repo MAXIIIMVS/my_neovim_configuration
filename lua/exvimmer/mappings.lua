@@ -16,6 +16,10 @@ vim.keymap.set("n", "<leader>x", "<cmd>silent !chmod u+x %<CR>", opts)
 -- select all
 vim.keymap.set("n", "<leader>a", "ggVG", opts)
 
+vim.keymap.set("n", "<leader>h", function()
+	vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
+end, opts)
+
 -- Better indent
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)

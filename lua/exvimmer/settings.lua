@@ -17,7 +17,7 @@ vim.o.showcmd = true
 vim.o.cmdheight = 0
 vim.o.laststatus = 3
 vim.o.scrolloff = 4
-vim.o.timeoutlen = 400
+vim.o.timeoutlen = 500
 -- incremental substitution (neovim)
 if vim.fn.has("nvim") == 1 then
 	vim.o.inccommand = "split"

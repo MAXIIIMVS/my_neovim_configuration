@@ -133,6 +133,18 @@ ins_left({ "location" })
 ins_left({ "progress", color = { fg = colors.fg, gui = "bold" } })
 
 ins_left({
+	function()
+		if #vim.api.nvim_list_wins() > 1 then
+			return "[" .. vim.api.nvim_win_get_number(0) .. "]"
+		else
+			return ""
+		end
+	end,
+	cond = conditions.buffer_not_empty,
+	color = { fg = colors.yellow },
+})
+
+ins_left({
 	"diagnostics",
 	sources = { "nvim_diagnostic" },
 	symbols = { error = " ", warn = " ", info = " " },
