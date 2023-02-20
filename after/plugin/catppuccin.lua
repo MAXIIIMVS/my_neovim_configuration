@@ -77,16 +77,4 @@ catppuccin.setup({
 	},
 })
 
-vim.keymap.set("n", "<leader>c", function()
-	catppuccin.options.transparent_background = not catppuccin.options.transparent_background
-	vim.o.background = vim.o.background == "dark" and "light" or "dark"
-	catppuccin.compile()
-	vim.cmd.colorscheme(vim.g.colors_name)
-end)
-vim.keymap.set("n", "<leader>C", function()
-	catppuccin.options.transparent_background = not catppuccin.options.transparent_background
-	catppuccin.compile()
-	vim.cmd.colorscheme(vim.g.colors_name)
-end)
-
 vim.cmd.colorscheme("catppuccin")

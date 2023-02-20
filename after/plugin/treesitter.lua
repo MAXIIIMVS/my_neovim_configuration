@@ -32,6 +32,7 @@ require("nvim-treesitter.configs").setup({
 		"jsdoc",
 		"ini",
 		"json5",
+		"llvm",
 		"make",
 		"markdown",
 		"markdown_inline",

@@ -4,6 +4,7 @@ if not present then
 	return
 end
 
+local catppuccin = require("catppuccin")
 local utils = require("utils")
 
 local options = {
@@ -46,7 +47,7 @@ wk.register({
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open .<CR>", "Open the current directory" },
 		[";"] = { ":bd<CR>", "Delete current buffer" },
-		q = { "<c-w>q", "Quit a window" },
+		q = { "<c-w>q", "Quit current window" },
 		s = {
 			[[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
 			"Change the word under the cursor in the line",
@@ -68,12 +69,6 @@ wk.register({
 		g = { "<cmd>Telescope live_grep  cwd=" .. utils.get_top_level() .. "<CR>", "Live grep" },
 		G = { "<cmd>Telescope grep_string cwd=" .. utils.get_top_level() .. "<CR>", "Grep string under the cursor" },
 		b = { "<cmd>Telescope buffers<CR>", "List open buffers" },
-		B = {
-			function()
-				vim.o.background = vim.o.background == "dark" and "light" or "dark"
-			end,
-			"Toggle background color",
-		},
 		C = {
 			function()
 				require("telescope.builtin").colorscheme()
@@ -83,7 +78,6 @@ wk.register({
 		d = { "<cmd>Telescope file_browser cwd=" .. utils.get_top_level() .. "<CR>", "File/Folder browser" },
 		j = { "<cmd>silent Telescope emoji<CR>", "Emoji" },
 		t = { "<cmd>TodoTelescope cwd=" .. utils.get_top_level() .. "<CR>", "Show Todos for current project" },
-		T = { "<cmd>Telescope ToggleLSP<CR>", "Toggle LSP" },
 		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
 		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
@@ -96,6 +90,53 @@ wk.register({
 		name = "Session",
 		m = { "<cmd>Obsession " .. utils.get_top_level() .. "<CR>", "Make a session" },
 		d = { "<cmd>Obsession!<CR>", "Delete the session" },
+	},
+	t = {
+		name = "Toggle",
+		t = {
+			function()
+				catppuccin.options.transparent_background = not catppuccin.options.transparent_background
+				catppuccin.compile()
+				vim.cmd.colorscheme(vim.g.colors_name)
+			end,
+			"transparency",
+		},
+		b = {
+			function()
+				catppuccin.options.transparent_background = not catppuccin.options.transparent_background
+				vim.o.background = vim.o.background == "dark" and "light" or "dark"
+				catppuccin.compile()
+				vim.cmd.colorscheme(vim.g.colors_name)
+			end,
+			"light/dark background",
+		},
+		B = {
+			function()
+				vim.o.background = vim.o.background == "dark" and "light" or "dark"
+			end,
+			"background color",
+		},
+		d = { "<cmd>silent Dashboard<CR>", "dashboard" },
+		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
+		l = { "<cmd>Telescope ToggleLSP<CR>", "LSP" },
+		h = {
+			function()
+				vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
+			end,
+			"cmdheight 0 or 1",
+		},
+		r = {
+			"<cmd>TSDisable rainbow<bar>TSEnable rainbow<CR>",
+			"rainbow",
+		},
+		z = {
+			"<cmd>ZenMode<CR>",
+			"zen mode",
+		},
+		p = {
+			"<cmd>BufferLineTogglePin<CR>",
+			"pin buffer",
+		},
 	},
 	b = {
 		name = "buffer",

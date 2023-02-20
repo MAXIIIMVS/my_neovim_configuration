@@ -13,13 +13,6 @@ vim.keymap.set("n", "<leader>d", "<cmd>silent Dashboard<CR>", opts)
 -- permissions
 vim.keymap.set("n", "<leader>x", "<cmd>silent !chmod u+x %<CR>", opts)
 
--- select all
-vim.keymap.set("n", "<leader>a", "ggVG", opts)
-
-vim.keymap.set("n", "<leader>h", function()
-	vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
-end, opts)
-
 -- Better indent
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
@@ -42,9 +35,6 @@ vim.keymap.set("v", "p", '"_dP', opts)
 
 -- close and open the file again
 -- vim.keymap.set('n', '<leader>r', ':bd<CR><c-o>', opts)
-
--- toggle rainbow off an on
-vim.keymap.set("n", "<leader>r", "<cmd>TSDisable rainbow<bar>TSEnable rainbow<CR>", opts)
 
 --insert a blank line around the cursor
 vim.keymap.set("n", "]<space>", "o<ESC>k")
@@ -108,7 +98,4 @@ vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv", opts)
 --   \gV:call setreg('"', old_reg, old_regtype)<CR>
 -- ]])
 
--- vCoolor.vim
-vim.keymap.set("i", "<M-V>", "<c-o>:VCoolor<CR>", opts) -- for hex color
--- other shortcuts are alt-v (for hsl) alt-r (rgb) alt-w (rgba) and alt-c
 -- }}}
