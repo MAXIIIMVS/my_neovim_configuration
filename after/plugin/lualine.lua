@@ -17,6 +17,15 @@ local colors = {
   red      = '#ec5f67',
 }
 
+local function show_macro_recording()
+	local recording_register = vim.fn.reg_recording()
+	if recording_register == "" then
+		return ""
+	else
+		return "Recording @" .. recording_register
+	end
+end
+
 local conditions = {
 	buffer_not_empty = function()
 		return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
@@ -185,6 +194,17 @@ ins_left({
 })
 
 -- Add components to right sections
+ins_right({
+	function()
+		if vim.o.cmdheight == 0 then
+			return show_macro_recording()
+		else
+			return ""
+		end
+	end,
+	color = { fg = colors.yellow },
+})
+
 ins_right({
 	"o:encoding", -- option component same as &encoding in viml
 	fmt = string.upper, -- I'm not sure why it's upper case either ;)

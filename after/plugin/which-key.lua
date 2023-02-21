@@ -5,6 +5,7 @@ if not present then
 end
 
 local catppuccin = require("catppuccin")
+local lualine = require("lualine")
 local utils = require("utils")
 
 local options = {
@@ -136,6 +137,17 @@ wk.register({
 		p = {
 			"<cmd>BufferLineTogglePin<CR>",
 			"pin buffer",
+		},
+		s = {
+			function()
+				if vim.o.statusline == "" then
+					lualine.hide({ unhide = true })
+				else
+					lualine.hide({ unhide = false })
+					vim.o.statusline = "" -- "" is same as "%t %m"
+				end
+			end,
+			"statusline/lualine",
 		},
 	},
 	b = {
