@@ -1,6 +1,9 @@
 -- local lualine = require("lualine")
 
 require("zen-mode").setup({
+	window = {
+		width = 100,
+	},
 	---@diagnostic disable-next-line: unused-local
 	on_open = function(win)
 		-- lualine.hide({})
