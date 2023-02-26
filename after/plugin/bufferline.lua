@@ -26,12 +26,6 @@ require("bufferline").setup({
 				separator = true, -- use a "true" to enable the default, or set your own character
 			},
 			{
-				filetype = "mind",
-				text = "Org Mode",
-				highlight = "Directory",
-				separator = true,
-			},
-			{
 				filetype = "undotree",
 				text = "Undo Tree",
 				highlight = "Directory",

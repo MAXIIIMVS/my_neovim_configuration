@@ -76,11 +76,7 @@ return require("lazy").setup({
 	{ "tpope/vim-obsession" },
 	{ "tpope/vim-speeddating" },
 	{ "phaazon/hop.nvim" },
-	{
-		"phaazon/mind.nvim",
-		branch = "v2.2",
-		dependencies = "nvim-lua/plenary.nvim",
-	},
+	{ "vimwiki/vimwiki" },
 	-- {'simrat39/rust-tools.nvim'},
 	{ "KabbAmine/vCoolor.vim" },
 	{ "mbbill/undotree" },
