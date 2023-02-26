@@ -17,8 +17,7 @@ local on_attach = function(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-	-- if client.name == "clangd" or client.name == "gopls" then
-	if client.name == "clangd" then
+	if client.name == "clangd" or client.name == "prismals" then
 		vim.api.nvim_command([[augroup Format]])
 		vim.api.nvim_command([[autocmd! * <buffer>]])
 		vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
