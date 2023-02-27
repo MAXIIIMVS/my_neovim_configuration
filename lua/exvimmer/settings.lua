@@ -154,6 +154,8 @@ let g:vimwiki_list = [{'path': '~/notes/wiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 ]])
 
+-- vim.g.vimwiki_listsyms = " ✗○◐●✓"
+vim.g.vimwiki_listsyms = " .oOx"
 vim.cmd("autocmd FileType vimwiki set filetype=markdown")
 -- }}}
 

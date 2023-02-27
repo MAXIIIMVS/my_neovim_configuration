@@ -61,6 +61,7 @@ local headers = {
 		[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠂⠀⠀⠀⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
 		[[             Memento Mori            ]],
 		[[                                     ]],
+		[[                                     ]],
 	},
 	{
 		[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
@@ -101,21 +102,21 @@ db.setup({
 			},
 			{
 				icon = "🗃 ",
-				desc = "File Browser                            ",
+				desc = "Browse Directories                      ",
 				-- action = "Telescope file_browser cwd=" .. home,
 				action = "Telescope file_browser",
 				key = "d",
 			},
 			{
 				icon = "🗄 ",
-				desc = "Find  File                              ",
+				desc = "Find File                               ",
 				-- action = "Telescope find_files find_command=rg,--hidden,--files",
 				action = "Telescope find_files cwd=" .. utils.get_top_level(),
 				key = "f",
 			},
 			{
 				icon = "💼 ",
-				desc = "Recently opened files                   ",
+				desc = "Recent Files                            ",
 				action = "Telescope oldfiles",
 				key = "r",
 			},
