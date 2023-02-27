@@ -52,6 +52,10 @@ vim.keymap.set("n", "]l", "<cmd>silent lnext<CR>")
 vim.keymap.set("n", "[L", "<cmd>silent lfirst<CR>")
 vim.keymap.set("n", "]L", "<cmd>silent llast<CR>")
 
+-- paste before or after the line
+vim.keymap.set("n", "[p", "<cmd>pu!<CR>")
+vim.keymap.set("n", "]p", "<cmd>pu<CR>")
+
 -- next and previous buffer
 -- vim.keymap.set("n", "[b", ":bprev<CR>", opts)
 -- vim.keymap.set("n", "]b", ":bnext<CR>", opts)
