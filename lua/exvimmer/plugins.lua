@@ -78,6 +78,7 @@ return require("lazy").setup({
 	{ "tpope/vim-speeddating" },
 	{ "phaazon/hop.nvim" },
 	{ "vimwiki/vimwiki" },
+	{ "itchyny/calendar.vim" },
 	-- {'simrat39/rust-tools.nvim'},
 	{ "KabbAmine/vCoolor.vim" },
 	{ "mbbill/undotree" },

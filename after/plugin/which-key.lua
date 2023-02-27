@@ -171,3 +171,15 @@ wk.register({
 	["8"] = { "8<c-w>w", "Go to 8th window" },
 	["9"] = { "9<c-w>w", "Go to 9th window" },
 }, { prefix = "<space>", noremap = true, silent = true, nowait = true })
+
+wk.register({
+	c = {
+		name = "Calendar",
+		c = { "<cmd>Calendar<CR>", "Main Calendar (view month)" },
+		y = { "<cmd>Calendar -view=year<CR>", "View Year" },
+		w = { "<cmd>Calendar -view=week<CR>", "View Week" },
+		d = { "<cmd>Calendar -view=day<CR>", "View Day" },
+		D = { "<cmd>Calendar -view=days<CR>", "View Days" },
+		t = { "<cmd>Calendar -view=clock<CR>", "View Clock" },
+	},
+}, { prefix = "<leader>", noremap = true, silent = true, nowait = true })

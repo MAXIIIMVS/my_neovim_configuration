@@ -158,6 +158,21 @@ vim.g.vimwiki_listsyms = " .oOx"
 vim.cmd("autocmd FileType vimwiki set filetype=markdown")
 -- }}}
 
+-- Calendar.vim {{{
+-- vim.g.calendar_week_number = true
+-- vim.g.calendar_date_month_name = true
+-- vim.g.calendar_task = true
+vim.g.calendar_google_calendar = true
+vim.g.calendar_google_task = true
+vim.g.calendar_date_full_month_name = true
+vim.g.calendar_event_start_time = true
+vim.g.calendar_skip_event_delete_confirm = true
+vim.g.calendar_skip_task_delete_confirm = true
+vim.g.calendar_skip_task_clear_completed_confirm = true
+-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
+vim.cmd([[source ~/.config/nvim/credentials.vim ]])
+-- }}}
+
 -- emoji shortcuts {{{
 -- ---------------------------------------------------------------------
 vim.cmd([[

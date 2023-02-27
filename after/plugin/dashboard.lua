@@ -95,6 +95,12 @@ db.setup({
 		header = randomHeader(headers),
 		center = {
 			{
+				icon = "🗓 ",
+				desc = "Calendar                                ",
+				action = ":Calendar",
+				key = "c",
+			},
+			{
 				icon = "📓 ",
 				desc = "Open Wiki                               ",
 				action = "VimwikiIndex",
@@ -125,12 +131,6 @@ db.setup({
 				desc = "Manage Plugins                          ",
 				action = "Lazy",
 				key = "p",
-			},
-			{
-				icon = "🚪 ",
-				desc = "Quit                                    ",
-				action = ":q",
-				key = "q",
 			},
 		},
 		footer = { "👑 Mustafa Hayati 👑" },
