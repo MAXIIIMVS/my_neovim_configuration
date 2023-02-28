@@ -182,5 +182,6 @@ wk.register({
 		D = { "<cmd>Calendar -view=days<CR>", "View Days" },
 		t = { "<cmd>Calendar -view=clock<CR>", "View Clock" },
 		o = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r<CR>", "Open Google Calendar" },
+		g = { ":Calendar ", "Go to date (mm dd yyyy)" },
 	},
 }, { prefix = "<leader>", noremap = true, silent = true, nowait = true })

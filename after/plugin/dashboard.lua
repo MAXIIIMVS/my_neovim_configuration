@@ -4,7 +4,8 @@ if not present then
 	return
 end
 
-math.randomseed(os.time())
+-- uncomment if you're using random headers
+-- math.randomseed(os.time())
 
 ---@diagnostic disable-next-line: unused-local, unused-function
 local function randomHeader(t)
@@ -60,7 +61,7 @@ local headers = {
 		[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠃⠀⠀⢰⠀⠀⠀⡇⠀⠀⢸⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
 		[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠂⠀⠀⠀⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
 		[[             Memento Mori            ]],
-		[[                                     ]],
+		[[            Memento Vivere           ]],
 		[[                                     ]],
 	},
 	{
@@ -92,7 +93,7 @@ local headers = {
 db.setup({
 	theme = "doom", -- hyper
 	config = {
-		header = randomHeader(headers),
+		header = headers[2],
 		center = {
 			{
 				icon = "🗓 ",
@@ -131,6 +132,12 @@ db.setup({
 				desc = "Manage Plugins                          ",
 				action = "Lazy",
 				key = "p",
+			},
+			{
+				icon = "🚀 ",
+				desc = "Manage LSP/Formatters/...               ",
+				action = "Mason",
+				key = "m",
 			},
 		},
 		footer = { "👑 Mustafa Hayati 👑" },
