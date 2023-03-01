@@ -2,3 +2,4 @@ plugin/packer_compiled.lua
 Session.vim
 lazy-lock.json
 credentials.vim
+spell

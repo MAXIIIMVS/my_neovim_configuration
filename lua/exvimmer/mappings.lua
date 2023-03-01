@@ -13,6 +13,9 @@ vim.keymap.set("n", "<leader>d", "<cmd>silent Dashboard<CR>", opts)
 -- permissions
 vim.keymap.set("n", "<leader>x", "<cmd>silent !chmod u+x %<CR>", opts)
 
+-- use Telescope spell_suggest instead of the default one
+vim.keymap.set("n", "z=", "<cmd>silent Telescope spell_suggest<CR>", opts)
+
 -- Better indent
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)

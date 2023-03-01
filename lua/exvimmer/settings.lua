@@ -3,6 +3,7 @@ local utils = require("utils")
 
 -- Fundamental {{{
 vim.g.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal" -- removed blank
+vim.wo.spell = true
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.signcolumn = "yes:1"
