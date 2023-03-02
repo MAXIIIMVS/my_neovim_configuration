@@ -11,7 +11,7 @@ require("todo-comments").setup({
 		TEST = { icon = "🛡️", color = "#FFFD00", alt = { "TESTING", "PASSED", "FAILED" } },
 	},
 	highlight = {
-		multiline = true, -- enable multine todo comments
+		multiline = true, -- enable multiline todo comments
 		comments_only = false,
 		-- exclude = {}, -- list of file types to exclude highlighting
 	},

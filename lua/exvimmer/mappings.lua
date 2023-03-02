@@ -17,8 +17,8 @@ vim.keymap.set("n", "<leader>x", "<cmd>silent !chmod u+x %<CR>", opts)
 vim.keymap.set("n", "z=", "<cmd>silent Telescope spell_suggest<CR>", opts)
 
 -- Better indent
-vim.keymap.set("v", "<", "<gv", opts)
-vim.keymap.set("v", ">", ">gv", opts)
+-- vim.keymap.set("v", "<", "<gv", opts)
+-- vim.keymap.set("v", ">", ">gv", opts)
 
 -- Resizing panes
 vim.keymap.set("n", "<C-Left>", ":vertical resize +2<CR>", opts)

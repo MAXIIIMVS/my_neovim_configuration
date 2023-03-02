@@ -27,7 +27,7 @@ local options = {
 
 wk.setup(options)
 
-vim.keymap.set("n", "<M-h>", "<cmd>WhichKey<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>h", "<cmd>WhichKey<CR>", { noremap = true, silent = true })
 
 wk.register({
 	[";"] = {
@@ -81,6 +81,7 @@ wk.register({
 		t = { "<cmd>TodoTelescope cwd=" .. utils.get_top_level() .. "<CR>", "Show Todos for current project" },
 		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
 		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },
+		H = { "<cmd>Telescope man_pages<CR>", "Show help tags" },
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
 	},

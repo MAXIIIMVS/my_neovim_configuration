@@ -45,7 +45,14 @@ return require("lazy").setup({
 	{ "williamboman/mason.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "neovim/nvim-lspconfig" },
-	{ "glepnir/lspsaga.nvim", branch = "main" },
+	{
+		"glepnir/lspsaga.nvim",
+		branch = "main",
+		dependencies = {
+			{ "nvim-tree/nvim-web-devicons" },
+			{ "nvim-treesitter/nvim-treesitter" },
+		},
+	},
 	{ "glepnir/dashboard-nvim", event = "VimEnter" },
 	{ "jose-elias-alvarez/null-ls.nvim", dependencies = "nvim-lua/plenary.nvim" },
 	{
@@ -76,6 +83,7 @@ return require("lazy").setup({
 	{ "tpope/vim-rsi" },
 	{ "tpope/vim-obsession" },
 	{ "tpope/vim-speeddating" },
+	{ "matze/vim-move" },
 	{ "phaazon/hop.nvim" },
 	{ "vimwiki/vimwiki" },
 	{ "itchyny/calendar.vim" },
