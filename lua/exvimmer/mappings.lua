@@ -17,8 +17,12 @@ vim.keymap.set("n", "<leader>x", "<cmd>silent !chmod u+x %<CR>", opts)
 vim.keymap.set("n", "z=", "<cmd>silent Telescope spell_suggest<CR>", opts)
 
 -- Better indent
--- vim.keymap.set("v", "<", "<gv", opts)
--- vim.keymap.set("v", ">", ">gv", opts)
+vim.keymap.set("v", "<", "<gv", opts)
+vim.keymap.set("v", ">", ">gv", opts)
+
+-- Move visual selection
+vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv", opts)
+vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv", opts)
 
 -- Resizing panes
 vim.keymap.set("n", "<C-Left>", ":vertical resize +2<CR>", opts)
@@ -86,10 +90,6 @@ vim.keymap.set("s", "<M-s>", "<ESC><cmd>wall<CR>", opts)
 
 -- make . to work with visually selected lines
 vim.keymap.set("v", ".", ":normal.<CR>", opts)
-
--- Move visual selection
-vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv", opts)
-vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv", opts)
 
 -- search the visually selected text, not required in nvim>0.8
 -- cmd([[
