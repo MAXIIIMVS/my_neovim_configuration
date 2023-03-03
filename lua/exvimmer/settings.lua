@@ -177,16 +177,10 @@ vim.cmd([[source ~/.config/nvim/credentials.vim ]])
 -- emoji shortcuts {{{
 -- ---------------------------------------------------------------------
 vim.cmd([[
-ab :check_mark: ✔
 ab :pi: 𝞹
 ab :micro: μ
-ab :right: ➡
-ab :left: ⬅
-ab :up: ⬆
-ab :down: ⬇
 ab :ninja: 🥷
 ab :dh: ⏃
-ab :octocat: 
 ab :degree: \u02DA
 ab :filled: 🔲
 ab :biohazard: ☣️
@@ -200,27 +194,7 @@ ab :stethoscope: 🩺
 ab :thread: 🧵
 ab :t_rex: 🦖
 ab :sauropod: 🦕
-ab :separator_lb: 
-ab :separator_rb: 
-ab :separator_lt: 
-ab :separator_rt: 
-ab :separator_lst: ◀
-ab :separator_rst: ▶
 ab :separator_ltt: ❮
 ab :separator_rtt: ❯
-ab :ellipsis: …
-ab :book_icon: 
-ab :journal: 
-ab :lamp: 
-ab :note_taking: 
-ab :task_management: 陼
-ab :empty_square: 
-ab :done: 
-ab :filled_square: 
-ab :bin: 
-ab :github: 
-ab :monitoring: 
-ab :frozen: 
-ab :earth: 
 ]])
 -- }}}

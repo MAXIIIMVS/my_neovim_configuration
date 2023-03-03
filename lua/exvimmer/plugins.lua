@@ -38,6 +38,7 @@ return require("lazy").setup({
 		dependencies = {
 			"nvim-telescope/telescope-file-browser.nvim",
 			"xiyaowong/telescope-emoji.nvim",
+			"ghassan0/telescope-glyph.nvim",
 		},
 	},
 	{ "adoyle-h/lsp-toggle.nvim" },

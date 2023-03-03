@@ -21,7 +21,7 @@ local options = {
 		layout_config = {
 			horizontal = {
 				prompt_position = "top",
-				preview_width = 0.55,
+				preview_width = 0.5,
 				-- results_width = 0.8,
 			},
 			vertical = {
@@ -45,7 +45,7 @@ local options = {
 		file_sorter = require("telescope.sorters").get_fuzzy_file,
 		file_ignore_patterns = { "node_modules" },
 		generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-		-- path_display = { truncate = 3 },
+		path_display = { truncate = 3 },
 		winblend = 0,
 		border = {},
 		borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
@@ -79,7 +79,7 @@ local options = {
 	},
 
 	-- extensions_list = { "file_browser", "themes", "terms" },
-	extensions_list = { "file_browser", "emoji" },
+	extensions_list = { "file_browser", "emoji", "glyph" },
 }
 
 telescope.setup(options)
