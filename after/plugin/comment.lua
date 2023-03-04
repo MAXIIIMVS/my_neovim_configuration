@@ -18,7 +18,6 @@ require("todo-comments").setup({
 })
 
 vim.keymap.set("n", "<c-_>", ":Commentary<CR>", { noremap = true, silent = true, desc = "Toggle comment in this line" })
-vim.keymap.set("v", "<c-_>", ":Commentary<CR>", { noremap = true, silent = true, desc = "Toggle comment in this line" })
 vim.keymap.set(
 	"i",
 	"<c-_>",

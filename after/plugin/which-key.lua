@@ -188,3 +188,29 @@ wk.register({
 		g = { ":Calendar ", "Go to date (mm dd yyyy)" },
 	},
 }, { prefix = "<leader>", noremap = true, silent = true, nowait = true })
+
+-- Visual mode {{{
+wk.register({
+	["."] = { ":normal.<CR>", "Repeat previous action" },
+	["p"] = { '"_dP', "Paste over currently selected text without yanking it" },
+	["<"] = { "<gv", "Indent left" },
+	[">"] = { ">gv", "Indent right" },
+	["<c-k>"] = { ":m '<-2<CR>gv=gv", "Move up" },
+	["<c-j>"] = { ":m '>+1<CR>gv=gv", "Move down" },
+	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
+	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
+	["<c-_>"] = { ":Commentary<CR>", "Toggle comment in this line" },
+}, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })
+-- }}}
+
+-- Select mode {{{
+wk.register({
+	["<M-d>"] = { "<ESC>dei", "Delete the next word" },
+	["<M-b>"] = { "<ESC>bi", "Move back" },
+	["<M-f>"] = { "<ESC>ei", "Move forward" },
+	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
+	["<c-a>"] = { "<ESC>I", "Go to the beginning of line" },
+	["<c-e>"] = { "<ESC>A", "Go to the end of line" },
+	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
+}, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })
+-- }}}

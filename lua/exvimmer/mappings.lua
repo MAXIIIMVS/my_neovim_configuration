@@ -16,22 +16,11 @@ vim.keymap.set("n", "<leader>x", "<cmd>silent !chmod u+x %<CR>", opts)
 -- use Telescope spell_suggest instead of the default one
 vim.keymap.set("n", "z=", "<cmd>silent Telescope spell_suggest<CR>", opts)
 
--- Better indent
-vim.keymap.set("v", "<", "<gv", opts)
-vim.keymap.set("v", ">", ">gv", opts)
-
--- Move visual selection
-vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv", opts)
-vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv", opts)
-
 -- Resizing panes
 vim.keymap.set("n", "<C-Left>", ":vertical resize +2<CR>", opts)
 vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>", opts)
 vim.keymap.set("n", "<C-Up>", ":resize -1<CR>", opts)
 vim.keymap.set("n", "<C-Down>", ":resize +1<CR>", opts)
-
--- Paste over currently selected text without yanking it
-vim.keymap.set("v", "p", '"_dP', opts)
 
 -- run prettier in the current directory
 -- vim.keymap.set('n', '<leader>P',
@@ -69,27 +58,16 @@ vim.keymap.set("n", "]p", "<cmd>pu<CR>")
 
 -- use vim-rsi instead
 vim.keymap.set("i", "<c-k>", "<c-o>C", opts)
-vim.keymap.set("s", "<M-d>", "<ESC>dei", opts)
-vim.keymap.set("s", "<M-b>", "<ESC>bi", opts)
-vim.keymap.set("s", "<M-f>", "<ESC>ei", opts)
-vim.keymap.set("s", "<c-e>", "<ESC>A", opts)
-vim.keymap.set("s", "<c-a>", "<ESC>I", opts)
 
 -- write to buffer only if buffer has changed: Ctrl+s -> :update
 vim.keymap.set("n", "<c-s>", "<cmd>silent update<CR>", opts)
 vim.keymap.set("i", "<c-s>", "<ESC><cmd>silent update<CR>", opts)
-vim.keymap.set("v", "<c-s>", "<ESC><cmd>silent update<CR>", opts)
-vim.keymap.set("s", "<c-s>", "<ESC><cmd>silent update<CR>", opts)
 -- NOTE: use :w to write to the buffer intentionally, don't use keymaps
 
 -- Alt+s -> :wall
 vim.keymap.set("n", "<M-s>", "<cmd>wall<CR>", opts)
 vim.keymap.set("i", "<M-s>", "<ESC><cmd>wall<CR>", opts)
-vim.keymap.set("v", "<M-s>", "<ESC><cmd>wall<CR>", opts)
 vim.keymap.set("s", "<M-s>", "<ESC><cmd>wall<CR>", opts)
-
--- make . to work with visually selected lines
-vim.keymap.set("v", ".", ":normal.<CR>", opts)
 
 -- search the visually selected text, not required in nvim>0.8
 -- cmd([[
@@ -104,5 +82,4 @@ vim.keymap.set("v", ".", ":normal.<CR>", opts)
 --   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
 --   \gV:call setreg('"', old_reg, old_regtype)<CR>
 -- ]])
-
 -- }}}
