@@ -87,6 +87,44 @@ wk.register({
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
 	},
+	[","] = {
+		name = "Miscellaneous",
+		["1"] = { "1<c-w>w", "Go to 1st window" },
+		["2"] = { "2<c-w>w", "Go to 2nd window" },
+		["3"] = { "3<c-w>w", "Go to 3rd window" },
+		["4"] = { "4<c-w>w", "Go to 4th window" },
+		["5"] = { "5<c-w>w", "Go to 5th window" },
+		["6"] = { "6<c-w>w", "Go to 6th window" },
+		["7"] = { "7<c-w>w", "Go to 7th window" },
+		["8"] = { "8<c-w>w", "Go to 8th window" },
+		["9"] = { "9<c-w>w", "Go to 9th window" },
+		[","] = { "<cmd>HopLineMW<CR>", "Hop to a line" },
+		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
+		c = { "<cmd>HopChar1MW<CR>", "Hop to a character" },
+		p = { "<cmd>HopPatternMW<CR>", "Hop to a pattern" },
+		j = { "<c-w>j", "go N windows down" },
+		k = { "<c-w>k", "go N windows up" },
+		h = { "<c-w>h", "go N windows right" },
+		l = { "<c-w>l", "go N windows left" },
+		e = { "<cmd>silent NvimTreeToggle<CR>", "Toggle NvimTree" },
+		E = { "<cmd>silent Ex<CR>", "Explore directory of current file" },
+		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
+		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
+		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
+		f = {
+			function()
+				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+			end,
+			"List workspace folders",
+		},
+		C = {
+			name = "Color Picker",
+			h = { "<cmd>silent VCoolor<CR>", "HEX color <M-c>" }, -- <M-c>
+			H = { "<cmd>silent VCoolIns h<CR>", "HSL color <M-v>" }, -- <M-v>
+			r = { "<cmd>silent VCoolIns r <CR>", "RGB color <M-r>" }, -- <M-r>
+			-- R = { "<cmd>silent bufdo bd<CR>", "Insert a RGBA color" }, -- <M-w>
+		},
+	},
 }, { prefix = "", noremap = true, silent = true, nowait = true })
 
 wk.register({
@@ -158,21 +196,6 @@ wk.register({
 		o = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers, put the cursor back" },
 		a = { "<cmd>bufdo bd<CR>", "close all buffers" },
 	},
-	j = { "<c-w>j", "go N windows down" },
-	k = { "<c-w>k", "go N windows up" },
-	h = { "<c-w>h", "go N windows right" },
-	l = { "<c-w>l", "go N windows left" },
-	e = { "<cmd>silent NvimTreeToggle<CR>", "Toggle NvimTree" },
-	E = { "<cmd>silent Ex<CR>", "Explore directory of current file" },
-	["1"] = { "1<c-w>w", "Go to 1st window" },
-	["2"] = { "2<c-w>w", "Go to 2nd window" },
-	["3"] = { "3<c-w>w", "Go to 3rd window" },
-	["4"] = { "4<c-w>w", "Go to 4th window" },
-	["5"] = { "5<c-w>w", "Go to 5th window" },
-	["6"] = { "6<c-w>w", "Go to 6th window" },
-	["7"] = { "7<c-w>w", "Go to 7th window" },
-	["8"] = { "8<c-w>w", "Go to 8th window" },
-	["9"] = { "9<c-w>w", "Go to 9th window" },
 }, { prefix = "<space>", noremap = true, silent = true, nowait = true })
 
 wk.register({

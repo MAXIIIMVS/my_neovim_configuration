@@ -37,13 +37,6 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<leader>f", function()
 		vim.lsp.buf.format({ async = true })
 	end, bufopts)
-	-- TODO: change these 4 maps
-	vim.keymap.set("n", "<space>mi", ":LspInfo<CR>", bufopts)
-	vim.keymap.set("n", "<space>ma", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", bufopts)
-	vim.keymap.set("n", "<space>mr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", bufopts)
-	vim.keymap.set("n", "<space>ml", function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, bufopts)
 end
 
 local mason_default_settings = {
