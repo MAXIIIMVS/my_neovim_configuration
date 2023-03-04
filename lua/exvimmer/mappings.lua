@@ -56,17 +56,12 @@ vim.keymap.set("n", "]p", "<cmd>pu<CR>")
 -- vim.keymap.set("n", "[b", ":bprev<CR>", opts)
 -- vim.keymap.set("n", "]b", ":bnext<CR>", opts)
 
--- use vim-rsi instead
-vim.keymap.set("i", "<c-k>", "<c-o>C", opts)
-
 -- write to buffer only if buffer has changed: Ctrl+s -> :update
 vim.keymap.set("n", "<c-s>", "<cmd>silent update<CR>", opts)
-vim.keymap.set("i", "<c-s>", "<ESC><cmd>silent update<CR>", opts)
 -- NOTE: use :w to write to the buffer intentionally, don't use keymaps
 
 -- Alt+s -> :wall
 vim.keymap.set("n", "<M-s>", "<cmd>wall<CR>", opts)
-vim.keymap.set("i", "<M-s>", "<ESC><cmd>wall<CR>", opts)
 vim.keymap.set("s", "<M-s>", "<ESC><cmd>wall<CR>", opts)
 
 -- search the visually selected text, not required in nvim>0.8
