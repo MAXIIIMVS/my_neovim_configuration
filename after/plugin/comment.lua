@@ -14,17 +14,3 @@ require("todo-comments").setup({
 		-- exclude = {}, -- list of file types to exclude highlighting
 	},
 })
-
-vim.keymap.set("n", "<c-_>", ":Commentary<CR>", { noremap = true, silent = true, desc = "Toggle comment in this line" })
-vim.keymap.set(
-	"i",
-	"<c-_>",
-	"<ESC>:Commentary<CR>",
-	{ noremap = true, silent = true, desc = "Toggle comment in this line" }
-)
-vim.keymap.set("n", "]t", function()
-	require("todo-comments").jump_next()
-end, { desc = "Next todo comment" })
-vim.keymap.set("n", "[t", function()
-	require("todo-comments").jump_prev()
-end, { desc = "Previous todo comment" })

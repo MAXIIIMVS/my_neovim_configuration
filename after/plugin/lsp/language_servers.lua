@@ -34,9 +34,6 @@ local on_attach = function(client, bufnr)
 	-- vim.keymap.set("i", "<C-x>", "<c-o><cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
 	vim.keymap.set("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", bufopts)
 	vim.keymap.set("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", bufopts)
-	vim.keymap.set("n", "<leader>f", function()
-		vim.lsp.buf.format({ async = true })
-	end, bufopts)
 end
 
 local mason_default_settings = {

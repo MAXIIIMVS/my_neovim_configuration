@@ -4,23 +4,9 @@ local opts = { noremap = true, silent = true }
 
 -- MAPPINGS {{{
 -- ---------------------------------------------------------------------
--- source the file
-vim.keymap.set("n", "<leader>s", ":silent so %<CR>", opts)
-
-vim.keymap.set("n", "<leader>d", "<cmd>silent Dashboard<CR>", opts)
-
--- make the file executable for the (u)ser , don't change (g)roup and (o)ther
--- permissions
-vim.keymap.set("n", "<leader>x", "<cmd>silent !chmod u+x %<CR>", opts)
 
 -- use Telescope spell_suggest instead of the default one
 vim.keymap.set("n", "z=", "<cmd>silent Telescope spell_suggest<CR>", opts)
-
--- Resizing panes
-vim.keymap.set("n", "<C-Left>", ":vertical resize +2<CR>", opts)
-vim.keymap.set("n", "<C-Right>", ":vertical resize -1<CR>", opts)
-vim.keymap.set("n", "<C-Up>", ":resize -1<CR>", opts)
-vim.keymap.set("n", "<C-Down>", ":resize +1<CR>", opts)
 
 -- run prettier in the current directory
 -- vim.keymap.set('n', '<leader>P',
@@ -32,37 +18,9 @@ vim.keymap.set("n", "<C-Down>", ":resize +1<CR>", opts)
 -- close and open the file again
 -- vim.keymap.set('n', '<leader>r', ':bd<CR><c-o>', opts)
 
---insert a blank line around the cursor
-vim.keymap.set("n", "]<space>", "o<ESC>k")
-vim.keymap.set("n", "[<space>", "O<ESC>j")
-
--- see next/previous and first/last items in QuickFix
-vim.keymap.set("n", "[q", "<cmd>silent cprev<CR>")
-vim.keymap.set("n", "]q", "<cmd>silent cnext<CR>")
-vim.keymap.set("n", "[Q", "<cmd>silent cfirst<CR>")
-vim.keymap.set("n", "]Q", "<cmd>silent clast<CR>")
-
--- see next/previous and first/last items in local list
-vim.keymap.set("n", "[l", "<cmd>silent lprev<CR>")
-vim.keymap.set("n", "]l", "<cmd>silent lnext<CR>")
-vim.keymap.set("n", "[L", "<cmd>silent lfirst<CR>")
-vim.keymap.set("n", "]L", "<cmd>silent llast<CR>")
-
--- paste before or after the line
-vim.keymap.set("n", "[p", "<cmd>pu!<CR>")
-vim.keymap.set("n", "]p", "<cmd>pu<CR>")
-
 -- next and previous buffer
 -- vim.keymap.set("n", "[b", ":bprev<CR>", opts)
 -- vim.keymap.set("n", "]b", ":bnext<CR>", opts)
-
--- write to buffer only if buffer has changed: Ctrl+s -> :update
-vim.keymap.set("n", "<c-s>", "<cmd>silent update<CR>", opts)
--- NOTE: use :w to write to the buffer intentionally, don't use keymaps
-
--- Alt+s -> :wall
-vim.keymap.set("n", "<M-s>", "<cmd>wall<CR>", opts)
-vim.keymap.set("s", "<M-s>", "<ESC><cmd>wall<CR>", opts)
 
 -- search the visually selected text, not required in nvim>0.8
 -- cmd([[

@@ -12,6 +12,7 @@ local options = {
 	window = {
 		border = "none", -- none, single, double, shadow
 		position = "bottom", -- bottom, top
+		margin = { 0, 0, 0, 0 },
 		winblend = 0,
 	},
 	popup_mappings = {
@@ -22,9 +23,43 @@ local options = {
 
 wk.setup(options)
 
-vim.keymap.set("n", "<leader>h", "<cmd>WhichKey<CR>", { noremap = true, silent = true })
-
+-- Normal mode {{{
 wk.register({
+	["]<space>"] = { "o<ESC>k", "Insert a blank line below" },
+	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
+	["[b"] = { "<cmd>BufferLineCyclePrev<CR>", "Go to previous buffer" },
+	["]b"] = { "<cmd>BufferLineCycleNext<CR>", "Go to next buffer" },
+	["]B"] = { "<cmd>BufferLineMoveNext<CR>", "Move the buffer to the next position" },
+	["[B"] = { "<cmd>BufferLineMovePrev<CR>", "Move the buffer to the previous position" },
+	["]c"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
+	["[c"] = { ":Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
+	["[l"] = { "<cmd>silent lprev<CR>", "See the previous item in local list" },
+	["]l"] = { "<cmd>silent lnext<CR>", "See the next item in local list" },
+	["[L"] = { "<cmd>silent lfirst<CR>", "See the first item in local list" },
+	["]L"] = { "<cmd>silent llast<CR>", "See the last item in local list" },
+	["[p"] = { "<cmd>pu!<CR>", "Paste above current line" },
+	["]p"] = { "<cmd>pu<CR>", "Paste below current line" },
+	["]t"] = {
+		require("todo-comments").jump_next,
+		"Next todo comment",
+	},
+	["[t"] = {
+		require("todo-comments").jump_prev,
+		"Previous todo comment",
+	},
+	["[q"] = { "<cmd>silent cprev<CR>", "Show the previous item in QuickFix" },
+	["]q"] = { "<cmd>silent cnext<CR>", "Show the next item in QuickFix" },
+	["[Q"] = { "<cmd>silent cfirst<CR>", "See the first item in QuickFix" },
+	["]Q"] = { "<cmd>silent clast<CR>", "See the last item in QuickFix" },
+	["]x"] = { "<cmd>BufferLineCloseRight<CR>", "Close all the buffers to the right" },
+	["[x"] = { "<cmd>BufferLineCloseLeft<CR>", "Close all the buffers to the left" },
+	["<c-_>"] = { ":Commentary<CR>", "Toggle comment in this line" },
+	["<C-Left>"] = { ":vertical resize +2<CR>", "Increase window width" },
+	["<C-Right>"] = { ":vertical resize -1<CR>", "Decrease window width" },
+	["<C-Up>"] = { ":resize -1<CR>", "Increase window height" },
+	["<C-Down>"] = { ":resize +1<CR>", "Decrease window height" },
+	["<c-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
+	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
 	[";"] = {
 		name = "Quick",
 		["1"] = { "<cmd>BufferLineGoToBuffer 1<CR>", "Go to 1st buffer" },
@@ -75,7 +110,8 @@ wk.register({
 		D = { "<cmd>Telescope file_browser cwd=" .. utils.get_top_level() .. "<CR>", "File/Folder browser from root" },
 		j = { "<cmd>silent Telescope emoji<CR>", "Emoji" },
 		J = { "<cmd>silent Telescope glyph<CR>", "Glyph" },
-		t = { "<cmd>TodoTelescope cwd=" .. utils.get_top_level() .. "<CR>", "Show Todos for current project" },
+		t = { "<cmd>silent NvimTreeToggle<CR>", "Toggle NvimTree" },
+		T = { "<cmd>TodoTelescope cwd=" .. utils.get_top_level() .. "<CR>", "Show Todos for current project" },
 		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
 		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },
 		H = { "<cmd>Telescope man_pages<CR>", "Show help tags" },
@@ -97,12 +133,11 @@ wk.register({
 		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
 		c = { "<cmd>HopChar1MW<CR>", "Hop to a character" },
 		p = { "<cmd>HopPatternMW<CR>", "Hop to a pattern" },
-		j = { "<c-w>j", "go N windows down" },
-		k = { "<c-w>k", "go N windows up" },
-		h = { "<c-w>h", "go N windows right" },
-		l = { "<c-w>l", "go N windows left" },
-		e = { "<cmd>silent NvimTreeToggle<CR>", "Toggle NvimTree" },
-		E = { "<cmd>silent Ex<CR>", "Explore directory of current file" },
+		j = { "<c-w>j", "go N window down" },
+		k = { "<c-w>k", "go N window up" },
+		h = { "<c-w>h", "go N window right" },
+		l = { "<c-w>l", "go N window left" },
+		e = { "<cmd>silent Ex<CR>", "Explore directory of current file" },
 		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
@@ -222,14 +257,62 @@ wk.register({
 		o = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r<CR>", "Open Google Calendar" },
 		g = { ":Calendar ", "Go to date (mm dd yyyy)" },
 	},
+	g = {
+		name = "Git",
+		s = { "<cmd>silent vertical Git<CR>", "Status" },
+		S = { ":silent G switch ", "Switch", silent = false },
+		f = { "<cmd>silent G fetch<CR>", "Fetch" },
+		P = { "<cmd>silent G push<CR>", "Push" },
+		p = { "<cmd>silent G pull<CR>", "Pull" },
+		l = { "<cmd>silent vertical G log --decorate<CR>", "Log" },
+		L = { "<cmd>silent vertical G log --decorate -p<CR>", "Log with differences" },
+		n = { "<cmd>silent vertical G log --stat<CR>", "Log with stats" },
+		c = { "<cmd>silent vertical G commit<CR>", "Commit" },
+		C = { ":silent G checkout ", "Checkout", silent = false },
+		["["] = { "<cmd>silent G checkout HEAD^<CR>", "Checkout previous commit" },
+		["]"] = {
+			"<cmd>silent !git checkout $(git rev-list --topo-order HEAD..$(git remote show origin | sed -n '/HEAD branch/s/.*: //p') | tail -1)<CR>",
+			"Checkout next commit",
+		},
+		a = {
+			"<cmd>silent vertical G commit --amend<CR>",
+			"Amend commit with staged changes",
+		},
+		d = { "<cmd>silent Gvdiffsplit<CR>", "Diff" },
+		D = { "<cmd>silent Gvdiffsplit HEAD~<CR>", "Diff with previous commit" },
+		b = { "<cmd>silent G blame<CR>", "Blame on the current file" },
+		B = { "<cmd>Gitsigns blame_line<CR>", "Blame on the current line" },
+		o = { "<cmd>silent GBrowse<CR>", "Open in the browser" },
+		r = {
+			"<cmd>Gitsigns reset_hunk<CR>",
+			"Reset the lines of the hunk at the cursor position, or all lines in the given range.",
+		},
+		R = { "<cmd>Gitsigns toggle_deleted<CR>", "Toggle deleted lines" },
+		v = { "<cmd>Gitsigns preview_hunk<CR>", "Preview hunk" },
+		V = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle current line blame" },
+	},
 }, { prefix = "<space>", noremap = true, silent = true, nowait = true })
 
 wk.register({
+	f = {
+		function()
+			vim.lsp.buf.format({ async = true })
+		end,
+		"Format buffer",
+	},
 	w = {
 		name = "VimWiki",
 		l = { "<cmd>VimwikiTOC<CR>", "Create or update the Table of Contents for the current wiki file" },
 	},
+	h = { "<cmd>WhichKey<CR>", "Which Key" },
+	s = { "<cmd>silent so %<CR>", "Source the file" },
+	d = { "<cmd>silent Dashboard<CR>", "Dashboard" },
+	x = {
+		"<cmd>silent !chmod u+x %<CR",
+		"make the file executable for the (u)ser , don't change (g)roup and (o)ther permissions",
+	},
 }, { prefix = "<leader>", noremap = true, silent = true, nowait = true })
+-- }}}
 
 -- Insert mode {{{
 wk.register({
@@ -237,6 +320,7 @@ wk.register({
 	["<c-k>"] = { "<c-o>C", "Delete to the end of the line" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 	-- ["<C-x>"] = { "<c-o><cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature help" },
+	["<c-_>"] = { "<ESC>:Commentary<CR>", "Comment out visually selected lines" },
 }, { prefix = "", mode = "i", noremap = true, silent = true, nowait = true })
 -- }}}
 
