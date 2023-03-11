@@ -152,6 +152,8 @@ vim.cmd.highlight("VertSplit guifg=#32afff")
 -- VimWiki {{{
 vim.cmd([[
 let g:vimwiki_list = [{'path': '~/notes/wiki/',  'syntax': 'markdown', 'ext': '.md', 'auto_diary_index': 1}]
+let g:vimwiki_markdown_link_ext = 1
+let g:vimwiki_ext2syntax = {'.md': 'markdown',  '.mkd': 'markdown',  '.wiki': 'media'}
 ]])
 
 -- vim.g.vimwiki_listsyms = " ✗○◐●✓"

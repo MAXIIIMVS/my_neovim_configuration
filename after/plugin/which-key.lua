@@ -129,10 +129,6 @@ wk.register({
 		["7"] = { "7<c-w>w", "Go to 7th window" },
 		["8"] = { "8<c-w>w", "Go to 8th window" },
 		["9"] = { "9<c-w>w", "Go to 9th window" },
-		[","] = { "<cmd>HopLineMW<CR>", "Hop to a line" },
-		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
-		c = { "<cmd>HopChar1MW<CR>", "Hop to a character" },
-		p = { "<cmd>HopPatternMW<CR>", "Hop to a pattern" },
 		j = { "<c-w>j", "go N window down" },
 		k = { "<c-w>k", "go N window up" },
 		h = { "<c-w>h", "go N window right" },
@@ -155,6 +151,8 @@ wk.register({
 			-- R = { "<cmd>silent bufdo bd<CR>", "Insert a RGBA color" }, -- <M-w>
 		},
 	},
+	f = { "<cmd>HopChar1CurrentLine<CR>", "Hop to a character in current line" },
+	F = { "<cmd>HopWordCurrentLine<CR>", "Hop to a word in current line" },
 }, { prefix = "", noremap = true, silent = true, nowait = true })
 
 wk.register({
@@ -224,7 +222,7 @@ wk.register({
 	},
 	b = {
 		name = "buffer",
-		o = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers, put the cursor back" },
+		o = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers" },
 		a = { "<cmd>bufdo bd<CR>", "close all buffers" },
 	},
 	C = {
@@ -290,6 +288,15 @@ wk.register({
 		R = { "<cmd>Gitsigns toggle_deleted<CR>", "Toggle deleted lines" },
 		v = { "<cmd>Gitsigns preview_hunk<CR>", "Preview hunk" },
 		V = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle current line blame" },
+	},
+	h = {
+		name = "hop",
+		-- a = { "<cmd>HopAnywhereMW<CR>", "Hop Anywhere" },
+		l = { "<cmd>HopLineMW<CR>", "Hop to a line" },
+		s = { "<cmd>HopLineStartMW<CR>", "Hop to a line start" },
+		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
+		c = { "<cmd>HopChar1MW<CR>", "Hop to a character" },
+		p = { "<cmd>HopPatternMW<CR>", "Hop to a pattern" },
 	},
 }, { prefix = "<space>", noremap = true, silent = true, nowait = true })
 

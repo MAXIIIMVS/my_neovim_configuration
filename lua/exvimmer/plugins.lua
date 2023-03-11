@@ -69,7 +69,6 @@ return require("lazy").setup({
 	{ "saadparwaiz1/cmp_luasnip" },
 	{ "rafamadriz/friendly-snippets" },
 	{ "folke/todo-comments.nvim" },
-	{ "folke/lsp-colors.nvim" },
 	{ "folke/which-key.nvim" },
 	{ "folke/zen-mode.nvim" },
 	{ "folke/neodev.nvim" },
