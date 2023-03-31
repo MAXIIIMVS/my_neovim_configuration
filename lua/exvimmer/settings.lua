@@ -149,6 +149,12 @@ vim.cmd.highlight("VertSplit guifg=#32afff")
 -- format files when using :wq and not using sync in lsp formatting
 -- vim.cmd([[cabbrev wq execute "Format sync" <bar> wq]])
 
+-- Netrw {{{
+vim.cmd([[
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
+]])
+-- }}}
+
 -- VimWiki {{{
 vim.cmd([[
 let g:vimwiki_list = [{'path': '~/notes/wiki/',  'syntax': 'markdown', 'ext': '.md', 'auto_diary_index': 1}]
