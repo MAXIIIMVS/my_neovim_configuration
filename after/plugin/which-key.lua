@@ -116,6 +116,7 @@ wk.register({
 		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },
 		H = { "<cmd>Telescope man_pages<CR>", "Show help tags" },
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
+		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
 		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
 	},
 	[","] = {
@@ -218,7 +219,8 @@ wk.register({
 	},
 	b = {
 		name = "buffer",
-		o = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers" },
+		-- o = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers" },
+		o = { "<cmd>BufferLineCloseLeft<CR><cmd>BufferLineCloseRight<CR>", "close other buffers" },
 		a = { "<cmd>bufdo bd<CR>", "close all buffers" },
 	},
 	C = {
@@ -293,6 +295,15 @@ wk.register({
 		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
 		c = { "<cmd>HopChar1MW<CR>", "Hop to a character" },
 		p = { "<cmd>HopPatternMW<CR>", "Hop to a pattern" },
+	},
+	w = {
+		name = "Window",
+		l = { "<c-w>l", "move the left window" },
+		h = { "<c-w>h", "move the right window" },
+		j = { "<c-w>j", "move the window below" },
+		k = { "<c-w>k", "move the window above" },
+		d = { "<cmd>windo diffthis<CR>", "show the difference between 2 windows" },
+		D = { "<cmd>windo diffoff<CR>", "hide the difference between 2 windows" },
 	},
 }, { prefix = "<space>", noremap = true, silent = true, nowait = true })
 

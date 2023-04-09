@@ -73,7 +73,14 @@ return require("lazy").setup({
 	{ "folke/which-key.nvim" },
 	{ "folke/zen-mode.nvim" },
 	{ "folke/neodev.nvim" },
-	-- { "folke/tokyonight.nvim" },
+	{ "folke/tokyonight.nvim" },
+	-- {
+	-- 	"folke/noice.nvim",
+	-- 	dependencies = {
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		-- "rcarriga/nvim-notify",
+	-- 	},
+	-- },
 	{ "NvChad/nvim-colorizer.lua" },
 	{ "lukas-reineke/indent-blankline.nvim" },
 	{ "lewis6991/gitsigns.nvim", dependencies = "nvim-lua/plenary.nvim" },
