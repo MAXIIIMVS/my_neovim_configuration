@@ -32,7 +32,7 @@ return require("lazy").setup({
 		},
 	},
 	{ "nvim-lualine/lualine.nvim" },
-	{ "nvim-tree/nvim-tree.lua" },
+	-- { "nvim-tree/nvim-tree.lua" },
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
@@ -73,7 +73,7 @@ return require("lazy").setup({
 	{ "folke/which-key.nvim" },
 	{ "folke/zen-mode.nvim" },
 	{ "folke/neodev.nvim" },
-	{ "folke/tokyonight.nvim" },
+	-- { "folke/tokyonight.nvim" },
 	-- {
 	-- 	"folke/noice.nvim",
 	-- 	dependencies = {

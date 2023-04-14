@@ -8,6 +8,8 @@ local catppuccin = require("catppuccin")
 local lualine = require("lualine")
 local utils = require("utils")
 
+local opts = { noremap = true, silent = true }
+
 local options = {
 	window = {
 		border = "none", -- none, single, double, shadow
@@ -23,12 +25,39 @@ local options = {
 
 wk.setup(options)
 
+-- old MAPPINGS {{{
+-- ---------------------------------------------------------------------
+-- run prettier in the current directory
+-- vim.key hap.set('n', '<leader>P',
+--   ':silent !cd ' .. utils.get_top_level() ..
+--   '&& prettier --ignore-path .gitignore -w .<CR>', opts)
+-- vim.keymap.set('n', '<leader>p', ':silent !prettier --ignore-path .gitignore -w %<CR>',
+--   opts)
+
+-- close and open the file again
+-- vim.keymap.set('n', '<leader>r', ':bd<CR><c-o>', opts)
+
+-- search the visually selected text, not required in nvim>0.8
+-- cmd([[
+-- vnoremap <silent> * :<C-U>
+--   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+--   \gvy/<C-R><C-R>=substitute(
+--   \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+--   \gV:call setreg('"', old_reg, old_regtype)<CR>
+-- vnoremap <silent> # :<C-U>
+--   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+--   \gvy?<C-R><C-R>=substitute(
+--   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+--   \gV:call setreg('"', old_reg, old_regtype)<CR>
+-- ]])
+-- }}}
+
 -- Normal mode {{{
 wk.register({
 	["]<space>"] = { "o<ESC>k", "Insert a blank line below" },
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
-	["[b"] = { "<cmd>BufferLineCyclePrev<CR>", "Go to previous buffer" },
-	["]b"] = { "<cmd>BufferLineCycleNext<CR>", "Go to next buffer" },
+	["[b"] = { "<cmd>bprev<CR>", "Go to previous buffer" },
+	["]b"] = { "<cmd>bnext<CR>", "Go to next buffer" },
 	["]B"] = { "<cmd>BufferLineMoveNext<CR>", "Move the buffer to the next position" },
 	["[B"] = { "<cmd>BufferLineMovePrev<CR>", "Move the buffer to the previous position" },
 	["]c"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
@@ -110,7 +139,7 @@ wk.register({
 		D = { "<cmd>Telescope file_browser cwd=" .. utils.get_top_level() .. "<CR>", "File/Folder browser from root" },
 		j = { "<cmd>silent Telescope emoji<CR>", "Emoji" },
 		J = { "<cmd>silent Telescope glyph<CR>", "Glyph" },
-		t = { "<cmd>silent NvimTreeToggle<CR>", "Toggle NvimTree" },
+		n = { "<cmd>silent Explore<CR>", "File Explorer" },
 		T = { "<cmd>TodoTelescope cwd=" .. utils.get_top_level() .. "<CR>", "Show Todos for current project" },
 		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
 		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },
@@ -130,7 +159,6 @@ wk.register({
 		["7"] = { "7<c-w>w", "Go to 7th window" },
 		["8"] = { "8<c-w>w", "Go to 8th window" },
 		["9"] = { "9<c-w>w", "Go to 9th window" },
-		e = { "<cmd>silent Ex<CR>", "Explore directory of current file" },
 		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
@@ -148,8 +176,11 @@ wk.register({
 			-- R = { "<cmd>silent bufdo bd<CR>", "Insert a RGBA color" }, -- <M-w>
 		},
 	},
+	["z="] = { "<cmd>silent Telescope spell_suggest<CR>", "show spell suggestions" },
 	f = { "<cmd>HopChar1CurrentLine<CR>", "Hop to a character in current line" },
 	F = { "<cmd>HopWordCurrentLine<CR>", "Hop to a word in current line" },
+	-- n = { "nzt", "show next search result" },
+	-- N = { "Nzt", "show previous search result" },
 }, { prefix = "", noremap = true, silent = true, nowait = true })
 
 wk.register({
@@ -169,12 +200,18 @@ wk.register({
 			end,
 			"transparency",
 		},
+		T = {
+			name = "treesitter",
+			h = { "<cmd>TSToggle highlight<CR>", "highlight" },
+			r = { "<cmd>TSToggle rainbow<CR>", "rainbow" },
+			i = { "<cmd>TSToggle indent<CR>", "indent" },
+		},
 		b = {
 			function()
-				catppuccin.options.transparent_background = not catppuccin.options.transparent_background
 				vim.o.background = vim.o.background == "dark" and "light" or "dark"
-				catppuccin.compile()
+				catppuccin.options.transparent_background = not catppuccin.options.transparent_background
 				vim.cmd.colorscheme(vim.g.colors_name)
+				catppuccin.compile()
 			end,
 			"light/dark background",
 		},
@@ -219,8 +256,7 @@ wk.register({
 	},
 	b = {
 		name = "buffer",
-		-- o = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers" },
-		o = { "<cmd>BufferLineCloseLeft<CR><cmd>BufferLineCloseRight<CR>", "close other buffers" },
+		o = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers" },
 		a = { "<cmd>bufdo bd<CR>", "close all buffers" },
 	},
 	C = {
@@ -308,6 +344,7 @@ wk.register({
 }, { prefix = "<space>", noremap = true, silent = true, nowait = true })
 
 wk.register({
+	c = { "<cmd>silent CatppuccinCompile<CR>", "Recompile Catppuccin" },
 	f = {
 		function()
 			vim.lsp.buf.format({ async = true })

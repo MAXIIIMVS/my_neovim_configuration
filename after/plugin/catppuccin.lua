@@ -33,7 +33,7 @@ catppuccin.setup({
 	},
 	show_end_of_buffer = false,
 	compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
-	transparent_background = true,
+	transparent_background = vim.o.background == "dark",
 	term_colors = true,
 	dim_inactive = {
 		enabled = false,
