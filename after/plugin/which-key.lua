@@ -106,7 +106,7 @@ wk.register({
 		E = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show line diagnostics" },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open .<CR>", "Open the current directory" },
-		[";"] = { ":bd<CR>", "Delete current buffer" },
+		[";"] = { ":Bdelete<CR>", "Delete current buffer" },
 		q = { "<c-w>q", "Quit current window" },
 		s = {
 			[[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
@@ -129,24 +129,24 @@ wk.register({
 		g = { "<cmd>Telescope live_grep  cwd=" .. utils.get_top_level() .. "<CR>", "Live grep" },
 		G = { "<cmd>Telescope grep_string cwd=" .. utils.get_top_level() .. "<CR>", "Grep string under the cursor" },
 		b = { "<cmd>Telescope buffers<CR>", "List open buffers" },
-		C = {
+		c = {
 			function()
 				require("telescope.builtin").colorscheme()
 			end,
-			"List open buffers",
+			"Lists available colorschemes",
 		},
 		d = { "<cmd>Telescope file_browser<CR>", "File/Folder browser" },
 		D = { "<cmd>Telescope file_browser cwd=" .. utils.get_top_level() .. "<CR>", "File/Folder browser from root" },
 		j = { "<cmd>silent Telescope emoji<CR>", "Emoji" },
 		J = { "<cmd>silent Telescope glyph<CR>", "Glyph" },
-		n = { "<cmd>silent Explore<CR>", "File Explorer" },
-		T = { "<cmd>TodoTelescope cwd=" .. utils.get_top_level() .. "<CR>", "Show Todos for current project" },
+		x = { "<cmd>silent Explore<CR>", "File Explorer" },
+		n = { "<cmd>TodoTelescope cwd=" .. utils.get_top_level() .. "<CR>", "Show Notes|To-dos for current project" },
 		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
 		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },
 		H = { "<cmd>Telescope man_pages<CR>", "Show help tags" },
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
-		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
+		t = { "<cmd>Telescope<CR>", "Telescope builtins" },
 	},
 	[","] = {
 		name = "Miscellaneous",
@@ -168,7 +168,7 @@ wk.register({
 			end,
 			"List workspace folders",
 		},
-		C = {
+		c = {
 			name = "Color Picker",
 			h = { "<cmd>silent VCoolor<CR>", "HEX color <M-c>" }, -- <M-c>
 			H = { "<cmd>silent VCoolIns h<CR>", "HSL color <M-v>" }, -- <M-v>

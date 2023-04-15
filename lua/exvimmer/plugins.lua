@@ -49,8 +49,8 @@ return require("lazy").setup({
 		"glepnir/lspsaga.nvim",
 		branch = "main",
 		dependencies = {
-			{ "nvim-tree/nvim-web-devicons" },
-			{ "nvim-treesitter/nvim-treesitter" },
+			"nvim-tree/nvim-web-devicons",
+			"nvim-treesitter/nvim-treesitter",
 		},
 	},
 	{ "glepnir/dashboard-nvim", event = "VimEnter" },
@@ -69,6 +69,7 @@ return require("lazy").setup({
 	{ "L3MON4D3/LuaSnip" },
 	{ "saadparwaiz1/cmp_luasnip" },
 	{ "rafamadriz/friendly-snippets" },
+	{ "famiu/bufdelete.nvim" },
 	{ "folke/todo-comments.nvim" },
 	{ "folke/which-key.nvim" },
 	{ "folke/zen-mode.nvim" },
