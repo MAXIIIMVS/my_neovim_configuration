@@ -26,6 +26,9 @@ saga.setup({
 		folder_level = 3,
 		color_mode = true,
 	},
+	beacon = {
+		enable = false,
+	},
 })
 
 wk.register({

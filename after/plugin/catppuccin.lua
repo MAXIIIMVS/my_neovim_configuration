@@ -45,7 +45,9 @@ catppuccin.setup({
 	},
 	color_overrides = {
 		mocha = {
-			base = "#1A1A2F",
+			-- base = "#1A1A2F",
+			-- base = "#171421",
+			base = "#1D182E",
 		},
 	},
 	custom_highlights = {},
