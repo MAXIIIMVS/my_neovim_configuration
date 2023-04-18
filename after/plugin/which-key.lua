@@ -146,6 +146,20 @@ wk.register({
 		H = { "<cmd>Telescope man_pages<CR>", "Show help tags" },
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
+		t = {
+			name = "tmux",
+			w = { "<cmd>silent !tmux new-window<CR>", "window" },
+			h = { "<cmd>silent !tmux split-window<CR>", "horizontal split" },
+			v = { "<cmd>silent !tmux split-window -h<CR>", "vertical split" },
+			p = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local s = vim.fn.escape("silent !tmux display-popup -w 90% -h 85%  -E -d " .. p, "%")
+					vim.cmd(s)
+				end,
+				"pop-up",
+			},
+		},
 		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
 	},
 	[","] = {
@@ -191,20 +205,6 @@ wk.register({
 		d = { "<cmd>Obsession!<CR>", "Delete the session" },
 	},
 	t = {
-		name = "tmux",
-		w = { "<cmd>silent !tmux new-window<CR>", "window" },
-		h = { "<cmd>silent !tmux split-window<CR>", "horizontal split" },
-		v = { "<cmd>silent !tmux split-window -h<CR>", "vertical split" },
-		p = {
-			function()
-				local p = vim.fn.expand("%:p:h")
-				-- vim.cmd("!tmux display-popup -E -w 90% -h 90% -d " .. p)
-				vim.cmd("silent !tmux display-popup -w 130 -h 33  -E -d " .. p)
-			end,
-			"pop-up",
-		},
-	},
-	T = {
 		name = "Toggle",
 		t = {
 			function()
