@@ -86,7 +86,7 @@ return require("lazy").setup({
 	{ "lukas-reineke/indent-blankline.nvim" },
 	{ "lewis6991/gitsigns.nvim", dependencies = "nvim-lua/plenary.nvim" },
 	{ "tpope/vim-fugitive" },
-	{ "tpope/vim-commentary" },
+	-- { "tpope/vim-commentary" },
 	{ "tpope/vim-surround" },
 	{ "tpope/vim-rhubarb" },
 	{ "tpope/vim-rsi" },
@@ -98,6 +98,7 @@ return require("lazy").setup({
 	-- {'simrat39/rust-tools.nvim'},
 	{ "KabbAmine/vCoolor.vim" },
 	{ "mbbill/undotree" },
+	{ "numToStr/Comment.nvim" },
 }, {
 	ui = {
 		border = "single",

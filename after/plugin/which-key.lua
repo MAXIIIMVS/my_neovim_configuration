@@ -54,6 +54,10 @@ wk.setup(options)
 
 -- Normal mode {{{
 wk.register({
+	["<M-l>"] = { "<C-w>l", "Go to the right window" },
+	["<M-h>"] = { "<C-w>h", "Go to the left window" },
+	["<M-k>"] = { "<C-w>k", "Go to the up window" },
+	["<M-j>"] = { "<C-w>j", "Go to the down window" },
 	["]<space>"] = { "o<ESC>k", "Insert a blank line below" },
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
 	["[b"] = { "<cmd>bprev<CR>", "Go to previous buffer" },
@@ -82,7 +86,6 @@ wk.register({
 	["]Q"] = { "<cmd>silent clast<CR>", "See the last item in QuickFix" },
 	["]x"] = { "<cmd>BufferLineCloseRight<CR>", "Close all the buffers to the right" },
 	["[x"] = { "<cmd>BufferLineCloseLeft<CR>", "Close all the buffers to the left" },
-	["<c-_>"] = { ":Commentary<CR>", "Toggle comment in this line" },
 	["<C-Left>"] = { ":vertical resize +2<CR>", "Increase window width" },
 	["<C-Right>"] = { ":vertical resize -1<CR>", "Decrease window width" },
 	["<C-Up>"] = { ":resize -1<CR>", "Increase window height" },
@@ -151,13 +154,14 @@ wk.register({
 			w = { "<cmd>silent !tmux new-window<CR>", "window" },
 			h = { "<cmd>silent !tmux split-window<CR>", "horizontal split" },
 			v = { "<cmd>silent !tmux split-window -h<CR>", "vertical split" },
-			p = {
+			g = { "<cmd>silent !tmux new-window 'lazygit'<CR>", "lazygit" },
+			b = {
 				function()
 					local p = vim.fn.expand("%:p:h")
 					local s = vim.fn.escape("silent !tmux display-popup -w 90% -h 85%  -E -d " .. p, "%")
 					vim.cmd(s)
 				end,
-				"pop-up",
+				"pop-up bash (terminal)",
 			},
 		},
 		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
@@ -273,25 +277,6 @@ wk.register({
 		o = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers" },
 		a = { "<cmd>bufdo bd<CR>", "close all buffers" },
 	},
-	C = {
-		name = "Comment",
-		t = { "ITODO: <ESC><cmd>silent Commentary<CR>f:a ", "TODO comment this line" },
-		T = { "OTODO: <ESC><cmd>silent Commentary<CR>f:a ", "TODO comment above this line" },
-		e = { "ITEST: <ESC><cmd>silent Commentary<CR>f:a ", "TEST comment this line" },
-		E = { "OTEST: <ESC><cmd>silent Commentary<CR>f:a ", "TEST comment above this line" },
-		N = { "ONOTE: <ESC><cmd>silent Commentary<CR>f:a ", "NOTE comment above this line" },
-		n = { "INOTE: <ESC><cmd>silent Commentary<CR>^", "NOTE comment this line" },
-		F = { "OFIX: <ESC><cmd>silent Commentary<CR>f:a ", "FIX comment above this line" },
-		f = { "IFIX: <ESC><cmd>silent Commentary<CR>^", "FIX comment this line" },
-		W = { "OWARNING: <ESC><cmd>silent Commentary<CR>f:a ", "WARNING comment above this line" },
-		w = { "IWARNING: <ESC><cmd>silent Commentary<CR>^", "WARNING comment this line" },
-		H = { "OHACK: <ESC><cmd>silent Commentary<CR>f:a ", "HACK comment above this line" },
-		h = { "IHACK: <ESC><cmd>silent Commentary<CR>^", "HACK comment this line" },
-		P = { "OPERF: <ESC><cmd>silent Commentary<CR>f:a ", "PERF comment above this line" },
-		p = { "IPERF: <ESC><cmd>silent Commentary<CR>^", "PERF comment this line" },
-		l = { "<cmd>silent  TodoLocList<CR>", "List all local comments" },
-		q = { "<cmd>silent TodoQuickFix<CR>", "List all comments as Quickfix" },
-	},
 	c = {
 		name = "Calendar",
 		c = { "<cmd>Calendar<CR>", "Main Calendar (view month)" },
@@ -385,7 +370,6 @@ wk.register({
 	["<c-k>"] = { "<c-o>C", "Delete to the end of the line" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 	-- ["<C-x>"] = { "<c-o><cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature help" },
-	["<c-_>"] = { "<ESC>:Commentary<CR>", "Comment out visually selected lines" },
 }, { prefix = "", mode = "i", noremap = true, silent = true, nowait = true })
 -- }}}
 
@@ -399,7 +383,6 @@ wk.register({
 	["<c-j>"] = { ":m '>+1<CR>gv=gv", "Move down" },
 	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
-	["<c-_>"] = { ":Commentary<CR>", "Toggle comment in this line" },
 }, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })
 -- }}}
 
