@@ -21,7 +21,7 @@ local options = {
 		layout_config = {
 			horizontal = {
 				prompt_position = "top",
-				preview_width = 0.5,
+				preview_width = 0.4,
 				-- results_width = 0.8,
 			},
 			vertical = {
@@ -32,7 +32,7 @@ local options = {
 				flip_columns = 120,
 			},
 			width = 0.90,
-			height = 0.80,
+			height = 0.85,
 			preview_cutoff = 0,
 		},
 		prompt_prefix = "   ",

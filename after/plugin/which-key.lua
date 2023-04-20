@@ -248,6 +248,12 @@ wk.register({
 			end,
 			"cmdheight 0 or 1",
 		},
+		H = {
+			function()
+				require("headlines").setup()
+			end,
+			"headlines plugin",
+		},
 		r = {
 			"<cmd>TSDisable rainbow<bar>TSEnable rainbow<CR>",
 			"rainbow",
