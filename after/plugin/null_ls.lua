@@ -24,6 +24,36 @@ null_ls.setup({
 		-- null_ls.builtins.formatting.prismaFmt,
 		null_ls.builtins.code_actions.eslint_d,
 		null_ls.builtins.diagnostics.eslint_d,
+		null_ls.builtins.formatting.prettierd.with({
+			filetypes = {
+				"javascript",
+				"javascriptreact",
+				"typescript",
+				"typescriptreact",
+				"vue",
+				"css",
+				"scss",
+				"less",
+				"html",
+				"json",
+				"jsonc",
+				"yaml",
+				"markdown",
+				"markdown.mdx",
+				"graphql",
+				"handlebars",
+				"vimwiki",
+				"xml",
+			},
+			extra_args = function(params)
+				if params.ft == "xml" then
+					return { "--parser", "xml" }
+				end
+			end,
+			condition = function()
+				return vim.fn.executable("prettierd") > 0
+			end,
+		}),
 	},
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then

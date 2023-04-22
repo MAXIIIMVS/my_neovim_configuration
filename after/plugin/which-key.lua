@@ -143,6 +143,7 @@ wk.register({
 		j = { "<cmd>silent Telescope emoji<CR>", "Emoji" },
 		J = { "<cmd>silent Telescope glyph<CR>", "Glyph" },
 		x = { "<cmd>silent Explore<CR>", "File Explorer" },
+		m = { "<cmd>make<CR>", "make" },
 		n = { "<cmd>TodoTelescope cwd=" .. utils.get_top_level() .. "<CR>", "Show Notes|To-dos for current project" },
 		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
 		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },
@@ -195,6 +196,9 @@ wk.register({
 		},
 	},
 	["z="] = { "<cmd>silent Telescope spell_suggest<CR>", "show spell suggestions" },
+	-- ['"'] = { "<cmd>Telescope registers<CR>", "registers" },
+	-- ["'"] = { "<cmd>Telescope marks<CR>", "marks" },
+	["q:"] = { "<cmd>Telescope command_history<CR>", "command history" },
 	f = { "<cmd>HopChar1CurrentLine<CR>", "Hop to a character in current line" },
 	F = { "<cmd>HopWordCurrentLine<CR>", "Hop to a word in current line" },
 	-- n = { "nzt", "show next search result" },
@@ -203,6 +207,7 @@ wk.register({
 
 wk.register({
 	name = "Groups",
+	m = { ":make ", "make <cmd>" },
 	s = {
 		name = "Session",
 		m = { "<cmd>Obsession " .. utils.get_top_level() .. "<CR>", "Make a session" },
@@ -221,7 +226,6 @@ wk.register({
 		T = {
 			name = "treesitter",
 			h = { "<cmd>TSToggle highlight<CR>", "highlight" },
-			r = { "<cmd>TSToggle rainbow<CR>", "rainbow" },
 			i = { "<cmd>TSToggle indent<CR>", "indent" },
 		},
 		b = {
@@ -247,16 +251,6 @@ wk.register({
 				vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
 			end,
 			"cmdheight 0 or 1",
-		},
-		H = {
-			function()
-				require("headlines").setup()
-			end,
-			"headlines plugin",
-		},
-		r = {
-			"<cmd>TSDisable rainbow<bar>TSEnable rainbow<CR>",
-			"rainbow",
 		},
 		z = {
 			"<cmd>ZenMode<CR>",
@@ -363,6 +357,7 @@ wk.register({
 	h = { "<cmd>WhichKey<CR>", "Which Key" },
 	s = { "<cmd>silent so %<CR>", "Source the file" },
 	d = { "<cmd>silent Dashboard<CR>", "Dashboard" },
+	t = { "<cmd>tabnew<CR>", "create an empty tab" },
 	x = {
 		"<cmd>silent !chmod u+x %<CR",
 		"make the file executable for the (u)ser , don't change (g)roup and (o)ther permissions",
@@ -373,8 +368,9 @@ wk.register({
 -- Insert mode {{{
 wk.register({
 	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
-	["<c-k>"] = { "<c-o>C", "Delete to the end of the line" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
+	["<c-k>"] = { "<c-o>C", "Delete to the end of the line" },
+	["<C-r>"] = { "<cmd>Telescope registers<CR>", "show registers" },
 	-- ["<C-x>"] = { "<c-o><cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature help" },
 }, { prefix = "", mode = "i", noremap = true, silent = true, nowait = true })
 -- }}}

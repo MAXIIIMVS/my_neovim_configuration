@@ -30,7 +30,7 @@ end
 vim.o.ruler = false
 vim.o.showmatch = true
 vim.o.matchtime = 2
-vim.o.lazyredraw = true
+vim.o.lazyredraw = false
 vim.o.ignorecase = true
 vim.o.backspace = "start,eol,indent"
 vim.o.path = vim.o.path .. "**" -- or vim.wo.path, IDK
@@ -160,13 +160,12 @@ vim.cmd([[
 let g:vimwiki_list = [{'path': '~/notes/wiki/',  'syntax': 'markdown', 'ext': '.md', 'auto_diary_index': 1}]
 let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_ext2syntax = {'.md': 'markdown',  '.mkd': 'markdown',  '.wiki': 'media'}
+let g:vimwiki_global_ext = 0
+let g:netrw_banner=0
 ]])
 
 -- vim.g.vimwiki_listsyms = " ✗○◐●✓"
 vim.g.vimwiki_listsyms = " .oOx"
--- NOTE: setting filetype to markdown will disable some of vimwiki's
--- functionalities like <backspace>
-vim.cmd("autocmd FileType vimwiki set filetype=markdown")
 -- }}}
 
 -- Calendar.vim {{{
