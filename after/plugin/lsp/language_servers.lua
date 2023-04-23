@@ -6,6 +6,8 @@ local mason_lspconfig = require("mason-lspconfig")
 -- NOTE: make sure to setup neodev BEFORE lspconfig
 require("neodev").setup({})
 
+require("lsp_signature").setup()
+
 local lsp_defaults = lspconfig.util.default_config
 lsp_defaults.capabilities = vim.tbl_deep_extend(
 	"force",

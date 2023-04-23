@@ -77,6 +77,12 @@ local options = {
 				vim.api.nvim_put({ emoji.value }, "c", false, true)
 			end,
 		},
+		glyph = {
+			action = function(glyph)
+				vim.fn.setreg("*", glyph.value)
+				vim.api.nvim_put({ glyph.value }, "c", false, true)
+			end,
+		},
 	},
 
 	-- extensions_list = { "file_browser", "themes", "terms" },

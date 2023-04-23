@@ -74,11 +74,11 @@ local options = {
 	}),
 	sources = {
 		{ name = "nvim_lsp" },
-		-- { name = "nvim_lsp_signature_help" },
 		{ name = "luasnip" },
 		{ name = "buffer" },
-		-- { name = "nvim_lua" },
 		{ name = "path" },
+		-- { name = "nvim_lsp_signature_help" },
+		-- { name = "nvim_lua" },
 	},
 }
 

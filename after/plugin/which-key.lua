@@ -66,6 +66,20 @@ wk.register({
 	["[B"] = { "<cmd>BufferLineMovePrev<CR>", "Move the buffer to the previous position" },
 	["]c"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
 	["[c"] = { ":Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
+	["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to the previous diagnostic" },
+	["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to the next diagnostic" },
+	["[E"] = {
+		function()
+			require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+		end,
+		"Jump to the previous error",
+	},
+	["]E"] = {
+		function()
+			require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+		end,
+		"Jump to the next error",
+	},
 	["[l"] = { "<cmd>silent lprev<CR>", "See the previous item in local list" },
 	["]l"] = { "<cmd>silent lnext<CR>", "See the next item in local list" },
 	["[L"] = { "<cmd>silent lfirst<CR>", "See the first item in local list" },
@@ -92,6 +106,7 @@ wk.register({
 	["<C-Down>"] = { ":resize +1<CR>", "Decrease window height" },
 	["<c-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
+	["<c-\\>"] = { "<cmd>Lspsaga term_toggle<CR>", "lspsaga terminal" },
 	[";"] = {
 		name = "Quick",
 		["1"] = { "<cmd>BufferLineGoToBuffer 1<CR>", "Go to 1st buffer" },
@@ -201,6 +216,14 @@ wk.register({
 	["q:"] = { "<cmd>Telescope command_history<CR>", "command history" },
 	f = { "<cmd>HopChar1CurrentLine<CR>", "Hop to a character in current line" },
 	F = { "<cmd>HopWordCurrentLine<CR>", "Hop to a word in current line" },
+	g = {
+		-- d = { "<cmd>Lspsaga goto_definition<CR>", "Go to definition" },
+		p = { "<cmd>Lspsaga peek_definition<CR>", "Show the definition in a floating windows" },
+		h = { "<cmd>Lspsaga lsp_finder<CR>", "Show the defintion, reference, implementation..." },
+		a = { "<cmd>Lspsaga code_action<CR>", "Code actions" },
+		r = { "<cmd>Lspsaga rename<CR>", "Rename the symbol" },
+	},
+	K = { "<cmd>silent Lspsaga hover_doc ++quiet<CR>", "Hover info" },
 	-- n = { "nzt", "show next search result" },
 	-- N = { "Nzt", "show previous search result" },
 }, { prefix = "", noremap = true, silent = true, nowait = true })
@@ -215,19 +238,6 @@ wk.register({
 	},
 	t = {
 		name = "Toggle",
-		t = {
-			function()
-				catppuccin.options.transparent_background = not catppuccin.options.transparent_background
-				catppuccin.compile()
-				vim.cmd.colorscheme(vim.g.colors_name)
-			end,
-			"transparency",
-		},
-		T = {
-			name = "treesitter",
-			h = { "<cmd>TSToggle highlight<CR>", "highlight" },
-			i = { "<cmd>TSToggle indent<CR>", "indent" },
-		},
 		b = {
 			function()
 				vim.o.background = vim.o.background == "dark" and "light" or "dark"
@@ -246,6 +256,20 @@ wk.register({
 		d = { "<cmd>silent Dashboard<CR>", "dashboard" },
 		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
 		l = { "<cmd>Telescope ToggleLSP<CR>", "LSP" },
+		o = { "<cmd>Lspsaga outline<CR>", "outline" },
+		t = {
+			function()
+				catppuccin.options.transparent_background = not catppuccin.options.transparent_background
+				catppuccin.compile()
+				vim.cmd.colorscheme(vim.g.colors_name)
+			end,
+			"transparency",
+		},
+		T = {
+			name = "treesitter",
+			h = { "<cmd>TSToggle highlight<CR>", "highlight" },
+			i = { "<cmd>TSToggle indent<CR>", "indent" },
+		},
 		h = {
 			function()
 				vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
