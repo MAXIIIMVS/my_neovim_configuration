@@ -295,6 +295,12 @@ wk.register({
 			end,
 			"statusline/lualine",
 		},
+		-- w = {
+		-- 	function()
+		-- 		vim.wo.winbar = vim.wo.winbar == "" and require("lspsaga.symbolwinbar"):get_winbar() or ""
+		-- 	end,
+		-- 	"winbar",
+		-- },
 	},
 	b = {
 		name = "buffer",
@@ -363,6 +369,8 @@ wk.register({
 		k = { "<c-w>k", "move the window above" },
 		d = { "<cmd>windo diffthis<CR>", "show the difference between 2 windows" },
 		D = { "<cmd>windo diffoff<CR>", "hide the difference between 2 windows" },
+		s = { "<cmd>windo set scrollbind<CR>", "set scrollbind" },
+		S = { "<cmd>windo set scrollbind!<CR>", "unset scrollbind" },
 	},
 }, { prefix = "<space>", noremap = true, silent = true, nowait = true })
 
