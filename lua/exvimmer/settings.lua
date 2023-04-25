@@ -166,6 +166,10 @@ let g:netrw_banner=0
 
 -- vim.g.vimwiki_listsyms = " ✗○◐●✓"
 vim.g.vimwiki_listsyms = " .oOx"
+vim.cmd([[
+autocmd BufNewFile,BufRead * set colorcolumn=79
+autocmd BufNewFile,BufRead *.md set colorcolumn=""
+]])
 -- }}}
 
 -- Calendar.vim {{{

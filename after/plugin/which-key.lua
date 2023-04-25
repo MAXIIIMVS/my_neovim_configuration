@@ -86,14 +86,6 @@ wk.register({
 	["]L"] = { "<cmd>silent llast<CR>", "See the last item in local list" },
 	["[p"] = { "<cmd>pu!<CR>", "Paste above current line" },
 	["]p"] = { "<cmd>pu<CR>", "Paste below current line" },
-	["]t"] = {
-		require("todo-comments").jump_next,
-		"Next todo comment",
-	},
-	["[t"] = {
-		require("todo-comments").jump_prev,
-		"Previous todo comment",
-	},
 	["[q"] = { "<cmd>silent cprev<CR>", "Show the previous item in QuickFix" },
 	["]q"] = { "<cmd>silent cnext<CR>", "Show the next item in QuickFix" },
 	["[Q"] = { "<cmd>silent cfirst<CR>", "See the first item in QuickFix" },
@@ -159,7 +151,6 @@ wk.register({
 		J = { "<cmd>silent Telescope glyph<CR>", "Glyph" },
 		x = { "<cmd>silent Explore<CR>", "File Explorer" },
 		m = { "<cmd>make<CR>", "make" },
-		n = { "<cmd>TodoTelescope cwd=" .. utils.get_top_level() .. "<CR>", "Show Notes|To-dos for current project" },
 		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
 		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },
 		H = { "<cmd>Telescope man_pages<CR>", "Show help tags" },
@@ -167,6 +158,7 @@ wk.register({
 		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
 		t = {
 			name = "tmux",
+			c = { "<cmd>silent !tmux clock-mode<CR>", "clock" },
 			w = { "<cmd>silent !tmux new-window<CR>", "window" },
 			h = { "<cmd>silent !tmux split-window<CR>", "horizontal split" },
 			v = { "<cmd>silent !tmux split-window -h<CR>", "vertical split" },
@@ -201,13 +193,6 @@ wk.register({
 				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 			end,
 			"List workspace folders",
-		},
-		c = {
-			name = "Color Picker",
-			h = { "<cmd>silent VCoolor<CR>", "HEX color <M-c>" }, -- <M-c>
-			H = { "<cmd>silent VCoolIns h<CR>", "HSL color <M-v>" }, -- <M-v>
-			r = { "<cmd>silent VCoolIns r <CR>", "RGB color <M-r>" }, -- <M-r>
-			-- R = { "<cmd>silent bufdo bd<CR>", "Insert a RGBA color" }, -- <M-w>
 		},
 	},
 	["z="] = { "<cmd>silent Telescope spell_suggest<CR>", "show spell suggestions" },
@@ -253,10 +238,22 @@ wk.register({
 			end,
 			"background color",
 		},
+		c = {
+			function()
+				vim.wo.colorcolumn = vim.wo.colorcolumn == "" and "79" or ""
+			end,
+			"color column",
+		},
 		d = { "<cmd>silent Dashboard<CR>", "dashboard" },
 		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
 		l = { "<cmd>Telescope ToggleLSP<CR>", "LSP" },
 		o = { "<cmd>Lspsaga outline<CR>", "outline" },
+		r = {
+			function()
+				vim.wo.relativenumber = not vim.wo.relativenumber
+			end,
+			"relative number",
+		},
 		t = {
 			function()
 				catppuccin.options.transparent_background = not catppuccin.options.transparent_background

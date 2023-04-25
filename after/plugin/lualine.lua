@@ -126,11 +126,11 @@ ins_left({
 	padding = { right = 1 },
 })
 
-ins_left({
+--[[ ins_left({
 	-- filesize component
 	"filesize",
 	cond = conditions.buffer_not_empty,
-})
+}) ]]
 
 ins_left({
 	"filename",
@@ -141,18 +141,6 @@ ins_left({
 ins_left({ "location" })
 
 ins_left({ "progress", color = { fg = colors.fg, gui = "bold" } })
-
-ins_left({
-	function()
-		if #vim.api.nvim_list_wins() > 1 then
-			return "[" .. vim.api.nvim_win_get_number(0) .. "]"
-		else
-			return ""
-		end
-	end,
-	cond = conditions.buffer_not_empty,
-	color = { fg = colors.yellow },
-})
 
 ins_left({
 	"diagnostics",
@@ -195,6 +183,19 @@ ins_left({
 })
 
 -- Add components to right sections
+
+ins_right({
+	function()
+		if #vim.api.nvim_list_wins() > 1 then
+			return "[" .. vim.api.nvim_win_get_number(0) .. "]"
+		else
+			return ""
+		end
+	end,
+	cond = conditions.buffer_not_empty,
+	color = { fg = colors.yellow },
+})
+
 ins_right({
 	function()
 		if vim.o.cmdheight == 0 then
@@ -203,20 +204,21 @@ ins_right({
 			return ""
 		end
 	end,
-	color = { fg = colors.yellow },
+	color = { fg = colors.orange },
 })
 
-ins_right({
+--[[ ins_right({
 	"o:encoding", -- option component same as &encoding in viml
 	fmt = string.upper, -- I'm not sure why it's upper case either ;)
 	cond = conditions.hide_in_width,
 	color = { fg = colors.green, gui = "bold" },
-})
+}) ]]
 
 ins_right({
 	"fileformat",
 	fmt = string.upper,
-	icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+	-- icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+	icons_enabled = true,
 	color = { fg = colors.green, gui = "bold" },
 })
 
