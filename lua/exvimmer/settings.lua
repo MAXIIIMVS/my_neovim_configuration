@@ -5,7 +5,7 @@ local utils = require("utils")
 vim.g.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal" -- removed blank
 vim.wo.spell = true
 vim.wo.number = true
-vim.wo.relativenumber = true
+-- vim.wo.relativenumber = true
 vim.wo.signcolumn = "yes:1"
 vim.o.fileencodings = "utf-8,sjis,euc-jp,latin"
 vim.o.encoding = "utf-8"
@@ -80,7 +80,7 @@ vim.opt.undodir = home .. "/.config/undodir"
 vim.opt.undofile = true
 vim.o.showmode = true
 vim.bo.textwidth = 79
-vim.wo.colorcolumn = "79"
+-- vim.wo.colorcolumn = "79"
 vim.wo.linebreak = true
 vim.o.autochdir = true
 vim.o.hidden = true
@@ -166,10 +166,10 @@ let g:netrw_banner=0
 
 -- vim.g.vimwiki_listsyms = " ✗○◐●✓"
 vim.g.vimwiki_listsyms = " .oOx"
-vim.cmd([[
-autocmd BufNewFile,BufRead * set colorcolumn=79
-autocmd BufNewFile,BufRead *.md set colorcolumn=""
-]])
+-- vim.cmd([[
+-- autocmd BufNewFile,BufRead * set colorcolumn=79
+-- autocmd BufNewFile,BufRead *.md set colorcolumn=""
+-- ]])
 -- }}}
 
 -- Calendar.vim {{{

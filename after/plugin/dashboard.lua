@@ -140,6 +140,6 @@ db.setup({
 				key = "m",
 			},
 		},
-		footer = { "👑 Mustafa Hayati 👑" },
+		footer = { "👑 Why be a king, when you can be a God? 👑" },
 	},
 })

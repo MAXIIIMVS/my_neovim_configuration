@@ -25,33 +25,6 @@ local options = {
 
 wk.setup(options)
 
--- old MAPPINGS {{{
--- ---------------------------------------------------------------------
--- run prettier in the current directory
--- vim.key hap.set('n', '<leader>P',
---   ':silent !cd ' .. utils.get_top_level() ..
---   '&& prettier --ignore-path .gitignore -w .<CR>', opts)
--- vim.keymap.set('n', '<leader>p', ':silent !prettier --ignore-path .gitignore -w %<CR>',
---   opts)
-
--- close and open the file again
--- vim.keymap.set('n', '<leader>r', ':bd<CR><c-o>', opts)
-
--- search the visually selected text, not required in nvim>0.8
--- cmd([[
--- vnoremap <silent> * :<C-U>
---   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
---   \gvy/<C-R><C-R>=substitute(
---   \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
---   \gV:call setreg('"', old_reg, old_regtype)<CR>
--- vnoremap <silent> # :<C-U>
---   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
---   \gvy?<C-R><C-R>=substitute(
---   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
---   \gV:call setreg('"', old_reg, old_regtype)<CR>
--- ]])
--- }}}
-
 -- Normal mode {{{
 wk.register({
 	["<M-l>"] = { "<C-w>l", "Go to the right window" },
@@ -101,6 +74,7 @@ wk.register({
 	["<c-\\>"] = { "<cmd>Lspsaga term_toggle<CR>", "lspsaga terminal" },
 	[";"] = {
 		name = "Quick",
+		[";"] = { ":Bdelete<CR>", "Delete current buffer" },
 		["1"] = { "<cmd>BufferLineGoToBuffer 1<CR>", "Go to 1st buffer" },
 		["2"] = { "<cmd>BufferLineGoToBuffer 2<CR>", "Go to 2nd buffer" },
 		["3"] = { "<cmd>BufferLineGoToBuffer 3<CR>", "Go to 3rd buffer" },
@@ -110,14 +84,66 @@ wk.register({
 		["7"] = { "<cmd>BufferLineGoToBuffer 7<CR>", "Go to 7th buffer" },
 		["8"] = { "<cmd>BufferLineGoToBuffer 8<CR>", "Go to 8th buffer" },
 		["9"] = { "<cmd>BufferLineGoToBuffer 9<CR>", "Go to 9th buffer" },
-		z = { "<cmd>ZenMode<CR><cmd>redraw<CR>", "Toggle Zen Mode" },
-		Z = { "<c-w>|<c-w>_", "Maximize the window" },
+		-- b = { "<cmd>Telescope buffers previewer=false<CR>", "List open buffers" },
+		b = {
+			function()
+				require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({
+					previewer = false,
+				}))
+			end,
+			"List open buffers",
+		},
+		c = {
+			function()
+				-- require("telescope.builtin").colorscheme()
+				require("telescope.builtin").colorscheme(require("telescope.themes").get_dropdown({
+					previewer = false,
+				}))
+			end,
+			"Lists available colorschemes",
+		},
+		d = { "<cmd>Telescope file_browser<CR>", "File/Folder browser" },
+		D = { "<cmd>Telescope file_browser cwd=" .. utils.get_top_level() .. "<CR>", "File/Folder browser from root" },
 		e = { "<cmd>silent Telescope diagnostics cwd=" .. utils.get_top_level() .. "<CR>", "List diagnostics" },
 		E = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show line diagnostics" },
+		f = { "<cmd>Telescope find_files cwd=" .. utils.get_top_level() .. "<CR>", "Find files" },
+		F = { "<cmd>Telescope git_files <CR>", "Fuzzy search for files tracked by Git" },
+		g = { "<cmd>Telescope live_grep  cwd=" .. utils.get_top_level() .. "<CR>", "Live grep" },
+		G = { "<cmd>Telescope grep_string cwd=" .. utils.get_top_level() .. "<CR>", "Grep string under the cursor" },
+		-- h = { "<cmd>Telescope help_tags previewer=false<CR>", "Show help tags" },
+		h = {
+			function()
+				require("telescope.builtin").help_tags(require("telescope.themes").get_dropdown({
+					previewer = false,
+				}))
+			end,
+			"Show help tags",
+		},
+		-- H = { "<cmd>Telescope man_pages previewer=false<CR>", "Show help tags" },
+		H = {
+			function()
+				require("telescope.builtin").man_pages(require("telescope.themes").get_dropdown({
+					previewer = false,
+				}))
+			end,
+			"Show man pages",
+		},
+		j = { "<cmd>silent Telescope glyph<CR>", "Glyph" },
+		J = { "<cmd>silent Telescope emoji<CR>", "Emoji" },
+		l = { "<cmd>HopLineMW<CR>", "Hop to a line" },
+		m = { "<cmd>make<CR>", "make" },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open .<CR>", "Open the current directory" },
-		[";"] = { ":Bdelete<CR>", "Delete current buffer" },
 		q = { "<c-w>q", "Quit current window" },
+		-- r = { "<cmd>Telescope oldfiles previewer=false<CR>", "Show recently opened files" },
+		r = {
+			function()
+				require("telescope.builtin").oldfiles(require("telescope.themes").get_dropdown({
+					previewer = false,
+				}))
+			end,
+			"Show recently opened files",
+		},
 		s = {
 			[[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
 			"Change the word under the cursor in the line",
@@ -128,37 +154,9 @@ wk.register({
 			"Change the word under the cursor in the whole file",
 			silent = false,
 		},
-		f = { "<cmd>Telescope find_files cwd=" .. utils.get_top_level() .. "<CR>", "Find files" },
-		-- f = {
-		-- 	function()
-		-- 		require("telescope.builtin").find_files({ hidden = true, cwd = utils.get_top_level(), no_ignore = true })
-		-- 	end,
-		-- 	"Find files",
-		-- },
-		F = { "<cmd>Telescope git_files <CR>", "Fuzzy search for files tracked by Git" },
-		g = { "<cmd>Telescope live_grep  cwd=" .. utils.get_top_level() .. "<CR>", "Live grep" },
-		G = { "<cmd>Telescope grep_string cwd=" .. utils.get_top_level() .. "<CR>", "Grep string under the cursor" },
-		b = { "<cmd>Telescope buffers<CR>", "List open buffers" },
-		c = {
-			function()
-				require("telescope.builtin").colorscheme()
-			end,
-			"Lists available colorschemes",
-		},
-		d = { "<cmd>Telescope file_browser<CR>", "File/Folder browser" },
-		D = { "<cmd>Telescope file_browser cwd=" .. utils.get_top_level() .. "<CR>", "File/Folder browser from root" },
-		j = { "<cmd>silent Telescope emoji<CR>", "Emoji" },
-		J = { "<cmd>silent Telescope glyph<CR>", "Glyph" },
-		x = { "<cmd>silent Explore<CR>", "File Explorer" },
-		m = { "<cmd>make<CR>", "make" },
-		r = { "<cmd>Telescope oldfiles<CR>", "Show recently opened files" },
-		h = { "<cmd>Telescope help_tags<CR>", "Show help tags" },
-		H = { "<cmd>Telescope man_pages<CR>", "Show help tags" },
-		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
-		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
 		t = {
 			name = "tmux",
-			c = { "<cmd>silent !tmux clock-mode<CR>", "clock" },
+			t = { "<cmd>silent !tmux clock-mode<CR>", "clock" },
 			w = { "<cmd>silent !tmux new-window<CR>", "window" },
 			h = { "<cmd>silent !tmux split-window<CR>", "horizontal split" },
 			v = { "<cmd>silent !tmux split-window -h<CR>", "vertical split" },
@@ -172,6 +170,11 @@ wk.register({
 				"pop-up bash (terminal)",
 			},
 		},
+		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
+		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
+		x = { "<cmd>silent Explore<CR>", "File Explorer" },
+		z = { "<cmd>ZenMode<CR><cmd>redraw<CR>", "Toggle Zen Mode" },
+		Z = { "<c-w>|<c-w>_", "Maximize the window" },
 		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
 	},
 	[","] = {
@@ -185,20 +188,20 @@ wk.register({
 		["7"] = { "7<c-w>w", "Go to 7th window" },
 		["8"] = { "8<c-w>w", "Go to 8th window" },
 		["9"] = { "9<c-w>w", "Go to 9th window" },
-		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
-		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
 		f = {
 			function()
 				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 			end,
 			"List workspace folders",
 		},
+		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
+		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
 	},
 	["z="] = { "<cmd>silent Telescope spell_suggest<CR>", "show spell suggestions" },
 	-- ['"'] = { "<cmd>Telescope registers<CR>", "registers" },
 	-- ["'"] = { "<cmd>Telescope marks<CR>", "marks" },
-	["q:"] = { "<cmd>Telescope command_history<CR>", "command history" },
+	-- ["q:"] = { "<cmd>Telescope command_history<CR>", "command history" },
 	f = { "<cmd>HopChar1CurrentLine<CR>", "Hop to a character in current line" },
 	F = { "<cmd>HopWordCurrentLine<CR>", "Hop to a word in current line" },
 	g = {
@@ -340,6 +343,7 @@ wk.register({
 		D = { "<cmd>silent Gvdiffsplit HEAD~<CR>", "Diff with previous commit" },
 		b = { "<cmd>silent G blame<CR>", "Blame on the current file" },
 		B = { "<cmd>Gitsigns blame_line<CR>", "Blame on the current line" },
+		g = { ":Ggrep ", "Grep" },
 		o = { "<cmd>silent GBrowse<CR>", "Open in the browser" },
 		r = {
 			"<cmd>Gitsigns reset_hunk<CR>",
@@ -399,7 +403,7 @@ wk.register({
 	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 	["<c-k>"] = { "<c-o>C", "Delete to the end of the line" },
-	["<C-r>"] = { "<cmd>Telescope registers<CR>", "show registers" },
+	-- ["<C-r>"] = { "<cmd>Telescope registers<CR>", "show registers" },
 	-- ["<C-x>"] = { "<c-o><cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature help" },
 }, { prefix = "", mode = "i", noremap = true, silent = true, nowait = true })
 -- }}}
