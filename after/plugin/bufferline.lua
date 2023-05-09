@@ -11,6 +11,12 @@ require("bufferline").setup({
 				separator = true, -- use a "true" to enable the default, or set your own character
 			},
 			{
+				filetype = "netrw",
+				text = "File Explorer",
+				highlight = "Directory",
+				separator = true,
+			},
+			{
 				filetype = "undotree",
 				text = "Undo Tree",
 				highlight = "Directory",

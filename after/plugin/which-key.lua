@@ -172,7 +172,7 @@ wk.register({
 		},
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
-		x = { "<cmd>silent Explore<CR>", "File Explorer" },
+		x = { "<cmd>silent call ToggleNetrw()<CR>", "File Explorer" }, -- instead of Vexplore
 		z = { "<cmd>ZenMode<CR><cmd>redraw<CR>", "Toggle Zen Mode" },
 		Z = { "<c-w>|<c-w>_", "Maximize the window" },
 		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
@@ -304,8 +304,9 @@ wk.register({
 	},
 	b = {
 		name = "buffer",
-		o = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers" },
 		a = { "<cmd>bufdo bd<CR>", "close all buffers" },
+		d = { "<cmd>silent bd<CR>", "close this buffer" },
+		o = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers" },
 	},
 	c = {
 		name = "Calendar",
