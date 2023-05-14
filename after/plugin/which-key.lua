@@ -218,7 +218,7 @@ wk.register({
 
 wk.register({
 	name = "Groups",
-	m = { ":make ", "make <cmd>" },
+	m = { ":make ", "make [cmd]" },
 	s = {
 		name = "Session",
 		m = { "<cmd>Obsession " .. utils.get_top_level() .. "<CR>", "Make a session" },
@@ -235,12 +235,6 @@ wk.register({
 			end,
 			"light/dark background",
 		},
-		B = {
-			function()
-				vim.o.background = vim.o.background == "dark" and "light" or "dark"
-			end,
-			"background color",
-		},
 		c = {
 			function()
 				vim.wo.colorcolumn = vim.wo.colorcolumn == "" and "79" or ""
@@ -249,37 +243,14 @@ wk.register({
 		},
 		d = { "<cmd>silent Dashboard<CR>", "dashboard" },
 		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
-		l = { "<cmd>Telescope ToggleLSP<CR>", "LSP" },
-		o = { "<cmd>Lspsaga outline<CR>", "outline" },
-		r = {
-			function()
-				vim.wo.relativenumber = not vim.wo.relativenumber
-			end,
-			"relative number",
-		},
-		t = {
-			function()
-				catppuccin.options.transparent_background = not catppuccin.options.transparent_background
-				catppuccin.compile()
-				vim.cmd.colorscheme(vim.g.colors_name)
-			end,
-			"transparency",
-		},
-		T = {
-			name = "treesitter",
-			h = { "<cmd>TSToggle highlight<CR>", "highlight" },
-			i = { "<cmd>TSToggle indent<CR>", "indent" },
-		},
 		h = {
 			function()
 				vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
 			end,
 			"cmdheight 0 or 1",
 		},
-		z = {
-			"<cmd>ZenMode<CR>",
-			"zen mode",
-		},
+		l = { "<cmd>Telescope ToggleLSP<CR>", "LSP" },
+		o = { "<cmd>Lspsaga outline<CR>", "outline" },
 		p = {
 			"<cmd>BufferLineTogglePin<CR>",
 			"pin buffer",
@@ -295,12 +266,36 @@ wk.register({
 			end,
 			"statusline/lualine",
 		},
+		r = {
+			function()
+				vim.wo.relativenumber = not vim.wo.relativenumber
+			end,
+			"relative number",
+		},
+		t = {
+			function()
+				catppuccin.options.transparent_background = not catppuccin.options.transparent_background
+				catppuccin.compile()
+				vim.o.cursorlineopt = catppuccin.options.transparent_background and "number" or "number,line"
+				vim.cmd.colorscheme(vim.g.colors_name)
+			end,
+			"transparency",
+		},
+		T = {
+			name = "treesitter",
+			h = { "<cmd>TSToggle highlight<CR>", "highlight" },
+			i = { "<cmd>TSToggle indent<CR>", "indent" },
+		},
 		-- w = {
 		-- 	function()
 		-- 		vim.wo.winbar = vim.wo.winbar == "" and require("lspsaga.symbolwinbar"):get_winbar() or ""
 		-- 	end,
 		-- 	"winbar",
 		-- },
+		z = {
+			"<cmd>ZenMode<CR>",
+			"zen mode",
+		},
 	},
 	b = {
 		name = "buffer",

@@ -14,9 +14,9 @@ source ~/.config/nvim/credentials.vim
 
 " I don't know what these line do
 au FocusGained,BufEnter * :silent! !
-hi CursorLine cterm=NONE ctermbg=232
-autocmd InsertEnter * highlight  CursorLine ctermbg=17 ctermfg=None
-autocmd InsertLeave * highlight  CursorLine ctermbg=232
+" hi CursorLine cterm=NONE ctermbg=232
+" autocmd InsertEnter * highlight  CursorLine ctermbg=17 ctermfg=None
+" autocmd InsertLeave * highlight  CursorLine ctermbg=232
 
 if &term =~ "screen"
   autocmd BufEnter * if bufname("") !~ "^?[A-Za-z0-9?]*://" | silent! exe '!echo -n "\ek[`hostname`:`basename $PWD`/`basename %`]\e\\"' | endif
@@ -24,6 +24,9 @@ if &term =~ "screen"
 endif
 
 " netrw settings and functions
+" let g:netrw_list_hide= netrw_gitignore#Hide()
+" let s:treedepthstring     = "│ "
+" let g:netrw_hide = 1
 autocmd FileType netrw nnoremap <buffer> <nowait> q :call ToggleNetrw()<CR>
 autocmd FileType netrw nnoremap <buffer> <nowait> ;q :call ToggleNetrw()<CR>
 autocmd FileType netrw setl bufhidden=wipe
@@ -49,6 +52,7 @@ aug END
 let g:NetrwIsOpen=0
 
 function! ToggleNetrw()
+    let g:netrw_winsize = 25
     if g:NetrwIsOpen
         let i = bufnr("$")
         while (i >= 1)
@@ -208,7 +212,7 @@ vim.bo.expandtab = true
 
 -- Highlights {{{
 -----------------------------------------------------------------------
-vim.wo.cursorline = true
+vim.o.cursorlineopt = "number" -- disable cursorline in transparent mode
 
 utils.create_augroup({
 	{ "WinEnter", "*", "set", "cul" },
@@ -224,9 +228,11 @@ utils.create_augroup({
 -- Netrw {{{
 vim.g.netrw_banner = false
 vim.g.netrw_bufsettings = "noma nomod nu rnu nobl nowrap ro"
-vim.g.netrw_winsize = 25
+vim.g.netrw_winsize = -25
 vim.g.netrw_browse_split = 4
 vim.g.netrw_fastbrowse = false
+vim.g.netrw_liststyle = 3
+-- vim.g.netrw_hide = true
 -- }}}
 
 -- VimWiki {{{

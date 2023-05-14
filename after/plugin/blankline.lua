@@ -2,6 +2,7 @@ require("indent_blankline").setup({
 	buftype_exclude = { "terminal", "nofile" },
 	filetype_exclude = { "help", "dashboard", "NvimTree", "packer", "mason", "fugitive" },
 	show_current_context = true,
+	max_indent_increase = 1,
 	context_patterns = {
 		"class",
 		"return",

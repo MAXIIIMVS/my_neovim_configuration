@@ -5,7 +5,7 @@ if not present then
 end
 
 require("luasnip.loaders.from_vscode").lazy_load()
-local lspkind = require("lspkind")
+-- local lspkind = require("lspkind")
 local luasnip = require("luasnip")
 
 local has_words_before = function()
@@ -37,13 +37,13 @@ cmp_window.info = function(self)
 end
 
 local options = {
-	formatting = {
-		format = lspkind.cmp_format({
-			mode = "symbol_text", -- 'text', 'text_symbol', 'symbol_text', 'symbol'
-			maxwidth = 50,
-			ellipsis_char = "...",
-		}),
-	},
+	-- formatting = {
+	-- 	format = lspkind.cmp_format({
+	-- 		mode = "symbol_text", -- 'text', 'text_symbol', 'symbol_text', 'symbol'
+	-- 		maxwidth = 50,
+	-- 		ellipsis_char = "...",
+	-- 	}),
+	-- },
 	preselect = cmp.PreselectMode.None,
 	window = {
 		completion = {

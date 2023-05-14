@@ -207,6 +207,14 @@ ins_right({
 	color = { fg = colors.orange },
 })
 
+-- ins_right({
+-- 	function()
+-- 		return vim.api.nvim_buf_get_option(0, "filetype")
+-- 	end,
+-- 	fmt = string.upper,
+-- 	color = { fg = colors.green, gui = "bold" },
+-- })
+
 ins_right({
 	"o:encoding", -- option component same as &encoding in viml
 	fmt = string.upper, -- I'm not sure why it's upper case either ;)

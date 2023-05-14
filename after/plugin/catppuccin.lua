@@ -40,9 +40,6 @@ catppuccin.setup({
 		shade = "dark",
 		percentage = 0.45,
 	},
-	styles = {
-		comments = { "bold" },
-	},
 	color_overrides = {
 		mocha = {
 			-- base = "#1A1A2F",
@@ -50,7 +47,6 @@ catppuccin.setup({
 			base = "#1D182E",
 		},
 	},
-	custom_highlights = {},
 	highlight_overrides = {
 		-- latte = telescopeBorderless("latte"),
 		-- frappe = telescopeBorderless("frappe"),
@@ -60,17 +56,12 @@ catppuccin.setup({
 	integrations = {
 		cmp = true,
 		gitsigns = true,
-		-- nvimtree = true,
 		dashboard = true,
 		telescope = true,
 		which_key = true,
 		treesitter = true,
-		-- headlines = true,
 		hop = true,
 		mason = true,
-		-- ts_rainbow = true,
-		-- noice = true,
-		-- notify = true,
 		lsp_saga = true,
 		vimwiki = true,
 		indent_blankline = {
