@@ -1,6 +1,6 @@
 -- Eviline config for lualine
 local lualine = require("lualine")
-
+local icons = require("nvim-web-devicons")
 -- Color table for highlights
 -- stylua: ignore
 local colors = {
@@ -133,6 +133,12 @@ ins_left({
 }) ]]
 
 ins_left({
+	"filetype",
+	icon_only = true,
+	-- icon = { align = "left" },
+})
+
+ins_left({
 	"filename",
 	cond = conditions.buffer_not_empty,
 	color = { fg = colors.magenta, gui = "bold" },
@@ -206,14 +212,6 @@ ins_right({
 	end,
 	color = { fg = colors.orange },
 })
-
--- ins_right({
--- 	function()
--- 		return vim.api.nvim_buf_get_option(0, "filetype")
--- 	end,
--- 	fmt = string.upper,
--- 	color = { fg = colors.green, gui = "bold" },
--- })
 
 ins_right({
 	"o:encoding", -- option component same as &encoding in viml

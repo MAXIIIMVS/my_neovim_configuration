@@ -52,7 +52,7 @@ aug END
 let g:NetrwIsOpen=0
 
 function! ToggleNetrw()
-    let g:netrw_winsize = 25
+    let g:netrw_winsize = -40
     if g:NetrwIsOpen
         let i = bufnr("$")
         while (i >= 1)
@@ -228,7 +228,7 @@ utils.create_augroup({
 -- Netrw {{{
 vim.g.netrw_banner = false
 vim.g.netrw_bufsettings = "noma nomod nu rnu nobl nowrap ro"
-vim.g.netrw_winsize = -25
+vim.g.netrw_winsize = -40
 vim.g.netrw_browse_split = 4
 vim.g.netrw_fastbrowse = false
 vim.g.netrw_liststyle = 3
