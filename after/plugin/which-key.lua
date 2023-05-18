@@ -7,6 +7,8 @@ end
 local catppuccin = require("catppuccin")
 local lualine = require("lualine")
 local utils = require("utils")
+local telescope_builtins = require("telescope.builtin")
+local telescope_themes = require("telescope.themes")
 
 -- local opts = { noremap = true, silent = true, silent = true, nowait = true }
 
@@ -87,7 +89,7 @@ wk.register({
 		-- b = { "<cmd>Telescope buffers previewer=false<CR>", "List open buffers" },
 		b = {
 			function()
-				require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({
+				telescope_builtins.buffers(telescope_themes.get_dropdown({
 					previewer = false,
 				}))
 			end,
@@ -95,8 +97,8 @@ wk.register({
 		},
 		c = {
 			function()
-				-- require("telescope.builtin").colorscheme()
-				require("telescope.builtin").colorscheme(require("telescope.themes").get_dropdown({
+				-- telescope_builtins.colorscheme()
+				telescope_builtins.colorscheme(telescope_themes.get_dropdown({
 					previewer = false,
 				}))
 			end,
@@ -113,7 +115,7 @@ wk.register({
 		-- h = { "<cmd>Telescope help_tags previewer=false<CR>", "Show help tags" },
 		h = {
 			function()
-				require("telescope.builtin").help_tags(require("telescope.themes").get_dropdown({
+				telescope_builtins.help_tags(telescope_themes.get_dropdown({
 					previewer = false,
 				}))
 			end,
@@ -122,7 +124,7 @@ wk.register({
 		-- H = { "<cmd>Telescope man_pages previewer=false<CR>", "Show help tags" },
 		H = {
 			function()
-				require("telescope.builtin").man_pages(require("telescope.themes").get_dropdown({
+				telescope_builtins.man_pages(telescope_themes.get_dropdown({
 					previewer = false,
 				}))
 			end,
@@ -138,7 +140,7 @@ wk.register({
 		-- r = { "<cmd>Telescope oldfiles previewer=false<CR>", "Show recently opened files" },
 		r = {
 			function()
-				require("telescope.builtin").oldfiles(require("telescope.themes").get_dropdown({
+				telescope_builtins.oldfiles(telescope_themes.get_dropdown({
 					previewer = false,
 				}))
 			end,
@@ -275,8 +277,13 @@ wk.register({
 		t = {
 			function()
 				catppuccin.options.transparent_background = not catppuccin.options.transparent_background
+				catppuccin.options.dim_inactive = {
+					enabled = not catppuccin.options.transparent_background,
+					shade = "dark",
+					percentage = 0.65,
+				}
 				catppuccin.compile()
-				vim.o.cursorlineopt = catppuccin.options.transparent_background and "number" or "number,line"
+				-- vim.o.cursorlineopt = catppuccin.options.transparent_background and "number" or "number,line"
 				vim.cmd.colorscheme(vim.g.colors_name)
 			end,
 			"transparency",

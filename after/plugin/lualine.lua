@@ -1,6 +1,5 @@
 -- Eviline config for lualine
 local lualine = require("lualine")
-local icons = require("nvim-web-devicons")
 -- Color table for highlights
 -- stylua: ignore
 local colors = {

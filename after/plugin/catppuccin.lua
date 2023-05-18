@@ -35,11 +35,6 @@ catppuccin.setup({
 	compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
 	transparent_background = vim.o.background == "dark",
 	term_colors = true,
-	dim_inactive = {
-		enabled = false,
-		shade = "dark",
-		percentage = 0.45,
-	},
 	color_overrides = {
 		mocha = {
 			-- base = "#1A1A2F",
