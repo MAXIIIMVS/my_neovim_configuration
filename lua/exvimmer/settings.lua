@@ -235,6 +235,16 @@ vim.g.netrw_liststyle = 3
 -- vim.g.netrw_hide = true
 -- }}}
 
+-- vimtex {{{
+vim.g.vimtex_view_method = "zathura"
+vim.g.vimtex_view_general_viewer = "okular"
+vim.g.vimtex_view_general_options = "--unique file:@pdf#src:@line@tex"
+vim.g.vimtex_compiler_method = "latexmk" -- default compiler
+vim.g.vimtex_format_enabled = true
+vim.g.texflavor = "latex"
+vim.cmd([[let maplocalleader = "\<space>"]])
+-- }}}
+
 -- VimWiki {{{
 -- vim.g.vimwiki_listsyms = " ✗○◐●✓"
 vim.g.vimwiki_listsyms = " .oOx"

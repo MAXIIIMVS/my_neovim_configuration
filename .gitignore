@@ -3,3 +3,4 @@ Session.vim
 lazy-lock.json
 credentials.vim
 spell
+indent.log

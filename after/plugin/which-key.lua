@@ -365,6 +365,9 @@ wk.register({
 		c = { "<cmd>HopChar1MW<CR>", "Hop to a character" },
 		p = { "<cmd>HopPatternMW<CR>", "Hop to a pattern" },
 	},
+	l = {
+		name = "LaTeX",
+	},
 	w = {
 		name = "Window",
 		l = { "<c-w>l", "move the left window" },
