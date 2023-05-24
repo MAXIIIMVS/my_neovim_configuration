@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 return require("lazy").setup({
 	{ "adoyle-h/lsp-toggle.nvim", event = "VeryLazy" },
+	{ "airblade/vim-rooter" },
 	{ "akinsho/bufferline.nvim", lazy = true },
 	{
 		"catppuccin/nvim",
@@ -20,7 +21,7 @@ return require("lazy").setup({
 		lazy = false,
 		priority = 1000,
 	},
-	{ "famiu/bufdelete.nvim" },
+	{ "famiu/bufdelete.nvim", event = "VeryLazy" },
 	{ "folke/which-key.nvim", lazy = true },
 	{ "folke/zen-mode.nvim", even = "VeryLazy" },
 	{ "folke/neodev.nvim", lazy = true },
@@ -28,6 +29,7 @@ return require("lazy").setup({
 	{
 		"glepnir/lspsaga.nvim",
 		branch = "main",
+		event = "VeryLazy",
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 			"nvim-treesitter/nvim-treesitter",
@@ -45,18 +47,19 @@ return require("lazy").setup({
 	},
 	{ "hrsh7th/cmp-cmdline" }, -- I put this outside of dependencies, intentionally
 	{ "itchyny/calendar.vim", event = "VeryLazy" },
-	{ "jose-elias-alvarez/null-ls.nvim", dependencies = "nvim-lua/plenary.nvim" },
-	{ "kylechui/nvim-surround", config = true },
-	{ "L3MON4D3/LuaSnip" },
+	{ "jose-elias-alvarez/null-ls.nvim", dependencies = "nvim-lua/plenary.nvim", event = "VeryLazy" },
+	{ "kylechui/nvim-surround", config = true, event = "VeryLazy" },
+	{ "L3MON4D3/LuaSnip", event = "VeryLazy" },
 	{ "lervag/vimtex", event = "VeryLazy", ft = "tex" },
-	{ "lewis6991/gitsigns.nvim", dependencies = "nvim-lua/plenary.nvim" },
-	{ "lukas-reineke/indent-blankline.nvim" },
+	{ "lewis6991/gitsigns.nvim", dependencies = "nvim-lua/plenary.nvim", event = "VeryLazy" },
+	{ "lukas-reineke/indent-blankline.nvim", event = "VeryLazy" },
 	{ "mbbill/undotree", event = "VeryLazy" },
 	{ "neovim/nvim-lspconfig" },
 	{ "nvim-lualine/lualine.nvim" },
 	{ "nvim-lua/plenary.nvim" },
 	{
 		"nvim-telescope/telescope.nvim",
+		event = "VeryLazy",
 		dependencies = {
 			"nvim-telescope/telescope-file-browser.nvim",
 			"xiyaowong/telescope-emoji.nvim",
@@ -72,8 +75,8 @@ return require("lazy").setup({
 			"windwp/nvim-autopairs",
 		},
 	},
-	{ "numToStr/Comment.nvim", lazy = true },
-	{ "NvChad/nvim-colorizer.lua", lazy = true },
+	{ "numToStr/Comment.nvim", event = "VeryLazy" },
+	{ "NvChad/nvim-colorizer.lua", event = "VeryLazy" },
 	{ "phaazon/hop.nvim", config = true, event = "VeryLazy" },
 	{ "rafamadriz/friendly-snippets" },
 	{ "ray-x/lsp_signature.nvim", lazy = true },

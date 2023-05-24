@@ -33,7 +33,7 @@ require("nvim-treesitter.configs").setup({
 		"ini",
 		"json5",
 		"llvm",
-		"latex",
+		-- "latex",
 		"make",
 		"markdown",
 		"markdown_inline",

@@ -7,6 +7,7 @@ end
 local catppuccin = require("catppuccin")
 local lualine = require("lualine")
 local utils = require("utils")
+local telescope = require("telescope")
 local telescope_builtins = require("telescope.builtin")
 local telescope_themes = require("telescope.themes")
 
@@ -97,22 +98,26 @@ wk.register({
 		},
 		c = {
 			function()
-				-- telescope_builtins.colorscheme()
 				telescope_builtins.colorscheme(telescope_themes.get_dropdown({
 					previewer = false,
 				}))
 			end,
-			"Lists available colorschemes",
+			"Lists available color schemes",
 		},
-		d = { "<cmd>Telescope file_browser<CR>", "File/Folder browser" },
-		D = { "<cmd>Telescope file_browser cwd=" .. utils.get_top_level() .. "<CR>", "File/Folder browser from root" },
-		e = { "<cmd>silent Telescope diagnostics cwd=" .. utils.get_top_level() .. "<CR>", "List diagnostics" },
+		d = {
+			function()
+				local filepath = vim.fn.expand("%:p:h")
+				telescope.extensions.file_browser.file_browser({ cwd = filepath })
+			end,
+			"File/Folder browser",
+		},
+		D = { "<cmd>Telescope file_browser<CR>", "File/Folder browser from root" },
+		e = { "<cmd>silent Telescope diagnostics<CR>", "List diagnostics" },
 		E = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show line diagnostics" },
-		f = { "<cmd>Telescope find_files cwd=" .. utils.get_top_level() .. "<CR>", "Find files" },
+		f = { "<cmd>Telescope find_files<CR>", "Find files" },
 		F = { "<cmd>Telescope git_files <CR>", "Fuzzy search for files tracked by Git" },
-		g = { "<cmd>Telescope live_grep  cwd=" .. utils.get_top_level() .. "<CR>", "Live grep" },
-		G = { "<cmd>Telescope grep_string cwd=" .. utils.get_top_level() .. "<CR>", "Grep string under the cursor" },
-		-- h = { "<cmd>Telescope help_tags previewer=false<CR>", "Show help tags" },
+		g = { "<cmd>Telescope live_grep<CR>", "Live grep" },
+		G = { "<cmd>Telescope grep_string<CR>", "Grep string under the cursor" },
 		h = {
 			function()
 				telescope_builtins.help_tags(telescope_themes.get_dropdown({
@@ -159,9 +164,27 @@ wk.register({
 		t = {
 			name = "tmux",
 			t = { "<cmd>silent !tmux clock-mode<CR>", "clock" },
-			w = { "<cmd>silent !tmux new-window<CR>", "window" },
-			h = { "<cmd>silent !tmux split-window<CR>", "horizontal split" },
-			v = { "<cmd>silent !tmux split-window -h<CR>", "vertical split" },
+			w = {
+				function()
+					local filepath = vim.fn.expand("%:p:h")
+					vim.cmd("silent !tmux new-window -c " .. filepath)
+				end,
+				"window",
+			},
+			h = {
+				function()
+					local filepath = vim.fn.expand("%:p:h")
+					vim.cmd("silent !tmux split-window -c " .. filepath)
+				end,
+				"horizontal split",
+			},
+			v = {
+				function()
+					local filepath = vim.fn.expand("%:p:h")
+					vim.cmd("silent !tmux split-window -h -c " .. filepath)
+				end,
+				"vertical split",
+			},
 			g = { "<cmd>silent !tmux new-window 'lazygit'<CR>", "lazygit" },
 			b = {
 				function()

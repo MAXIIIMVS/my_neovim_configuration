@@ -40,8 +40,11 @@ end
 
 local mason_default_settings = {
 	ensure_installed = {
+		"bash-language-server",
+		"clang-format",
 		"black",
 		"clangd",
+		-- "cpptools",
 		"cmake-language-server",
 		"cmakelang",
 		"csharp-language-server",
@@ -56,6 +59,9 @@ local mason_default_settings = {
 		"graphql-language-service-cli",
 		"html-lsp",
 		"json-lsp",
+		"latexindent",
+		"ltex-ls",
+		"texlab",
 		"lua-language-server",
 		-- "prettier",
 		"prettierd",

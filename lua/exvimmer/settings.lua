@@ -30,6 +30,7 @@ endif
 autocmd FileType netrw nnoremap <buffer> <nowait> q :call ToggleNetrw()<CR>
 autocmd FileType netrw nnoremap <buffer> <nowait> ;q :call ToggleNetrw()<CR>
 autocmd FileType netrw setl bufhidden=wipe
+autocmd FileType netrw nnoremap <buffer> <Backspace> <Plug>NetrwBrowseUpDir
 function! CloseNetrw() abort
   for bufn in range(1, bufnr('$'))
     if bufexists(bufn) && getbufvar(bufn, '&filetype') ==# 'netrw'
@@ -74,22 +75,17 @@ let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_ext2syntax = {'.md': 'markdown',  '.mkd': 'markdown',  '.wiki': 'media'}
 let g:vimwiki_global_ext = 0
 
+" emojis
 ab :pi: 𝞹
 ab :micro: μ
-ab :ninja: 🥷
 ab :dh: ⏃
 ab :degree: \u02DA
-ab :filled: 🔲
 ab :biohazard: ☣️
 ab :radioactive: ☢️
-ab :kite: 🪁
-ab :diamond: 💎
 ab :bullseye: 🎯
-ab :anchor: ⚓
 ab :note: 📝
-ab :stethoscope: 🩺
+ab :kite: 🩺
 ab :thread: 🧵
-ab :t_rex: 🦖
 ab :sauropod: 🦕
 ab :separator_ltt: ❮
 ab :separator_rtt: ❯
@@ -246,9 +242,14 @@ vim.cmd([[let maplocalleader = "\<space>"]])
 -- }}}
 
 -- VimWiki {{{
--- vim.g.vimwiki_listsyms = " ✗○◐●✓"
 vim.g.vimwiki_listsyms = " .oOx"
 -- }}}
+
+-- vim-rooter
+vim.g.rooter_silent_chdir = true
+vim.g.rooter_resolve_links = true
+vim.g.rooter_cd_cmd = "lcd"
+vim.g.rooter_change_directory_for_non_project_files = "current"
 
 -- Calendar.vim {{{
 -- vim.g.calendar_week_number = true
