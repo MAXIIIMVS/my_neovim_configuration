@@ -80,6 +80,7 @@ return require("lazy").setup({
 	{ "phaazon/hop.nvim", config = true, event = "VeryLazy" },
 	{ "rafamadriz/friendly-snippets" },
 	{ "ray-x/lsp_signature.nvim", lazy = true },
+	{ "rhysd/clever-f.vim", event = "VeryLazy" },
 	{ "saadparwaiz1/cmp_luasnip" },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },

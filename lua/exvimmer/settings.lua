@@ -65,7 +65,8 @@ function! ToggleNetrw()
         let g:NetrwIsOpen=0
     else
         let g:NetrwIsOpen=1
-        silent Lexplore
+        " silent Lexplore
+        silent Lexplore %:p:h
     endif
 endfunction
 
@@ -245,11 +246,17 @@ vim.cmd([[let maplocalleader = "\<space>"]])
 vim.g.vimwiki_listsyms = " .oOx"
 -- }}}
 
--- vim-rooter
+-- vim-rooter {{{
 vim.g.rooter_silent_chdir = true
 vim.g.rooter_resolve_links = true
 vim.g.rooter_cd_cmd = "lcd"
 vim.g.rooter_change_directory_for_non_project_files = "current"
+-- }}}
+
+-- clever-f {{{
+vim.g.clever_f_ignore_case = true
+-- vim.g.clever_f_mark_char_color = "HopNextKey2"
+-- }}}
 
 -- Calendar.vim {{{
 -- vim.g.calendar_week_number = true

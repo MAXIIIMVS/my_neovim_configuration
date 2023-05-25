@@ -223,16 +223,15 @@ wk.register({
 		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
 	},
-	["z="] = { "<cmd>silent Telescope spell_suggest<CR>", "show spell suggestions" },
+	-- TODO: add the next keybinding if the bug is fixed
+	-- ["z="] = { "<cmd>silent Telescope spell_suggest<CR>", "show spell suggestions" },
 	-- ['"'] = { "<cmd>Telescope registers<CR>", "registers" },
 	-- ["'"] = { "<cmd>Telescope marks<CR>", "marks" },
 	-- ["q:"] = { "<cmd>Telescope command_history<CR>", "command history" },
-	f = { "<cmd>HopChar1CurrentLine<CR>", "Hop to a character in current line" },
-	F = { "<cmd>HopWordCurrentLine<CR>", "Hop to a word in current line" },
 	g = {
 		-- d = { "<cmd>Lspsaga goto_definition<CR>", "Go to definition" },
 		p = { "<cmd>Lspsaga peek_definition<CR>", "Show the definition in a floating windows" },
-		h = { "<cmd>Lspsaga lsp_finder<CR>", "Show the defintion, reference, implementation..." },
+		h = { "<cmd>Lspsaga lsp_finder<CR>", "Show the definition, reference, implementation..." },
 		a = { "<cmd>Lspsaga code_action<CR>", "Code actions" },
 		r = { "<cmd>Lspsaga rename<CR>", "Rename the symbol" },
 	},
@@ -387,6 +386,8 @@ wk.register({
 		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
 		c = { "<cmd>HopChar1MW<CR>", "Hop to a character" },
 		p = { "<cmd>HopPatternMW<CR>", "Hop to a pattern" },
+		-- c = { "<cmd>HopChar1CurrentLine<CR>", "Hop to a character in current line" },
+		-- C = { "<cmd>HopWordCurrentLine<CR>", "Hop to a word in current line" },
 	},
 	l = {
 		name = "LaTeX",
