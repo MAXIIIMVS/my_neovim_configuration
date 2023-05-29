@@ -180,7 +180,7 @@ vim.o.foldlevelstart = 99
 -- vim.wo.foldnestmax = 10
 vim.wo.foldmethod = "indent" -- manual, indent, syntax, marker, expr, diff
 vim.wo.conceallevel = 0
--- python3 path: chage if it's necessary, -- NOTE: I'm not sure about this
+-- python3 path: change if it's necessary, -- NOTE: I'm not sure about this
 vim.g.python3_host_prog = "/usr/bin/python3"
 -- cmd('autocmd FileType javascript set filetype=javascriptreact')
 -- cmd('autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact')
@@ -254,7 +254,8 @@ vim.g.rooter_change_directory_for_non_project_files = "current"
 -- }}}
 
 -- clever-f {{{
-vim.g.clever_f_ignore_case = true
+-- vim.g.clever_f_ignore_case = true
+vim.g.clever_f_smart_case = true
 -- vim.g.clever_f_mark_char_color = "HopNextKey2"
 -- }}}
 

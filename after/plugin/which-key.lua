@@ -10,7 +10,8 @@ local utils = require("utils")
 local telescope = require("telescope")
 local telescope_builtins = require("telescope.builtin")
 local telescope_themes = require("telescope.themes")
-
+local lspsaga_diagnostics = require("lspsaga.diagnostic")
+local comment_api = require("Comment.api")
 -- local opts = { noremap = true, silent = true, silent = true, nowait = true }
 
 local options = {
@@ -36,8 +37,8 @@ wk.register({
 	["<M-j>"] = { "<C-w>j", "Go to the down window" },
 	["]<space>"] = { "o<ESC>k", "Insert a blank line below" },
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
-	["[b"] = { "<cmd>bprev<CR>", "Go to previous buffer" },
-	["]b"] = { "<cmd>bnext<CR>", "Go to next buffer" },
+	["[b"] = { vim.cmd.bprev, "Go to previous buffer" },
+	["]b"] = { vim.cmd.bnext, "Go to next buffer" },
 	["]B"] = { "<cmd>BufferLineMoveNext<CR>", "Move the buffer to the next position" },
 	["[B"] = { "<cmd>BufferLineMovePrev<CR>", "Move the buffer to the previous position" },
 	["]c"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
@@ -46,13 +47,13 @@ wk.register({
 	["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to the next diagnostic" },
 	["[E"] = {
 		function()
-			require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+			lspsaga_diagnostics:goto_prev({ severity = vim.diagnostic.severity.ERROR })
 		end,
 		"Jump to the previous error",
 	},
 	["]E"] = {
 		function()
-			require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+			lspsaga_diagnostics:goto_next({ severity = vim.diagnostic.severity.ERROR })
 		end,
 		"Jump to the next error",
 	},
@@ -140,8 +141,8 @@ wk.register({
 		l = { "<cmd>HopLineMW<CR>", "Hop to a line" },
 		m = { "<cmd>make<CR>", "make" },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
-		O = { "<cmd>silent !xdg-open .<CR>", "Open the current directory" },
-		q = { "<c-w>q", "Quit current window" },
+		O = { "<cmd>silent !xdg-open %:p:h<CR>", "Open the current directory" },
+		q = { vim.cmd.q, "Quit current window" },
 		-- r = { "<cmd>Telescope oldfiles previewer=false<CR>", "Show recently opened files" },
 		r = {
 			function()
@@ -315,6 +316,7 @@ wk.register({
 			h = { "<cmd>TSToggle highlight<CR>", "highlight" },
 			i = { "<cmd>TSToggle indent<CR>", "indent" },
 		},
+		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		-- w = {
 		-- 	function()
 		-- 		vim.wo.winbar = vim.wo.winbar == "" and require("lspsaga.symbolwinbar"):get_winbar() or ""
@@ -368,7 +370,7 @@ wk.register({
 		D = { "<cmd>silent Gvdiffsplit HEAD~<CR>", "Diff with previous commit" },
 		b = { "<cmd>silent G blame<CR>", "Blame on the current file" },
 		B = { "<cmd>Gitsigns blame_line<CR>", "Blame on the current line" },
-		g = { ":Ggrep ", "Grep" },
+		g = { ":Ggrep! -q ", "Grep" },
 		o = { "<cmd>silent GBrowse<CR>", "Open in the browser" },
 		r = {
 			"<cmd>Gitsigns reset_hunk<CR>",
@@ -430,11 +432,16 @@ wk.register({
 
 -- Insert mode {{{
 wk.register({
+	["<c-_>"] = {
+		function()
+			comment_api.toggle.linewise.current()
+		end,
+		"comment/uncomment the line",
+	},
 	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 	["<c-k>"] = { "<c-o>C", "Delete to the end of the line" },
 	-- ["<C-r>"] = { "<cmd>Telescope registers<CR>", "show registers" },
-	-- ["<C-x>"] = { "<c-o><cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature help" },
 }, { prefix = "", mode = "i", noremap = true, silent = true, nowait = true })
 -- }}}
 
@@ -444,6 +451,14 @@ wk.register({
 	["p"] = { '"_dP', "Paste over currently selected text without yanking it" },
 	["<"] = { "<gv", "Indent left" },
 	[">"] = { ">gv", "Indent right" },
+	["<c-_>"] = {
+		function()
+			local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
+			vim.api.nvim_feedkeys(esc, "nx", false)
+			comment_api.toggle.linewise(vim.fn.visualmode())
+		end,
+		"comment/uncomment selected lines",
+	},
 	["<c-k>"] = { ":m '<-2<CR>gv=gv", "Move up" },
 	["<c-j>"] = { ":m '>+1<CR>gv=gv", "Move down" },
 	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
