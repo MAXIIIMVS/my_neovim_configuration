@@ -29,6 +29,7 @@ endif
 " let g:netrw_hide = 1
 autocmd FileType netrw nnoremap <buffer> <nowait> q :call ToggleNetrw()<CR>
 autocmd FileType netrw nnoremap <buffer> <nowait> ;q :call ToggleNetrw()<CR>
+autocmd FileType netrw nnoremap <buffer> <nowait> ;; :call ToggleNetrw()<CR>
 autocmd FileType netrw setl bufhidden=wipe
 autocmd FileType netrw nnoremap <buffer> <Backspace> <Plug>NetrwBrowseUpDir
 function! CloseNetrw() abort

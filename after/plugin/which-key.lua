@@ -249,6 +249,37 @@ wk.register({
 		m = { "<cmd>Obsession " .. utils.get_top_level() .. "<CR>", "Make a session" },
 		d = { "<cmd>Obsession!<CR>", "Delete the session" },
 	},
+	d = {
+		name = "debugger",
+		b = {
+			vim.cmd.DapToggleBreakpoint,
+			"toggle breakpoint",
+		},
+		c = {
+			vim.cmd.DapContinue,
+			"continue",
+		},
+		i = {
+			vim.cmd.DapStepInto,
+			"step into",
+		},
+		o = {
+			vim.cmd.DapStepOver,
+			"step over",
+		},
+		O = {
+			vim.cmd.DapStepOut,
+			"step out",
+		},
+		r = {
+			vim.cmd.DapToggleRepl,
+			"toggle repl",
+		},
+		x = {
+			vim.cmd.DapTerminate,
+			"terminate debugger",
+		},
+	},
 	t = {
 		name = "Toggle",
 		b = {
