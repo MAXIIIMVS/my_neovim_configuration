@@ -92,6 +92,7 @@ return require("lazy").setup({
 	{ "rhysd/clever-f.vim", event = "VeryLazy" },
 	{ "saadparwaiz1/cmp_luasnip" },
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
+	{ "/tpope/vim-abolish", event = "VeryLazy" },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },
 	{ "tpope/vim-rsi", event = "VeryLazy" },

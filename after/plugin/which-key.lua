@@ -490,8 +490,8 @@ wk.register({
 		end,
 		"comment/uncomment selected lines",
 	},
-	["<c-k>"] = { ":m '<-2<CR>gv=gv", "Move up" },
-	["<c-j>"] = { ":m '>+1<CR>gv=gv", "Move down" },
+	-- ["<c-k>"] = { ":m '<-2<CR>gv=gv", "Move up" },
+	-- ["<c-j>"] = { ":m '>+1<CR>gv=gv", "Move down" },
 	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 }, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })

@@ -98,7 +98,7 @@ ab :separator_rtt: ❯
 vim.g.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal" -- removed blank
 vim.wo.spell = true
 vim.wo.number = true
--- vim.wo.relativenumber = true
+vim.wo.relativenumber = true
 vim.wo.signcolumn = "yes:1"
 vim.o.fileencodings = "utf-8,sjis,euc-jp,latin"
 vim.o.encoding = "utf-8"
@@ -271,5 +271,6 @@ vim.g.calendar_event_start_time = true
 vim.g.calendar_skip_event_delete_confirm = true
 vim.g.calendar_skip_task_delete_confirm = true
 vim.g.calendar_skip_task_clear_completed_confirm = true
+vim.g.calendar_task_width = 45
 -- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 -- }}}
