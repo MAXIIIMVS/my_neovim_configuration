@@ -75,6 +75,7 @@ return require("lazy").setup({
 		},
 	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
+	{ "nvim-tree/nvim-tree.lua", event = "VeryLazy" },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",

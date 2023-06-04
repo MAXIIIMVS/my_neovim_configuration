@@ -52,12 +52,32 @@ catppuccin.setup({
 		cmp = true,
 		gitsigns = true,
 		dashboard = true,
+		dap = {
+			enabled = true,
+			enable_ui = true, -- enable nvim-dap-ui
+		},
 		telescope = true,
-		which_key = true,
+		which_key = false,
 		treesitter = true,
-		hop = true,
-		mason = true,
-		lsp_saga = true,
+		hop = false,
+		mason = false,
+		nvimtree = true,
+		lsp_saga = false,
+		native_lsp = {
+			enabled = true,
+			virtual_text = {
+				errors = { "italic" },
+				hints = { "italic" },
+				warnings = { "italic" },
+				information = { "italic" },
+			},
+			underlines = {
+				errors = { "underline" },
+				hints = { "underline" },
+				warnings = { "underline" },
+				information = { "underline" },
+			},
+		},
 		vimwiki = true,
 		indent_blankline = {
 			enabled = true,

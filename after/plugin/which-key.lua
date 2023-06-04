@@ -198,7 +198,8 @@ wk.register({
 		},
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
-		x = { "<cmd>silent call ToggleNetrw()<CR>", "File Explorer" }, -- instead of Vexplore
+		x = { vim.cmd.NvimTreeToggle, "Nvim Tree" },
+		X = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
 		z = { "<cmd>ZenMode<CR><cmd>redraw<CR>", "Toggle Zen Mode" },
 		Z = { "<c-w>|<c-w>_", "Maximize the window" },
 		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
