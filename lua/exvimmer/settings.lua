@@ -23,6 +23,10 @@ if &term =~ "screen"
   autocmd VimLeave * silent!  exe '!echo -n "\ek[`hostname`:`basename $PWD`]\e\\"'
 endif
 
+" NvimTree
+autocmd FileType NvimTree nnoremap <buffer> <nowait> ;q <cmd>NvimTreeToggle<CR>
+autocmd FileType NvimTree nnoremap <buffer> <nowait> ;; <cmd>NvimTreeToggle<CR>
+
 " netrw settings and functions
 " let g:netrw_list_hide= netrw_gitignore#Hide()
 " let s:treedepthstring     = "│ "
