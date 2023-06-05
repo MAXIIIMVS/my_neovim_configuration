@@ -2,13 +2,10 @@ local dap = require("dap")
 local dapui = require("dapui")
 local dap_python = require("dap-python")
 local dap_python_path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
-local dap_go = require("dap-go")
-require("nvim-dap-virtual-text").setup()
+-- local dap_vscode_js = require("dap-vscode-js")
 
 -- TODO: setup dap and daupi
 -- TODO: patch dap-ui icons
-
-dapui.setup()
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
 	dapui.open()
@@ -23,4 +20,58 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 end
 
 dap_python.setup(dap_python_path)
-dap_go.setup()
+
+dap.adapters.lldb = {
+	type = "executable",
+	command = "/usr/bin/lldb-vscode-14", -- adjust as needed, must be absolute path
+	name = "lldb",
+}
+
+dap.configurations.cpp = {
+	{
+		name = "Launch",
+		type = "lldb",
+		request = "launch",
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		end,
+		cwd = "${workspaceFolder}",
+		stopOnEntry = false,
+		args = {},
+	},
+}
+
+dap.configurations.c = dap.configurations.cpp
+
+dap.configurations.rust = {
+	{
+		name = "Launch",
+		type = "lldb",
+		request = "launch",
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		end,
+		cwd = "${workspaceFolder}",
+		stopOnEntry = false,
+		args = {},
+		initCommands = function()
+			-- Find out where to look for the pretty printer Python module
+			local rustc_sysroot = vim.fn.trim(vim.fn.system("rustc --print sysroot"))
+
+			local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
+			local commands_file = rustc_sysroot .. "/lib/rustlib/etc/lldb_commands"
+
+			local commands = {}
+			local file = io.open(commands_file, "r")
+			if file then
+				for line in file:lines() do
+					table.insert(commands, line)
+				end
+				file:close()
+			end
+			table.insert(commands, 1, script_import)
+
+			return commands
+		end,
+	},
+}

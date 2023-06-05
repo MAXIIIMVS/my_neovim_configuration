@@ -11,12 +11,18 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- TODO: FIX: all dependency settings are wrong
-
 return require("lazy").setup({
-	{ "adoyle-h/lsp-toggle.nvim", event = "VeryLazy" },
+	{
+		"adoyle-h/lsp-toggle.nvim",
+		lazy = true,
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"jose-elias-alvarez/null-ls.nvim",
+			"neovim/nvim-lspconfig",
+		},
+	},
 	{ "airblade/vim-rooter" },
-	{ "akinsho/bufferline.nvim", lazy = true },
+	{ "akinsho/bufferline.nvim", lazy = true, dependencies = "nvim-tree/nvim-web-devicons" },
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
@@ -27,11 +33,12 @@ return require("lazy").setup({
 	{ "folke/which-key.nvim", lazy = true },
 	{ "folke/zen-mode.nvim", even = "VeryLazy" },
 	{ "folke/neodev.nvim", lazy = true },
-	{ "glepnir/dashboard-nvim", event = "VimEnter" },
+	{ "glepnir/dashboard-nvim", event = "VimEnter", dependencies = "nvim-tree/nvim-web-devicons" },
 	{
 		"glepnir/lspsaga.nvim",
+		lazy = true,
 		branch = "main",
-		event = "VeryLazy",
+		event = "LspAttach",
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 			"nvim-treesitter/nvim-treesitter",
@@ -39,21 +46,28 @@ return require("lazy").setup({
 	},
 	{
 		"hrsh7th/nvim-cmp",
+		event = "VeryLazy",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
-			-- "hrsh7th/cmp-nvim-lsp-signature-help",
-			-- "onsails/lspkind.nvim",
+			"hrsh7th/cmp-cmdline",
 		},
 	},
-	{ "hrsh7th/cmp-cmdline" },
 	{ "itchyny/calendar.vim", event = "VeryLazy" },
 	{ "jose-elias-alvarez/null-ls.nvim", dependencies = "nvim-lua/plenary.nvim", event = "VeryLazy" },
-	{ "kylechui/nvim-surround", config = true, event = "VeryLazy" },
-	{ "L3MON4D3/LuaSnip", event = "VeryLazy" },
+	{
+		"kylechui/nvim-surround",
+		config = true,
+		event = "VeryLazy",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+	},
+	{ "L3MON4D3/LuaSnip" },
 	{
 		"leoluz/nvim-dap-go",
+		config = true,
 		event = "VeryLazy",
 		dependencies = { "mfussenegger/nvim-dap" },
 		ft = "go",
@@ -75,41 +89,43 @@ return require("lazy").setup({
 		},
 		event = "VeryLazy",
 	},
-	{ "neovim/nvim-lspconfig" },
-	{ "nvim-lualine/lualine.nvim" },
+	-- { "mxsdev/nvim-dap-vscode-js", dependencies = { "mfussenegger/nvim-dap" } },
+	{ "neovim/nvim-lspconfig", dependencies = { "glepnir/lspsaga.nvim" } },
+	{ "nvim-lualine/lualine.nvim", dependencies = "nvim-tree/nvim-web-devicons" },
 	{ "nvim-lua/plenary.nvim" },
 	{
 		"nvim-telescope/telescope.nvim",
 		event = "VeryLazy",
-		dependencies = {
-			"nvim-telescope/telescope-file-browser.nvim",
-			"xiyaowong/telescope-emoji.nvim",
-			"ghassan0/telescope-glyph.nvim",
-		},
+		dependencies = { "nvim-lua/plenary.nvim" },
 	},
-	{ "nvim-tree/nvim-web-devicons", lazy = true },
-	{ "nvim-tree/nvim-tree.lua", event = "VeryLazy" },
 	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		dependencies = {
-			"windwp/nvim-ts-autotag",
-			"windwp/nvim-autopairs",
-		},
+		"nvim-telescope/telescope-file-browser.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+		event = "VeryLazy",
 	},
+	{ "xiyaowong/telescope-emoji.nvim", dependencies = "nvim-telescope/telescope.nvim", event = "VeryLazy" },
+	{ "ghassan0/telescope-glyph.nvim", dependencies = "nvim-telescope/telescope.nvim", event = "VeryLazy" },
+	{ "nvim-tree/nvim-web-devicons", lazy = true },
+	{ "nvim-tree/nvim-tree.lua", lazy = true, dependencies = "nvim-tree/nvim-web-devicons" },
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	{ "windwp/nvim-ts-autotag", dependencies = "nvim-treesitter/nvim-treesitter" },
+	{ "windwp/nvim-autopairs" },
 	{ "numToStr/Comment.nvim", event = "VeryLazy" },
 	{ "NvChad/nvim-colorizer.lua", event = "VeryLazy" },
-	{ "phaazon/hop.nvim", config = true, event = "VeryLazy" },
-	{ "rafamadriz/friendly-snippets" },
+	{ "phaazon/hop.nvim", config = true, event = "VeryLazy", branch = "v2" },
+	{ "rafamadriz/friendly-snippets", dependencies = "L3MON4D3/LuaSnip" },
 	{ "ray-x/lsp_signature.nvim", lazy = true },
-	{ "rcarriga/nvim-dap-ui", dependencies = {
+	{ "rcarriga/nvim-dap-ui", config = true, dependencies = {
 		"mfussenegger/nvim-dap",
 	}, event = "VeryLazy" },
 	{ "rhysd/clever-f.vim", event = "VeryLazy" },
-	{ "saadparwaiz1/cmp_luasnip" },
-	{ "theHamsta/nvim-dap-virtual-text", dependencies = {
-		"mfussenegger/nvim-dap",
-	}, event = "VeryLazy" },
+	{ "saadparwaiz1/cmp_luasnip", dependencies = "hrsh7th/nvim-cmp" },
+	{
+		"theHamsta/nvim-dap-virtual-text",
+		config = true,
+		dependencies = { "mfussenegger/nvim-dap" },
+		event = "VeryLazy",
+	},
 	{ "/tpope/vim-abolish", event = "VeryLazy" },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },
@@ -118,7 +134,7 @@ return require("lazy").setup({
 	{ "tpope/vim-speeddating", event = "VeryLazy" },
 	{ "vimwiki/vimwiki", event = "VeryLazy" },
 	{ "williamboman/mason.nvim", event = "VeryLazy" },
-	{ "williamboman/mason-lspconfig.nvim" },
+	{ "williamboman/mason-lspconfig.nvim", dependencies = "williamboman/mason.nvim" },
 }, {
 	ui = {
 		border = "single",

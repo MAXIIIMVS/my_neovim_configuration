@@ -46,6 +46,7 @@
         "/home/mustafa/.local/share/nvim/lazy/plenary.nvim/lua",
         "/home/mustafa/.local/share/nvim/lazy/bufferline.nvim/lua",
         "/home/mustafa/.config/nvim/lua",
-        "/home/mustafa/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/09b62be6"
+        "/home/mustafa/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/09b62be6",
+        "${3rd}/luv/library"
     ]
 }
