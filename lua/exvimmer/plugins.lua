@@ -52,6 +52,12 @@ return require("lazy").setup({
 	{ "jose-elias-alvarez/null-ls.nvim", dependencies = "nvim-lua/plenary.nvim", event = "VeryLazy" },
 	{ "kylechui/nvim-surround", config = true, event = "VeryLazy" },
 	{ "L3MON4D3/LuaSnip", event = "VeryLazy" },
+	{
+		"leoluz/nvim-dap-go",
+		event = "VeryLazy",
+		dependencies = { "mfussenegger/nvim-dap" },
+		ft = "go",
+	},
 	{ "lervag/vimtex", event = "VeryLazy", ft = "tex" },
 	{ "lewis6991/gitsigns.nvim", dependencies = "nvim-lua/plenary.nvim", event = "VeryLazy" },
 	{ "lukas-reineke/indent-blankline.nvim", event = "VeryLazy" },

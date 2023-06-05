@@ -12,6 +12,8 @@ local telescope_builtins = require("telescope.builtin")
 local telescope_themes = require("telescope.themes")
 local lspsaga_diagnostics = require("lspsaga.diagnostic")
 local comment_api = require("Comment.api")
+local dap_ui_widgets = require("dap.ui.widgets")
+local dap_go = require("dap-go")
 -- local opts = { noremap = true, silent = true, silent = true, nowait = true }
 
 local options = {
@@ -260,6 +262,21 @@ wk.register({
 			vim.cmd.DapContinue,
 			"continue",
 		},
+		g = {
+			name = "Go programming language",
+			t = {
+				function()
+					dap_go.debug_test()
+				end,
+				"debug go test",
+			},
+			l = {
+				function()
+					dap_go.debug_last()
+				end,
+				"debug last go test",
+			},
+		},
 		i = {
 			vim.cmd.DapStepInto,
 			"step into",
@@ -272,13 +289,22 @@ wk.register({
 			vim.cmd.DapStepOut,
 			"step out",
 		},
-		-- p = {
-		-- 	require("dap-python").test_method(),
-		-- 	"run python debugger",
-		-- },
+		p = {
+			function()
+				require("dap-python").test_method()
+			end,
+			"run Python debugger",
+		},
 		r = {
 			vim.cmd.DapToggleRepl,
 			"toggle repl",
+		},
+		s = {
+			function()
+				local sidebar = dap_ui_widgets.sidebar(dap_ui_widgets.scopes)
+				sidebar.open()
+			end,
+			"Open debugging sidebar",
 		},
 		x = {
 			vim.cmd.DapTerminate,
