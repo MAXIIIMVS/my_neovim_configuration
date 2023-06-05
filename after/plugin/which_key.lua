@@ -272,6 +272,10 @@ wk.register({
 			vim.cmd.DapStepOut,
 			"step out",
 		},
+		-- p = {
+		-- 	require("dap-python").test_method(),
+		-- 	"run python debugger",
+		-- },
 		r = {
 			vim.cmd.DapToggleRepl,
 			"toggle repl",

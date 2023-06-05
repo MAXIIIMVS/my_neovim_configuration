@@ -11,6 +11,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- TODO: FIX: all dependency settings are wrong
+
 return require("lazy").setup({
 	{ "adoyle-h/lsp-toggle.nvim", event = "VeryLazy" },
 	{ "airblade/vim-rooter" },
@@ -45,7 +47,7 @@ return require("lazy").setup({
 			-- "onsails/lspkind.nvim",
 		},
 	},
-	{ "hrsh7th/cmp-cmdline" }, -- I put this outside of dependencies, intentionally
+	{ "hrsh7th/cmp-cmdline" },
 	{ "itchyny/calendar.vim", event = "VeryLazy" },
 	{ "jose-elias-alvarez/null-ls.nvim", dependencies = "nvim-lua/plenary.nvim", event = "VeryLazy" },
 	{ "kylechui/nvim-surround", config = true, event = "VeryLazy" },
@@ -56,9 +58,14 @@ return require("lazy").setup({
 	{ "mbbill/undotree", event = "VeryLazy" },
 	{
 		"mfussenegger/nvim-dap",
+		event = "VeryLazy",
+	},
+	{
+		"mfussenegger/nvim-dap-python",
+		ft = "python",
 		dependencies = {
+			"mfussenegger/nvim-dap",
 			"rcarriga/nvim-dap-ui",
-			"theHamsta/nvim-dap-virtual-text",
 		},
 		event = "VeryLazy",
 	},
@@ -89,10 +96,14 @@ return require("lazy").setup({
 	{ "phaazon/hop.nvim", config = true, event = "VeryLazy" },
 	{ "rafamadriz/friendly-snippets" },
 	{ "ray-x/lsp_signature.nvim", lazy = true },
-	{ "rcarriga/nvim-dap-ui", event = "VeryLazy" },
+	{ "rcarriga/nvim-dap-ui", dependencies = {
+		"mfussenegger/nvim-dap",
+	}, event = "VeryLazy" },
 	{ "rhysd/clever-f.vim", event = "VeryLazy" },
 	{ "saadparwaiz1/cmp_luasnip" },
-	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
+	{ "theHamsta/nvim-dap-virtual-text", dependencies = {
+		"mfussenegger/nvim-dap",
+	}, event = "VeryLazy" },
 	{ "/tpope/vim-abolish", event = "VeryLazy" },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },
