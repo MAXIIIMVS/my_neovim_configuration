@@ -89,7 +89,7 @@ return require("lazy").setup({
 		},
 		event = "VeryLazy",
 	},
-	-- { "mxsdev/nvim-dap-vscode-js", dependencies = { "mfussenegger/nvim-dap" } },
+	{ "mxsdev/nvim-dap-vscode-js", event = "VeryLazy", dependencies = { "mfussenegger/nvim-dap" } },
 	{ "neovim/nvim-lspconfig", dependencies = { "glepnir/lspsaga.nvim" } },
 	{ "nvim-lualine/lualine.nvim", dependencies = "nvim-tree/nvim-web-devicons" },
 	{ "nvim-lua/plenary.nvim" },

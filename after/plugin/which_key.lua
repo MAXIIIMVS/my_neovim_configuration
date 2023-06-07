@@ -14,6 +14,7 @@ local lspsaga_diagnostics = require("lspsaga.diagnostic")
 local comment_api = require("Comment.api")
 local dap_ui_widgets = require("dap.ui.widgets")
 local dap_go = require("dap-go")
+local dapui = require("dapui")
 -- local opts = { noremap = true, silent = true, silent = true, nowait = true }
 
 local options = {
@@ -276,6 +277,12 @@ wk.register({
 				end,
 				"debug last go test",
 			},
+		},
+		h = {
+			function()
+				require("dap").ui.variables.visual_hover()
+			end,
+			"hover",
 		},
 		i = {
 			vim.cmd.DapStepInto,

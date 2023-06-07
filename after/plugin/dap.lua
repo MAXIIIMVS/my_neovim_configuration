@@ -2,7 +2,7 @@ local dap = require("dap")
 local dapui = require("dapui")
 local dap_python = require("dap-python")
 local dap_python_path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
--- local dap_vscode_js = require("dap-vscode-js")
+local dap_vscode_js = require("dap-vscode-js")
 
 -- TODO: setup dap and daupi
 -- TODO: patch dap-ui icons
@@ -75,3 +75,55 @@ dap.configurations.rust = {
 		end,
 	},
 }
+
+dap_vscode_js.setup({
+	debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
+	adapters = { "pwa-node" }, -- which adapters to register in nvim-dap
+})
+
+dap.adapters["pwa-node"] = {
+	type = "server",
+	host = "localhost",
+	port = "${port}",
+	executable = {
+		command = "node",
+		args = {
+			"/home/mustafa/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+			"${port}",
+		},
+	},
+}
+
+for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
+	dap.configurations[language] = {
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Launch file",
+			program = "${file}",
+			cwd = "${workspaceFolder}",
+		},
+		{
+			type = "pwa-node",
+			request = "attach",
+			name = "Attach",
+			processId = require("dap.utils").pick_process,
+			cwd = "${workspaceFolder}",
+		},
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Debug Jest Tests",
+			-- trace = true, -- include debugger info
+			runtimeExecutable = "node",
+			runtimeArgs = {
+				"./node_modules/jest/bin/jest.js",
+				"--runInBand",
+			},
+			rootPath = "${workspaceFolder}",
+			cwd = "${workspaceFolder}",
+			console = "integratedTerminal",
+			internalConsoleOptions = "neverOpen",
+		},
+	}
+end
