@@ -108,7 +108,7 @@ return require("lazy").setup({
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{ "nvim-tree/nvim-tree.lua", lazy = true, dependencies = "nvim-tree/nvim-web-devicons" },
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-	{ "windwp/nvim-ts-autotag", dependencies = "nvim-treesitter/nvim-treesitter" },
+	{ "windwp/nvim-ts-autotag", event = "VeryLazy", dependencies = "nvim-treesitter/nvim-treesitter" },
 	{ "windwp/nvim-autopairs" },
 	{ "numToStr/Comment.nvim", event = "VeryLazy" },
 	{ "NvChad/nvim-colorizer.lua", event = "VeryLazy" },
