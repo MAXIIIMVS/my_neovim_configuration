@@ -109,10 +109,7 @@ wk.register({
 			"Lists available color schemes",
 		},
 		d = {
-			function()
-				local filepath = vim.fn.expand("%:p:h")
-				telescope.extensions.file_browser.file_browser({ cwd = filepath })
-			end,
+			"<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>",
 			"File/Folder browser",
 		},
 		D = { "<cmd>Telescope file_browser<CR>", "File/Folder browser from root" },
