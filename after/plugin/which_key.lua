@@ -365,9 +365,10 @@ wk.register({
 		},
 		t = {
 			function()
-				catppuccin.options.transparent_background = not catppuccin.options.transparent_background
+				local transparent = not catppuccin.options.transparent_background
+				catppuccin.options.transparent_background = transparent
 				catppuccin.options.dim_inactive = {
-					enabled = not catppuccin.options.transparent_background,
+					enabled = not transparent,
 					shade = "dark",
 					percentage = 0.65,
 				}
