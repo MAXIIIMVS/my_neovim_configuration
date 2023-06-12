@@ -18,6 +18,7 @@ return require("lazy").setup({
 	},
 	{ "airblade/vim-rooter" },
 	{ "akinsho/bufferline.nvim", event = "VeryLazy", dependencies = "nvim-tree/nvim-web-devicons" },
+	{ "akinsho/toggleterm.nvim", version = "*", config = true, event = "VeryLazy" },
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",

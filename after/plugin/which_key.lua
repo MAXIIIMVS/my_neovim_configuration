@@ -7,14 +7,14 @@ end
 local catppuccin = require("catppuccin")
 local lualine = require("lualine")
 local utils = require("utils")
-local telescope = require("telescope")
+-- local telescope = require("telescope")
 local telescope_builtins = require("telescope.builtin")
 local telescope_themes = require("telescope.themes")
 local lspsaga_diagnostics = require("lspsaga.diagnostic")
 local comment_api = require("Comment.api")
 local dap_ui_widgets = require("dap.ui.widgets")
 local dap_go = require("dap-go")
-local dapui = require("dapui")
+-- local dapui = require("dapui")
 -- local opts = { noremap = true, silent = true, silent = true, nowait = true }
 
 local options = {
@@ -78,7 +78,15 @@ wk.register({
 	["<C-Down>"] = { ":resize +1<CR>", "Decrease window height" },
 	["<c-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
-	["<c-\\>"] = { "<cmd>Lspsaga term_toggle<CR>", "lspsaga terminal" },
+	-- ["<c-\\>"] = { "<cmd>Lspsaga term_toggle<CR>", "lspsaga terminal" },
+	["<c-\\>"] = {
+		function()
+			local p = vim.fn.expand("%:p:h")
+			local cmd = "ToggleTerm direction=horizontal dir=" .. p
+			vim.cmd(cmd)
+		end,
+		"horizaontal terminal",
+	},
 	[";"] = {
 		name = "Quick",
 		[";"] = { ":Bdelete<CR>", "Delete current buffer" },
@@ -316,6 +324,41 @@ wk.register({
 		},
 	},
 	t = {
+		name = "terminal",
+		h = {
+			function()
+				local p = vim.fn.expand("%:p:h")
+				local cmd = "ToggleTerm direction=horizontal dir=" .. p
+				vim.cmd(cmd)
+			end,
+			"horizontal",
+		},
+		v = {
+			function()
+				local p = vim.fn.expand("%:p:h")
+				local cmd = "ToggleTerm size=80 direction=vertical dir=" .. p
+				vim.cmd(cmd)
+			end,
+			"vertical",
+		},
+		f = {
+			function()
+				local p = vim.fn.expand("%:p:h")
+				local cmd = "ToggleTerm size=160 direction=float dir=" .. p
+				vim.cmd(cmd)
+			end,
+			"float",
+		},
+		t = {
+			function()
+				local p = vim.fn.expand("%:p:h")
+				local cmd = "ToggleTerm direction=tab dir=" .. p
+				vim.cmd(cmd)
+			end,
+			"tab",
+		},
+	},
+	T = {
 		name = "Toggle",
 		b = {
 			function()
@@ -385,10 +428,10 @@ wk.register({
 		},
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		-- w = {
-		-- 	function()
-		-- 		vim.wo.winbar = vim.wo.winbar == "" and require("lspsaga.symbolwinbar"):get_winbar() or ""
-		-- 	end,
-		-- 	"winbar",
+		--  function()
+		--    vim.wo.winbar = vim.wo.winbar == "" and require("lspsaga.symbolwinbar"):get_winbar() or ""
+		--  end,
+		--  "winbar",
 		-- },
 		z = {
 			"<cmd>ZenMode<CR>",

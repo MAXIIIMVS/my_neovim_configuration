@@ -1,10 +1,22 @@
 local home = os.getenv("HOME")
 local utils = require("utils")
 
+function _G.set_terminal_keymaps()
+	local opts = { noremap = true }
+	vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
+	vim.api.nvim_buf_set_keymap(0, "t", "<A-h>", [[<C-\><C-n><C-W>h]], opts)
+	vim.api.nvim_buf_set_keymap(0, "t", "<A-j>", [[<C-\><C-n><C-W>j]], opts)
+	vim.api.nvim_buf_set_keymap(0, "t", "<A-k>", [[<C-\><C-n><C-W>k]], opts)
+	vim.api.nvim_buf_set_keymap(0, "t", "<A-l>", [[<C-\><C-n><C-W>l]], opts)
+end
+
 -- Auto commands and functions {{{
 vim.cmd([[
 " Turn off paste mode when leaving insert
 autocmd InsertLeave * set nopaste
+
+" ToggleTerm
+autocmd! TermOpen term://* lua set_terminal_keymaps()
 
 " read calendar credentials
 source ~/.config/nvim/credentials.vim
@@ -277,5 +289,6 @@ vim.g.calendar_skip_event_delete_confirm = true
 vim.g.calendar_skip_task_delete_confirm = true
 vim.g.calendar_skip_task_clear_completed_confirm = true
 vim.g.calendar_task_width = 45
+vim.g.calendar_task_delete = true
 -- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 -- }}}
