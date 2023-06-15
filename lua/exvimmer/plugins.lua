@@ -42,7 +42,7 @@ return require("lazy").setup({
 	},
 	{
 		"hrsh7th/nvim-cmp",
-		event = "VeryLazy",
+		event = "InsertEnter",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
@@ -120,8 +120,8 @@ return require("lazy").setup({
 	{ "tpope/vim-obsession", event = "VeryLazy" },
 	{ "tpope/vim-speeddating", event = "VeryLazy" },
 	{ "vimwiki/vimwiki", event = "VeryLazy" },
-	{ "williamboman/mason.nvim", event = "VeryLazy" },
-	{ "williamboman/mason-lspconfig.nvim", dependencies = "williamboman/mason.nvim" },
+	{ "williamboman/mason.nvim" },
+	{ "williamboman/mason-lspconfig.nvim" },
 }, {
 	ui = {
 		border = "single",

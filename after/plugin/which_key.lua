@@ -324,41 +324,6 @@ wk.register({
 		},
 	},
 	t = {
-		name = "terminal",
-		h = {
-			function()
-				local p = vim.fn.expand("%:p:h")
-				local cmd = "ToggleTerm direction=horizontal dir=" .. p
-				vim.cmd(cmd)
-			end,
-			"horizontal",
-		},
-		v = {
-			function()
-				local p = vim.fn.expand("%:p:h")
-				local cmd = "ToggleTerm size=80 direction=vertical dir=" .. p
-				vim.cmd(cmd)
-			end,
-			"vertical",
-		},
-		f = {
-			function()
-				local p = vim.fn.expand("%:p:h")
-				local cmd = "ToggleTerm size=160 direction=float dir=" .. p
-				vim.cmd(cmd)
-			end,
-			"float",
-		},
-		t = {
-			function()
-				local p = vim.fn.expand("%:p:h")
-				local cmd = "ToggleTerm direction=tab dir=" .. p
-				vim.cmd(cmd)
-			end,
-			"tab",
-		},
-	},
-	T = {
 		name = "Toggle",
 		b = {
 			function()
@@ -375,7 +340,8 @@ wk.register({
 			end,
 			"color column",
 		},
-		d = { "<cmd>silent Dashboard<CR>", "dashboard" },
+		-- d = { "<cmd>silent Dashboard<CR>", "dashboard" },
+		d = { ":silent lua ToggleDiagnostics()<CR>", "diagnostics" },
 		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
 		h = {
 			function()
@@ -406,7 +372,7 @@ wk.register({
 			end,
 			"relative number",
 		},
-		t = {
+		T = {
 			function()
 				local transparent = not catppuccin.options.transparent_background
 				catppuccin.options.transparent_background = transparent
@@ -421,10 +387,46 @@ wk.register({
 			end,
 			"transparency",
 		},
-		T = {
-			name = "treesitter",
-			h = { "<cmd>TSToggle highlight<CR>", "highlight" },
-			i = { "<cmd>TSToggle indent<CR>", "indent" },
+		-- T = {
+		-- 	name = "treesitter",
+		-- 	h = { "<cmd>TSToggle highlight<CR>", "highlight" },
+		-- 	i = { "<cmd>TSToggle indent<CR>", "indent" },
+		-- },
+		--
+		t = {
+			name = "terminal",
+			h = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local cmd = "ToggleTerm direction=horizontal dir=" .. p
+					vim.cmd(cmd)
+				end,
+				"horizontal",
+			},
+			v = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local cmd = "ToggleTerm size=80 direction=vertical dir=" .. p
+					vim.cmd(cmd)
+				end,
+				"vertical",
+			},
+			f = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local cmd = "ToggleTerm size=160 direction=float dir=" .. p
+					vim.cmd(cmd)
+				end,
+				"float",
+			},
+			t = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local cmd = "ToggleTerm direction=tab dir=" .. p
+					vim.cmd(cmd)
+				end,
+				"tab",
+			},
 		},
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		-- w = {

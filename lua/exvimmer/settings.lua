@@ -10,6 +10,26 @@ function _G.set_terminal_keymaps()
 	vim.api.nvim_buf_set_keymap(0, "t", "<A-l>", [[<C-\><C-n><C-W>l]], opts)
 end
 
+local DiagnosticsConfig = vim.diagnostic.config()
+local DiagnosticsEnabled = true
+function ToggleDiagnostics()
+	if not DiagnosticsEnabled then
+		vim.diagnostic.config(DiagnosticsConfig)
+		DiagnosticsEnabled = true
+	else
+		DiagnosticsConfig = vim.diagnostic.config()
+		vim.diagnostic.config({
+			virtual_text = false,
+			sign = true,
+			float = false,
+			update_in_insert = false,
+			severity_sort = false,
+			underline = true,
+		})
+		DiagnosticsEnabled = false
+	end
+end
+
 -- Auto commands and functions {{{
 vim.cmd([[
 " Turn off paste mode when leaving insert
