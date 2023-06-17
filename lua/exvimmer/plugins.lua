@@ -101,6 +101,7 @@ return require("lazy").setup({
 	{ "windwp/nvim-ts-autotag", event = "VeryLazy" },
 	{ "windwp/nvim-autopairs" },
 	{ "numToStr/Comment.nvim", event = "VeryLazy" },
+	{ "numToStr/Navigator.nvim", config = true },
 	{ "NvChad/nvim-colorizer.lua", event = "VeryLazy" },
 	{ "phaazon/hop.nvim", config = true, event = "VeryLazy", branch = "v2" },
 	{ "rafamadriz/friendly-snippets" },

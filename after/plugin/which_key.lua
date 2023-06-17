@@ -34,10 +34,15 @@ wk.setup(options)
 
 -- Normal mode {{{
 wk.register({
-	["<M-l>"] = { "<C-w>l", "Go to the right window" },
-	["<M-h>"] = { "<C-w>h", "Go to the left window" },
-	["<M-k>"] = { "<C-w>k", "Go to the up window" },
-	["<M-j>"] = { "<C-w>j", "Go to the down window" },
+	-- ["<M-l>"] = { "<C-w>l", "Go to the right window" },
+	-- ["<M-h>"] = { "<C-w>h", "Go to the left window" },
+	-- ["<M-k>"] = { "<C-w>k", "Go to the up window" },
+	-- ["<M-j>"] = { "<C-w>j", "Go to the down window" },
+	["<M-l>"] = { "<CMD>NavigatorRight<CR>", "Go to the right window" },
+	["<M-h>"] = { "<CMD>NavigatorLeft<CR>", "Go to the left window" },
+	["<M-k>"] = { "<CMD>NavigatorUp<CR>", "Go to the up window" },
+	["<M-j>"] = { "<CMD>NavigatorDown<CR>", "Go to the down window" },
+	["<M-p>"] = { "<CMD>NavigatorPrevious<CR>", "Go to the down window" },
 	["]<space>"] = { "o<ESC>k", "Insert a blank line below" },
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
 	["[b"] = { vim.cmd.bprev, "Go to previous buffer" },
