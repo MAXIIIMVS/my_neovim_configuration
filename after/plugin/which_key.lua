@@ -565,7 +565,7 @@ wk.register({
 -- Visual mode {{{
 wk.register({
 	["."] = { ":normal.<CR>", "Repeat previous action" },
-	["p"] = { '"_dP', "Paste over currently selected text without yanking it" },
+	-- ["p"] = { '"_dP', "Paste over currently selected text without yanking it" }, -- this causes pasting in select mode (when using snippets)
 	["<"] = { "<gv", "Indent left" },
 	[">"] = { ">gv", "Indent right" },
 	["<c-_>"] = {
@@ -592,5 +592,5 @@ wk.register({
 	["<c-a>"] = { "<ESC>I", "Go to the beginning of line" },
 	["<c-e>"] = { "<ESC>A", "Go to the end of line" },
 	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
-}, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })
+}, { prefix = "", mode = "s", noremap = true, silent = true, nowait = true })
 -- }}}
