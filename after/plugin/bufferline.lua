@@ -3,6 +3,8 @@
 require("bufferline").setup({
 	highlights = require("catppuccin.groups.integrations.bufferline").get(),
 	options = {
+		-- themable = true,
+		-- truncate_names = false,
 		offsets = {
 			{
 				filetype = "NvimTree",

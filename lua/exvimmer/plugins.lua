@@ -19,6 +19,7 @@ return require("lazy").setup({
 	{ "airblade/vim-rooter" },
 	{ "akinsho/bufferline.nvim", event = "VeryLazy", dependencies = "nvim-tree/nvim-web-devicons" },
 	{ "akinsho/toggleterm.nvim", version = "*", config = true, event = "VeryLazy" },
+	-- {"akinsho/git-conflict.nvim"},
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
@@ -95,13 +96,14 @@ return require("lazy").setup({
 	},
 	{ "xiyaowong/telescope-emoji.nvim", dependencies = "nvim-telescope/telescope.nvim", event = "VeryLazy" },
 	{ "ghassan0/telescope-glyph.nvim", dependencies = "nvim-telescope/telescope.nvim", event = "VeryLazy" },
-	{ "nvim-tree/nvim-web-devicons", lazy = true },
+	{ "nvim-pack/nvim-spectre", config = true, event = "VeryLazy" },
+	{ "nvim-tree/nvim-web-devicons", lazy = true, event = "VeryLazy" },
 	{ "nvim-tree/nvim-tree.lua", lazy = true, dependencies = "nvim-tree/nvim-web-devicons" },
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 	{ "windwp/nvim-ts-autotag", event = "VeryLazy" },
 	{ "windwp/nvim-autopairs" },
 	{ "numToStr/Comment.nvim", event = "VeryLazy" },
-	{ "numToStr/Navigator.nvim", config = true },
+	{ "numToStr/Navigator.nvim", config = true, event = "VeryLazy" },
 	{ "NvChad/nvim-colorizer.lua", event = "VeryLazy" },
 	{ "phaazon/hop.nvim", config = true, event = "VeryLazy", branch = "v2" },
 	{ "rafamadriz/friendly-snippets" },
@@ -109,6 +111,7 @@ return require("lazy").setup({
 	{ "rcarriga/nvim-dap-ui", config = true, event = "VeryLazy" },
 	{ "rhysd/clever-f.vim", event = "VeryLazy" },
 	{ "saadparwaiz1/cmp_luasnip", dependencies = "hrsh7th/nvim-cmp" },
+	-- {"simrat39/rust-tools.nvim"},
 	{
 		"theHamsta/nvim-dap-virtual-text",
 		config = true,
@@ -121,7 +124,10 @@ return require("lazy").setup({
 	{ "tpope/vim-obsession", event = "VeryLazy" },
 	{ "tpope/vim-speeddating", event = "VeryLazy" },
 	{ "vimwiki/vimwiki", event = "VeryLazy" },
-	{ "williamboman/mason.nvim" },
+	{
+		"williamboman/mason.nvim",
+		build = ":MasonUpdate",
+	},
 	{ "williamboman/mason-lspconfig.nvim" },
 }, {
 	ui = {

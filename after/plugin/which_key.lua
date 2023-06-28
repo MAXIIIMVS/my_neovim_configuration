@@ -259,6 +259,26 @@ wk.register({
 	name = "Groups",
 	m = { ":make ", "make [cmd]" },
 	s = {
+		name = "search and replace",
+		s = {
+			vim.cmd.Spectre,
+			"open spectre",
+		},
+		w = {
+			'<cmd>silent lua require("spectre").open_visual({select_word=true})<CR>',
+			"Search current word",
+		},
+		p = {
+			'<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
+			"Search the word in current file",
+		},
+
+		-- TODO: move
+		-- vim.keymap.set("v", "<space>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+		-- 	desc = "Search current word",
+		-- })
+	},
+	S = {
 		name = "Session",
 		m = { "<cmd>Obsession " .. utils.get_top_level() .. "<CR>", "Make a session" },
 		d = { "<cmd>Obsession!<CR>", "Delete the session" },
@@ -581,6 +601,16 @@ wk.register({
 	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 }, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })
+
+wk.register({
+	s = {
+		name = "search and replace",
+		w = {
+			'<esc><cmd>silent lua require("spectre").open_visual()<CR>',
+			"Search current word",
+		},
+	},
+}, { prefix = "<space>", mode = "v", noremap = true, silent = true, nowait = true })
 -- }}}
 
 -- Select mode {{{
