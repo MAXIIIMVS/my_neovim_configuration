@@ -585,7 +585,7 @@ wk.register({
 
 -- Visual mode {{{
 wk.register({
-	["."] = { ":normal.<CR>", "Repeat previous action" },
+	-- ["."] = { ":normal.<CR>", "Repeat previous action" },
 	-- ["p"] = { '"_dP', "Paste over currently selected text without yanking it" }, -- this causes pasting in select mode (when using snippets)
 	["<"] = { "<gv", "Indent left" },
 	[">"] = { ">gv", "Indent right" },
