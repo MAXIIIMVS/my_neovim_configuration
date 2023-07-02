@@ -30,6 +30,7 @@ return require("lazy").setup({
 	{ "folke/which-key.nvim", lazy = true },
 	{ "folke/zen-mode.nvim", even = "VeryLazy" },
 	{ "folke/neodev.nvim", lazy = true },
+	{ "ghassan0/telescope-glyph.nvim", dependencies = "nvim-telescope/telescope.nvim", event = "VeryLazy" },
 	{ "glepnir/dashboard-nvim", event = "VimEnter", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{
 		"glepnir/lspsaga.nvim",
@@ -51,6 +52,8 @@ return require("lazy").setup({
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
 		},
 	},
 	{ "itchyny/calendar.vim", event = "VeryLazy" },
@@ -94,10 +97,8 @@ return require("lazy").setup({
 		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 		event = "VeryLazy",
 	},
-	{ "xiyaowong/telescope-emoji.nvim", dependencies = "nvim-telescope/telescope.nvim", event = "VeryLazy" },
-	{ "ghassan0/telescope-glyph.nvim", dependencies = "nvim-telescope/telescope.nvim", event = "VeryLazy" },
 	{ "nvim-pack/nvim-spectre", config = true, event = "VeryLazy" },
-	{ "nvim-tree/nvim-web-devicons", lazy = true, event = "VeryLazy" },
+	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{ "nvim-tree/nvim-tree.lua", lazy = true, dependencies = "nvim-tree/nvim-web-devicons" },
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 	{ "windwp/nvim-ts-autotag", event = "VeryLazy" },
@@ -114,7 +115,7 @@ return require("lazy").setup({
 	-- {"simrat39/rust-tools.nvim"},
 	{
 		"theHamsta/nvim-dap-virtual-text",
-		config = true,
+		-- config = true,
 		event = "VeryLazy",
 	},
 	{ "/tpope/vim-abolish", event = "VeryLazy" },
@@ -129,6 +130,7 @@ return require("lazy").setup({
 		build = ":MasonUpdate",
 	},
 	{ "williamboman/mason-lspconfig.nvim" },
+	{ "xiyaowong/telescope-emoji.nvim", dependencies = "nvim-telescope/telescope.nvim", event = "VeryLazy" },
 }, {
 	ui = {
 		border = "single",

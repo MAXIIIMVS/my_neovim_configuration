@@ -155,7 +155,8 @@ wk.register({
 		m = { "<cmd>make<CR>", "make" },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open %:p:h<CR>", "Open the current directory" },
-		q = { vim.cmd.q, "Quit current window" },
+		q = { vim.cmd.q, "close current window" },
+		Q = { vim.cmd.qall, "close all windows" },
 		-- r = { "<cmd>Telescope oldfiles previewer=false<CR>", "Show recently opened files" },
 		r = {
 			function()
