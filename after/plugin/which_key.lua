@@ -238,6 +238,7 @@ wk.register({
 		},
 		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
+		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
 	-- TODO: add the next keybinding if the bug is fixed
 	-- ["z="] = { "<cmd>silent Telescope spell_suggest<CR>", "show spell suggestions" },
@@ -293,6 +294,10 @@ wk.register({
 		c = {
 			vim.cmd.DapContinue,
 			"continue",
+		},
+		e = {
+			require("dapui").eval,
+			"evaluate expression",
 		},
 		g = {
 			name = "Go programming language",
@@ -470,7 +475,8 @@ wk.register({
 		name = "buffer",
 		a = { "<cmd>bufdo bd<CR>", "close all buffers" },
 		d = { "<cmd>silent bd<CR>", "close this buffer" },
-		o = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers" },
+		-- o = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers" },
+		o = { "<cmd>BufferLineCloseOthers<CR>|'\"", "close other buffers" },
 	},
 	c = {
 		name = "Calendar",
