@@ -2,7 +2,7 @@ local dap = require("dap")
 local dapui = require("dapui")
 
 -- Load nvim-dap UI
-dapui.setup()
+-- dapui.setup()
 
 -- Load nvim-virtual-text
 -- require("nvim-dap-virtual-text").setup()
@@ -20,7 +20,13 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 end
 
 -- Set a breakpoint
-vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
+-- vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
+
+local sign = vim.fn.sign_define
+
+sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
+sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
 
 -- Setup nvim-virtual-text
 require("nvim-dap-virtual-text").setup({
