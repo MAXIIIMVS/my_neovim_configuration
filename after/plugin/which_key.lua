@@ -201,6 +201,17 @@ wk.register({
 				"vertical split",
 			},
 			g = { "<cmd>silent !tmux new-window 'lazygit'<CR>", "lazygit" },
+			B = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local s = vim.fn.escape(
+						[[ silent !tmux display-popup -w 90% -h 85% -d ]] .. p .. [[ -E "tmux new-session -A -s bash "]],
+						"%"
+					)
+					vim.cmd(s)
+				end,
+				"pop-up bash (tmux)",
+			},
 			b = {
 				function()
 					local p = vim.fn.expand("%:p:h")
@@ -261,26 +272,6 @@ wk.register({
 	name = "Groups",
 	m = { ":make ", "make [cmd]" },
 	s = {
-		name = "search and replace",
-		s = {
-			vim.cmd.Spectre,
-			"open spectre",
-		},
-		w = {
-			'<cmd>silent lua require("spectre").open_visual({select_word=true})<CR>',
-			"Search current word",
-		},
-		p = {
-			'<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
-			"Search the word in current file",
-		},
-
-		-- TODO: move
-		-- vim.keymap.set("v", "<space>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-		-- 	desc = "Search current word",
-		-- })
-	},
-	S = {
 		name = "Session",
 		m = { "<cmd>Obsession " .. utils.get_top_level() .. "<CR>", "Make a session" },
 		d = { "<cmd>Obsession!<CR>", "Delete the session" },
@@ -357,13 +348,31 @@ wk.register({
 	t = {
 		name = "Toggle",
 		b = {
-			function()
-				vim.o.background = vim.o.background == "dark" and "light" or "dark"
-				catppuccin.options.transparent_background = not catppuccin.options.transparent_background
-				vim.cmd.colorscheme(vim.g.colors_name)
-				catppuccin.compile()
-			end,
-			"light/dark background",
+			name = "background",
+			c = {
+				function()
+					vim.o.background = vim.o.background == "dark" and "light" or "dark"
+					catppuccin.options.transparent_background = not catppuccin.options.transparent_background
+					vim.cmd.colorscheme(vim.g.colors_name)
+					catppuccin.compile()
+				end,
+				"light/dark background color",
+			},
+			t = {
+				function()
+					local transparent = not catppuccin.options.transparent_background
+					catppuccin.options.transparent_background = transparent
+					catppuccin.options.dim_inactive = {
+						enabled = not transparent,
+						shade = "dark",
+						percentage = 0.65,
+					}
+					catppuccin.compile()
+					-- vim.o.cursorlineopt = catppuccin.options.transparent_background and "number" or "number,line"
+					vim.cmd.colorscheme(vim.g.colors_name)
+				end,
+				"transparency",
+			},
 		},
 		c = {
 			function()
@@ -402,21 +411,6 @@ wk.register({
 				vim.wo.relativenumber = not vim.wo.relativenumber
 			end,
 			"relative number",
-		},
-		T = {
-			function()
-				local transparent = not catppuccin.options.transparent_background
-				catppuccin.options.transparent_background = transparent
-				catppuccin.options.dim_inactive = {
-					enabled = not transparent,
-					shade = "dark",
-					percentage = 0.65,
-				}
-				catppuccin.compile()
-				-- vim.o.cursorlineopt = catppuccin.options.transparent_background and "number" or "number,line"
-				vim.cmd.colorscheme(vim.g.colors_name)
-			end,
-			"transparency",
 		},
 		-- T = {
 		-- 	name = "treesitter",
@@ -582,7 +576,7 @@ wk.register({
 		end,
 		"comment/uncomment the line",
 	},
-	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
+	["<c-s>"] = { "<ESC><ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 	["<c-k>"] = { "<c-o>C", "Delete to the end of the line" },
 	-- ["<C-r>"] = { "<cmd>Telescope registers<CR>", "show registers" },
@@ -610,13 +604,13 @@ wk.register({
 }, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })
 
 wk.register({
-	s = {
-		name = "search and replace",
-		w = {
-			'<esc><cmd>silent lua require("spectre").open_visual()<CR>',
-			"Search current word",
-		},
-	},
+	-- s = {
+	-- 	name = "search and replace",
+	-- 	w = {
+	-- 		'<esc><cmd>silent lua require("spectre").open_visual()<CR>',
+	-- 		"Search current word",
+	-- 	},
+	-- },
 }, { prefix = "<space>", mode = "v", noremap = true, silent = true, nowait = true })
 -- }}}
 

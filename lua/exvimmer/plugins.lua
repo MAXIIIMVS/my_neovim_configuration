@@ -97,7 +97,6 @@ return require("lazy").setup({
 		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 		event = "VeryLazy",
 	},
-	{ "nvim-pack/nvim-spectre", config = true, event = "VeryLazy" },
 	{ "nvim-tree/nvim-web-devicons", config = true, lazy = true },
 	{ "nvim-tree/nvim-tree.lua", lazy = true, dependencies = "nvim-tree/nvim-web-devicons" },
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
