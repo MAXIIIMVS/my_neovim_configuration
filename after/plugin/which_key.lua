@@ -186,10 +186,17 @@ wk.register({
 				end,
 				"window",
 			},
-			h = {
+			H = {
 				function()
 					local filepath = vim.fn.expand("%:p:h")
 					vim.cmd("silent !tmux split-window -c " .. filepath)
+				end,
+				"horizontal split normal",
+			},
+			h = {
+				function()
+					local filepath = vim.fn.expand("%:p:h")
+					vim.cmd("silent !tmux split-window -l 13 -c " .. filepath)
 				end,
 				"horizontal split",
 			},
