@@ -314,21 +314,21 @@ wk.register({
 		},
 		h = {
 			function()
-				require("dap").ui.variables.visual_hover()
+				require("dap.ui.widgets").hover()
 			end,
 			"hover",
 		},
-		i = {
+		s = {
 			vim.cmd.DapStepInto,
 			"step into",
 		},
-		o = {
+		n = {
 			vim.cmd.DapStepOver,
-			"step over",
+			"step over (next)",
 		},
-		O = {
+		f = {
 			vim.cmd.DapStepOut,
-			"step out",
+			"step out (finish)",
 		},
 		p = {
 			function()
@@ -340,16 +340,16 @@ wk.register({
 			vim.cmd.DapToggleRepl,
 			"toggle repl",
 		},
-		s = {
+		l = {
 			function()
 				local sidebar = dap_ui_widgets.sidebar(dap_ui_widgets.scopes)
 				sidebar.open()
 			end,
-			"Open debugging sidebar",
+			"Open locals window",
 		},
-		x = {
+		q = {
 			vim.cmd.DapTerminate,
-			"terminate debugger",
+			"Quit",
 		},
 	},
 	t = {
