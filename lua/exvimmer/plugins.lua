@@ -14,7 +14,12 @@ vim.opt.rtp:prepend(lazypath)
 return require("lazy").setup({
 	{
 		"adoyle-h/lsp-toggle.nvim",
-		lazy = true,
+		event = "VeryLazy",
+		config = true,
+		opts = {
+			create_cmds = true, -- Whether to create user commands
+			telescope = true, -- Whether to load telescope extensions
+		},
 	},
 	{ "airblade/vim-rooter" },
 	{ "akinsho/bufferline.nvim", event = "VeryLazy", dependencies = "nvim-tree/nvim-web-devicons" },
@@ -29,7 +34,7 @@ return require("lazy").setup({
 	{ "famiu/bufdelete.nvim", event = "VeryLazy" },
 	{ "folke/which-key.nvim", lazy = true },
 	{ "folke/zen-mode.nvim", config = true, even = "VeryLazy" },
-	{ "folke/neodev.nvim", lazy = true },
+	{ "folke/neodev.nvim", opts = {}, lazy = true },
 	{ "ghassan0/telescope-glyph.nvim", dependencies = "nvim-telescope/telescope.nvim", event = "VeryLazy" },
 	{ "glepnir/dashboard-nvim", event = "VimEnter", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{
@@ -72,7 +77,37 @@ return require("lazy").setup({
 	},
 	{ "lervag/vimtex", event = "VeryLazy", ft = "tex" },
 	{ "lewis6991/gitsigns.nvim", event = "VeryLazy" },
-	{ "lukas-reineke/indent-blankline.nvim", event = "VeryLazy" },
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		opts = {
+			buftype_exclude = { "terminal", "nofile" },
+			filetype_exclude = { "help", "dashboard", "NvimTree", "packer", "mason", "fugitive" },
+			show_current_context = true,
+			max_indent_increase = 1,
+			context_patterns = {
+				"class",
+				"return",
+				"function",
+				"method",
+				"^if",
+				"^while",
+				"jsx_element",
+				"^for",
+				"^object",
+				"^table",
+				"block",
+				"arguments",
+				"if_statement",
+				"else_clause",
+				"jsx_element",
+				"jsx_self_closing_element",
+				"try_statement",
+				"catch_clause",
+				"import_statement",
+				"operation_type",
+			},
+		},
+	},
 	{ "mbbill/undotree", event = "VeryLazy" },
 	{
 		"mfussenegger/nvim-dap",
@@ -101,17 +136,32 @@ return require("lazy").setup({
 	{ "nvim-tree/nvim-tree.lua", lazy = true, dependencies = "nvim-tree/nvim-web-devicons" },
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 	{ "windwp/nvim-ts-autotag", event = "VeryLazy" },
-	{ "windwp/nvim-autopairs" },
-	{ "numToStr/Comment.nvim", event = "VeryLazy" },
+	{ "windwp/nvim-autopairs", opts = { check_ts = true } },
+	{ "numToStr/Comment.nvim", config = true, opts = { toggler = {
+		line = "<C-_>",
+	} }, event = "VeryLazy" },
 	{ "numToStr/Navigator.nvim", config = true, event = "VeryLazy" },
 	{ "NvChad/nvim-colorizer.lua", event = "VeryLazy" },
 	{ "phaazon/hop.nvim", config = true, event = "VeryLazy", branch = "v2" },
 	{ "rafamadriz/friendly-snippets" },
-	{ "ray-x/lsp_signature.nvim", lazy = true },
+	{ "ray-x/lsp_signature.nvim", config = true, opts = {
+		hint_enable = false,
+	}, event = "VeryLazy" },
 	{ "rcarriga/nvim-dap-ui", config = true, event = "VeryLazy" },
 	{ "rhysd/clever-f.vim", event = "VeryLazy" },
 	{ "saadparwaiz1/cmp_luasnip", dependencies = "hrsh7th/nvim-cmp" },
 	-- {"simrat39/rust-tools.nvim"},
+	{
+		"stevearc/dressing.nvim",
+		event = "VeryLazy",
+		opts = {
+			input = {
+				win_options = {
+					winblend = 0,
+				},
+			},
+		},
+	},
 	{
 		"theHamsta/nvim-dap-virtual-text",
 		-- config = true,

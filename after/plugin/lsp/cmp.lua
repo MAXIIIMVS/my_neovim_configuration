@@ -4,6 +4,9 @@ if not present then
 	return
 end
 
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+
 require("luasnip.loaders.from_vscode").lazy_load()
 -- local lspkind = require("lspkind")
 local luasnip = require("luasnip")
