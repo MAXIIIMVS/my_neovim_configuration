@@ -277,7 +277,49 @@ wk.register({
 
 wk.register({
 	name = "Groups",
-	m = { ":make ", "make [cmd]" },
+	m = {
+		name = "make",
+		a = {
+			":make all<CR>",
+			"all",
+		},
+		B = {
+			":make clean-build<CR>",
+			"clean build",
+		},
+		b = {
+			":make build<CR>",
+			"build",
+		},
+		c = {
+			":make clean<CR>",
+			"clean",
+		},
+		e = {
+			":make ",
+			"enter a command", -- empty, execute, enter
+		},
+		g = {
+			":make generate",
+			"generate",
+		},
+		h = {
+			":make help<CR>",
+			"help",
+		},
+		i = {
+			":make install<CR>",
+			"install",
+		},
+		r = {
+			":make run<CR>",
+			"run",
+		},
+		w = {
+			":make watch<CR>",
+			"watch",
+		},
+	},
 	s = {
 		name = "Session",
 		m = { "<cmd>Obsession " .. utils.get_top_level() .. "<CR>", "Make a session" },

@@ -57,8 +57,6 @@ return require("lazy").setup({
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
-			"L3MON4D3/LuaSnip",
-			"saadparwaiz1/cmp_luasnip",
 		},
 	},
 	{ "itchyny/calendar.vim", event = "VeryLazy" },
@@ -68,7 +66,12 @@ return require("lazy").setup({
 		config = true,
 		event = "VeryLazy",
 	},
-	{ "L3MON4D3/LuaSnip", dependencies = { "rafamadriz/friendly-snippets" } },
+	{
+		"L3MON4D3/LuaSnip",
+		event = "InsertEnter",
+		dependencies = { "rafamadriz/friendly-snippets", "saadparwaiz1/cmp_luasnip" },
+		-- build = "make install_jsregexp",
+	},
 	{
 		"leoluz/nvim-dap-go",
 		config = true,
