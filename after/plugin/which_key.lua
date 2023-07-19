@@ -295,12 +295,16 @@ wk.register({
 			":make clean<CR>",
 			"clean",
 		},
-		e = {
-			":make ",
-			"enter a command", -- empty, execute, enter
+		d = {
+			":make docs<CR>",
+			"generate docs",
+		},
+		G = {
+			":make clean && make generate && make build<CR>",
+			"clean, generate and build again",
 		},
 		g = {
-			":make generate",
+			":make generate<CR>",
 			"generate",
 		},
 		h = {
@@ -313,6 +317,10 @@ wk.register({
 		},
 		r = {
 			":make run<CR>",
+			"run",
+		},
+		t = {
+			":make test<CR>",
 			"run",
 		},
 		w = {
