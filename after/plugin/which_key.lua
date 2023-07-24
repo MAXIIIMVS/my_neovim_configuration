@@ -266,7 +266,7 @@ wk.register({
 	g = {
 		-- d = { "<cmd>Lspsaga goto_definition<CR>", "Go to definition" },
 		p = { "<cmd>Lspsaga peek_definition<CR>", "Show the definition in a floating windows" },
-		h = { "<cmd>Lspsaga lsp_finder<CR>", "Show the definition, reference, implementation..." },
+		h = { "<cmd>Lspsaga finder def+ref+imp<CR>", "Show the definition, reference, implementation..." },
 		a = { "<cmd>Lspsaga code_action<CR>", "Code actions" },
 		r = { "<cmd>Lspsaga rename<CR>", "Rename the symbol" },
 	},
@@ -637,7 +637,7 @@ wk.register({
 	d = { "<cmd>silent Dashboard<CR>", "Dashboard" },
 	t = { "<cmd>tabnew<CR>", "create an empty tab" },
 	x = {
-		"<cmd>silent !chmod u+x %<CR",
+		"<cmd>silent !chmod u+x %<CR>",
 		"make the file executable for the (u)ser , don't change (g)roup and (o)ther permissions",
 	},
 }, { prefix = "<leader>", noremap = true, silent = true, nowait = true })

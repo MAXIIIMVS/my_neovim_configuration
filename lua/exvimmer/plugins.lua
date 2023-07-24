@@ -15,7 +15,6 @@ return require("lazy").setup({
 	{
 		"adoyle-h/lsp-toggle.nvim",
 		event = "VeryLazy",
-		config = true,
 		opts = {
 			create_cmds = true, -- Whether to create user commands
 			telescope = true, -- Whether to load telescope extensions
@@ -140,9 +139,14 @@ return require("lazy").setup({
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 	{ "windwp/nvim-ts-autotag", event = "VeryLazy" },
 	{ "windwp/nvim-autopairs", opts = { check_ts = true } },
-	{ "numToStr/Comment.nvim", config = true, opts = { toggler = {
-		line = "<C-_>",
-	} }, event = "VeryLazy" },
+	{
+		"numToStr/Comment.nvim",
+		event = "VeryLazy",
+		config = true,
+		opts = { toggler = {
+			line = "<C-_>",
+		} },
+	},
 	{ "numToStr/Navigator.nvim", config = true, event = "VeryLazy" },
 	{ "NvChad/nvim-colorizer.lua", event = "VeryLazy" },
 	{ "phaazon/hop.nvim", config = true, event = "VeryLazy", branch = "v2" },

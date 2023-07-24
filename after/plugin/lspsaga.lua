@@ -16,6 +16,10 @@ saga.setup({
 		colors = require("catppuccin.groups.integrations.lsp_saga").custom_colors(),
 		kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
 	},
+	lightbulb = {
+		virtual_text = false,
+		-- debounce = 0,
+	},
 	outline = {
 		win_width = 40,
 	},
