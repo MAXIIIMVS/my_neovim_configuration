@@ -151,7 +151,7 @@ return require("lazy").setup({
 	{ "NvChad/nvim-colorizer.lua", event = "VeryLazy" },
 	{ "phaazon/hop.nvim", config = true, event = "VeryLazy", branch = "v2" },
 	{ "rafamadriz/friendly-snippets" },
-	{ "ray-x/lsp_signature.nvim", config = true, opts = {
+	{ "ray-x/lsp_signature.nvim", opts = {
 		hint_enable = false,
 	}, event = "VeryLazy" },
 	{ "rcarriga/nvim-dap-ui", config = true, event = "VeryLazy" },

@@ -24,6 +24,9 @@ local options = {
 		margin = { 0, 0, 0, 0 },
 		winblend = 0,
 	},
+	layout = {
+		height = { max = 9 },
+	},
 	popup_mappings = {
 		scroll_down = "<c-d>", -- binding to scroll down inside the popup
 		scroll_up = "<c-u>", -- binding to scroll up inside the popup
