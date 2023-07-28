@@ -14,6 +14,7 @@ local lspsaga_diagnostics = require("lspsaga.diagnostic")
 local comment_api = require("Comment.api")
 local dap_ui_widgets = require("dap.ui.widgets")
 local dap_go = require("dap-go")
+local dap = require("dap")
 -- local dapui = require("dapui")
 -- local opts = { noremap = true, silent = true, silent = true, nowait = true }
 
@@ -342,9 +343,17 @@ wk.register({
 			vim.cmd.DapToggleBreakpoint,
 			"toggle breakpoint",
 		},
+		C = {
+			dap.run_to_cursor,
+			"run to cursor",
+		},
 		c = {
 			vim.cmd.DapContinue,
 			"continue",
+		},
+		d = {
+			dap.down,
+			"go down in current stacktrace without stepping",
 		},
 		e = {
 			require("dapui").eval,
@@ -371,9 +380,17 @@ wk.register({
 			end,
 			"hover",
 		},
+		j = {
+			dap.goto_,
+			"jump to a specific line or line under cursor",
+		},
 		s = {
 			vim.cmd.DapStepInto,
 			"step into",
+		},
+		N = {
+			dap.step_back,
+			"step back",
 		},
 		n = {
 			vim.cmd.DapStepOver,
@@ -384,10 +401,12 @@ wk.register({
 			"step out (finish)",
 		},
 		p = {
-			function()
-				require("dap-python").test_method()
-			end,
-			"run Python debugger",
+			dap.pause,
+			"pause the thread",
+		},
+		R = {
+			dap.restart,
+			"restart the current session",
 		},
 		r = {
 			vim.cmd.DapToggleRepl,
@@ -403,6 +422,10 @@ wk.register({
 		q = {
 			vim.cmd.DapTerminate,
 			"Quit",
+		},
+		u = {
+			dap.up,
+			"go up in current stacktrace without stepping",
 		},
 	},
 	t = {
