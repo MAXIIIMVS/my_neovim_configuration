@@ -41,6 +41,12 @@ autocmd! TermOpen term://* lua set_terminal_keymaps()
 " read calendar credentials
 source ~/.config/nvim/credentials.vim
 
+augroup CmdHeight
+    autocmd!
+    autocmd CmdlineEnter * if &cmdheight == 0 | let g:cmdheight_prev = 0 | set cmdheight=1 | endif
+    autocmd CmdlineLeave * if exists('g:cmdheight_prev') && g:cmdheight_prev == 0 | set cmdheight=0 | unlet! g:cmdheight_prev | endif
+augroup END
+
 " hide tmux
 " autocmd VimEnter,VimLeave * silent !tmux set status
 

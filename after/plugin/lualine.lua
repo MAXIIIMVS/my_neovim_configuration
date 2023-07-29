@@ -185,7 +185,6 @@ ins_left({
 })
 
 -- Add components to right sections
-
 ins_right({
 	function()
 		if #vim.api.nvim_list_wins() > 1 then
