@@ -1,5 +1,5 @@
 require("colorizer").setup({
-	filetypes = { "css", "scss", "html" },
+	filetypes = { "css", "scss", "html", "typescriptreact", "javascriptreact" },
 	user_default_options = {
 		RGB = true, -- #RGB hex codes
 		RRGGBB = true, -- #RRGGBB hex codes

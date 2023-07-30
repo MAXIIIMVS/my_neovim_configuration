@@ -60,6 +60,7 @@ return require("lazy").setup({
 	},
 	{ "itchyny/calendar.vim", event = "VeryLazy" },
 	{ "jose-elias-alvarez/null-ls.nvim", event = "VeryLazy" },
+	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },
 	{
 		"kylechui/nvim-surround",
 		config = true,
