@@ -3,6 +3,8 @@ local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local lspinstaller = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 
+require("lspconfig.ui.windows").default_options.border = "rounded"
+
 local lsp_defaults = lspconfig.util.default_config
 lsp_defaults.capabilities = vim.tbl_deep_extend(
 	"force",
@@ -71,7 +73,7 @@ local mason_default_settings = {
 	},
 	automatic_installation = false,
 	ui = {
-		border = "single",
+		border = "rounded",
 		icons = {
 			package_installed = "✓",
 			package_pending = "➜",

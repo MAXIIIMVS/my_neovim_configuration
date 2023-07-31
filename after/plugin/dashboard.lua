@@ -118,7 +118,7 @@ db.setup({
 				icon = "🗄 ",
 				desc = "Find File                               ",
 				-- action = "Telescope find_files find_command=rg,--hidden,--files",
-				action = "Telescope find_files cwd=" .. utils.get_top_level(),
+				action = "Telescope find_files",
 				key = "f",
 			},
 			{

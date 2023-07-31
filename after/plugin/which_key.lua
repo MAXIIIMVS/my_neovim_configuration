@@ -6,7 +6,6 @@ end
 
 local catppuccin = require("catppuccin")
 local lualine = require("lualine")
-local utils = require("utils")
 -- local telescope = require("telescope")
 local telescope_builtins = require("telescope.builtin")
 local telescope_themes = require("telescope.themes")
@@ -20,7 +19,7 @@ local dap = require("dap")
 
 local options = {
 	window = {
-		border = "none", -- none, single, double, shadow
+		border = "rounded", -- none, single, double, shadow
 		position = "bottom", -- bottom, top
 		margin = { 0, 0, 0, 0 },
 		winblend = 0,
@@ -274,7 +273,7 @@ wk.register({
 		a = { "<cmd>Lspsaga code_action<CR>", "Code actions" },
 		r = { "<cmd>Lspsaga rename<CR>", "Rename the symbol" },
 	},
-	K = { "<cmd>silent Lspsaga hover_doc ++quiet<CR>", "Hover info" },
+	K = { "<cmd>silent Lspsaga hover_doc ++quiet<CR><silent>", "Hover info" },
 	-- n = { "nzt", "show next search result" },
 	-- N = { "Nzt", "show previous search result" },
 }, { prefix = "", noremap = true, silent = true, nowait = true })
@@ -334,7 +333,7 @@ wk.register({
 	},
 	s = {
 		name = "Session",
-		m = { "<cmd>Obsession " .. utils.get_top_level() .. "<CR>", "Make a session" },
+		m = { "<cmd>Obsession<CR>", "Make a session" },
 		d = { "<cmd>Obsession!<CR>", "Delete the session" },
 	},
 	d = {

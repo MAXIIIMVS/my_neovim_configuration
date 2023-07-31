@@ -1,6 +1,19 @@
 local home = os.getenv("HOME")
 local utils = require("utils")
 
+local signs = {
+	Error = " ", -- original one
+	-- Error = " ",
+	Warn = " ",
+	Hint = " ",
+	Info = " ",
+}
+
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
 function _G.set_terminal_keymaps()
 	local opts = { noremap = true }
 	vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
@@ -69,9 +82,9 @@ autocmd FileType NvimTree nnoremap <buffer> <nowait> ;; <cmd>NvimTreeToggle<CR>
 " let g:netrw_list_hide= netrw_gitignore#Hide()
 " let s:treedepthstring     = "│ "
 " let g:netrw_hide = 1
-autocmd FileType netrw nnoremap <buffer> <nowait> q :call ToggleNetrw()<CR>
-autocmd FileType netrw nnoremap <buffer> <nowait> ;q :call ToggleNetrw()<CR>
-autocmd FileType netrw nnoremap <buffer> <nowait> ;; :call ToggleNetrw()<CR>
+autocmd FileType netrw silent! nnoremap <buffer> <nowait> q :silent call ToggleNetrw()<CR><silent>
+autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;q :silent call ToggleNetrw()<CR><silent>
+autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;; :silent call ToggleNetrw()<CR><silent>
 autocmd FileType netrw setl bufhidden=wipe
 autocmd FileType netrw nnoremap <buffer> <Backspace> <Plug>NetrwBrowseUpDir
 function! CloseNetrw() abort
@@ -254,6 +267,8 @@ vim.bo.expandtab = true
 -- Highlights {{{
 -----------------------------------------------------------------------
 vim.o.cursorlineopt = "number" -- disable cursorline in transparent mode
+
+-- vim.cmd("highlight GitSignsCurrentLineBlame guifg=#666666")
 
 utils.create_augroup({
 	{ "WinEnter", "*", "set", "cul" },

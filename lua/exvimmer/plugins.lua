@@ -79,7 +79,21 @@ return require("lazy").setup({
 		ft = "go",
 	},
 	{ "lervag/vimtex", event = "VeryLazy", ft = "tex" },
-	{ "lewis6991/gitsigns.nvim", event = "VeryLazy" },
+	{
+		"lewis6991/gitsigns.nvim",
+		opts = {
+			attach_to_untracked = true,
+			current_line_blame = false,
+			current_line_blame_opts = {
+				virt_text = true,
+				virt_text_pos = "right_align", -- 'eol' | 'overlay' | 'right_align'
+				delay = 200,
+				ignore_whitespace = false,
+			},
+			current_line_blame_formatter = "<author> <author_mail>: <summary>",
+		},
+		event = "BufEnter",
+	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		opts = {
@@ -190,20 +204,6 @@ return require("lazy").setup({
 	{ "xiyaowong/telescope-emoji.nvim", dependencies = "nvim-telescope/telescope.nvim", event = "VeryLazy" },
 }, {
 	ui = {
-		border = "single",
-		icons = {
-			cmd = "⌘",
-			config = "🛠",
-			event = "📅",
-			ft = "📂",
-			init = "⚙",
-			keys = "🗝",
-			plugin = "🔌",
-			runtime = "💻",
-			source = "📄",
-			start = "🚀",
-			task = "📌",
-			lazy = "💤 ",
-		},
+		border = "rounded",
 	},
 })
