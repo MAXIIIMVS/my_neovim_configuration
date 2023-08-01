@@ -235,7 +235,7 @@ wk.register({
 		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
 		x = { vim.cmd.NvimTreeToggle, "Nvim Tree" },
 		X = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
-		z = { "<cmd>ZenMode<CR><cmd>redraw<CR>", "Toggle Zen Mode" },
+		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
 		Z = { "<c-w>|<c-w>_", "Maximize the window" },
 		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
 	},
