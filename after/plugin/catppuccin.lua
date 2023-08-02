@@ -59,7 +59,6 @@ catppuccin.setup({
 		telescope = true,
 		which_key = false,
 		treesitter = true,
-		hop = false,
 		mason = false,
 		nvimtree = true,
 		lsp_saga = false,
@@ -78,6 +77,7 @@ catppuccin.setup({
 				information = { "underline" },
 			},
 		},
+		mini = true,
 		vimwiki = true,
 		indent_blankline = {
 			enabled = true,

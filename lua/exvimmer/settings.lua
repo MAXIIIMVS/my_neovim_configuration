@@ -315,7 +315,6 @@ vim.g.rooter_change_directory_for_non_project_files = "current"
 -- clever-f {{{
 -- vim.g.clever_f_ignore_case = true
 vim.g.clever_f_smart_case = true
--- vim.g.clever_f_mark_char_color = "HopNextKey2"
 -- }}}
 
 -- Calendar.vim {{{

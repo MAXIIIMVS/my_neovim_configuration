@@ -154,7 +154,6 @@ wk.register({
 		},
 		i = { "<cmd>silent Telescope glyph<CR>", "Glyph icon" },
 		I = { "<cmd>silent Telescope emoji<CR>", "Emoji icon" },
-		l = { "<cmd>HopLineMW<CR>", "Hop to a line" },
 		m = { "<cmd>make<CR>", "make" },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open %:p:h<CR>", "Open the current directory" },
@@ -199,7 +198,7 @@ wk.register({
 			h = {
 				function()
 					local filepath = vim.fn.expand("%:p:h")
-					vim.cmd("silent !tmux split-window -l 13 -c " .. filepath)
+					vim.cmd("silent !tmux split-window -l 9 -c " .. filepath)
 				end,
 				"horizontal split",
 			},
@@ -232,7 +231,6 @@ wk.register({
 			},
 		},
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
-		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
 		x = { vim.cmd.NvimTreeToggle, "Nvim Tree" },
 		X = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
 		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
@@ -617,17 +615,6 @@ wk.register({
 		R = { "<cmd>Gitsigns toggle_deleted<CR>", "Toggle deleted lines" },
 		v = { "<cmd>Gitsigns preview_hunk<CR>", "Preview hunk" },
 		V = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle current line blame" },
-	},
-	h = {
-		name = "hop",
-		-- a = { "<cmd>HopAnywhereMW<CR>", "Hop Anywhere" },
-		l = { "<cmd>HopLineMW<CR>", "Hop to a line" },
-		s = { "<cmd>HopLineStartMW<CR>", "Hop to a line start" },
-		w = { "<cmd>HopWordMW<CR>", "Hop to a word" },
-		c = { "<cmd>HopChar1MW<CR>", "Hop to a character" },
-		p = { "<cmd>HopPatternMW<CR>", "Hop to a pattern" },
-		-- c = { "<cmd>HopChar1CurrentLine<CR>", "Hop to a character in current line" },
-		-- C = { "<cmd>HopWordCurrentLine<CR>", "Hop to a word in current line" },
 	},
 	l = {
 		name = "LaTeX",

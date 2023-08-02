@@ -30,6 +30,21 @@ return require("lazy").setup({
 		lazy = false,
 		priority = 1000,
 	},
+	{
+		"echasnovski/mini.jump2d",
+		opts = {
+			mappings = {
+				start_jumping = ";j",
+			},
+			view = {
+				dim = true,
+				n_steps_ahead = 1,
+			},
+			silent = true,
+		},
+		version = "*",
+		event = "VeryLazy",
+	},
 	{ "famiu/bufdelete.nvim", event = "VeryLazy" },
 	{ "folke/which-key.nvim", lazy = true },
 	{ "folke/zen-mode.nvim", opts = { window = { width = 100 } }, even = "VeryLazy" },
@@ -164,7 +179,6 @@ return require("lazy").setup({
 	},
 	{ "numToStr/Navigator.nvim", config = true, event = "VeryLazy" },
 	{ "NvChad/nvim-colorizer.lua", event = "VeryLazy" },
-	{ "phaazon/hop.nvim", config = true, event = "VeryLazy", branch = "v2" },
 	{ "rafamadriz/friendly-snippets" },
 	{ "ray-x/lsp_signature.nvim", opts = {
 		hint_enable = false,
