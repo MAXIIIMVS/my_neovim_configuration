@@ -13,9 +13,6 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 	dapui.close()
 end
 
--- Set a breakpoint
--- vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
-
 local sign = vim.fn.sign_define
 
 sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
@@ -57,6 +54,7 @@ dap.configurations.cpp = {
 		request = "launch",
 		program = function()
 			local p = vim.fn.expand("%:p:h")
+			---@diagnostic disable-next-line: redundant-parameter
 			return vim.fn.input("Path to executable: ", p .. "/", "file")
 			-- return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
 		end,
@@ -107,6 +105,32 @@ dap.configurations.typescript = {
 		attachSimplePort = 9229,
 	},
 }
+
+dap.adapters.firefox = {
+	type = "executable",
+	command = "node",
+	args = {
+		os.getenv("HOME") .. "/.local/share/nvim/mason/packages/firefox-debug-adapter/dist/adapter.bundle.js",
+	},
+}
+
+dap.configurations.typescriptreact = {
+	{
+		name = "Debug with Firefox",
+		type = "firefox",
+		request = "launch",
+		reAttach = true,
+		-- url = "http://localhost:5173",
+		url = function()
+			local port = vim.fn.input("PORT: ")
+			return "http://localhost:" .. port
+		end,
+		webRoot = "${workspaceFolder}",
+		firefoxExecutable = "/opt/firefox/firefox-bin",
+	},
+}
+
+dap.configurations.javascriptreact = dap.configurations.typescriptreact
 
 -- Load nvim-dap configuration for Go
 dap.adapters.go = {

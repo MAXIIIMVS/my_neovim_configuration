@@ -42,7 +42,24 @@ return require("lazy").setup({
 			},
 			silent = true,
 		},
-		version = "*",
+		version = false,
+		event = "VeryLazy",
+	},
+	{
+		"echasnovski/mini.move",
+		version = false,
+		opts = {
+			mappings = {
+				left = "<C-h>",
+				right = "", -- disabled
+				down = "<C-j>",
+				up = "<C-k>",
+				line_left = "<C-h>",
+				line_right = "", -- disabled
+				line_down = "<C-j>",
+				line_up = "<C-k>",
+			},
+		},
 		event = "VeryLazy",
 	},
 	{ "famiu/bufdelete.nvim", event = "VeryLazy" },
@@ -187,17 +204,6 @@ return require("lazy").setup({
 	{ "rhysd/clever-f.vim", event = "VeryLazy" },
 	{ "saadparwaiz1/cmp_luasnip", dependencies = "hrsh7th/nvim-cmp" },
 	-- {"simrat39/rust-tools.nvim"},
-	{
-		"stevearc/dressing.nvim",
-		event = "VeryLazy",
-		opts = {
-			input = {
-				win_options = {
-					winblend = 0,
-				},
-			},
-		},
-	},
 	{
 		"theHamsta/nvim-dap-virtual-text",
 		-- config = true,
