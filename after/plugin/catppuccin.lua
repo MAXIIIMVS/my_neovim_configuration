@@ -56,7 +56,10 @@ catppuccin.setup({
 			enabled = true,
 			enable_ui = true, -- enable nvim-dap-ui
 		},
-		telescope = true,
+		telescope = {
+			enabled = true,
+			-- style = "nvchad",
+		},
 		which_key = false,
 		treesitter = true,
 		mason = false,

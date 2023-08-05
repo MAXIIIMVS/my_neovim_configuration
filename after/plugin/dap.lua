@@ -143,5 +143,4 @@ dap.adapters.go = {
 -- Load nvim-dap configuration for Python
 require("dap-python").setup(os.getenv("HOME") .. "/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
 
--- TODO: add typescriptreact and javascriptreact
 -- TODO: configure rust and lua

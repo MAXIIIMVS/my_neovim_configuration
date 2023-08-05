@@ -194,7 +194,7 @@ return require("lazy").setup({
 			line = "<C-_>",
 		} },
 	},
-	{ "numToStr/Navigator.nvim", config = true, event = "VeryLazy" },
+	{ "numToStr/Navigator.nvim", opts = {}, event = "VeryLazy" },
 	{ "NvChad/nvim-colorizer.lua", event = "VeryLazy" },
 	{ "rafamadriz/friendly-snippets" },
 	{ "ray-x/lsp_signature.nvim", opts = {
