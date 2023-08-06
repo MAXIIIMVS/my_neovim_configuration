@@ -4,13 +4,95 @@ if not present then
 	return
 end
 
--- uncomment if you're using random headers
--- math.randomseed(os.time())
+-- uncomment only if you're using random headers or quotes
+math.randomseed(os.time())
 
 ---@diagnostic disable-next-line: unused-local, unused-function
-local function randomHeader(t)
+local function getRandomElement(t)
 	return t[math.random(1, #t)]
 end
+
+local quotes = {
+	"Keep Calm and Enjoy Coding",
+	"RTFM",
+	"Code Never Lies, Comments Sometimes Do",
+	"Coding Like Poetry Should Be Short and Concise",
+	"First, Solve the Problem. Then, Write the Code",
+	"Code Is Like Humor. When You Have to Explain It, It's Bad",
+	"Make It Work, Make It Right, Make It Fast",
+	"Clean Code Always Looks Like It Was Written by Someone Who Cares",
+	"Programming Is Learned by Writing Programs",
+	"Good Programmers Write Code That Humans Can Understand",
+	"In Order to Be Irreplaceable, One Must Always Be Different",
+	"Fix the Cause, Not the Symptom",
+	"Simplicity Is the Soul of Efficiency",
+	"Before Software Can Be Reusable It First Has to Be Usable",
+	"Eat, Sleep, Code, Repeat",
+	"In Code We Trust",
+	"Simplicity Is the Ultimate Sophistication",
+	"Fail Early, Fail Often, but Always Fail Forward",
+	"Do or Do Not, There Is No Try",
+	"The Best Error Message Is the One That Never Shows Up",
+	"Code Like a Craftsman, Ship Like an Engineer",
+	"Read the Documentation, Then Write the Code",
+	"Stay Hungry, Stay Foolish",
+	"Code Is Poetry",
+	"Always Leave the Codebase Better Than You Found It",
+	"Think Twice, Code Once",
+	"The Only Way to Go Fast Is to Go Well",
+	"If It Works, It's Not Done",
+	"Code with Passion, Change the World",
+	"Refactor Early, Refactor Often",
+	"Programming Isn't About What You Know; It's About What You Can Figure Out",
+	"Premature Optimization Is the Root of All Evil",
+	"Talk Is Cheap. Show Me the Code",
+	"The Best Way to Predict the Future Is to Invent It",
+	"The Function of Good Software Is to Make the Complex Appear to Be Simple",
+	"Ship It!",
+	"Keep Calm and Debug On",
+	"Think Globally, Code Locally",
+	"Code with Purpose, Not Just for the Sake of It",
+	"Stay Curious, Keep Learning",
+	"Code Is Power, Use It Wisely",
+	"Embrace the Challenge, Conquer the Code",
+	"Don't Just Write Code, Solve Problems",
+	"Code Is the Closest Thing We Have to Magic",
+	"Great Coders Are Born of Great Debugging Skills",
+	"The Best Code Is the One That Never Needs to Be Written",
+	"Coding Is a Journey, Not a Destination",
+	"Code Elegantly, Think Pragmatically",
+	"Coding Is an Art, and You Are the Artist",
+	"Learn from Your Bugs, They Make You a Better Developer",
+	"Code Like You're Explaining It to Your Future Self",
+	"Code as If Someone Else Will Maintain Your Work",
+	"Stay Patient, Code Will Reveal Its Secrets",
+	"Code Is the Language of Possibilities",
+	"The More You Code, the Luckier You Get",
+	"Coding Is the Ultimate Form of Self-Expression",
+	"Dream Big, Code Bigger",
+	"You Can't Learn Anything From the Things You Already Know",
+	"The Magic Key to Productivity and Growth Is Simplicity",
+	"Programming Is Not About Typing, It's About Thinking",
+	"Don't Spend Too Much Time Thinking About Something. Just Dive In and Start Solving It",
+	"The Code You Write Makes You a Programmer",
+	"The Code You Delete Makes You a Good Programmer",
+	"The Code You Don't Have to Write Makes You a Great Programmer",
+	"Focused, Hard Work Is the Real Key to Success",
+	"Keep Your Eyes On the Goal, and Just Keep Taking the Next Step Towards Completing It",
+	"If You Aren't Sure Which Way to Do Something, Do It Both Ways and See Which Works Better",
+	"The Most Important Thing Is to Write Code",
+	"You Have to Actually Write Code to Become a Proficient Programmer",
+	"If You Don't Understand something, Break It Down Into Smaller Parts, and Understand Each Part",
+	"Good Code Is Short, Simple, and Symmetrical - the Challenge Is Figuring Out How to Get There",
+	"Simplicity Is About Making Things Clearer, More Understandable, and Easier to Work With",
+	"Being a Good Programmer Is About How Well You Can Think and Solve Problems",
+	"Write Code That Is Easy to Read and Understand",
+	"Programming Is About Creating Elegant and Efficient Solutions",
+	"Don't Be Afraid to Throw Away Code and Start Over",
+	"The Best Way to Improve Your Programming Skills Is to Read and Understand Other People's Code",
+	"Learn From the Masters",
+	"Stop Asking; Just go do something",
+}
 
 -- source: https://emojicombos.com/
 local headers = {
@@ -140,6 +222,6 @@ db.setup({
 				key = "m",
 			},
 		},
-		footer = { "👑 Why be a king, when you can be a God? 👑" },
+		footer = { "👑 " .. getRandomElement(quotes) .. " 👑" },
 	},
 })
