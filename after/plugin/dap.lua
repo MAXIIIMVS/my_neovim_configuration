@@ -62,6 +62,16 @@ dap.configurations.cpp = {
 		stopOnEntry = false,
 		args = {},
 	},
+	{
+		-- NOTE: If you get an "Operation not permitted" error using this, try disabling YAMA:
+		--  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+		--  set it to 1 after you finished
+		name = "Attach to process",
+		type = "lldb",
+		request = "attach",
+		pid = require("dap.utils").pick_process,
+		args = {},
+	},
 }
 dap.configurations.c = dap.configurations.cpp
 

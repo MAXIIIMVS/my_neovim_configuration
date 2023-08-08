@@ -200,7 +200,56 @@ return require("lazy").setup({
 	{ "ray-x/lsp_signature.nvim", opts = {
 		hint_enable = false,
 	}, event = "VeryLazy" },
-	{ "rcarriga/nvim-dap-ui", config = true, event = "VeryLazy" },
+	{
+		"rcarriga/nvim-dap-ui",
+		opts = {
+			layouts = {
+				{
+					elements = {
+						{
+							id = "repl",
+							size = 0.5,
+						},
+						{
+							id = "console",
+							size = 0.5,
+						},
+					},
+					position = "bottom",
+					size = 7,
+				},
+				{
+					elements = {
+						{
+							id = "breakpoints",
+							size = 0.1,
+						},
+						{
+							id = "stacks",
+							size = 0.40,
+						},
+					},
+					position = "left",
+					size = 35,
+				},
+				{
+					elements = {
+						{
+							id = "watches",
+							size = 0.40,
+						},
+						{
+							id = "scopes",
+							size = 0.6,
+						},
+					},
+					position = "right",
+					size = 50,
+				},
+			},
+		},
+		event = "VeryLazy",
+	},
 	{ "rhysd/clever-f.vim", event = "VeryLazy" },
 	{ "saadparwaiz1/cmp_luasnip", dependencies = "hrsh7th/nvim-cmp" },
 	-- {"simrat39/rust-tools.nvim"},

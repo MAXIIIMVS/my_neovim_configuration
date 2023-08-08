@@ -11,10 +11,10 @@ local telescope_builtins = require("telescope.builtin")
 local telescope_themes = require("telescope.themes")
 local lspsaga_diagnostics = require("lspsaga.diagnostic")
 local comment_api = require("Comment.api")
+local dapui = require("dapui")
 local dap_ui_widgets = require("dap.ui.widgets")
 local dap_go = require("dap-go")
 local dap = require("dap")
--- local dapui = require("dapui")
 -- local opts = { noremap = true, silent = true, silent = true, nowait = true }
 
 local options = {
@@ -353,7 +353,9 @@ wk.register({
 			"go down in current stacktrace without stepping",
 		},
 		e = {
-			require("dapui").eval,
+			function()
+				dapui.eval(nil, { enter = true })
+			end,
 			"evaluate expression",
 		},
 		g = {
@@ -423,6 +425,12 @@ wk.register({
 		u = {
 			dap.up,
 			"go up in current stacktrace without stepping",
+		},
+		w = {
+			function()
+				dapui.elements.watches.add(nil)
+			end,
+			"watch the word under cursor",
 		},
 	},
 	t = {
