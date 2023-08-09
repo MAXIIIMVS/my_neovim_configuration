@@ -230,7 +230,7 @@ return require("lazy").setup({
 						},
 					},
 					position = "left",
-					size = 35,
+					size = 34,
 				},
 				{
 					elements = {
@@ -244,7 +244,7 @@ return require("lazy").setup({
 						},
 					},
 					position = "right",
-					size = 50,
+					size = 48,
 				},
 			},
 		},

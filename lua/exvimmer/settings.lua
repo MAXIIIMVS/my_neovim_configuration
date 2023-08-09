@@ -231,6 +231,7 @@ vim.o.wildmode = "full"
 vim.o.wildmenu = true
 vim.g.wildmenu = true
 vim.o.splitright = true
+vim.o.splitbelow = true
 vim.o.updatetime = 500
 vim.wo.foldenable = true
 vim.o.foldlevelstart = 99
