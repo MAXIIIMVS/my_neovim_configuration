@@ -167,7 +167,21 @@ return require("lazy").setup({
 		ft = "python",
 		event = "VeryLazy",
 	},
-	{ "mxsdev/nvim-dap-vscode-js", event = "VeryLazy" },
+	{
+		"microsoft/vscode-js-debug",
+		lazy = true,
+		-- build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+		build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
+	},
+	{
+		"mxsdev/nvim-dap-vscode-js",
+		event = "VeryLazy",
+
+		opts = {
+			debugger_path = os.getenv("HOME") .. "/.local/share/nvim/lazy/vscode-js-debug",
+			adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
+		},
+	},
 	{ "neovim/nvim-lspconfig" },
 	{ "nvim-lualine/lualine.nvim" },
 	{ "nvim-lua/plenary.nvim" },

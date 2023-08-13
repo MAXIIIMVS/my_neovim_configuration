@@ -75,73 +75,6 @@ dap.configurations.cpp = {
 }
 dap.configurations.c = dap.configurations.cpp
 
--- Load nvim-dap configuration for JavaScript and TypeScript
-dap.adapters["pwa-node"] = {
-	type = "server",
-	host = "localhost",
-	port = "${port}",
-	executable = {
-		command = "node",
-		-- 💀 Make sure to update this path to point to your installation
-		args = {
-			os.getenv("HOME") .. "/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
-			"${port}",
-		},
-	},
-}
-
-dap.configurations.javascript = {
-	{
-		type = "pwa-node",
-		request = "launch",
-		name = "Launch file",
-		program = "${file}",
-		cwd = "${workspaceFolder}",
-	},
-}
-dap.configurations.typescript = {
-	{
-		type = "pwa-node",
-		request = "launch",
-		name = "Launch file",
-		runtimeExecutable = "deno",
-		runtimeArgs = {
-			"run",
-			"--inspect-wait",
-			"--allow-all",
-		},
-		program = "${file}",
-		cwd = "${workspaceFolder}",
-		attachSimplePort = 9229,
-	},
-}
-
-dap.adapters.firefox = {
-	type = "executable",
-	command = "node",
-	args = {
-		os.getenv("HOME") .. "/.local/share/nvim/mason/packages/firefox-debug-adapter/dist/adapter.bundle.js",
-	},
-}
-
-dap.configurations.typescriptreact = {
-	{
-		name = "Debug with Firefox",
-		type = "firefox",
-		request = "launch",
-		reAttach = true,
-		-- url = "http://localhost:5173",
-		url = function()
-			local port = vim.fn.input("PORT: ")
-			return "http://localhost:" .. port
-		end,
-		webRoot = "${workspaceFolder}",
-		firefoxExecutable = "/opt/firefox/firefox-bin",
-	},
-}
-
-dap.configurations.javascriptreact = dap.configurations.typescriptreact
-
 -- Load nvim-dap configuration for Go
 dap.adapters.go = {
 	type = "executable",
@@ -154,3 +87,119 @@ dap.adapters.go = {
 require("dap-python").setup(os.getenv("HOME") .. "/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
 
 -- TODO: configure rust and lua
+
+local exts = {
+	"javascript",
+	"typescript",
+	"javascriptreact",
+	"typescriptreact",
+}
+
+for _, ext in ipairs(exts) do
+	dap.configurations[ext] = {
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Launch Current File (pwa-node)",
+			cwd = vim.fn.getcwd(),
+			args = { "${file}" },
+			sourceMaps = true,
+			protocol = "inspector",
+		},
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Launch Current File (pwa-node with ts-node)",
+			cwd = vim.fn.getcwd(),
+			runtimeArgs = { "--loader", "ts-node/esm" },
+			runtimeExecutable = "node",
+			args = { "${file}" },
+			sourceMaps = true,
+			protocol = "inspector",
+			skipFiles = { "<node_internals>/**", "node_modules/**" },
+			resolveSourceMapLocations = {
+				"${workspaceFolder}/**",
+				"!**/node_modules/**",
+			},
+		},
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Launch Current File (pwa-node with deno)",
+			cwd = vim.fn.getcwd(),
+			runtimeArgs = { "run", "--inspect-brk", "--allow-all", "${file}" },
+			runtimeExecutable = "deno",
+			attachSimplePort = 9229,
+		},
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Launch Test Current File (pwa-node with jest)",
+			cwd = vim.fn.getcwd(),
+			runtimeArgs = { "${workspaceFolder}/node_modules/.bin/jest" },
+			runtimeExecutable = "node",
+			args = { "${file}", "--coverage", "false" },
+			rootPath = "${workspaceFolder}",
+			sourceMaps = true,
+			console = "integratedTerminal",
+			internalConsoleOptions = "neverOpen",
+			skipFiles = { "<node_internals>/**", "node_modules/**" },
+		},
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Launch Test Current File (pwa-node with vitest)",
+			cwd = vim.fn.getcwd(),
+			program = "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+			args = { "--inspect-brk", "--threads", "false", "run", "${file}" },
+			autoAttachChildProcesses = true,
+			smartStep = true,
+			console = "integratedTerminal",
+			skipFiles = { "<node_internals>/**", "node_modules/**" },
+		},
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Launch Test Current File (pwa-node with deno)",
+			cwd = vim.fn.getcwd(),
+			runtimeArgs = { "test", "--inspect-brk", "--allow-all", "${file}" },
+			runtimeExecutable = "deno",
+			attachSimplePort = 9229,
+		},
+		{
+			type = "pwa-chrome",
+			request = "attach",
+			name = "Attach Program (pwa-chrome)",
+			program = "${file}",
+			cwd = vim.fn.getcwd(),
+			sourceMaps = true,
+			port = function()
+				return tonumber(vim.fn.input("PORT: "))
+			end,
+			webRoot = "${workspaceFolder}",
+		},
+		{
+			type = "node2",
+			request = "attach",
+			name = "Attach Program (Node2)",
+			processId = require("dap.utils").pick_process,
+		},
+		{
+			type = "node2",
+			request = "attach",
+			name = "Attach Program (Node2 with ts-node)",
+			cwd = vim.fn.getcwd(),
+			sourceMaps = true,
+			skipFiles = { "<node_internals>/**" },
+			port = 9229,
+		},
+		{
+			type = "pwa-node",
+			request = "attach",
+			name = "Attach Program (pwa-node)",
+			cwd = vim.fn.getcwd(),
+			processId = require("dap.utils").pick_process,
+			skipFiles = { "<node_internals>/**" },
+		},
+	}
+end
