@@ -472,10 +472,8 @@ wk.register({
 		d = { ":silent lua ToggleDiagnostics()<CR>", "diagnostics" },
 		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
 		h = {
-			function()
-				vim.o.cmdheight = vim.o.cmdheight == 0 and 1 or 0
-			end,
-			"cmdheight 0 or 1",
+			"<cmd>TSToggle highlight<CR>",
+			"treesitter highlight",
 		},
 		l = { "<cmd>Telescope ToggleLSP<CR>", "LSP" },
 		o = { "<cmd>Lspsaga outline<CR>", "outline" },
@@ -518,12 +516,6 @@ wk.register({
 			end,
 			"statusline/lualine",
 		},
-		-- T = {
-		-- 	name = "treesitter",
-		-- 	h = { "<cmd>TSToggle highlight<CR>", "highlight" },
-		-- 	i = { "<cmd>TSToggle indent<CR>", "indent" },
-		-- },
-		--
 		t = {
 			name = "terminal",
 			h = {
@@ -610,8 +602,8 @@ wk.register({
 		g = { ":Ggrep! -q ", "Grep" },
 		h = { "<cmd>Gitsigns stage_hunk<CR>", "Stage hunk" },
 		H = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo stage hunk" },
-		l = { "<cmd>silent G log --stat<CR>", "Log with stats" },
-		L = { "<cmd>silent G log --decorate<CR>", "Log" },
+		L = { "<cmd>silent G log --stat<CR>", "Log with stats" },
+		l = { "<cmd>silent G log --decorate<CR>", "Log" },
 		o = { "<cmd>silent GBrowse<CR>", "Open in the browser" },
 		P = { "<cmd>silent G push<CR>", "Push" },
 		p = { "<cmd>silent G pull<CR>", "Pull" },
