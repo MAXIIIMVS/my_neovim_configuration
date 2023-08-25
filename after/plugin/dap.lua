@@ -52,6 +52,7 @@ dap.configurations.cpp = {
 		name = "Launch",
 		type = "lldb",
 		request = "launch",
+		console = "integratedTerminal",
 		program = function()
 			local p = vim.fn.expand("%:p:h")
 			---@diagnostic disable-next-line: redundant-parameter
@@ -69,6 +70,7 @@ dap.configurations.cpp = {
 		name = "Attach to process",
 		type = "lldb",
 		request = "attach",
+		console = "integratedTerminal",
 		pid = require("dap.utils").pick_process,
 		args = {},
 	},
