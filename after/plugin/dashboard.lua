@@ -27,6 +27,7 @@ local quotes = {
 	"Keep Calm and Enjoy Coding",
 	"RTFM",
 	"Code Never Lies, Comments Sometimes Do",
+	"If you don't walk today, you'll have to run run tomorrow",
 	"Coding Like Poetry Should Be Short and Concise",
 	"First, Solve the Problem. Then, Write the Code",
 	"Code Is Like Humor. When You Have to Explain It, It's Bad",
