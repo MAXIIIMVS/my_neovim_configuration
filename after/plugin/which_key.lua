@@ -48,14 +48,10 @@ wk.register({
 	["<M-p>"] = { "<CMD>NavigatorPrevious<CR>", "Go to the down window" },
 	["]<space>"] = { "o<ESC>k", "Insert a blank line below" },
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
-	["[b"] = { vim.cmd.bprev, "Go to previous buffer" },
-	["]b"] = { vim.cmd.bnext, "Go to next buffer" },
 	["<TAB>"] = { vim.cmd.bprev, "Go to previous buffer" },
 	["<S-TAB>"] = { vim.cmd.bnext, "Go to next buffer" },
-	["]B"] = { "<cmd>BufferLineMoveNext<CR>", "Move the buffer to the next position" },
-	["[B"] = { "<cmd>BufferLineMovePrev<CR>", "Move the buffer to the previous position" },
-	["]c"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
-	["[c"] = { ":Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
+	["]h"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
+	["[h"] = { ":Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
 	["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to the previous diagnostic" },
 	["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to the next diagnostic" },
 	["[E"] = {
@@ -70,10 +66,6 @@ wk.register({
 		end,
 		"Jump to the next error",
 	},
-	["[l"] = { "<cmd>silent lprev<CR>", "See the previous item in local list" },
-	["]l"] = { "<cmd>silent lnext<CR>", "See the next item in local list" },
-	["[L"] = { "<cmd>silent lfirst<CR>", "See the first item in local list" },
-	["]L"] = { "<cmd>silent llast<CR>", "See the last item in local list" },
 	["[p"] = { "<cmd>pu!<CR>", "Paste above current line" },
 	["]p"] = { "<cmd>pu<CR>", "Paste below current line" },
 	["[q"] = { "<cmd>silent cprev<CR>", "Show the previous item in QuickFix" },
@@ -479,10 +471,6 @@ wk.register({
 		},
 		l = { "<cmd>Telescope ToggleLSP<CR>", "LSP" },
 		o = { "<cmd>Lspsaga outline<CR>", "outline" },
-		p = {
-			"<cmd>BufferLineTogglePin<CR>",
-			"pin buffer",
-		},
 		q = {
 			function()
 				local qf_exists = false
@@ -571,6 +559,9 @@ wk.register({
 		d = { "<cmd>silent bd<CR>", "close this buffer" },
 		O = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers" },
 		o = { "<cmd>BufferLineCloseOthers<CR>|'\"", "close other buffers" },
+		h = { "<cmd>BufferLineMovePrev<CR>", "Move the buffer to the previous position" },
+		l = { "<cmd>BufferLineMoveNext<CR>", "Move the buffer to the next position" },
+		p = { "<cmd>BufferLineTogglePin<CR>", "pin buffer" },
 	},
 	c = {
 		name = "Calendar",

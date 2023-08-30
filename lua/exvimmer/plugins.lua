@@ -31,6 +31,17 @@ return require("lazy").setup({
 		priority = 1000,
 	},
 	{
+		"echasnovski/mini.bracketed",
+		version = false,
+		opts = {
+			conflict = { suffix = "g", options = {} },
+			diagnostic = { suffix = "", options = {} },
+			quickfix = { suffix = "", options = {} },
+			undo = { suffix = "", options = {} },
+		},
+		event = "VeryLazy",
+	},
+	{
 		"echasnovski/mini.jump2d",
 		opts = {
 			mappings = {
