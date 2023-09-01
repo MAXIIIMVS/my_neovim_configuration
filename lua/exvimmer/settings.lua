@@ -45,6 +45,9 @@ end
 
 -- Auto commands and functions {{{
 vim.cmd([[
+" dadbod completion with cmp
+" autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
+
 " Turn off paste mode when leaving insert
 autocmd InsertLeave * set nopaste
 

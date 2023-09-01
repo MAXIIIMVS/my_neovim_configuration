@@ -99,6 +99,7 @@ local options = {
 		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },
+		{ name = "vim-dadbod-completion" },
 		-- { name = "nvim_lsp_signature_help" },
 		-- { name = "nvim_lua" },
 	},

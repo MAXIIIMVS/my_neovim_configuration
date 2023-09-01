@@ -104,6 +104,8 @@ return require("lazy").setup({
 	{ "itchyny/calendar.vim", event = "VeryLazy" },
 	{ "jose-elias-alvarez/null-ls.nvim", event = "VeryLazy" },
 	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },
+	{ "kristijanhusak/vim-dadbod-ui", event = "VeryLazy" },
+	{ "kristijanhusak/vim-dadbod-completion", event = "VeryLazy" },
 	{
 		"kylechui/nvim-surround",
 		config = true,
@@ -283,7 +285,8 @@ return require("lazy").setup({
 		-- config = true,
 		event = "VeryLazy",
 	},
-	{ "/tpope/vim-abolish", event = "VeryLazy" },
+	{ "tpope/vim-abolish", event = "VeryLazy" },
+	{ "tpope/vim-dadbod", event = "VeryLazy" },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },
 	{ "tpope/vim-rsi", event = "VeryLazy" },
