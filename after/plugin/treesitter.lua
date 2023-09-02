@@ -10,6 +10,7 @@ require("nvim-treesitter.configs").setup({
 		"bash",
 		"dockerfile",
 		"astro",
+		"csv",
 		"svelte",
 		"comment",
 		"help",

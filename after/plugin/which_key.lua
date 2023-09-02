@@ -243,15 +243,19 @@ wk.register({
 		["8"] = { "8<c-w>w", "Go to 8th window" },
 		["9"] = { "9<c-w>w", "Go to 9th window" },
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
+		d = { "<cmd>silent Dashboard<CR>", "Dashboard" },
 		f = {
 			function()
 				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 			end,
 			"List workspace folders",
 		},
+		h = { "<cmd>WhichKey<CR>", "Which Key" },
 		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
 		q = { "<cmd>tabclose<CR>", "close tab" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
+		s = { "<cmd>silent so %<CR>", "Source the file" },
+		t = { "<cmd>tabnew<CR>", "create an empty tab" },
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
 	-- TODO: add the next keybinding if the bug is fixed
@@ -464,7 +468,7 @@ wk.register({
 			"color column",
 		},
 		-- d = { "<cmd>silent Dashboard<CR>", "dashboard" },
-		D = { "<cmd>tabnew|silent DBUIToggle<CR>", "DB UI" },
+		D = { "<cmd>silent DBUIToggle<CR>", "DB UI" },
 		d = { ":silent lua ToggleDiagnostics()<CR>", "diagnostics" },
 		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
 		h = {
@@ -635,10 +639,6 @@ wk.register({
 		name = "VimWiki",
 		l = { "<cmd>VimwikiTOC<CR>", "Create or update the Table of Contents for the current wiki file" },
 	},
-	h = { "<cmd>WhichKey<CR>", "Which Key" },
-	s = { "<cmd>silent so %<CR>", "Source the file" },
-	d = { "<cmd>silent Dashboard<CR>", "Dashboard" },
-	t = { "<cmd>tabnew<CR>", "create an empty tab" },
 	x = {
 		"<cmd>silent !chmod u+x %<CR>",
 		"make the file executable for the (u)ser , don't change (g)roup and (o)ther permissions",
