@@ -41,11 +41,11 @@ wk.register({
 	-- ["<M-h>"] = { "<C-w>h", "Go to the left window" },
 	-- ["<M-k>"] = { "<C-w>k", "Go to the up window" },
 	-- ["<M-j>"] = { "<C-w>j", "Go to the down window" },
-	["<M-l>"] = { "<CMD>NavigatorRight<CR>", "Go to the right window" },
-	["<M-h>"] = { "<CMD>NavigatorLeft<CR>", "Go to the left window" },
-	["<M-k>"] = { "<CMD>NavigatorUp<CR>", "Go to the up window" },
-	["<M-j>"] = { "<CMD>NavigatorDown<CR>", "Go to the down window" },
-	["<M-p>"] = { "<CMD>NavigatorPrevious<CR>", "Go to the down window" },
+	["<A-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
+	["<A-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
+	["<A-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
+	["<A-j>"] = { "<CMD>silent NavigatorDown<CR>", "Go to the down window" },
+	["<A-p>"] = { "<CMD>silent NavigatorPrevious<CR>", "Go to the down window" },
 	["]<space>"] = { "o<ESC>k", "Insert a blank line below" },
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
 	["<TAB>"] = { vim.cmd.bprev, "Go to previous buffer" },
@@ -250,6 +250,7 @@ wk.register({
 			"List workspace folders",
 		},
 		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
+		q = { "<cmd>tabclose<CR>", "close tab" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
@@ -463,6 +464,7 @@ wk.register({
 			"color column",
 		},
 		-- d = { "<cmd>silent Dashboard<CR>", "dashboard" },
+		D = { "<cmd>tabnew|silent DBUIToggle<CR>", "DB UI" },
 		d = { ":silent lua ToggleDiagnostics()<CR>", "diagnostics" },
 		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
 		h = {
@@ -678,16 +680,6 @@ wk.register({
 	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 }, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })
-
-wk.register({
-	-- s = {
-	-- 	name = "search and replace",
-	-- 	w = {
-	-- 		'<esc><cmd>silent lua require("spectre").open_visual()<CR>',
-	-- 		"Search current word",
-	-- 	},
-	-- },
-}, { prefix = "<space>", mode = "v", noremap = true, silent = true, nowait = true })
 -- }}}
 
 -- Select mode {{{
@@ -700,4 +692,14 @@ wk.register({
 	["<c-e>"] = { "<ESC>A", "Go to the end of line" },
 	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 }, { prefix = "", mode = "s", noremap = true, silent = true, nowait = true })
+-- }}}
+
+-- terminal mode {{{
+wk.register({
+	["<A-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
+	["<A-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
+	["<A-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
+	["<A-j>"] = { "<CMD>silent NavigatorDown<CR>", "Go to the down window" },
+	["<A-p>"] = { "<CMD>silent NavigatorPrevious<CR>", "Go to the down window" },
+}, { prefix = "", mode = "t", noremap = true, silent = true, nowait = true })
 -- }}}

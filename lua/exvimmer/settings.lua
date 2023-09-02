@@ -14,15 +14,6 @@ for type, icon in pairs(signs) do
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
-function _G.set_terminal_keymaps()
-	local opts = { noremap = true }
-	vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
-	vim.api.nvim_buf_set_keymap(0, "t", "<A-h>", [[<C-\><C-n><C-W>h]], opts)
-	vim.api.nvim_buf_set_keymap(0, "t", "<A-j>", [[<C-\><C-n><C-W>j]], opts)
-	vim.api.nvim_buf_set_keymap(0, "t", "<A-k>", [[<C-\><C-n><C-W>k]], opts)
-	vim.api.nvim_buf_set_keymap(0, "t", "<A-l>", [[<C-\><C-n><C-W>l]], opts)
-end
-
 local DiagnosticsConfig = vim.diagnostic.config()
 local DiagnosticsEnabled = true
 function ToggleDiagnostics()
@@ -50,9 +41,6 @@ vim.cmd([[
 
 " Turn off paste mode when leaving insert
 autocmd InsertLeave * set nopaste
-
-" ToggleTerm
-autocmd! TermOpen term://* lua set_terminal_keymaps()
 
 " read calendar credentials
 source ~/.config/nvim/credentials.vim
