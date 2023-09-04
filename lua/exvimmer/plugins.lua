@@ -286,6 +286,7 @@ return require("lazy").setup({
 		event = "VeryLazy",
 	},
 	{ "tpope/vim-abolish", event = "VeryLazy" },
+	{ "tpope/vim-capslock", event = "VeryLazy" },
 	{ "tpope/vim-dadbod", event = "VeryLazy" },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },
