@@ -12,7 +12,9 @@ local function getRandomElement(t)
 	return t[math.random(1, #t)]
 end
 
+---@diagnostic disable-next-line: unused-local
 local quotes = {
+	"The time I kill is killing me",
 	"Beautiful is better than ugly",
 	"Explicit is better than implicit",
 	"Simple is better than complex",
@@ -229,6 +231,6 @@ db.setup({
 				key = "m",
 			},
 		},
-		footer = { "👑 " .. getRandomElement(quotes) .. " 👑" },
+		footer = { "👑 " .. "The Time I Kill Is Killing Me" .. " 👑" },
 	},
 })

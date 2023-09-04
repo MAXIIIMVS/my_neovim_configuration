@@ -146,8 +146,6 @@ wk.register({
 			end,
 			"Show man pages",
 		},
-		I = { "<cmd>silent Telescope glyph<CR>", "Glyph icon" },
-		i = { "<cmd>silent Telescope emoji<CR>", "Emoji icon" },
 		m = { "<cmd>make<CR>", "make" },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open %:p:h<CR>", "Open the current directory" },
@@ -277,6 +275,11 @@ wk.register({
 
 wk.register({
 	name = "Groups",
+	e = {
+		name = "Emojis & Icons",
+		e = { "<cmd>silent Telescope emoji<CR>", "Emojis" },
+		i = { "<cmd>silent Telescope glyph<CR>", "Glyphs" },
+	},
 	m = {
 		name = "make",
 		a = {

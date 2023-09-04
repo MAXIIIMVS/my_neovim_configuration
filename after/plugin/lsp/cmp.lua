@@ -8,6 +8,7 @@ local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
 local luasnip = require("luasnip")
+luasnip.filetype_extend("vimwiki", { "markdown" })
 
 local has_words_before = function()
 	unpack = unpack or table.unpack
@@ -133,5 +134,4 @@ cmp.setup.cmdline(":", {
 })
 
 cmp.setup(options)
-
 require("luasnip.loaders.from_vscode").lazy_load()

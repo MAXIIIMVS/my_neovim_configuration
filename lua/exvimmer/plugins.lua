@@ -211,8 +211,6 @@ return require("lazy").setup({
 	{ "nvim-tree/nvim-web-devicons", config = true, lazy = true },
 	{ "nvim-tree/nvim-tree.lua", lazy = true, dependencies = "nvim-tree/nvim-web-devicons" },
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-	{ "windwp/nvim-ts-autotag", event = "VeryLazy" },
-	{ "windwp/nvim-autopairs", opts = { check_ts = true } },
 	{
 		"numToStr/Comment.nvim",
 		event = "VeryLazy",
@@ -299,6 +297,8 @@ return require("lazy").setup({
 		build = ":MasonUpdate",
 	},
 	{ "williamboman/mason-lspconfig.nvim" },
+	{ "windwp/nvim-ts-autotag", event = "VeryLazy" },
+	{ "windwp/nvim-autopairs", opts = { check_ts = true } },
 	{ "xiyaowong/telescope-emoji.nvim", dependencies = "nvim-telescope/telescope.nvim", event = "VeryLazy" },
 }, {
 	ui = {
