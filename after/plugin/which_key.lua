@@ -458,7 +458,8 @@ wk.register({
 						percentage = 0.65,
 					}
 					catppuccin.compile()
-					-- vim.o.cursorlineopt = catppuccin.options.transparent_background and "number" or "number,line"
+					-- vim.o.cursorline = not transparent
+					-- vim.o.cursorlineopt = transparent and "number" or "number,line"
 					vim.cmd.colorscheme(vim.g.colors_name)
 				end,
 				"transparency",

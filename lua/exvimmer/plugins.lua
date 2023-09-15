@@ -1,3 +1,4 @@
+-- ムスタファ ハヤティ
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -104,7 +105,23 @@ return require("lazy").setup({
 	{ "itchyny/calendar.vim", event = "VeryLazy" },
 	{ "jose-elias-alvarez/null-ls.nvim", event = "VeryLazy" },
 	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },
-	{ "kristijanhusak/vim-dadbod-ui", event = "VeryLazy" },
+	{
+		"kristijanhusak/vim-dadbod-ui",
+		dependencies = {
+			{ "tpope/vim-dadbod", lazy = true },
+			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
+		},
+		cmd = {
+			"DBUI",
+			"DBUIToggle",
+			"DBUIAddConnection",
+			"DBUIFindBuffer",
+		},
+		init = function()
+			-- Your DBUI configuration
+			vim.g.db_ui_use_nerd_fonts = 1
+		end,
+	},
 	{ "kristijanhusak/vim-dadbod-completion", event = "VeryLazy" },
 	{
 		"kylechui/nvim-surround",
