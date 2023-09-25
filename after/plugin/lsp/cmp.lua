@@ -4,6 +4,7 @@ if not present then
 	return
 end
 
+local context = require("cmp.config.context")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
@@ -97,7 +98,12 @@ local options = {
 	}),
 	sources = {
 		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
+		{
+			name = "luasnip",
+			entry_filter = function()
+				return not context.in_treesitter_capture("string") and not context.in_syntax_group("String")
+			end,
+		},
 		{ name = "buffer" },
 		{ name = "path" },
 		{ name = "vim-dadbod-completion" },
