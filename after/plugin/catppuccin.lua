@@ -90,10 +90,6 @@ catppuccin.setup({
 		},
 		mini = true,
 		vimwiki = true,
-		indent_blankline = {
-			enabled = true,
-			colored_indent_levels = false,
-		},
 		-- (https://github.com/catppuccin/nvim#integrations)
 	},
 })

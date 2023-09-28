@@ -35,12 +35,31 @@ return require("lazy").setup({
 		"echasnovski/mini.bracketed",
 		version = false,
 		opts = {
+			comment = { suffix = "n", options = {} }, -- n for note
 			conflict = { suffix = "g", options = {} },
 			diagnostic = { suffix = "", options = {} },
 			quickfix = { suffix = "", options = {} },
 			undo = { suffix = "", options = {} },
 		},
 		event = "VeryLazy",
+	},
+	{
+		"echasnovski/mini.indentscope",
+		event = "UIEnter",
+		version = false,
+		opts = {
+			options = {
+				indent_at_cursor = false,
+			},
+			draw = {
+				delay = 0,
+				animation = function()
+					return 0
+				end,
+			},
+			symbol = "│",
+			-- symbol = "┊",
+		},
 	},
 	{
 		"echasnovski/mini.jump2d",
@@ -155,37 +174,6 @@ return require("lazy").setup({
 			current_line_blame_formatter = "<author> <author_mail>: <summary>",
 		},
 		event = "BufEnter",
-	},
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		opts = {
-			buftype_exclude = { "terminal", "nofile" },
-			filetype_exclude = { "help", "dashboard", "NvimTree", "packer", "mason", "fugitive" },
-			show_current_context = true,
-			max_indent_increase = 1,
-			context_patterns = {
-				"class",
-				"return",
-				"function",
-				"method",
-				"^if",
-				"^while",
-				"jsx_element",
-				"^for",
-				"^object",
-				"^table",
-				"block",
-				"arguments",
-				"if_statement",
-				"else_clause",
-				"jsx_element",
-				"jsx_self_closing_element",
-				"try_statement",
-				"catch_clause",
-				"import_statement",
-				"operation_type",
-			},
-		},
 	},
 	{ "mbbill/undotree", event = "VeryLazy" },
 	{

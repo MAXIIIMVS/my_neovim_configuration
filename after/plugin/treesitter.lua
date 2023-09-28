@@ -1,4 +1,9 @@
 require("nvim-treesitter.configs").setup({
+	ignore_install = {},
+	modules = {},
+	auto_install = true,
+	incremental_selection = { enable = true },
+	textobjects = { enable = true },
 	ensure_installed = {
 		"lua",
 		"c",
@@ -57,7 +62,7 @@ require("nvim-treesitter.configs").setup({
 	},
 	sync_install = false,
 	indent = {
-		enable = false,
+		enable = true,
 	},
 	highlight = {
 		enable = true,

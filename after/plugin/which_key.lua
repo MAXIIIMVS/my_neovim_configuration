@@ -50,8 +50,8 @@ wk.register({
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
 	["<TAB>"] = { vim.cmd.bprev, "Go to previous buffer" },
 	["<S-TAB>"] = { vim.cmd.bnext, "Go to next buffer" },
-	["]h"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
-	["[h"] = { ":Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
+	["]c"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
+	["[c"] = { ":Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
 	["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to the previous diagnostic" },
 	["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to the next diagnostic" },
 	["[E"] = {

@@ -24,7 +24,7 @@ saga.setup({
 		win_width = 40,
 	},
 	symbol_in_winbar = {
-		enable = false, -- don't toggle
+		enable = true, -- don't toggle
 		hide_keyword = true,
 		folder_level = 3,
 		color_mode = true,
