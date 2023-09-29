@@ -57,8 +57,7 @@ return require("lazy").setup({
 					return 0
 				end,
 			},
-			symbol = "│",
-			-- symbol = "┊",
+			symbol = "┃",
 		},
 	},
 	{

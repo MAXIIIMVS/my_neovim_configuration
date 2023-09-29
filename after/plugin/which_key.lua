@@ -227,7 +227,6 @@ wk.register({
 		X = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
 		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
 		Z = { "<c-w>|<c-w>_", "Maximize the window" },
-		["<space>"] = { "<cmd>Telescope<CR>", "Telescope builtins" },
 	},
 	[","] = {
 		name = "Miscellaneous",

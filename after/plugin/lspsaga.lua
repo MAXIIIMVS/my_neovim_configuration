@@ -25,9 +25,10 @@ saga.setup({
 	},
 	symbol_in_winbar = {
 		enable = true, -- don't toggle
-		hide_keyword = true,
+		hide_keyword = false,
 		folder_level = 3,
 		color_mode = true,
+		delay = 0,
 	},
 	beacon = {
 		enable = false,
