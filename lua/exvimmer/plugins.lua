@@ -17,12 +17,12 @@ return require("lazy").setup({
 		"adoyle-h/lsp-toggle.nvim",
 		event = "VeryLazy",
 		opts = {
-			create_cmds = true, -- Whether to create user commands
-			telescope = true, -- Whether to load telescope extensions
+			create_cmds = true,
+			telescope = true,
 		},
 	},
 	{ "airblade/vim-rooter" },
-	{ "akinsho/bufferline.nvim", event = "VeryLazy", dependencies = "nvim-tree/nvim-web-devicons" },
+	{ "akinsho/bufferline.nvim", event = "VeryLazy", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{ "akinsho/toggleterm.nvim", version = "*", config = true, event = "VeryLazy" },
 	-- {"akinsho/git-conflict.nvim"},
 	{
@@ -35,11 +35,7 @@ return require("lazy").setup({
 		"echasnovski/mini.bracketed",
 		version = false,
 		opts = {
-			comment = { suffix = "n", options = {} }, -- n for note
-			conflict = { suffix = "g", options = {} },
-			diagnostic = { suffix = "", options = {} },
-			quickfix = { suffix = "", options = {} },
-			undo = { suffix = "", options = {} },
+			conflict = { suffix = "", options = {} },
 		},
 		event = "VeryLazy",
 	},
@@ -93,10 +89,31 @@ return require("lazy").setup({
 		event = "VeryLazy",
 	},
 	{ "famiu/bufdelete.nvim", event = "VeryLazy" },
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {
+			signs = false,
+			highlight = {
+				multiline = false,
+				multiline_context = 0,
+				keyword = "fg",
+				before = "",
+				after = "",
+			},
+			keywords = {
+				FIX = { color = "#FF3E00", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+				TODO = { color = "#FF1C7B", alt = { "LATER" } },
+				NOTE = { color = "#0AF106", alt = { "INFO" } },
+				HACK = { color = "#F0FD00" },
+				WARN = { color = "#FBBF24", alt = { "WARNING", "XXX" } },
+			},
+		},
+	},
 	{ "folke/which-key.nvim", lazy = true },
 	{ "folke/zen-mode.nvim", opts = { window = { width = 100 } }, even = "VeryLazy" },
 	{ "folke/neodev.nvim", opts = {}, lazy = true },
-	{ "ghassan0/telescope-glyph.nvim", dependencies = "nvim-telescope/telescope.nvim", event = "VeryLazy" },
+	{ "ghassan0/telescope-glyph.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, event = "VeryLazy" },
 	{ "glepnir/dashboard-nvim", event = "VimEnter", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{
 		"glepnir/lspsaga.nvim",
@@ -149,7 +166,7 @@ return require("lazy").setup({
 	{
 		"L3MON4D3/LuaSnip",
 		event = "InsertEnter",
-		dependencies = { "rafamadriz/friendly-snippets", "saadparwaiz1/cmp_luasnip" },
+		version = "v2.*",
 		-- build = "make install_jsregexp",
 	},
 	{
@@ -224,7 +241,21 @@ return require("lazy").setup({
 		} },
 	},
 	{ "numToStr/Navigator.nvim", opts = {}, event = "VeryLazy" },
-	{ "NvChad/nvim-colorizer.lua", event = "VeryLazy" },
+	{
+		"NvChad/nvim-colorizer.lua",
+		opts = {
+			filetypes = { "css", "scss", "html", "typescriptreact", "javascriptreact" },
+			user_default_options = {
+				AARRGGBB = true,
+				css = true,
+				css_fn = true,
+				mode = "background",
+				tailwind = true,
+				sass = { enable = true, parsers = { "css" } },
+			},
+		},
+		event = "VeryLazy",
+	},
 	{ "rafamadriz/friendly-snippets" },
 	{ "ray-x/lsp_signature.nvim", opts = {
 		hint_enable = false,
@@ -280,7 +311,7 @@ return require("lazy").setup({
 		event = "VeryLazy",
 	},
 	{ "rhysd/clever-f.vim", event = "VeryLazy" },
-	{ "saadparwaiz1/cmp_luasnip", dependencies = "hrsh7th/nvim-cmp" },
+	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
 	-- {"simrat39/rust-tools.nvim"},
 	{
 		"theHamsta/nvim-dap-virtual-text",
@@ -303,7 +334,7 @@ return require("lazy").setup({
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "windwp/nvim-ts-autotag", event = "VeryLazy" },
 	{ "windwp/nvim-autopairs", opts = { check_ts = true } },
-	{ "xiyaowong/telescope-emoji.nvim", dependencies = "nvim-telescope/telescope.nvim", event = "VeryLazy" },
+	{ "xiyaowong/telescope-emoji.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, event = "VeryLazy" },
 }, {
 	ui = {
 		border = "rounded",

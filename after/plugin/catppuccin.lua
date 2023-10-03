@@ -48,12 +48,12 @@ catppuccin.setup({
 		-- macchiato = telescopeBorderless("macchiato"),
 		-- mocha = telescopeBorderless("mocha"),
 		mocha = function()
-			return {
-				-- ["@text.todo"] = { fg = "#FF007A", bg = "#171421" },
-				["@text.todo"] = { fg = "#FF1C7B", bg = "#171421" },
-				["@text.note"] = { fg = "#0AF106", bg = "#171421" },
-				["@text.warning"] = { fg = "#F0FD00", bg = "#171421" },
-			}
+			-- return {
+			-- 	-- ["@text.todo"] = { fg = "#FF007A", bg = "#171421" },
+			-- 	["@text.todo"] = { fg = "#FF1C7B", bg = "#171421" },
+			-- 	["@text.note"] = { fg = "#0AF106", bg = "#171421" },
+			-- 	["@text.warning"] = { fg = "#F0FD00", bg = "#171421" },
+			-- }
 		end,
 	},
 	integrations = {

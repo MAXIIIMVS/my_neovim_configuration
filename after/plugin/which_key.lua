@@ -15,6 +15,7 @@ local dapui = require("dapui")
 local dap_ui_widgets = require("dap.ui.widgets")
 local dap_go = require("dap-go")
 local dap = require("dap")
+local todo_comments = require("todo-comments")
 -- local opts = { noremap = true, silent = true, silent = true, nowait = true }
 
 local options = {
@@ -50,8 +51,8 @@ wk.register({
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
 	["<TAB>"] = { vim.cmd.bprev, "Go to previous buffer" },
 	["<S-TAB>"] = { vim.cmd.bnext, "Go to next buffer" },
-	["]c"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
-	["[c"] = { ":Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
+	["]g"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
+	["[g"] = { ":Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
 	["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to the previous diagnostic" },
 	["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to the next diagnostic" },
 	["[E"] = {
@@ -66,12 +67,16 @@ wk.register({
 		end,
 		"Jump to the next error",
 	},
+	["[n"] = {
+		todo_comments.jump_prev,
+		"Previous todo comment",
+	},
+	["]n"] = {
+		todo_comments.jump_next,
+		"Next todo comment",
+	},
 	["[p"] = { "<cmd>pu!<CR>", "Paste above current line" },
 	["]p"] = { "<cmd>pu<CR>", "Paste below current line" },
-	["[q"] = { "<cmd>silent cprev<CR>", "Show the previous item in QuickFix" },
-	["]q"] = { "<cmd>silent cnext<CR>", "Show the next item in QuickFix" },
-	["[Q"] = { "<cmd>silent cfirst<CR>", "See the first item in QuickFix" },
-	["]Q"] = { "<cmd>silent clast<CR>", "See the last item in QuickFix" },
 	["]x"] = { "<cmd>BufferLineCloseRight<CR>", "Close all the buffers to the right" },
 	["[x"] = { "<cmd>BufferLineCloseLeft<CR>", "Close all the buffers to the left" },
 	["<C-Left>"] = { ":vertical resize +2<CR>", "Increase window width" },
@@ -147,6 +152,7 @@ wk.register({
 			"Show man pages",
 		},
 		m = { "<cmd>make<CR>", "make" },
+		n = { "<cmd>TodoTelescope<CR>", "see notes/todos..." },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open %:p:h<CR>", "Open the current directory" },
 		q = { vim.cmd.q, "close current window" },
@@ -464,6 +470,10 @@ wk.register({
 				"transparency",
 			},
 		},
+		C = {
+			"<cmd>ColorizerToggle<CR>",
+			"colorizer",
+		},
 		c = {
 			function()
 				vim.wo.colorcolumn = vim.wo.colorcolumn == "" and "79" or ""
@@ -478,6 +488,7 @@ wk.register({
 			"<cmd>TSToggle highlight<CR>",
 			"treesitter highlight",
 		},
+		L = { "<cmd>Lazy<CR>", "Lazy" },
 		l = { "<cmd>Telescope ToggleLSP<CR>", "LSP" },
 		o = { "<cmd>Lspsaga outline<CR>", "outline" },
 		q = {

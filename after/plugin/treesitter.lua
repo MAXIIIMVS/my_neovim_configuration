@@ -17,7 +17,7 @@ require("nvim-treesitter.configs").setup({
 		"astro",
 		"csv",
 		"svelte",
-		"comment",
+		-- "comment",
 		"help",
 		"vue",
 		"c_sharp",
