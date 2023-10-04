@@ -40,7 +40,7 @@ vim.cmd([[
 " autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
 
 " disable mini-indentscope for certain file types
-au FileType NvimTree,dashboard,help,lazy,lazyterm,mason,netrw,toggleterm,checkhealth lua vim.b.miniindentscope_disable = true
+au FileType NvimTree,dashboard,help,lazy,lazyterm,mason,netrw,toggleterm,checkhealth,undotree lua vim.b.miniindentscope_disable = true
 
 " Turn off paste mode when leaving insert
 autocmd InsertLeave * set nopaste

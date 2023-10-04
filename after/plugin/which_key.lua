@@ -151,12 +151,12 @@ wk.register({
 			end,
 			"Show man pages",
 		},
-		m = { "<cmd>make<CR>", "make" },
-		n = { "<cmd>TodoTelescope<CR>", "see notes/todos..." },
+		m = { "<cmd>make<CR>", "Make" },
+		n = { "<cmd>TodoTelescope<CR>", "See notes/todos..." },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open %:p:h<CR>", "Open the current directory" },
-		q = { vim.cmd.q, "close current window" },
-		Q = { vim.cmd.qall, "close all windows" },
+		q = { vim.cmd.q, "Close current window" },
+		Q = { vim.cmd.qall, "Close all windows" },
 		-- r = { "<cmd>Telescope oldfiles previewer=false<CR>", "Show recently opened files" },
 		r = {
 			function()
@@ -178,37 +178,7 @@ wk.register({
 		},
 		t = {
 			name = "tmux",
-			t = { "<cmd>silent !tmux clock-mode<CR>", "clock" },
-			w = {
-				function()
-					local filepath = vim.fn.expand("%:p:h")
-					vim.cmd("silent !tmux new-window -c " .. filepath)
-				end,
-				"window",
-			},
-			H = {
-				function()
-					local filepath = vim.fn.expand("%:p:h")
-					vim.cmd("silent !tmux split-window -c " .. filepath)
-				end,
-				"horizontal split normal",
-			},
-			h = {
-				function()
-					local filepath = vim.fn.expand("%:p:h")
-					vim.cmd("silent !tmux split-window -l 9 -c " .. filepath)
-				end,
-				"horizontal split",
-			},
-			v = {
-				function()
-					local filepath = vim.fn.expand("%:p:h")
-					vim.cmd("silent !tmux split-window -h -c " .. filepath)
-				end,
-				"vertical split",
-			},
-			g = { "<cmd>silent !tmux new-window 'lazygit'<CR>", "lazygit" },
-			B = {
+			F = {
 				function()
 					local p = vim.fn.expand("%:p:h")
 					local s = vim.fn.escape(
@@ -217,16 +187,46 @@ wk.register({
 					)
 					vim.cmd(s)
 				end,
-				"pop-up bash (tmux)",
+				"Floating Bash (tmux)",
 			},
-			b = {
+			f = {
 				function()
 					local p = vim.fn.expand("%:p:h")
 					local s = vim.fn.escape("silent !tmux display-popup -w 90% -h 85%  -E -d " .. p, "%")
 					vim.cmd(s)
 				end,
-				"pop-up bash (terminal)",
+				"Floating Bash (terminal)",
 			},
+			t = { "<cmd>silent !tmux clock-mode<CR>", "Clock" },
+			w = {
+				function()
+					local filepath = vim.fn.expand("%:p:h")
+					vim.cmd("silent !tmux new-window -c " .. filepath)
+				end,
+				"Window",
+			},
+			H = {
+				function()
+					local filepath = vim.fn.expand("%:p:h")
+					vim.cmd("silent !tmux split-window -c " .. filepath)
+				end,
+				"Horizontal split normal",
+			},
+			h = {
+				function()
+					local filepath = vim.fn.expand("%:p:h")
+					vim.cmd("silent !tmux split-window -l 9 -c " .. filepath)
+				end,
+				"Horizontal split",
+			},
+			v = {
+				function()
+					local filepath = vim.fn.expand("%:p:h")
+					vim.cmd("silent !tmux split-window -h -c " .. filepath)
+				end,
+				"Vertical split",
+			},
+			g = { "<cmd>silent !tmux new-window 'lazygit'<CR>", "LazyGit" },
 		},
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		x = { vim.cmd.NvimTreeToggle, "Nvim Tree" },
@@ -255,10 +255,10 @@ wk.register({
 		},
 		h = { "<cmd>WhichKey<CR>", "Which Key" },
 		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
-		q = { "<cmd>tabclose<CR>", "close tab" },
+		q = { "<cmd>tabclose<CR>", "Close tab" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
 		s = { "<cmd>silent so %<CR>", "Source the file" },
-		t = { "<cmd>tabnew<CR>", "create an empty tab" },
+		t = { "<cmd>tabnew<CR>", "Create an empty tab" },
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
 	-- TODO: add the next keybinding if the bug is fixed
@@ -286,54 +286,54 @@ wk.register({
 		i = { "<cmd>silent Telescope glyph<CR>", "Glyphs" },
 	},
 	m = {
-		name = "make",
+		name = "Make",
 		a = {
 			":make all<CR>",
-			"all",
+			"All",
 		},
 		B = {
 			":make clean-build<CR>",
-			"clean build",
+			"Clean build",
 		},
 		b = {
 			":make build<CR>",
-			"build",
+			"Build",
 		},
 		c = {
 			":make clean<CR>",
-			"clean",
+			"Clean",
 		},
 		d = {
 			":make docs<CR>",
-			"generate docs",
+			"Generate docs",
 		},
 		G = {
 			":make clean && make generate && make build<CR>",
-			"clean, generate and build again",
+			"Clean, generate and build again",
 		},
 		g = {
 			":make generate<CR>",
-			"generate",
+			"Generate",
 		},
 		h = {
 			":make help<CR>",
-			"help",
+			"Help",
 		},
 		i = {
 			":make install<CR>",
-			"install",
+			"Install",
 		},
 		r = {
 			":make run<CR>",
-			"run",
+			"Run",
 		},
 		t = {
 			":make test<CR>",
-			"run",
+			"Test",
 		},
 		w = {
 			":make watch<CR>",
-			"watch",
+			"Watch",
 		},
 	},
 	s = {
@@ -342,28 +342,28 @@ wk.register({
 		d = { "<cmd>Obsession!<CR>", "Delete the session" },
 	},
 	d = {
-		name = "debugger",
+		name = "Debugger",
 		b = {
 			vim.cmd.DapToggleBreakpoint,
-			"toggle breakpoint",
+			"Toggle breakpoint",
 		},
 		C = {
 			dap.run_to_cursor,
-			"run to cursor",
+			"Run to cursor",
 		},
 		c = {
 			vim.cmd.DapContinue,
-			"continue",
+			"Continue",
 		},
 		d = {
 			dap.down,
-			"go down in current stacktrace without stepping",
+			"Go down in current stacktrace without stepping",
 		},
 		e = {
 			function()
 				dapui.eval(nil, { enter = true })
 			end,
-			"evaluate expression",
+			"Evaluate expression",
 		},
 		g = {
 			name = "Go programming language",
@@ -371,52 +371,52 @@ wk.register({
 				function()
 					dap_go.debug_test()
 				end,
-				"debug go test",
+				"Debug go test",
 			},
 			l = {
 				function()
 					dap_go.debug_last()
 				end,
-				"debug last go test",
+				"Debug last go test",
 			},
 		},
 		h = {
 			function()
 				require("dap.ui.widgets").hover()
 			end,
-			"hover",
+			"Hover",
 		},
 		j = {
 			dap.goto_,
-			"jump to a specific line or line under cursor",
+			"Jump to a specific line or line under cursor",
 		},
 		s = {
 			vim.cmd.DapStepInto,
-			"step into",
+			"Step into",
 		},
 		N = {
 			dap.step_back,
-			"step back",
+			"Step back",
 		},
 		n = {
 			vim.cmd.DapStepOver,
-			"step over (next)",
+			"Step over (next)",
 		},
 		f = {
 			vim.cmd.DapStepOut,
-			"step out (finish)",
+			"Step out (finish)",
 		},
 		p = {
 			dap.pause,
-			"pause the thread",
+			"Pause the thread",
 		},
 		R = {
 			dap.restart,
-			"restart the current session",
+			"Restart the current session",
 		},
 		r = {
 			vim.cmd.DapToggleRepl,
-			"toggle repl",
+			"Toggle repl",
 		},
 		l = {
 			function()
@@ -431,19 +431,19 @@ wk.register({
 		},
 		u = {
 			dap.up,
-			"go up in current stacktrace without stepping",
+			"Go up in current stacktrace without stepping",
 		},
 		w = {
 			function()
 				dapui.elements.watches.add(nil)
 			end,
-			"watch the word under cursor",
+			"Watch the word under cursor",
 		},
 	},
 	t = {
 		name = "Toggle",
 		b = {
-			name = "background",
+			name = "Background",
 			c = {
 				function()
 					vim.o.background = vim.o.background == "dark" and "light" or "dark"
@@ -451,7 +451,7 @@ wk.register({
 					vim.cmd.colorscheme(vim.g.colors_name)
 					catppuccin.compile()
 				end,
-				"light/dark background color",
+				"Light/dark background color",
 			},
 			t = {
 				function()
@@ -467,18 +467,18 @@ wk.register({
 					-- vim.o.cursorlineopt = transparent and "number" or "number,line"
 					vim.cmd.colorscheme(vim.g.colors_name)
 				end,
-				"transparency",
+				"Transparency",
 			},
 		},
 		C = {
 			"<cmd>ColorizerToggle<CR>",
-			"colorizer",
+			"Colorizer",
 		},
 		c = {
 			function()
 				vim.wo.colorcolumn = vim.wo.colorcolumn == "" and "79" or ""
 			end,
-			"color column",
+			"Color column",
 		},
 		-- d = { "<cmd>silent Dashboard<CR>", "dashboard" },
 		D = { "<cmd>silent DBUIToggle<CR>", "DB UI" },
@@ -486,11 +486,11 @@ wk.register({
 		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
 		h = {
 			"<cmd>TSToggle highlight<CR>",
-			"treesitter highlight",
+			"Treesitter highlight",
 		},
 		L = { "<cmd>Lazy<CR>", "Lazy" },
 		l = { "<cmd>Telescope ToggleLSP<CR>", "LSP" },
-		o = { "<cmd>Lspsaga outline<CR>", "outline" },
+		o = { "<cmd>Lspsaga outline<CR>", "Outline" },
 		q = {
 			function()
 				local qf_exists = false
@@ -507,13 +507,13 @@ wk.register({
 					vim.cmd("copen")
 				end
 			end,
-			"toggle quick fix",
+			"Quick fix",
 		},
 		r = {
 			function()
 				vim.wo.relativenumber = not vim.wo.relativenumber
 			end,
-			"relative number",
+			"Relative number",
 		},
 		s = {
 			function()
@@ -524,17 +524,17 @@ wk.register({
 					vim.o.statusline = "" -- "" is same as "%t %m"
 				end
 			end,
-			"statusline/lualine",
+			"Statusline/lualine",
 		},
 		t = {
-			name = "terminal",
+			name = "Terminal",
 			h = {
 				function()
 					local p = vim.fn.expand("%:p:h")
 					local cmd = "ToggleTerm direction=horizontal dir=" .. p
 					vim.cmd(cmd)
 				end,
-				"horizontal",
+				"Horizontal",
 			},
 			v = {
 				function()
@@ -542,7 +542,7 @@ wk.register({
 					local cmd = "ToggleTerm size=80 direction=vertical dir=" .. p
 					vim.cmd(cmd)
 				end,
-				"vertical",
+				"Vertical",
 			},
 			f = {
 				function()
@@ -550,7 +550,7 @@ wk.register({
 					local cmd = "ToggleTerm size=160 direction=float dir=" .. p
 					vim.cmd(cmd)
 				end,
-				"float",
+				"Float",
 			},
 			t = {
 				function()
@@ -558,10 +558,10 @@ wk.register({
 					local cmd = "ToggleTerm direction=tab dir=" .. p
 					vim.cmd(cmd)
 				end,
-				"tab",
+				"Tab",
 			},
 		},
-		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
+		u = { vim.cmd.UndotreeToggle, "Undotree" },
 		-- w = {
 		--  function()
 		--    vim.wo.winbar = vim.wo.winbar == "" and require("lspsaga.symbolwinbar"):get_winbar() or ""
@@ -570,18 +570,19 @@ wk.register({
 		-- },
 		z = {
 			"<cmd>ZenMode<CR>",
-			"zen mode",
+			"Zen mode",
 		},
 	},
 	b = {
-		name = "buffer",
-		a = { "<cmd>bufdo bd<CR>", "close all buffers" },
-		d = { "<cmd>silent bd<CR>", "close this buffer" },
-		O = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "close other buffers" },
-		o = { "<cmd>BufferLineCloseOthers<CR>|'\"", "close other buffers" },
+		name = "Buffer",
+		a = { "<cmd>bufdo bd<CR>", "Close all buffers" },
+		d = { "<cmd>silent bd<CR>", "Close this buffer" },
+		O = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "Close other buffers" },
+		o = { "<cmd>BufferLineCloseOthers<CR>|'\"", "Close other buffers" },
 		h = { "<cmd>BufferLineMovePrev<CR>", "Move the buffer to the previous position" },
 		l = { "<cmd>BufferLineMoveNext<CR>", "Move the buffer to the next position" },
-		p = { "<cmd>BufferLineTogglePin<CR>", "pin buffer" },
+		P = { "<cmd>BufferLineTogglePin<CR>", "Pin buffer" },
+		p = { "<cmd>BufferLinePick<CR>", "Pick a Buffer" },
 	},
 	c = {
 		name = "Calendar",
@@ -630,14 +631,14 @@ wk.register({
 	},
 	w = {
 		name = "Window",
-		l = { "<c-w>l", "move the left window" },
-		h = { "<c-w>h", "move the right window" },
-		j = { "<c-w>j", "move the window below" },
-		k = { "<c-w>k", "move the window above" },
-		d = { "<cmd>windo diffthis<CR>", "show the difference between 2 windows" },
-		D = { "<cmd>windo diffoff<CR>", "hide the difference between 2 windows" },
-		s = { "<cmd>windo set scrollbind<CR>", "set scrollbind" },
-		S = { "<cmd>windo set scrollbind!<CR>", "unset scrollbind" },
+		l = { "<c-w>l", "Move the left window" },
+		h = { "<c-w>h", "Move the right window" },
+		j = { "<c-w>j", "Move the window below" },
+		k = { "<c-w>k", "Move the window above" },
+		d = { "<cmd>windo diffthis<CR>", "Show the difference between 2 windows" },
+		D = { "<cmd>windo diffoff<CR>", "Hide the difference between 2 windows" },
+		s = { "<cmd>windo set scrollbind<CR>", "Set scrollbind" },
+		S = { "<cmd>windo set scrollbind!<CR>", "Unset scrollbind" },
 	},
 }, { prefix = "<space>", noremap = true, silent = true, nowait = true })
 
@@ -655,7 +656,7 @@ wk.register({
 	},
 	x = {
 		"<cmd>silent !chmod u+x %<CR>",
-		"make the file executable for the (u)ser , don't change (g)roup and (o)ther permissions",
+		"Make the file executable for the (u)ser , don't change (g)roup and (o)ther permissions",
 	},
 }, { prefix = "<leader>", noremap = true, silent = true, nowait = true })
 -- }}}
@@ -666,7 +667,7 @@ wk.register({
 		function()
 			comment_api.toggle.linewise.current()
 		end,
-		"comment/uncomment the line",
+		"Comment/uncomment the line",
 	},
 	["<c-s>"] = { "<ESC><ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
@@ -687,7 +688,7 @@ wk.register({
 			vim.api.nvim_feedkeys(esc, "nx", false)
 			comment_api.toggle.linewise(vim.fn.visualmode())
 		end,
-		"comment/uncomment selected lines",
+		"Comment/uncomment selected lines",
 	},
 	-- ["<c-k>"] = { ":m '<-2<CR>gv=gv", "Move up" },
 	-- ["<c-j>"] = { ":m '>+1<CR>gv=gv", "Move down" },
