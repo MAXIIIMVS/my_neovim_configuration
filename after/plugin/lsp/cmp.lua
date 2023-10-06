@@ -4,6 +4,7 @@ if not present then
 	return
 end
 
+local lspkind = require("lspkind")
 local context = require("cmp.config.context")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
@@ -40,13 +41,11 @@ cmp_window.info = function(self)
 end
 
 local options = {
-	-- formatting = {
-	-- 	format = lspkind.cmp_format({
-	-- 		mode = "symbol_text", -- 'text', 'text_symbol', 'symbol_text', 'symbol'
-	-- 		maxwidth = 50,
-	-- 		ellipsis_char = "...",
-	-- 	}),
-	-- },
+	formatting = {
+		format = lspkind.cmp_format({
+			mode = "symbol_text", -- 'text', 'text_symbol', 'symbol_text', 'symbol'
+		}),
+	},
 	preselect = cmp.PreselectMode.None,
 	window = {
 		completion = {

@@ -36,6 +36,7 @@ return require("lazy").setup({
 		version = false,
 		opts = {
 			conflict = { suffix = "", options = {} },
+			quickfix = { suffix = "", options = {} },
 		},
 		event = "VeryLazy",
 	},
@@ -256,6 +257,7 @@ return require("lazy").setup({
 		},
 		event = "VeryLazy",
 	},
+	{ "onsails/lspkind.nvim", dependencies = { "hrsh7th/nvim-cmp" } },
 	{ "rafamadriz/friendly-snippets" },
 	{ "ray-x/lsp_signature.nvim", opts = {
 		hint_enable = false,
@@ -317,6 +319,12 @@ return require("lazy").setup({
 		"theHamsta/nvim-dap-virtual-text",
 		-- config = true,
 		event = "VeryLazy",
+	},
+	{
+		"tiagovla/tokyodark.nvim",
+		opts = {
+			transparent_background = false,
+		},
 	},
 	{ "tpope/vim-abolish", event = "VeryLazy" },
 	{ "tpope/vim-capslock", event = "VeryLazy" },

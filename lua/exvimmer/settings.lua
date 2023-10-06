@@ -252,7 +252,6 @@ vim.o.expandtab = true
 vim.bo.expandtab = true
 -- vim.o.nrformats = "alpha,bin,hex"
 
--- vim.cmd[[colorscheme aurora]]
 -- hide tildes (only vim), this doesn't work for nvim-tree
 -- vim.wo.fillchars = "eob: "
 -- or put this after colorscheme (vim & nvim), works for nvim-tree

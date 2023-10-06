@@ -90,6 +90,15 @@ require("dap-python").setup(os.getenv("HOME") .. "/.local/share/nvim/mason/packa
 
 -- TODO: configure rust and lua
 
+dap.adapters["pwa-node"] = {
+	type = "server",
+	host = "127.0.0.1",
+	port = 8123,
+	executable = {
+		command = "js-debug-adapter",
+	},
+}
+
 local exts = {
 	"javascript",
 	"typescript",
@@ -99,6 +108,14 @@ local exts = {
 
 for _, ext in ipairs(exts) do
 	dap.configurations[ext] = {
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Launch file",
+			program = "${file}",
+			cwd = "${workspaceFolder}",
+			runtimeExecutable = "node",
+		},
 		{
 			type = "pwa-node",
 			request = "launch",

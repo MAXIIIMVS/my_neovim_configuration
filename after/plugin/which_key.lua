@@ -49,8 +49,6 @@ wk.register({
 	["<A-p>"] = { "<CMD>silent NavigatorPrevious<CR>", "Go to the down window" },
 	["]<space>"] = { "o<ESC>k", "Insert a blank line below" },
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
-	["<TAB>"] = { vim.cmd.bprev, "Go to previous buffer" },
-	["<S-TAB>"] = { vim.cmd.bnext, "Go to next buffer" },
 	["]g"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
 	["[g"] = { ":Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
 	["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to the previous diagnostic" },
@@ -77,6 +75,10 @@ wk.register({
 	},
 	["[p"] = { "<cmd>pu!<CR>", "Paste above current line" },
 	["]p"] = { "<cmd>pu<CR>", "Paste below current line" },
+	["[q"] = { "<cmd>silent cprev<CR>", "Show the previous item in QuickFix" },
+	["]q"] = { "<cmd>silent cnext<CR>", "Show the next item in QuickFix" },
+	["[Q"] = { "<cmd>silent cfirst<CR>", "See the first item in QuickFix" },
+	["]Q"] = { "<cmd>silent clast<CR>", "See the last item in QuickFix" },
 	["]x"] = { "<cmd>BufferLineCloseRight<CR>", "Close all the buffers to the right" },
 	["[x"] = { "<cmd>BufferLineCloseLeft<CR>", "Close all the buffers to the left" },
 	["<C-Left>"] = { ":vertical resize +2<CR>", "Increase window width" },
@@ -442,6 +444,12 @@ wk.register({
 	},
 	t = {
 		name = "Toggle",
+		a = {
+			function()
+				vim.cmd.colorscheme(vim.g.colors_name == "tokyodark" and "catppuccin" or "tokyodark")
+			end,
+			"appeareance",
+		},
 		b = {
 			name = "Background",
 			c = {
