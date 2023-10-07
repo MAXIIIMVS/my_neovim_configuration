@@ -446,7 +446,11 @@ wk.register({
 		name = "Toggle",
 		a = {
 			function()
-				vim.cmd.colorscheme(vim.g.colors_name == "tokyodark" and "catppuccin" or "tokyodark")
+				vim.cmd.colorscheme(vim.g.colors_name == "rose-pine" and "catppuccin" or "rose-pine")
+				if vim.g.colors_name ~= "catppuccin" then
+					vim.wo.fillchars = "eob: "
+					vim.cmd.highlight("NonText guifg=bg")
+				end
 			end,
 			"appeareance",
 		},

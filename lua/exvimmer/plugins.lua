@@ -40,6 +40,7 @@ return require("lazy").setup({
 		},
 		event = "VeryLazy",
 	},
+	{ "echasnovski/mini.fuzzy", version = false },
 	{
 		"echasnovski/mini.indentscope",
 		event = "UIEnter",
@@ -313,6 +314,7 @@ return require("lazy").setup({
 		event = "VeryLazy",
 	},
 	{ "rhysd/clever-f.vim", event = "VeryLazy" },
+	{ "rose-pine/neovim", name = "rose-pine" },
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
 	-- {"simrat39/rust-tools.nvim"},
 	{
