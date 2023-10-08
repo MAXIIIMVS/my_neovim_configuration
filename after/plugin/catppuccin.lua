@@ -39,7 +39,8 @@ catppuccin.setup({
 		mocha = {
 			-- base = "#1A1A2F",
 			-- base = "#171421",
-			base = "#1D182E",
+			-- base = "#1D182E",
+			base = "#191724",
 		},
 	},
 	highlight_overrides = {

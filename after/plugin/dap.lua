@@ -92,10 +92,14 @@ require("dap-python").setup(os.getenv("HOME") .. "/.local/share/nvim/mason/packa
 
 dap.adapters["pwa-node"] = {
 	type = "server",
-	host = "127.0.0.1",
-	port = 8123,
+	host = "localhost",
+	port = "${port}",
 	executable = {
-		command = "js-debug-adapter",
+		command = "node",
+		args = {
+			os.getenv("HOME") .. "/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+			"${port}",
+		},
 	},
 }
 
@@ -108,6 +112,20 @@ local exts = {
 
 for _, ext in ipairs(exts) do
 	dap.configurations[ext] = {
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Launch file",
+			runtimeExecutable = "deno",
+			runtimeArgs = {
+				"run",
+				"--inspect-wait",
+				"--allow-all",
+			},
+			program = "${file}",
+			cwd = "${workspaceFolder}",
+			attachSimplePort = 9229,
+		},
 		{
 			type = "pwa-node",
 			request = "launch",

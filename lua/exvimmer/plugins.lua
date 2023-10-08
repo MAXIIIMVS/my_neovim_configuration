@@ -40,7 +40,6 @@ return require("lazy").setup({
 		},
 		event = "VeryLazy",
 	},
-	{ "echasnovski/mini.fuzzy", version = false },
 	{
 		"echasnovski/mini.indentscope",
 		event = "UIEnter",
@@ -203,21 +202,21 @@ return require("lazy").setup({
 		ft = "python",
 		event = "VeryLazy",
 	},
-	{
-		"microsoft/vscode-js-debug",
-		lazy = true,
-		-- build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
-		build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
-	},
-	{
-		"mxsdev/nvim-dap-vscode-js",
-		event = "VeryLazy",
-
-		opts = {
-			debugger_path = os.getenv("HOME") .. "/.local/share/nvim/lazy/vscode-js-debug",
-			adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
-		},
-	},
+	-- {
+	-- 	"microsoft/vscode-js-debug",
+	-- 	lazy = true,
+	-- 	-- build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+	-- 	build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
+	-- },
+	-- {
+	-- 	"mxsdev/nvim-dap-vscode-js",
+	-- 	event = "VeryLazy",
+	--
+	-- 	opts = {
+	-- 		debugger_path = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/js-debug-adapter",
+	-- 		adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
+	-- 	},
+	-- },
 	{ "neovim/nvim-lspconfig" },
 	{ "nvim-lualine/lualine.nvim" },
 	{ "nvim-lua/plenary.nvim" },
@@ -246,11 +245,14 @@ return require("lazy").setup({
 	{
 		"NvChad/nvim-colorizer.lua",
 		opts = {
-			filetypes = { "css", "scss", "html", "typescriptreact", "javascriptreact" },
+			filetypes = { "*" },
 			user_default_options = {
 				AARRGGBB = true,
+				RRGGBBAA = true,
 				css = true,
 				css_fn = true,
+				rgb_fn = true,
+				hsl_fn = true,
 				mode = "background",
 				tailwind = true,
 				sass = { enable = true, parsers = { "css" } },

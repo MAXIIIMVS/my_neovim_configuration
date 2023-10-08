@@ -29,7 +29,7 @@ local options = {
 	},
 	sort_by = "insert_at_end",
 	numbers = "ordinal",
-	separator_style = "slope", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
+	separator_style = "thick", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
 	diagnostics = "nvim_lsp",
 	custom_areas = {
 		right = function()
