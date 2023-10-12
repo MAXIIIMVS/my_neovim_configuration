@@ -97,13 +97,13 @@ local options = {
 	}),
 	sources = {
 		{ name = "nvim_lsp" },
+		{ name = "buffer" },
 		{
 			name = "luasnip",
 			entry_filter = function()
 				return not context.in_treesitter_capture("string") and not context.in_syntax_group("String")
 			end,
 		},
-		{ name = "buffer" },
 		{ name = "path" },
 		{ name = "vim-dadbod-completion" },
 		-- { name = "nvim_lsp_signature_help" },

@@ -445,17 +445,7 @@ wk.register({
 	t = {
 		name = "Toggle",
 		a = {
-			function()
-				vim.cmd.colorscheme(vim.g.colors_name == "rose-pine" and "catppuccin" or "rose-pine")
-				if vim.g.colors_name ~= "catppuccin" then
-					vim.wo.fillchars = "eob: "
-					vim.cmd.highlight("NonText guifg=bg")
-				end
-			end,
-			"appeareance",
-		},
-		b = {
-			name = "Background",
+			name = "appeareance",
 			c = {
 				function()
 					vim.o.background = vim.o.background == "dark" and "light" or "dark"
@@ -463,7 +453,7 @@ wk.register({
 					vim.cmd.colorscheme(vim.g.colors_name)
 					catppuccin.compile()
 				end,
-				"Light/dark background color",
+				"Light/dark color",
 			},
 			t = {
 				function()
@@ -480,6 +470,16 @@ wk.register({
 					vim.cmd.colorscheme(vim.g.colors_name)
 				end,
 				"Transparency",
+			},
+			o = {
+				function()
+					vim.cmd.colorscheme(vim.g.colors_name == "rose-pine" and "catppuccin" or "rose-pine")
+					if vim.g.colors_name ~= "catppuccin" then
+						vim.wo.fillchars = "eob: "
+						vim.cmd.highlight("NonText guifg=bg")
+					end
+				end,
+				"other theme",
 			},
 		},
 		C = {
