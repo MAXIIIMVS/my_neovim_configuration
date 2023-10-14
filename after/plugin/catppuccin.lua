@@ -89,7 +89,10 @@ catppuccin.setup({
 				information = { "underline" },
 			},
 		},
-		mini = true,
+		mini = {
+			enabled = true,
+			indentscope_color = "lavender",
+		},
 		vimwiki = true,
 		-- (https://github.com/catppuccin/nvim#integrations)
 	},

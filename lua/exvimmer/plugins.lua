@@ -46,7 +46,7 @@ return require("lazy").setup({
 		version = false,
 		opts = {
 			options = {
-				indent_at_cursor = false,
+				indent_at_cursor = true,
 			},
 			draw = {
 				delay = 0,
