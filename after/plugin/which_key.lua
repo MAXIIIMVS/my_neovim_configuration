@@ -168,13 +168,24 @@ wk.register({
 			end,
 			"Show recently opened files",
 		},
+		-- s = {
+		-- 	[[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+		-- 	"Change the word under the cursor in the line",
+		-- 	silent = false,
+		-- },
+		-- S = {
+		-- 	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+		-- 	"Change the word under the cursor in the whole file",
+		-- 	silent = false,
+		-- },
+		-- NOTE: the next two substitution commands depend on vim-abolish
 		s = {
-			[[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+			[[:S/<c-r><c-w>/<c-r><c-w>/g<Left><left>]],
 			"Change the word under the cursor in the line",
 			silent = false,
 		},
 		S = {
-			[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+			[[:%S/<c-r><c-w>/<c-r><c-w>/g<Left><left>]],
 			"Change the word under the cursor in the whole file",
 			silent = false,
 		},
@@ -609,10 +620,21 @@ wk.register({
 	},
 	g = {
 		name = "Git",
-		["["] = { "<cmd>silent G checkout HEAD^<CR>", "Checkout previous commit" },
+		-- ["["] = { "<cmd>silent G checkout HEAD^<CR>", "Checkout previous commit" },
+		-- NOTE: this command don't work when there's no internet access
+		-- ["]"] = {
+		-- 	"<cmd>silent !git checkout $(git rev-list --topo-order HEAD..$(git remote show origin | sed -n '/HEAD branch/s/.*: //p') | tail -1)<CR>",
+		-- 	"Checkout next commit",
+		-- },
+		["["] = { "<cmd>silent !git checkout HEAD^<CR>", "Checkout previous commit" },
 		["]"] = {
-			"<cmd>silent !git checkout $(git rev-list --topo-order HEAD..$(git remote show origin | sed -n '/HEAD branch/s/.*: //p') | tail -1)<CR>",
-			"Checkout next commit",
+			function()
+				os.execute([[
+          branch=$(git branch -r --points-at refs/remotes/origin/HEAD | grep '\->' | cut -d' ' -f5 | cut -d/ -f2) 1>/dev/null 2>&1
+          git log --reverse  --pretty=%H ${branch} | grep -A 1 $(git rev-parse HEAD) | tail -n1 | xargs git checkout 1>/dev/null 2>&1
+        ]])
+			end,
+			"checkout next commit",
 		},
 		a = {
 			"<cmd>silent vertical G commit --amend<CR>",
