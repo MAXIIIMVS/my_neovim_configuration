@@ -115,7 +115,7 @@ return require("lazy").setup({
 	{ "folke/zen-mode.nvim", opts = { window = { width = 100 } }, even = "VeryLazy" },
 	{ "folke/neodev.nvim", opts = {}, lazy = true },
 	{ "ghassan0/telescope-glyph.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, event = "VeryLazy" },
-	{ "glepnir/dashboard-nvim", event = "VimEnter", dependencies = { "nvim-tree/nvim-web-devicons" } },
+	{ "nvimdev/dashboard-nvim", event = "VimEnter", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{
 		"glepnir/lspsaga.nvim",
 		lazy = true,
