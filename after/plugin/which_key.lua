@@ -18,6 +18,59 @@ local dap = require("dap")
 local todo_comments = require("todo-comments")
 -- local opts = { noremap = true, silent = true, silent = true, nowait = true }
 
+local function git_next()
+	local handle = io.popen([[
+        # Check if we're in a git repository
+        if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+            exit 1
+        fi
+
+        # Check if there are any commits in the current branch
+        if ! git rev-parse HEAD > /dev/null 2>&1; then
+            exit 1
+        fi
+
+        # Try to get the name of the remote branch that the HEAD points to
+        branch=$(git branch -r --points-at refs/remotes/origin/HEAD | grep '\->' | cut -d' ' -f5 | cut -d/ -f2)
+
+        # If there's no remote branch, get the name of the current local branch
+        if [ -z "$branch" ]; then
+            branch=$(git rev-parse --abbrev-ref HEAD)
+        fi
+
+        # Get the hash of the next commit
+        next_commit=$(git log --reverse --pretty=%H $branch | grep -A 1 $(git rev-parse HEAD) | tail -n1)
+
+        # If there's no next commit, we're already at the last commit
+        if [ -z "$next_commit" ]; then
+            exit 1
+        fi
+
+        # Checkout the next commit
+        git checkout $next_commit  2>&1
+  ]])
+	if handle ~= nil then
+		local result = handle:read("*a")
+		print(result)
+		handle:close()
+	else
+		print("Failed to execute command")
+	end
+end
+
+local function git_previous()
+	local handle = io.popen([[
+    git checkout HEAD^ 2>&1
+  ]])
+	if handle ~= nil then
+		local result = handle:read("*a")
+		print(result)
+		handle:close()
+	else
+		print("Failed to execute command")
+	end
+end
+
 local options = {
 	window = {
 		border = "rounded", -- none, single, double, shadow
@@ -626,14 +679,15 @@ wk.register({
 		-- 	"<cmd>silent !git checkout $(git rev-list --topo-order HEAD..$(git remote show origin | sed -n '/HEAD branch/s/.*: //p') | tail -1)<CR>",
 		-- 	"Checkout next commit",
 		-- },
-		["["] = { "<cmd>silent !git checkout HEAD^<CR>", "Checkout previous commit" },
+		["["] = { git_previous, "Checkout previous commit" },
 		["]"] = {
-			function()
-				os.execute([[
-          branch=$(git branch -r --points-at refs/remotes/origin/HEAD | grep '\->' | cut -d' ' -f5 | cut -d/ -f2) 1>/dev/null 2>&1
-          git log --reverse  --pretty=%H ${branch} | grep -A 1 $(git rev-parse HEAD) | tail -n1 | xargs git checkout 1>/dev/null 2>&1
-        ]])
-			end,
+			-- function()
+			-- 	os.execute([[
+			--        branch=$(git branch -r --points-at refs/remotes/origin/HEAD | grep '\->' | cut -d' ' -f5 | cut -d/ -f2) 1>/dev/null 2>&1
+			--        git log --reverse  --pretty=%H ${branch} | grep -A 1 $(git rev-parse HEAD) | tail -n1 | xargs git checkout 1>/dev/null 2>&1
+			--      ]])
+			-- end,
+			git_next,
 			"checkout next commit",
 		},
 		a = {
