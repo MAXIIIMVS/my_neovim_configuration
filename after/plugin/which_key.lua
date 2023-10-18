@@ -16,39 +16,56 @@ local dap_ui_widgets = require("dap.ui.widgets")
 local dap_go = require("dap-go")
 local dap = require("dap")
 local todo_comments = require("todo-comments")
--- local opts = { noremap = true, silent = true, silent = true, nowait = true }
 
 local function git_next()
-	local handle = io.popen([[
-        # Check if we're in a git repository
-        if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-            exit 1
-        fi
+	local handle = io.popen(
+		[[
+      # Check if we're in a git repository
+      if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+          echo "Not in a git repository"
+          return 1
+      fi
 
-        # Check if there are any commits in the current branch
-        if ! git rev-parse HEAD > /dev/null 2>&1; then
-            exit 1
-        fi
+      # Check if there are any commits in the current branch
+      if ! git rev-parse HEAD > /dev/null 2>&1; then
+          echo "No commits in the current branch"
+          return 1
+      fi
 
-        # Try to get the name of the remote branch that the HEAD points to
-        branch=$(git branch -r --points-at refs/remotes/origin/HEAD | grep '\->' | cut -d' ' -f5 | cut -d/ -f2)
+      # Try to get the name of the remote branch that the HEAD points to
+      branch=""
+      if git rev-parse refs/remotes/origin/HEAD > /dev/null 2>&1; then
+          branch=$(git branch -r --points-at refs/remotes/origin/HEAD | grep '\->' | cut -d' ' -f5 | cut -d/ -f2)
+      fi
 
-        # If there's no remote branch, get the name of the current local branch
-        if [ -z "$branch" ]; then
-            branch=$(git rev-parse --abbrev-ref HEAD)
-        fi
+      if [ -z "$branch" ]; then
+          # Fallback: Extract branch name in another way
+          branch=$(basename $(git rev-parse --show-toplevel)/.git/refs/heads/*)
+      fi
 
-        # Get the hash of the next commit
-        next_commit=$(git log --reverse --pretty=%H $branch | grep -A 1 $(git rev-parse HEAD) | tail -n1)
+      # If there's still no branch or an error, perform another fallback action
+      if [ -z "$branch" ]; then
+          fallback_branch=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+          next_commit=$(git rev-list --topo-order HEAD..$fallback_branch | tail -1)
+          git checkout $next_commit 2>&1
+          return
+      fi
 
-        # If there's no next commit, we're already at the last commit
-        if [ -z "$next_commit" ]; then
-            exit 1
-        fi
+      # Get the hash of the next commit
+      next_commit=""
+      next_commit=$(git log --reverse --pretty=%H $branch | grep -A 1 $(git rev-parse HEAD) | tail -n1)
 
-        # Checkout the next commit
-        git checkout $next_commit  2>&1
-  ]])
+      # If there's no next commit, we're already at the last commit
+      if [ -z "$next_commit" ]; then
+          echo "Already at the last commit"
+          return 1
+      fi
+
+      # Try to checkout the next commit, and use the fallback command in case of an error
+      git checkout $next_commit 2>&1
+    ]],
+		"r"
+	)
 	if handle ~= nil then
 		local result = handle:read("*a")
 		print(result)
@@ -60,6 +77,16 @@ end
 
 local function git_previous()
 	local handle = io.popen([[
+    if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+        echo "Not in a git repository"
+        return 1
+    fi
+
+    # Check if there are any commits in the current branch
+    if ! git rev-parse HEAD > /dev/null 2>&1; then
+        echo "No commits in the current branch"
+        return 1
+    fi
     git checkout HEAD^ 2>&1
   ]])
 	if handle ~= nil then
@@ -321,9 +348,11 @@ wk.register({
 		},
 		h = { "<cmd>WhichKey<CR>", "Which Key" },
 		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
+		m = { "<cmd>messages<CR>", "messages" },
 		q = { "<cmd>tabclose<CR>", "Close tab" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
 		s = { "<cmd>silent so %<CR>", "Source the file" },
+		T = { "<cmd>:tabclose<CR>", "close the tab" },
 		t = { "<cmd>tabnew<CR>", "Create an empty tab" },
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
@@ -673,21 +702,18 @@ wk.register({
 	},
 	g = {
 		name = "Git",
-		-- ["["] = { "<cmd>silent G checkout HEAD^<CR>", "Checkout previous commit" },
-		-- NOTE: this command don't work when there's no internet access
-		-- ["]"] = {
-		-- 	"<cmd>silent !git checkout $(git rev-list --topo-order HEAD..$(git remote show origin | sed -n '/HEAD branch/s/.*: //p') | tail -1)<CR>",
-		-- 	"Checkout next commit",
-		-- },
-		["["] = { git_previous, "Checkout previous commit" },
+		["["] = {
+			function()
+				git_previous()
+				vim.cmd("G log -1 --stat")
+			end,
+			"Checkout previous commit",
+		},
 		["]"] = {
-			-- function()
-			-- 	os.execute([[
-			--        branch=$(git branch -r --points-at refs/remotes/origin/HEAD | grep '\->' | cut -d' ' -f5 | cut -d/ -f2) 1>/dev/null 2>&1
-			--        git log --reverse  --pretty=%H ${branch} | grep -A 1 $(git rev-parse HEAD) | tail -n1 | xargs git checkout 1>/dev/null 2>&1
-			--      ]])
-			-- end,
-			git_next,
+			function()
+				git_next()
+				vim.cmd("G log -1 --stat")
+			end,
 			"checkout next commit",
 		},
 		a = {
@@ -727,6 +753,7 @@ wk.register({
 		D = { "<cmd>windo diffoff<CR>", "Hide the difference between 2 windows" },
 		s = { "<cmd>windo set scrollbind<CR>", "Set scrollbind" },
 		S = { "<cmd>windo set scrollbind!<CR>", "Unset scrollbind" },
+		o = { "<cmd>only<CR>", "close all other windows" },
 	},
 }, { prefix = "<space>", noremap = true, silent = true, nowait = true })
 
