@@ -682,6 +682,25 @@ wk.register({
 		name = "Buffer",
 		a = { "<cmd>bufdo bd<CR>", "Close all buffers" },
 		d = { "<cmd>silent bd<CR>", "Close this buffer" },
+		e = {
+			function()
+				local current_buffer = vim.api.nvim_get_current_buf()
+				local buffers = vim.api.nvim_list_bufs()
+
+				for _, buf in ipairs(buffers) do
+					if buf ~= current_buffer and vim.api.nvim_buf_is_valid(buf) then
+						local buf_name = vim.api.nvim_buf_get_name(buf)
+						local buf_loaded = vim.api.nvim_buf_is_loaded(buf)
+						local buf_empty = buf_loaded and vim.api.nvim_buf_line_count(buf) <= 1
+
+						if buf_empty and buf_name == "" then
+							vim.api.nvim_buf_delete(buf, { force = true })
+						end
+					end
+				end
+			end,
+			"Close empty buffer",
+		},
 		O = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "Close other buffers" },
 		o = { "<cmd>BufferLineCloseOthers<CR>|'\"", "Close other buffers" },
 		h = { "<cmd>BufferLineMovePrev<CR>", "Move the buffer to the previous position" },
