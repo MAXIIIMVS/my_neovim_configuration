@@ -146,6 +146,7 @@ ab :separator_rtt: ❯
 -- Fundamental {{{
 vim.g.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal" -- removed blank
 vim.wo.spell = true
+vim.o.spellcapcheck = ""
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.signcolumn = "yes:1"
