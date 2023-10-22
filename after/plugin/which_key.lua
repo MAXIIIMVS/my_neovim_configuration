@@ -773,6 +773,7 @@ wk.register({
 		-- H = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo stage hunk" },
 		L = { "<cmd>silent G log --stat<CR>", "Log with stats" },
 		l = { "<cmd>silent G log --decorate<CR>", "Log" },
+		n = { "<cmd>silent G! difftool --name-only HEAD~1 | cfirst <CR>", "changed files since last commit" },
 		o = { "<cmd>silent GBrowse<CR>", "Open in the browser" },
 		P = { "<cmd>silent G push<CR>", "Push" },
 		p = { "<cmd>silent G pull<CR>", "Pull" },

@@ -159,23 +159,14 @@ return require("lazy").setup({
 		end,
 	},
 	{ "kristijanhusak/vim-dadbod-completion", event = "VeryLazy" },
-	{
-		"kylechui/nvim-surround",
-		config = true,
-		event = "VeryLazy",
-	},
+	{ "kylechui/nvim-surround", config = true, event = "VeryLazy" },
 	{
 		"L3MON4D3/LuaSnip",
 		event = "InsertEnter",
 		version = "v2.*",
 		-- build = "make install_jsregexp",
 	},
-	{
-		"leoluz/nvim-dap-go",
-		config = true,
-		event = "VeryLazy",
-		ft = "go",
-	},
+	{ "leoluz/nvim-dap-go", config = true, event = "VeryLazy", ft = "go" },
 	{ "lervag/vimtex", event = "VeryLazy", ft = "tex" },
 	{
 		"lewis6991/gitsigns.nvim",
@@ -193,15 +184,8 @@ return require("lazy").setup({
 		event = "BufEnter",
 	},
 	{ "mbbill/undotree", event = "VeryLazy" },
-	{
-		"mfussenegger/nvim-dap",
-		event = "VeryLazy",
-	},
-	{
-		"mfussenegger/nvim-dap-python",
-		ft = "python",
-		event = "VeryLazy",
-	},
+	{ "mfussenegger/nvim-dap", event = "VeryLazy" },
+	{ "mfussenegger/nvim-dap-python", ft = "python", event = "VeryLazy" },
 	-- {
 	-- 	"microsoft/vscode-js-debug",
 	-- 	lazy = true,
@@ -262,9 +246,7 @@ return require("lazy").setup({
 	},
 	{ "onsails/lspkind.nvim", dependencies = { "hrsh7th/nvim-cmp" } },
 	{ "rafamadriz/friendly-snippets" },
-	{ "ray-x/lsp_signature.nvim", opts = {
-		hint_enable = false,
-	}, event = "VeryLazy" },
+	{ "ray-x/lsp_signature.nvim", opts = { hint_enable = false }, event = "VeryLazy" },
 	{
 		"rcarriga/nvim-dap-ui",
 		opts = {
@@ -320,17 +302,8 @@ return require("lazy").setup({
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
 	-- {"simrat39/rust-tools.nvim"},
 	{ "szw/vim-maximizer" },
-	{
-		"theHamsta/nvim-dap-virtual-text",
-		-- config = true,
-		event = "VeryLazy",
-	},
-	{
-		"tiagovla/tokyodark.nvim",
-		opts = {
-			transparent_background = false,
-		},
-	},
+	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
+	{ "tiagovla/tokyodark.nvim", opts = { transparent_background = false } },
 	{ "tpope/vim-abolish", event = "VeryLazy" },
 	{ "tpope/vim-capslock", event = "VeryLazy" },
 	{ "tpope/vim-dadbod", event = "VeryLazy" },
@@ -340,21 +313,12 @@ return require("lazy").setup({
 	{ "tpope/vim-obsession", event = "VeryLazy" },
 	{ "tpope/vim-speeddating", event = "VeryLazy" },
 	{ "vimwiki/vimwiki", event = "VeryLazy" },
-	{
-		"williamboman/mason.nvim",
-		build = ":MasonUpdate",
-	},
+	{ "williamboman/mason.nvim", build = ":MasonUpdate" },
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "windwp/nvim-ts-autotag", event = "VeryLazy" },
 	{ "windwp/nvim-autopairs", opts = { check_ts = true } },
 	{ "xiyaowong/telescope-emoji.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, event = "VeryLazy" },
-	{
-		"yorickpeterse/nvim-window",
-		opts = {
-			-- The border style to use for the floating window.
-			border = "rounded",
-		},
-	},
+	{ "yorickpeterse/nvim-window", opts = { border = "rounded" } },
 }, {
 	ui = {
 		border = "rounded",

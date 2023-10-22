@@ -88,6 +88,9 @@ catppuccin.setup({
 				warnings = { "underline" },
 				information = { "underline" },
 			},
+			inlay_hints = {
+				background = true,
+			},
 		},
 		mini = {
 			enabled = true,
