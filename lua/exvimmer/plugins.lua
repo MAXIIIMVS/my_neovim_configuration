@@ -37,6 +37,7 @@ return require("lazy").setup({
 		opts = {
 			conflict = { suffix = "", options = {} },
 			quickfix = { suffix = "", options = {} },
+			comment = { suffix = "", options = {} },
 		},
 		event = "VeryLazy",
 	},
@@ -318,6 +319,7 @@ return require("lazy").setup({
 	{ "rose-pine/neovim", name = "rose-pine" },
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
 	-- {"simrat39/rust-tools.nvim"},
+	{ "szw/vim-maximizer" },
 	{
 		"theHamsta/nvim-dap-virtual-text",
 		-- config = true,
@@ -346,6 +348,13 @@ return require("lazy").setup({
 	{ "windwp/nvim-ts-autotag", event = "VeryLazy" },
 	{ "windwp/nvim-autopairs", opts = { check_ts = true } },
 	{ "xiyaowong/telescope-emoji.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, event = "VeryLazy" },
+	{
+		"yorickpeterse/nvim-window",
+		opts = {
+			-- The border style to use for the floating window.
+			border = "rounded",
+		},
+	},
 }, {
 	ui = {
 		border = "rounded",

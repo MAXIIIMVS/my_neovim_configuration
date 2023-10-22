@@ -286,6 +286,10 @@ vim.g.netrw_liststyle = 3
 -- vim.g.netrw_hide = true
 -- }}}
 
+-- maximizer {{
+vim.g.maximizer_set_default_mapping = false
+-- }}
+
 -- vimtex {{{
 vim.g.vimtex_view_method = "zathura"
 vim.g.vimtex_view_general_viewer = "okular"

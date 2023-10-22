@@ -6,6 +6,8 @@ end
 
 local catppuccin = require("catppuccin")
 local lualine = require("lualine")
+local nvim_window = require("nvim-window")
+local bufferlineUi = require("bufferline.ui")
 -- local telescope = require("telescope")
 local telescope_builtins = require("telescope.builtin")
 local telescope_themes = require("telescope.themes")
@@ -16,6 +18,21 @@ local dap_ui_widgets = require("dap.ui.widgets")
 local dap_go = require("dap-go")
 local dap = require("dap")
 local todo_comments = require("todo-comments")
+
+local function get_git_hash()
+	local handle = io.popen("git describe --always")
+	if handle then
+		local result = handle:read("*a")
+		handle:close()
+		if result then
+			vim.api.nvim_command("let @g = '" .. result .. "'")
+		else
+			print("Error: Command did not return a result")
+		end
+	else
+		print("Error: Failed to run command")
+	end
+end
 
 local function git_next()
 	local handle = io.popen(
@@ -322,10 +339,12 @@ wk.register({
 			g = { "<cmd>silent !tmux new-window 'lazygit'<CR>", "LazyGit" },
 		},
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
+		w = { nvim_window.pick, "Choose Win" },
 		x = { vim.cmd.NvimTreeToggle, "Nvim Tree" },
 		X = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
 		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
-		Z = { "<c-w>|<c-w>_", "Maximize the window" },
+		-- Z = { "<c-w>|<c-w>_", "Maximize the window" },
+		Z = { "<cmd>MaximizerToggle<cr>", "Maximize the window" },
 	},
 	[","] = {
 		name = "Miscellaneous",
@@ -348,11 +367,11 @@ wk.register({
 		},
 		h = { "<cmd>WhichKey<CR>", "Which Key" },
 		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
+		l = { ":silent LspRestart ", "Restart a LSP" },
 		m = { "<cmd>messages<CR>", "messages" },
 		q = { "<cmd>tabclose<CR>", "Close tab" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
 		s = { "<cmd>silent so %<CR>", "Source the file" },
-		T = { "<cmd>:tabclose<CR>", "close the tab" },
 		t = { "<cmd>tabnew<CR>", "Create an empty tab" },
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
@@ -595,6 +614,7 @@ wk.register({
 		},
 		L = { "<cmd>Lazy<CR>", "Lazy" },
 		l = { "<cmd>Telescope ToggleLSP<CR>", "LSP" },
+		m = { "<cmd>MaximizerToggle<CR>", "Maximize window" },
 		o = { "<cmd>Lspsaga outline<CR>", "Outline" },
 		q = {
 			function()
@@ -698,8 +718,9 @@ wk.register({
 						end
 					end
 				end
+				bufferlineUi.refresh()
 			end,
-			"Close empty buffer",
+			"Close empty buffers (not current one)",
 		},
 		O = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "Close other buffers" },
 		o = { "<cmd>BufferLineCloseOthers<CR>|'\"", "Close other buffers" },
@@ -747,8 +768,9 @@ wk.register({
 		d = { "<cmd>silent Gvdiffsplit!<CR>", "Diff" },
 		f = { "<cmd>silent G fetch<CR>", "Fetch" },
 		g = { ":Ggrep! -q ", "Grep" },
-		h = { "<cmd>Gitsigns stage_hunk<CR>", "Stage hunk" },
-		H = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo stage hunk" },
+		h = { get_git_hash, "copy current git hash to g register" },
+		-- h = { "<cmd>Gitsigns stage_hunk<CR>", "Stage hunk" },
+		-- H = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo stage hunk" },
 		L = { "<cmd>silent G log --stat<CR>", "Log with stats" },
 		l = { "<cmd>silent G log --decorate<CR>", "Log" },
 		o = { "<cmd>silent GBrowse<CR>", "Open in the browser" },
@@ -764,15 +786,17 @@ wk.register({
 	},
 	w = {
 		name = "Window",
-		l = { "<c-w>l", "Move the left window" },
+		d = { "<cmd>windo diffthis<CR>", "Show the difference between 2 windows" },
+		D = { "<cmd>windo diffoff<CR>", "Hide the difference between 2 windows" },
 		h = { "<c-w>h", "Move the right window" },
 		j = { "<c-w>j", "Move the window below" },
 		k = { "<c-w>k", "Move the window above" },
-		d = { "<cmd>windo diffthis<CR>", "Show the difference between 2 windows" },
-		D = { "<cmd>windo diffoff<CR>", "Hide the difference between 2 windows" },
+		l = { "<c-w>l", "Move the left window" },
+		m = { "<cmd>MaximizerToggle<CR>", "Maximize the window" },
+		o = { "<cmd>only<CR>", "close all other windows" },
+		p = { nvim_window.pick, "Pick a window" },
 		s = { "<cmd>windo set scrollbind<CR>", "Set scrollbind" },
 		S = { "<cmd>windo set scrollbind!<CR>", "Unset scrollbind" },
-		o = { "<cmd>only<CR>", "close all other windows" },
 	},
 }, { prefix = "<space>", noremap = true, silent = true, nowait = true })
 
