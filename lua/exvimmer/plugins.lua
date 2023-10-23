@@ -109,6 +109,7 @@ return require("lazy").setup({
 				NOTE = { color = "#0AF106", alt = { "INFO" } },
 				HACK = { color = "#F0FD00" },
 				WARN = { color = "#FBBF24", alt = { "WARNING", "XXX" } },
+				TEST = { color = "#FF004E", alt = { "TESTING", "PASSED", "FAILED" } },
 			},
 		},
 	},
