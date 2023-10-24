@@ -142,6 +142,7 @@ return require("lazy").setup({
 	},
 	{ "itchyny/calendar.vim", event = "VeryLazy" },
 	{ "jose-elias-alvarez/null-ls.nvim", event = "VeryLazy" },
+	{ "jvgrootveld/telescope-zoxide" },
 	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },
 	{
 		"kristijanhusak/vim-dadbod-ui",

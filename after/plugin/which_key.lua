@@ -222,11 +222,7 @@ wk.register({
 			end,
 			"Lists available color schemes",
 		},
-		d = {
-			"<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>",
-			"File/Folder browser",
-		},
-		D = { "<cmd>Telescope file_browser<CR>", "File/Folder browser from root" },
+		d = { "<cmd>Telescope file_browser<CR>", "File/Folder browser" },
 		e = { "<cmd>silent Telescope diagnostics<CR>", "List diagnostics" },
 		E = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show line diagnostics" },
 		f = { "<cmd>Telescope find_files<CR>", "Find files" },
@@ -374,6 +370,7 @@ wk.register({
 		s = { "<cmd>silent so %<CR>", "Source the file" },
 		t = { "<cmd>tabnew<CR>", "Create an empty tab" },
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
+		z = { "<cmd>silent Telescope zoxide list<CR>", "Zoxide: Another path" },
 	},
 	-- TODO: add the next keybinding if the bug is fixed
 	-- ["z="] = { "<cmd>silent Telescope spell_suggest<CR>", "show spell suggestions" },
