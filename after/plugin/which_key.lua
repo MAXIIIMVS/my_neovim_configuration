@@ -226,7 +226,7 @@ wk.register({
 		e = { "<cmd>silent Telescope diagnostics<CR>", "List diagnostics" },
 		E = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show line diagnostics" },
 		f = { "<cmd>Telescope find_files<CR>", "Find files" },
-		F = { "<cmd>Telescope git_files <CR>", "Fuzzy search for files tracked by Git" },
+		F = { "<cmd>Telescope git_files<CR>", "Fuzzy search for files tracked by Git" },
 		g = { "<cmd>Telescope live_grep<CR>", "Live grep" },
 		G = { "<cmd>Telescope grep_string<CR>", "Grep string under the cursor" },
 		h = {
@@ -780,7 +780,8 @@ wk.register({
 		},
 		s = { "<cmd>silent Git<CR>", "Status" },
 		S = { ":silent G switch ", "Switch", silent = false },
-		t = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle current line blame" },
+		T = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle current line blame" },
+		t = { "<cmd>GitTimeLaps<CR>", "Show time lapse of the file" },
 	},
 	w = {
 		name = "Window",

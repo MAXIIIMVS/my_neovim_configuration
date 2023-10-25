@@ -1,4 +1,4 @@
--- ムスタファ ハヤティ
+-- ムスタファ・ハヤティ
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -15,15 +15,38 @@ vim.opt.rtp:prepend(lazypath)
 return require("lazy").setup({
 	{
 		"adoyle-h/lsp-toggle.nvim",
-		event = "VeryLazy",
 		opts = {
 			create_cmds = true,
 			telescope = true,
 		},
+		cmd = {
+			"ToggleLSP",
+			"ToggleNullLSP",
+		},
 	},
-	{ "airblade/vim-rooter" },
+	{
+		"airblade/vim-rooter",
+		init = function()
+			vim.g.rooter_silent_chdir = true
+			vim.g.rooter_resolve_links = true
+			vim.g.rooter_cd_cmd = "lcd"
+			vim.g.rooter_change_directory_for_non_project_files = "current"
+		end,
+	},
 	{ "akinsho/bufferline.nvim", event = "VeryLazy", dependencies = { "nvim-tree/nvim-web-devicons" } },
-	{ "akinsho/toggleterm.nvim", version = "*", config = true, event = "VeryLazy" },
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		config = true,
+		cmd = {
+			"ToggleTerm",
+			"ToggleTermSetName",
+			"ToggleTermToggleAll",
+			"ToggleTermSendCurrentLine",
+			"ToggleTermSendVisualLines",
+			"ToggleTermSendVisualSelection",
+		},
+	},
 	-- {"akinsho/git-conflict.nvim"},
 	{
 		"catppuccin/nvim",
@@ -37,8 +60,24 @@ return require("lazy").setup({
 		opts = {
 			conflict = { suffix = "", options = {} },
 			quickfix = { suffix = "", options = {} },
-			comment = { suffix = "", options = {} },
 		},
+		init = function()
+			vim.cmd([[
+        augroup diff_keys
+          autocmd!
+          autocmd OptionSet diff if &diff
+            \ | nnoremap <silent> ]c ]c
+            \ | nnoremap <silent> [c [c
+            \ | else
+            \ | nnoremap <silent> ]c :lua require('mini.bracketed').comment('forward', nil)<CR>
+            \ | nnoremap <silent> [c :lua require('mini.bracketed').comment('backward', nil)<CR>
+            \ | nnoremap <silent> [C :lua require('mini.bracketed').comment('first', nil)<CR>
+            \ | nnoremap <silent> ]C :lua require('mini.bracketed').comment('last', nil)<CR>
+            \ | endif
+        augroup END
+        " \ | :lua require('mini.bracketed').setup()
+      ]])
+		end,
 		event = "VeryLazy",
 	},
 	{
@@ -57,6 +96,11 @@ return require("lazy").setup({
 			},
 			symbol = "┃",
 		},
+		init = function()
+			vim.cmd([[
+        au FileType NvimTree,dashboard,help,lazy,lazyterm,mason,netrw,toggleterm,checkhealth,undotree,dbout lua vim.b.miniindentscope_disable = true
+      ]])
+		end,
 	},
 	{
 		"echasnovski/mini.jump2d",
@@ -90,10 +134,11 @@ return require("lazy").setup({
 		},
 		event = "VeryLazy",
 	},
-	{ "famiu/bufdelete.nvim", event = "VeryLazy" },
+	{ "famiu/bufdelete.nvim", cmd = { "Bdelete" } },
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
+		event = "VeryLazy",
 		opts = {
 			signs = false,
 			highlight = {
@@ -114,9 +159,17 @@ return require("lazy").setup({
 		},
 	},
 	{ "folke/which-key.nvim", lazy = true },
-	{ "folke/zen-mode.nvim", opts = { window = { width = 100 } }, even = "VeryLazy" },
+	{
+		"folke/zen-mode.nvim",
+		opts = { window = { width = 100 } },
+		cmd = { "ZenMode" },
+	},
 	{ "folke/neodev.nvim", opts = {}, lazy = true },
-	{ "ghassan0/telescope-glyph.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, event = "VeryLazy" },
+	{
+		"ghassan0/telescope-glyph.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim" },
+		cmd = { "Telescope glyph" },
+	},
 	{ "nvimdev/dashboard-nvim", event = "VimEnter", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{
 		"glepnir/lspsaga.nvim",
@@ -140,15 +193,36 @@ return require("lazy").setup({
 			"hrsh7th/cmp-cmdline",
 		},
 	},
-	{ "itchyny/calendar.vim", event = "VeryLazy" },
+	{
+		"itchyny/calendar.vim",
+		cmd = { "Calendar" },
+		init = function()
+			vim.cmd("source ~/.config/nvim/credentials.vim")
+			-- vim.g.calendar_week_number = true
+			-- vim.g.calendar_date_month_name = true
+			-- vim.g.calendar_task = true
+			vim.g.calendar_google_calendar = true
+			vim.g.calendar_google_task = true
+			vim.g.calendar_date_full_month_name = true
+			vim.g.calendar_event_start_time = true
+			vim.g.calendar_skip_event_delete_confirm = true
+			vim.g.calendar_skip_task_delete_confirm = true
+			vim.g.calendar_skip_task_clear_completed_confirm = true
+			vim.g.calendar_task_width = 45
+			vim.g.calendar_task_delete = true
+			-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
+		end,
+	},
 	{ "jose-elias-alvarez/null-ls.nvim", event = "VeryLazy" },
-	{ "jvgrootveld/telescope-zoxide" },
+	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
+	{ "jvgrootveld/telescope-zoxide", cmd = { "Telescope zoxide list" } },
 	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },
 	{
 		"kristijanhusak/vim-dadbod-ui",
 		dependencies = {
 			{ "tpope/vim-dadbod", lazy = true },
 			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
+			cmd = "DB",
 		},
 		cmd = {
 			"DBUI",
@@ -169,7 +243,20 @@ return require("lazy").setup({
 		-- build = "make install_jsregexp",
 	},
 	{ "leoluz/nvim-dap-go", config = true, event = "VeryLazy", ft = "go" },
-	{ "lervag/vimtex", event = "VeryLazy", ft = "tex" },
+	{
+		"lervag/vimtex",
+		event = "VeryLazy",
+		ft = "tex",
+		init = function()
+			vim.g.vimtex_view_method = "zathura"
+			vim.g.vimtex_view_general_viewer = "okular"
+			vim.g.vimtex_view_general_options = "--unique file:@pdf#src:@line@tex"
+			vim.g.vimtex_compiler_method = "latexmk" -- default compiler
+			vim.g.vimtex_format_enabled = true
+			vim.g.texflavor = "latex"
+			vim.cmd([[let maplocalleader = "\<space>"]])
+		end,
+	},
 	{
 		"lewis6991/gitsigns.nvim",
 		opts = {
@@ -185,7 +272,17 @@ return require("lazy").setup({
 		},
 		event = "BufEnter",
 	},
-	{ "mbbill/undotree", event = "VeryLazy" },
+	{
+		"mbbill/undotree",
+		cmd = {
+			"UndotreeToggle",
+			"UndotreeShow",
+			"UndotreeToggle",
+			"UndotreeHide",
+			"UndotreeFocus",
+			"UndotreePersistUndo",
+		},
+	},
 	{ "mfussenegger/nvim-dap", event = "VeryLazy" },
 	{ "mfussenegger/nvim-dap-python", ft = "python", event = "VeryLazy" },
 	-- {
@@ -204,7 +301,7 @@ return require("lazy").setup({
 	-- 	},
 	-- },
 	{ "neovim/nvim-lspconfig" },
-	{ "nvim-lualine/lualine.nvim" },
+	{ "nvim-lualine/lualine.nvim", event = "VeryLazy" },
 	{ "nvim-lua/plenary.nvim" },
 	{
 		"nvim-telescope/telescope.nvim",
@@ -214,10 +311,20 @@ return require("lazy").setup({
 	{
 		"nvim-telescope/telescope-file-browser.nvim",
 		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-		event = "VeryLazy",
+		cmd = { "Telescope file_browser" },
 	},
 	{ "nvim-tree/nvim-web-devicons", config = true, lazy = true },
-	{ "nvim-tree/nvim-tree.lua", lazy = true, dependencies = "nvim-tree/nvim-web-devicons" },
+	{
+		"nvim-tree/nvim-tree.lua",
+		lazy = true,
+		dependencies = "nvim-tree/nvim-web-devicons",
+		init = function()
+			vim.cmd([[
+        autocmd FileType NvimTree nnoremap <buffer> <nowait> ;q <cmd>NvimTreeToggle<CR>
+        autocmd FileType NvimTree nnoremap <buffer> <nowait> ;; <cmd>NvimTreeToggle<CR>
+    ]])
+		end,
+	},
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 	{
 		"numToStr/Comment.nvim",
@@ -246,8 +353,8 @@ return require("lazy").setup({
 		},
 		event = "VeryLazy",
 	},
-	{ "onsails/lspkind.nvim", dependencies = { "hrsh7th/nvim-cmp" } },
-	{ "rafamadriz/friendly-snippets" },
+	{ "onsails/lspkind.nvim", dependencies = { "hrsh7th/nvim-cmp" }, event = "InsertEnter" },
+	{ "rafamadriz/friendly-snippets", event = "InsertEnter" },
 	{ "ray-x/lsp_signature.nvim", opts = { hint_enable = false }, event = "VeryLazy" },
 	{
 		"rcarriga/nvim-dap-ui",
@@ -299,28 +406,56 @@ return require("lazy").setup({
 		},
 		event = "VeryLazy",
 	},
-	{ "rhysd/clever-f.vim", event = "VeryLazy" },
-	{ "rose-pine/neovim", name = "rose-pine" },
+	{
+		"rhysd/clever-f.vim",
+		event = "VeryLazy",
+		init = function()
+			-- vim.g.clever_f_ignore_case = true
+			vim.g.clever_f_smart_case = true
+			vim.g.clever_f_mark_char_color = 0
+		end,
+	},
+	{ "rose-pine/neovim", name = "rose-pine", lazy = true },
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
 	-- {"simrat39/rust-tools.nvim"},
-	{ "szw/vim-maximizer" },
+	{
+		"szw/vim-maximizer",
+		cmd = { "MaximizerToggle" },
+		init = function()
+			vim.g.maximizer_set_default_mapping = false
+		end,
+	},
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
-	{ "tiagovla/tokyodark.nvim", opts = { transparent_background = false } },
+	{ "tiagovla/tokyodark.nvim", opts = { transparent_background = false }, event = "VeryLazy" },
 	{ "tpope/vim-abolish", event = "VeryLazy" },
 	{ "tpope/vim-capslock", event = "VeryLazy" },
 	{ "tpope/vim-dadbod", event = "VeryLazy" },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },
 	{ "tpope/vim-rsi", event = "VeryLazy" },
-	{ "tpope/vim-obsession", event = "VeryLazy" },
+	{ "tpope/vim-obsession", cmd = { "Obsession" } },
 	{ "tpope/vim-speeddating", event = "VeryLazy" },
-	{ "vimwiki/vimwiki", event = "VeryLazy" },
-	{ "williamboman/mason.nvim", build = ":MasonUpdate" },
+	{
+		"vimwiki/vimwiki",
+		event = "VeryLazy",
+		init = function()
+			vim.g.vimwiki_listsyms = "    x"
+			vim.g.vimwiki_markdown_link_ext = 1
+			vim.g.vimwiki_global_ext = 0
+			vim.g.vimwiki_list = { { path = "~/notes/wiki/", syntax = "markdown", ext = ".md", auto_diary_index = 1 } }
+			vim.g.vimwiki_ext2syntax = { [".md"] = "markdown", [".mkd"] = "markdown", [".wiki"] = "media" }
+		end,
+	},
+	{ "williamboman/mason.nvim", build = ":MasonUpdate", lazy = true },
 	{ "williamboman/mason-lspconfig.nvim" },
-	{ "windwp/nvim-ts-autotag", event = "VeryLazy" },
-	{ "windwp/nvim-autopairs", opts = { check_ts = true } },
-	{ "xiyaowong/telescope-emoji.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, event = "VeryLazy" },
-	{ "yorickpeterse/nvim-window", opts = { border = "rounded" } },
+	{ "windwp/nvim-ts-autotag", event = "InsertEnter" },
+	{ "windwp/nvim-autopairs", opts = { check_ts = true }, event = "InsertEnter" },
+	{
+		"xiyaowong/telescope-emoji.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim" },
+		cmd = { "Telescope emoji" },
+	},
+	{ "yorickpeterse/nvim-window", opts = { border = "rounded" }, event = "VeryLazy" },
 }, {
 	ui = {
 		border = "rounded",

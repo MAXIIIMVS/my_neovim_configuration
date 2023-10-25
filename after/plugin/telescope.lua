@@ -87,17 +87,17 @@ local options = {
 			prompt_title = "Change Path",
 			mappings = {
 				["<C-b>"] = {
-					keepinsert = true,
 					action = function(selection)
-						print(selection.path)
 						vim.cmd("Telescope file_browser path=" .. selection.path .. " select_buffer=true")
+					end,
+					after_action = function(selection)
+						vim.notify("Directory changed to " .. selection.path)
 					end,
 				},
 			},
 		},
 	},
 
-	-- extensions_list = { "file_browser", "themes", "terms" },
 	extensions_list = { "file_browser", "emoji", "glyph", "zoxide" },
 }
 

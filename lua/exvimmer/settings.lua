@@ -39,14 +39,8 @@ vim.cmd([[
 " dadbod completion with cmp
 " autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
 
-" disable mini-indentscope for certain file types
-au FileType NvimTree,dashboard,help,lazy,lazyterm,mason,netrw,toggleterm,checkhealth,undotree,dbout lua vim.b.miniindentscope_disable = true
-
 " Turn off paste mode when leaving insert
 autocmd InsertLeave * set nopaste
-
-" read calendar credentials
-source ~/.config/nvim/credentials.vim
 
 augroup CmdHeight
     autocmd!
@@ -67,10 +61,6 @@ if &term =~ "screen"
   autocmd BufEnter * if bufname("") !~ "^?[A-Za-z0-9?]*://" | silent! exe '!echo -n "\ek[`hostname`:`basename $PWD`/`basename %`]\e\\"' | endif
   autocmd VimLeave * silent!  exe '!echo -n "\ek[`hostname`:`basename $PWD`]\e\\"'
 endif
-
-" NvimTree
-autocmd FileType NvimTree nnoremap <buffer> <nowait> ;q <cmd>NvimTreeToggle<CR>
-autocmd FileType NvimTree nnoremap <buffer> <nowait> ;; <cmd>NvimTreeToggle<CR>
 
 " netrw settings and functions
 " let g:netrw_list_hide= netrw_gitignore#Hide()
@@ -119,12 +109,6 @@ function! ToggleNetrw()
         silent Lexplore %:p:h
     endif
 endfunction
-
-" vimwiki settings
-let g:vimwiki_list = [{'path': '~/notes/wiki/',  'syntax': 'markdown', 'ext': '.md', 'auto_diary_index': 1}]
-let g:vimwiki_markdown_link_ext = 1
-let g:vimwiki_ext2syntax = {'.md': 'markdown',  '.mkd': 'markdown',  '.wiki': 'media'}
-let g:vimwiki_global_ext = 0
 
 " emojis
 ab :pi: 𝞹
@@ -284,51 +268,4 @@ vim.g.netrw_browse_split = 4
 vim.g.netrw_fastbrowse = false
 vim.g.netrw_liststyle = 3
 -- vim.g.netrw_hide = true
--- }}}
-
--- maximizer {{
-vim.g.maximizer_set_default_mapping = false
--- }}
-
--- vimtex {{{
-vim.g.vimtex_view_method = "zathura"
-vim.g.vimtex_view_general_viewer = "okular"
-vim.g.vimtex_view_general_options = "--unique file:@pdf#src:@line@tex"
-vim.g.vimtex_compiler_method = "latexmk" -- default compiler
-vim.g.vimtex_format_enabled = true
-vim.g.texflavor = "latex"
-vim.cmd([[let maplocalleader = "\<space>"]])
--- }}}
-
--- VimWiki {{{
-vim.g.vimwiki_listsyms = " .oOx"
--- }}}
-
--- vim-rooter {{{
-vim.g.rooter_silent_chdir = true
-vim.g.rooter_resolve_links = true
-vim.g.rooter_cd_cmd = "lcd"
-vim.g.rooter_change_directory_for_non_project_files = "current"
--- }}}
-
--- clever-f {{{
--- vim.g.clever_f_ignore_case = true
-vim.g.clever_f_smart_case = true
-vim.g.clever_f_mark_char_color = 0
--- }}}
-
--- Calendar.vim {{{
--- vim.g.calendar_week_number = true
--- vim.g.calendar_date_month_name = true
--- vim.g.calendar_task = true
-vim.g.calendar_google_calendar = true
-vim.g.calendar_google_task = true
-vim.g.calendar_date_full_month_name = true
-vim.g.calendar_event_start_time = true
-vim.g.calendar_skip_event_delete_confirm = true
-vim.g.calendar_skip_task_delete_confirm = true
-vim.g.calendar_skip_task_clear_completed_confirm = true
-vim.g.calendar_task_width = 45
-vim.g.calendar_task_delete = true
--- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 -- }}}
