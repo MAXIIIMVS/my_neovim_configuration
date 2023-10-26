@@ -47,7 +47,6 @@ return require("lazy").setup({
 			"ToggleTermSendVisualSelection",
 		},
 	},
-	-- {"akinsho/git-conflict.nvim"},
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
@@ -213,7 +212,6 @@ return require("lazy").setup({
 			-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 		end,
 	},
-	{ "jose-elias-alvarez/null-ls.nvim", event = "VeryLazy" },
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{ "jvgrootveld/telescope-zoxide", cmd = { "Telescope zoxide list" } },
 	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },
@@ -240,7 +238,6 @@ return require("lazy").setup({
 		"L3MON4D3/LuaSnip",
 		event = "InsertEnter",
 		version = "v2.*",
-		-- build = "make install_jsregexp",
 	},
 	{ "leoluz/nvim-dap-go", config = true, event = "VeryLazy", ft = "go" },
 	{
@@ -285,21 +282,6 @@ return require("lazy").setup({
 	},
 	{ "mfussenegger/nvim-dap", event = "VeryLazy" },
 	{ "mfussenegger/nvim-dap-python", ft = "python", event = "VeryLazy" },
-	-- {
-	-- 	"microsoft/vscode-js-debug",
-	-- 	lazy = true,
-	-- 	-- build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
-	-- 	build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
-	-- },
-	-- {
-	-- 	"mxsdev/nvim-dap-vscode-js",
-	-- 	event = "VeryLazy",
-	--
-	-- 	opts = {
-	-- 		debugger_path = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/js-debug-adapter",
-	-- 		adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
-	-- 	},
-	-- },
 	{ "neovim/nvim-lspconfig" },
 	{ "nvim-lualine/lualine.nvim", event = "VeryLazy" },
 	{ "nvim-lua/plenary.nvim" },
@@ -326,6 +308,7 @@ return require("lazy").setup({
 		end,
 	},
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	{ "nvimtools/none-ls.nvim", event = "VeryLazy" },
 	{
 		"numToStr/Comment.nvim",
 		event = "VeryLazy",
@@ -354,7 +337,7 @@ return require("lazy").setup({
 		event = "VeryLazy",
 	},
 	{ "onsails/lspkind.nvim", dependencies = { "hrsh7th/nvim-cmp" }, event = "InsertEnter" },
-	{ "rafamadriz/friendly-snippets", event = "InsertEnter" },
+	{ "rafamadriz/friendly-snippets" },
 	{ "ray-x/lsp_signature.nvim", opts = { hint_enable = false }, event = "VeryLazy" },
 	{
 		"rcarriga/nvim-dap-ui",
