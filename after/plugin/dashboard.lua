@@ -183,7 +183,7 @@ db.setup({
 			{
 				icon = "🗓 ",
 				desc = "Calendar                                          ",
-				action = ":Calendar",
+				action = "Calendar",
 				key = "c",
 			},
 			{

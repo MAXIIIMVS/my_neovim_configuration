@@ -363,7 +363,7 @@ wk.register({
 		},
 		h = { "<cmd>WhichKey<CR>", "Which Key" },
 		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
-		l = { ":silent LspRestart ", "Restart a LSP" },
+		l = { ":silent LspRestart ", "Restart a LSP", silent = false },
 		m = { "<cmd>messages<CR>", "messages" },
 		q = { "<cmd>tabclose<CR>", "Close tab" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
@@ -433,6 +433,11 @@ wk.register({
 		i = {
 			":make install<CR>",
 			"Install",
+		},
+		m = {
+			":make ",
+			"Insert a make command",
+			silent = false,
 		},
 		r = {
 			":make run<CR>",
@@ -735,7 +740,7 @@ wk.register({
 		D = { "<cmd>Calendar -view=days<CR>", "View Days" },
 		t = { "<cmd>Calendar -view=clock<CR>", "View Clock" },
 		o = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r<CR>", "Open Google Calendar" },
-		g = { ":Calendar ", "Go to date (mm dd yyyy)" },
+		g = { ":Calendar ", "Go to date (mm dd yyyy)", silent = false },
 	},
 	g = {
 		name = "Git",
@@ -764,7 +769,7 @@ wk.register({
 		D = { "<cmd>silent Gvdiffsplit! HEAD~<CR>", "Diff with previous commit" },
 		d = { "<cmd>silent Gvdiffsplit!<CR>", "Diff" },
 		f = { "<cmd>silent G fetch<CR>", "Fetch" },
-		g = { ":Ggrep! -q ", "Grep" },
+		g = { ":Ggrep! -q ", "Grep", silent = false },
 		h = { get_git_hash, "copy current git hash to g register" },
 		-- h = { "<cmd>Gitsigns stage_hunk<CR>", "Stage hunk" },
 		-- H = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo stage hunk" },
@@ -835,6 +840,11 @@ wk.register({
 
 -- Visual mode {{{
 wk.register({
+	[";"] = {
+		name = "Quick",
+		S = { 'y:%S/<c-r>"/<c-r>"/g<LEFT><LEFT>', "Change the selection in whole document", silent = false },
+		s = { 'y:S/<c-r>"/<c-r>"/g<LEFT><LEFT>', "Change the selection in this line", silent = false },
+	},
 	-- ["."] = { ":normal.<CR>", "Repeat previous action" },
 	-- ["p"] = { '"_dP', "Paste over currently selected text without yanking it" }, -- this causes pasting in select mode (when using snippets)
 	["<"] = { "<gv", "Indent left" },
@@ -847,8 +857,6 @@ wk.register({
 		end,
 		"Comment/uncomment selected lines",
 	},
-	-- ["<c-k>"] = { ":m '<-2<CR>gv=gv", "Move up" },
-	-- ["<c-j>"] = { ":m '>+1<CR>gv=gv", "Move down" },
 	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 }, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })

@@ -18,7 +18,6 @@ require("nvim-treesitter.configs").setup({
 		"csv",
 		"svelte",
 		-- "comment",
-		"help",
 		"vue",
 		"c_sharp",
 		"gitignore",
