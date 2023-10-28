@@ -779,6 +779,7 @@ wk.register({
 		o = { "<cmd>silent GBrowse<CR>", "Open in the browser" },
 		P = { "<cmd>silent G push<CR>", "Push" },
 		p = { "<cmd>silent G pull<CR>", "Pull" },
+		R = { "<cmd>silent G checkout HEAD -- %<CR>", "Reset the file" },
 		r = {
 			"<cmd>Gitsigns reset_hunk<CR>",
 			"Reset the lines of the hunk at the cursor position, or all lines in the given range.",
@@ -787,6 +788,8 @@ wk.register({
 		S = { ":silent G switch ", "Switch", silent = false },
 		T = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle current line blame" },
 		t = { "<cmd>GitTimeLaps<CR>", "Show time lapse of the file" },
+		W = { "<cmd>silent G restore --staged %<CR>", "Unstage the file" },
+		w = { "<cmd>silent G add %<CR>", "Stage the file" },
 	},
 	w = {
 		name = "Window",

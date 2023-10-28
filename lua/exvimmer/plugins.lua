@@ -139,7 +139,7 @@ return require("lazy").setup({
 		dependencies = { "nvim-lua/plenary.nvim" },
 		event = "VeryLazy",
 		opts = {
-			signs = false,
+			signs = true,
 			highlight = {
 				multiline = false,
 				multiline_context = 0,
@@ -150,10 +150,10 @@ return require("lazy").setup({
 			keywords = {
 				FIX = { color = "#FF3E00", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
 				TODO = { color = "#FF1C7B", alt = { "LATER" } },
-				NOTE = { color = "#0AF106", alt = { "INFO" } },
+				NOTE = { icon = "", color = "#0AF106", alt = { "INFO" } },
 				HACK = { color = "#F0FD00" },
 				WARN = { color = "#FBBF24", alt = { "WARNING", "XXX" } },
-				TEST = { color = "#FF004E", alt = { "TESTING", "PASSED", "FAILED" } },
+				TEST = { icon = "", color = "#FF004E", alt = { "TESTING", "PASSED", "FAILED" } },
 			},
 		},
 	},
