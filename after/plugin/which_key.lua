@@ -562,16 +562,23 @@ wk.register({
 			name = "appeareance",
 			c = {
 				function()
+					if vim.o.background == "dark" then
+						local rose_pine_options = require("rose-pine.config").options
+						rose_pine_options.disable_background = false
+						rose_pine_options.disable_float_background = false
+						catppuccin.options.transparent_background = false
+						catppuccin.compile()
+					end
 					vim.o.background = vim.o.background == "dark" and "light" or "dark"
-					catppuccin.options.transparent_background = not catppuccin.options.transparent_background
-					vim.cmd.colorscheme(vim.g.colors_name)
-					catppuccin.compile()
 				end,
 				"Light/dark color",
 			},
 			t = {
 				function()
 					local next_transparency = not catppuccin.options.transparent_background
+					if vim.o.background == "light" and next_transparency then
+						return
+					end
 					local rose_pine_options = require("rose-pine.config").options
 					rose_pine_options.disable_background = next_transparency
 					rose_pine_options.disable_float_background = next_transparency
@@ -590,7 +597,8 @@ wk.register({
 			},
 			o = {
 				function()
-					vim.cmd.colorscheme(vim.g.colors_name == "rose-pine" and "catppuccin" or "rose-pine")
+					local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
+					vim.cmd.colorscheme(vim.g.colors_name == "rose-pine" and flavor or "rose-pine")
 					if vim.g.colors_name ~= "catppuccin" then
 						vim.wo.fillchars = "eob: "
 						vim.cmd.highlight("NonText guifg=bg")
