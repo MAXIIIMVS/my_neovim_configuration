@@ -571,10 +571,13 @@ wk.register({
 			},
 			t = {
 				function()
-					local transparent = not catppuccin.options.transparent_background
-					catppuccin.options.transparent_background = transparent
+					local next_transparency = not catppuccin.options.transparent_background
+					local rose_pine_options = require("rose-pine.config").options
+					rose_pine_options.disable_background = next_transparency
+					rose_pine_options.disable_float_background = next_transparency
+					catppuccin.options.transparent_background = next_transparency
 					catppuccin.options.dim_inactive = {
-						enabled = not transparent,
+						enabled = not next_transparency,
 						shade = "dark",
 						percentage = 0.65,
 					}
