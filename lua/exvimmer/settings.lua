@@ -238,9 +238,9 @@ vim.bo.expandtab = true
 -- vim.o.nrformats = "alpha,bin,hex"
 
 -- hide tildes (only vim), this doesn't work for nvim-tree
--- vim.wo.fillchars = "eob: "
+vim.wo.fillchars = "eob: "
 -- or put this after colorscheme (vim & nvim), works for nvim-tree
--- vim.cmd("hi NonText guifg=bg")
+vim.cmd("hi NonText guifg=bg")
 -- }}}
 
 -- Highlights {{{

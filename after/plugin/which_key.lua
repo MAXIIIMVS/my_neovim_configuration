@@ -570,6 +570,10 @@ wk.register({
 						catppuccin.compile()
 					end
 					vim.o.background = vim.o.background == "dark" and "light" or "dark"
+					if vim.g.colors_name == "rose-pine" then
+						vim.wo.fillchars = "eob: "
+						vim.cmd.highlight("NonText guifg=bg")
+					end
 				end,
 				"Light/dark color",
 			},
@@ -592,6 +596,10 @@ wk.register({
 					-- vim.o.cursorline = not transparent
 					-- vim.o.cursorlineopt = transparent and "number" or "number,line"
 					vim.cmd.colorscheme(vim.g.colors_name)
+					if vim.g.colors_name == "rose-pine" then
+						vim.wo.fillchars = "eob: "
+						vim.cmd.highlight("NonText guifg=bg")
+					end
 				end,
 				"Transparency",
 			},
@@ -599,7 +607,7 @@ wk.register({
 				function()
 					local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
 					vim.cmd.colorscheme(vim.g.colors_name == "rose-pine" and flavor or "rose-pine")
-					if vim.g.colors_name ~= "catppuccin" then
+					if vim.g.colors_name == "rose-pine" then
 						vim.wo.fillchars = "eob: "
 						vim.cmd.highlight("NonText guifg=bg")
 					end

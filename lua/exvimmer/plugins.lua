@@ -305,6 +305,11 @@ return require("lazy").setup({
         autocmd FileType NvimTree nnoremap <buffer> <nowait> ;q <cmd>NvimTreeToggle<CR>
         autocmd FileType NvimTree nnoremap <buffer> <nowait> ;; <cmd>NvimTreeToggle<CR>
     ]])
+			local Api = require("nvim-tree.api")
+			local Event = require("nvim-tree.api").events.Event
+			Api.events.subscribe(Event.TreeOpen, function()
+				vim.opt_local.fillchars = "eob: "
+			end)
 		end,
 	},
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },

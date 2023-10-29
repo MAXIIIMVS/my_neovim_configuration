@@ -29,7 +29,7 @@ local options = {
 	},
 	sort_by = "insert_at_end",
 	numbers = "ordinal",
-	separator_style = "thick", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
+	separator_style = "thin", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
 	diagnostics = "nvim_lsp",
 	custom_areas = {
 		right = function()
@@ -60,7 +60,8 @@ local options = {
 	},
 }
 
+---@diagnostic disable-next-line: missing-fields
 bufferline.setup({
-	highlights = require("catppuccin.groups.integrations.bufferline").get(),
+	-- highlights = require("catppuccin.groups.integrations.bufferline").get(),
 	options = options,
 })
