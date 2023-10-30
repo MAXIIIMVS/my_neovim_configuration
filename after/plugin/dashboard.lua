@@ -165,7 +165,7 @@ db.setup({
 				icon = "📂 ",
 				desc = "Change Project",
 				action = "Telescope zoxide list",
-				key = "d",
+				key = "z",
 			},
 			{
 				icon = "🗄 ",

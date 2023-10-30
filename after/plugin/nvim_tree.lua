@@ -7,6 +7,11 @@ end
 local function my_on_attach(bufnr)
 	local api = require("nvim-tree.api")
 
+	local Event = require("nvim-tree.api").events.Event
+	api.events.subscribe(Event.TreeOpen, function()
+		vim.opt_local.fillchars = "eob: "
+	end)
+
 	local function opts(desc)
 		return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
 	end
@@ -24,7 +29,7 @@ local options = {
 	disable_netrw = false,
 	hijack_netrw = false,
 	hijack_cursor = true,
-	hijack_unnamed_buffer_when_opening = false,
+	hijack_unnamed_buffer_when_opening = true,
 	sync_root_with_cwd = true,
 	update_focused_file = {
 		enable = true,

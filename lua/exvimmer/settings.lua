@@ -50,6 +50,11 @@ augroup END
 
 " hide tmux
 " autocmd VimEnter,VimLeave * silent !tmux set status
+" autocmd VimLeave * silent !tmux set -g status-style bg=default
+augroup reset_catppuccin
+    autocmd!
+    autocmd VimLeave * lua require("catppuccin").compile({transparent_background=true})
+augroup END
 
 " I don't know what these line do
 au FocusGained,BufEnter * :silent! !

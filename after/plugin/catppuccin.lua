@@ -34,6 +34,7 @@ catppuccin.setup({
 	show_end_of_buffer = false,
 	compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
 	-- transparent_background = vim.o.background == "dark",
+	transparent_background = true,
 	term_colors = true,
 	color_overrides = {
 		mocha = {

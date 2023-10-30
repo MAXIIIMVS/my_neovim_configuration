@@ -19,6 +19,43 @@ local dap_go = require("dap-go")
 local dap = require("dap")
 local todo_comments = require("todo-comments")
 
+local function get_highlight(group)
+	local src = "redir @a | silent! hi " .. group .. " | redir END | let output = @a"
+	vim.api.nvim_exec2(src, { output = true })
+	local output = vim.fn.getreg("a")
+	local list = vim.split(output, "%s+")
+	local dict = {}
+	for _, item in ipairs(list) do
+		if string.find(item, "=") then
+			local splited = vim.split(item, "=")
+			dict[splited[1]] = splited[2]
+		end
+	end
+	return dict
+end
+
+function toggle_tmux_status(useTransparent)
+	local bgStyle = ""
+	if useTransparent then
+		bgStyle = "default"
+	else
+		local color = get_highlight("lualine_c_normal")["guibg"]
+		bgStyle = color ~= nil and color or "#181825"
+	end
+	local command = string.format(
+		"tmux show-option -gq status-style | grep -q 'bg=%s' && tmux set-option -gq status-style bg=%s || tmux set-option -gq status-style bg=%s; tmux refresh-client -S",
+		bgStyle,
+		bgStyle,
+		bgStyle
+	)
+	local handle = io.popen(command)
+	if handle then
+		handle:close()
+	else
+		print("Failed to execute the command.")
+	end
+end
+
 local function get_git_hash()
 	local handle = io.popen("git describe --always")
 	if handle then
@@ -148,15 +185,15 @@ wk.register({
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
 	["]g"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
 	["[g"] = { ":Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
-	["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to the previous diagnostic" },
-	["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to the next diagnostic" },
-	["[E"] = {
+	["[E"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to the previous diagnostic" },
+	["[e"] = {
 		function()
 			lspsaga_diagnostics:goto_prev({ severity = vim.diagnostic.severity.ERROR })
 		end,
 		"Jump to the previous error",
 	},
-	["]E"] = {
+	["]E"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to the next diagnostic" },
+	["]e"] = {
 		function()
 			lspsaga_diagnostics:goto_next({ severity = vim.diagnostic.severity.ERROR })
 		end,
@@ -222,7 +259,11 @@ wk.register({
 			end,
 			"Lists available color schemes",
 		},
-		d = { "<cmd>Telescope file_browser<CR>", "File/Folder browser" },
+		d = {
+			"<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>",
+			"Browse current directory",
+		},
+		D = { "<cmd>Telescope file_browser<CR>", "File/Folder browser from root" },
 		e = { "<cmd>silent Telescope diagnostics<CR>", "List diagnostics" },
 		E = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show line diagnostics" },
 		f = { "<cmd>Telescope find_files<CR>", "Find files" },
@@ -570,10 +611,9 @@ wk.register({
 						catppuccin.compile()
 					end
 					vim.o.background = vim.o.background == "dark" and "light" or "dark"
-					if vim.g.colors_name == "rose-pine" then
-						vim.wo.fillchars = "eob: "
-						vim.cmd.highlight("NonText guifg=bg")
-					end
+					vim.wo.fillchars = "eob: "
+					vim.cmd.highlight("NonText guifg=bg")
+					toggle_tmux_status(false)
 				end,
 				"Light/dark color",
 			},
@@ -583,6 +623,7 @@ wk.register({
 					if vim.o.background == "light" and next_transparency then
 						return
 					end
+					toggle_tmux_status(next_transparency)
 					local rose_pine_options = require("rose-pine.config").options
 					rose_pine_options.disable_background = next_transparency
 					rose_pine_options.disable_float_background = next_transparency
@@ -596,10 +637,8 @@ wk.register({
 					-- vim.o.cursorline = not transparent
 					-- vim.o.cursorlineopt = transparent and "number" or "number,line"
 					vim.cmd.colorscheme(vim.g.colors_name)
-					if vim.g.colors_name == "rose-pine" then
-						vim.wo.fillchars = "eob: "
-						vim.cmd.highlight("NonText guifg=bg")
-					end
+					vim.wo.fillchars = "eob: "
+					vim.cmd.highlight("NonText guifg=bg")
 				end,
 				"Transparency",
 			},
@@ -607,10 +646,9 @@ wk.register({
 				function()
 					local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
 					vim.cmd.colorscheme(vim.g.colors_name == "rose-pine" and flavor or "rose-pine")
-					if vim.g.colors_name == "rose-pine" then
-						vim.wo.fillchars = "eob: "
-						vim.cmd.highlight("NonText guifg=bg")
-					end
+					vim.wo.fillchars = "eob: "
+					vim.cmd.highlight("NonText guifg=bg")
+					toggle_tmux_status(vim.o.background == "dark" and catppuccin.options.transparent_background)
 				end,
 				"other theme",
 			},
