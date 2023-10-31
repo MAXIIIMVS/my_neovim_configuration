@@ -398,7 +398,15 @@ return require("lazy").setup({
 			vim.g.clever_f_mark_char_color = 0
 		end,
 	},
-	{ "rose-pine/neovim", name = "rose-pine", lazy = true },
+	{
+		"rose-pine/neovim",
+		name = "rose-pine",
+		opts = {
+			disable_background = true,
+			disable_float_background = true,
+		},
+		lazy = true,
+	},
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
 	-- {"simrat39/rust-tools.nvim"},
 	{
