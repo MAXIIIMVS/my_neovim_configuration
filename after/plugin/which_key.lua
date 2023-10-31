@@ -815,7 +815,7 @@ wk.register({
 			end,
 			"checkout next commit",
 		},
-		a = {
+		A = {
 			"<cmd>silent vertical G commit --amend<CR>",
 			"Amend commit with staged changes",
 		},
