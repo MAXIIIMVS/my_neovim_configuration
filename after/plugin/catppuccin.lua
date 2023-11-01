@@ -44,20 +44,20 @@ catppuccin.setup({
 			base = "#191724",
 		},
 	},
-	highlight_overrides = {
-		-- latte = telescopeBorderless("latte"),
-		-- frappe = telescopeBorderless("frappe"),
-		-- macchiato = telescopeBorderless("macchiato"),
-		-- mocha = telescopeBorderless("mocha"),
-		mocha = function()
-			-- return {
-			-- 	-- ["@text.todo"] = { fg = "#FF007A", bg = "#171421" },
-			-- 	["@text.todo"] = { fg = "#FF1C7B", bg = "#171421" },
-			-- 	["@text.note"] = { fg = "#0AF106", bg = "#171421" },
-			-- 	["@text.warning"] = { fg = "#F0FD00", bg = "#171421" },
-			-- }
-		end,
-	},
+	-- highlight_overrides = {
+	-- 	-- latte = telescopeBorderless("latte"),
+	-- 	-- frappe = telescopeBorderless("frappe"),
+	-- 	-- macchiato = telescopeBorderless("macchiato"),
+	-- 	-- mocha = telescopeBorderless("mocha"),
+	-- 	-- mocha = function()
+	-- 	-- 	-- return {
+	-- 	-- 	-- 	-- ["@text.todo"] = { fg = "#FF007A", bg = "#171421" },
+	-- 	-- 	-- 	["@text.todo"] = { fg = "#FF1C7B", bg = "#171421" },
+	-- 	-- 	-- 	["@text.note"] = { fg = "#0AF106", bg = "#171421" },
+	-- 	-- 	-- 	["@text.warning"] = { fg = "#F0FD00", bg = "#171421" },
+	-- 	-- 	-- }
+	-- 	-- end,
+	-- },
 	integrations = {
 		cmp = true,
 		gitsigns = true,

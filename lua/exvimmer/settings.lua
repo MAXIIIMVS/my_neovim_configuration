@@ -51,11 +51,25 @@ augroup END
 " hide tmux
 " autocmd VimEnter,VimLeave * silent !tmux set status
 " autocmd VimLeave * silent !tmux set -g status-style bg=default
-augroup reset_catppuccin
+augroup sync_tmux
     autocmd!
-    " autocmd VimLeave * lua require("catppuccin").compile({transparent_background=true})
     autocmd UIEnter * lua sync_bg_lualine_tmux()
 augroup END
+
+let g:first_color_scheme_change = 1
+
+function! SyncTmuxOnColorSchemeChange()
+    if g:first_color_scheme_change
+        let g:first_color_scheme_change = 0
+    else
+        augroup sync_all
+          autocmd!
+          autocmd ColorScheme * lua sync_bg_lualine_tmux()
+        augroup END
+    endif
+endfunction
+
+autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 
 " I don't know what these line do
 au FocusGained,BufEnter * :silent! !

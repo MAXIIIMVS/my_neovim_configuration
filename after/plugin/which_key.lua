@@ -90,6 +90,8 @@ function sync_bg_lualine_tmux()
 	local current_background = get_highlight("Normal")["guibg"]
 	vim.api.nvim_set_hl(0, "lualine_c", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
+	vim.wo.fillchars = "eob: "
+	vim.cmd.highlight("NonText guifg=bg")
 end
 
 local function git_next()
@@ -263,6 +265,48 @@ wk.register({
 		["7"] = { "<cmd>BufferLineGoToBuffer 7<CR>", "Go to 7th buffer" },
 		["8"] = { "<cmd>BufferLineGoToBuffer 8<CR>", "Go to 8th buffer" },
 		["9"] = { "<cmd>BufferLineGoToBuffer 9<CR>", "Go to 9th buffer" },
+		a = {
+			name = "appeareance",
+			b = {
+				function()
+					if vim.o.background == "dark" then
+						local rose_pine_options = require("rose-pine.config").options
+						rose_pine_options.disable_background = false
+						rose_pine_options.disable_float_background = false
+						catppuccin.options.transparent_background = false
+						catppuccin.compile()
+					end
+					vim.o.background = vim.o.background == "dark" and "light" or "dark"
+					sync_bg_lualine_tmux()
+				end,
+				"Background color (Light/dark) ",
+			},
+			t = {
+				function()
+					local next_transparency = not catppuccin.options.transparent_background
+					if vim.o.background == "light" and next_transparency then
+						return
+					end
+					local rose_pine_options = require("rose-pine.config").options
+					rose_pine_options.disable_background = next_transparency
+					rose_pine_options.disable_float_background = next_transparency
+					catppuccin.options.transparent_background = next_transparency
+					catppuccin.compile()
+					-- vim.o.cursorline = not transparent
+					-- vim.o.cursorlineopt = transparent and "number" or "number,line"
+					vim.cmd.colorscheme(vim.g.colors_name)
+					sync_bg_lualine_tmux()
+				end,
+				"Transparency",
+			},
+			o = {
+				function()
+					local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
+					vim.cmd.colorscheme(vim.g.colors_name == "rose-pine" and flavor or "rose-pine")
+				end,
+				"other theme",
+			},
+		},
 		-- b = { "<cmd>Telescope buffers previewer=false<CR>", "List open buffers" },
 		b = {
 			function()
@@ -620,55 +664,6 @@ wk.register({
 	},
 	t = {
 		name = "Toggle",
-		a = {
-			name = "appeareance",
-			c = {
-				function()
-					if vim.o.background == "dark" then
-						local rose_pine_options = require("rose-pine.config").options
-						rose_pine_options.disable_background = false
-						rose_pine_options.disable_float_background = false
-						catppuccin.options.transparent_background = false
-						catppuccin.compile()
-					end
-					vim.o.background = vim.o.background == "dark" and "light" or "dark"
-					vim.wo.fillchars = "eob: "
-					vim.cmd.highlight("NonText guifg=bg")
-					sync_bg_lualine_tmux()
-				end,
-				"Light/dark color",
-			},
-			t = {
-				function()
-					local next_transparency = not catppuccin.options.transparent_background
-					if vim.o.background == "light" and next_transparency then
-						return
-					end
-					local rose_pine_options = require("rose-pine.config").options
-					rose_pine_options.disable_background = next_transparency
-					rose_pine_options.disable_float_background = next_transparency
-					catppuccin.options.transparent_background = next_transparency
-					catppuccin.compile()
-					-- vim.o.cursorline = not transparent
-					-- vim.o.cursorlineopt = transparent and "number" or "number,line"
-					vim.cmd.colorscheme(vim.g.colors_name)
-					vim.wo.fillchars = "eob: "
-					vim.cmd.highlight("NonText guifg=bg")
-					sync_bg_lualine_tmux()
-				end,
-				"Transparency",
-			},
-			o = {
-				function()
-					local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
-					vim.cmd.colorscheme(vim.g.colors_name == "rose-pine" and flavor or "rose-pine")
-					vim.wo.fillchars = "eob: "
-					vim.cmd.highlight("NonText guifg=bg")
-					sync_bg_lualine_tmux()
-				end,
-				"other theme",
-			},
-		},
 		C = {
 			"<cmd>ColorizerToggle<CR>",
 			"Colorizer",
