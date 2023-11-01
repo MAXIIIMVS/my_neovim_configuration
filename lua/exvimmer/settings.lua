@@ -53,7 +53,8 @@ augroup END
 " autocmd VimLeave * silent !tmux set -g status-style bg=default
 augroup reset_catppuccin
     autocmd!
-    autocmd VimLeave * lua require("catppuccin").compile({transparent_background=true})
+    " autocmd VimLeave * lua require("catppuccin").compile({transparent_background=true})
+    autocmd UIEnter * lua sync_bg_lualine_tmux()
 augroup END
 
 " I don't know what these line do

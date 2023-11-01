@@ -56,6 +56,21 @@ function toggle_tmux_status(useTransparent)
 	end
 end
 
+local function set_tmux_status_color(color)
+	local command = string.format(
+		"tmux show-option -gq status-style | grep -q 'bg=%s' && tmux set-option -gq status-style bg=%s || tmux set-option -gq status-style bg=%s; tmux refresh-client -S",
+		color,
+		color,
+		color
+	)
+	local handle = io.popen(command)
+	if handle then
+		handle:close()
+	else
+		print("Failed to execute the command.")
+	end
+end
+
 local function get_git_hash()
 	local handle = io.popen("git describe --always")
 	if handle then
@@ -69,6 +84,12 @@ local function get_git_hash()
 	else
 		print("Error: Failed to run command")
 	end
+end
+
+function sync_bg_lualine_tmux()
+	local current_background = get_highlight("Normal")["guibg"]
+	vim.api.nvim_set_hl(0, "lualine_c", { bg = current_background == nil and "NONE" or "bg" })
+	set_tmux_status_color(current_background == nil and "default" or current_background)
 end
 
 local function git_next()
@@ -613,7 +634,7 @@ wk.register({
 					vim.o.background = vim.o.background == "dark" and "light" or "dark"
 					vim.wo.fillchars = "eob: "
 					vim.cmd.highlight("NonText guifg=bg")
-					toggle_tmux_status(false)
+					sync_bg_lualine_tmux()
 				end,
 				"Light/dark color",
 			},
@@ -623,22 +644,17 @@ wk.register({
 					if vim.o.background == "light" and next_transparency then
 						return
 					end
-					toggle_tmux_status(next_transparency)
 					local rose_pine_options = require("rose-pine.config").options
 					rose_pine_options.disable_background = next_transparency
 					rose_pine_options.disable_float_background = next_transparency
 					catppuccin.options.transparent_background = next_transparency
-					catppuccin.options.dim_inactive = {
-						enabled = not next_transparency,
-						shade = "dark",
-						percentage = 0.65,
-					}
 					catppuccin.compile()
 					-- vim.o.cursorline = not transparent
 					-- vim.o.cursorlineopt = transparent and "number" or "number,line"
 					vim.cmd.colorscheme(vim.g.colors_name)
 					vim.wo.fillchars = "eob: "
 					vim.cmd.highlight("NonText guifg=bg")
+					sync_bg_lualine_tmux()
 				end,
 				"Transparency",
 			},
@@ -648,7 +664,7 @@ wk.register({
 					vim.cmd.colorscheme(vim.g.colors_name == "rose-pine" and flavor or "rose-pine")
 					vim.wo.fillchars = "eob: "
 					vim.cmd.highlight("NonText guifg=bg")
-					toggle_tmux_status(vim.o.background == "dark" and catppuccin.options.transparent_background)
+					sync_bg_lualine_tmux()
 				end,
 				"other theme",
 			},

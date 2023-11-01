@@ -1,5 +1,7 @@
 -- Eviline config for lualine
 local lualine = require("lualine")
+local custom_auto = require("lualine.themes.auto")
+-- custom_auto.normal.c.bg = "NONE"
 -- Color table for highlights
 -- stylua: ignore
 local colors = {
@@ -46,6 +48,7 @@ local config = {
 		component_separators = "",
 		section_separators = "",
 		-- theme = "catppuccin",
+		theme = custom_auto,
 		-- theme = {
 		-- 	normal = { c = { fg = colors.fg, bg = colors.bg } },
 		-- 	inactive = { c = { fg = colors.fg, bg = colors.bg } },
