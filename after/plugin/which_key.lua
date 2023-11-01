@@ -283,6 +283,17 @@ wk.register({
 			},
 			t = {
 				function()
+					local scheme = vim.g.colors_name
+					if
+						scheme ~= "catppuccin"
+						and scheme ~= "catppuccin-mocha"
+						and scheme ~= "catppuccin-latte"
+						and scheme ~= "catppuccin-frappe"
+						and scheme ~= "catppuccin-macchiato"
+						and scheme ~= "rose-pine"
+					then
+						return
+					end
 					local next_transparency = not catppuccin.options.transparent_background
 					if vim.o.background == "light" and next_transparency then
 						return
