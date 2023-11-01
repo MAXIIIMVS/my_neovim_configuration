@@ -133,6 +133,7 @@ return require("lazy").setup({
 		},
 		event = "VeryLazy",
 	},
+	{ "EdenEast/nightfox.nvim", event = "VeryLazy" },
 	{ "famiu/bufdelete.nvim", cmd = { "Bdelete" } },
 	{
 		"folke/todo-comments.nvim",
@@ -405,7 +406,7 @@ return require("lazy").setup({
 			disable_background = true,
 			disable_float_background = true,
 		},
-		lazy = true,
+		event = "VeryLazy",
 	},
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
 	-- {"simrat39/rust-tools.nvim"},
