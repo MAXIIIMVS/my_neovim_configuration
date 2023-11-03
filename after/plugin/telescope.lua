@@ -98,7 +98,7 @@ local options = {
 		},
 	},
 
-	extensions_list = { "file_browser", "emoji", "glyph", "zoxide" },
+	extensions_list = { "fzf", "file_browser", "emoji", "glyph", "zoxide" },
 }
 
 telescope.setup(options)

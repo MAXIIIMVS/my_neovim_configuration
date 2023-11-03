@@ -851,8 +851,6 @@ wk.register({
 		f = { "<cmd>silent G fetch<CR>", "Fetch" },
 		g = { ":Ggrep! -q ", "Grep", silent = false },
 		h = { get_git_hash, "copy current git hash to g register" },
-		-- h = { "<cmd>Gitsigns stage_hunk<CR>", "Stage hunk" },
-		-- H = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo stage hunk" },
 		L = { "<cmd>silent G log --stat<CR>", "Log with stats" },
 		l = { "<cmd>silent G log --decorate<CR>", "Log" },
 		n = { "<cmd>silent G! difftool --name-only HEAD~1 | cfirst <CR>", "changed files since last commit" },
@@ -943,6 +941,14 @@ wk.register({
 	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 }, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })
+
+wk.register({
+	g = {
+		name = "Git",
+		w = { "<cmd>Gitsigns stage_hunk<CR>", "Stage hunk" },
+		W = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo stage hunk" },
+	},
+}, { prefix = "<space>", mode = "v", noremap = true, silent = true, nowait = true })
 -- }}}
 
 -- Select mode {{{

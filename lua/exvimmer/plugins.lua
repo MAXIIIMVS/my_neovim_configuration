@@ -296,6 +296,7 @@ return require("lazy").setup({
 		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 		cmd = { "Telescope file_browser" },
 	},
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	{ "nvim-tree/nvim-web-devicons", config = true, lazy = true },
 	{
 		"nvim-tree/nvim-tree.lua",
