@@ -163,9 +163,9 @@ db.setup({
 		center = {
 			{
 				icon = "📂 ",
-				desc = "Change Project",
+				desc = "Projects",
 				action = "Telescope zoxide list",
-				key = "z",
+				key = "p",
 			},
 			{
 				icon = "🗄 ",
@@ -196,7 +196,7 @@ db.setup({
 				icon = "🔌 ",
 				desc = "Manage Plugins                                    ",
 				action = "Lazy",
-				key = "p",
+				key = "l",
 			},
 			{
 				icon = "🚀 ",

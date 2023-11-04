@@ -237,6 +237,7 @@ return require("lazy").setup({
 	{ "kylechui/nvim-surround", config = true, event = "VeryLazy" },
 	{
 		"L3MON4D3/LuaSnip",
+		dependencies = { "rafamadriz/friendly-snippets" },
 		event = "InsertEnter",
 		version = "v2.*",
 	},

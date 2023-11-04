@@ -367,6 +367,7 @@ wk.register({
 		n = { "<cmd>TodoTelescope<CR>", "See notes/todos..." },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open %:p:h<CR>", "Open the current directory" },
+		p = { "<cmd>silent Telescope zoxide list<CR>", "Projects" },
 		q = { vim.cmd.q, "Close current window" },
 		Q = { vim.cmd.qall, "Close all windows" },
 		-- r = { "<cmd>Telescope oldfiles previewer=false<CR>", "Show recently opened files" },
@@ -488,7 +489,6 @@ wk.register({
 		s = { "<cmd>silent so %<CR>", "Source the file" },
 		t = { "<cmd>tabnew<CR>", "Create an empty tab" },
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
-		z = { "<cmd>silent Telescope zoxide list<CR>", "Zoxide: Another path" },
 	},
 	-- TODO: add the next keybinding if the bug is fixed
 	-- ["z="] = { "<cmd>silent Telescope spell_suggest<CR>", "show spell suggestions" },

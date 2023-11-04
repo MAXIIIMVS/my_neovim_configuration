@@ -84,7 +84,7 @@ local options = {
 			end,
 		},
 		zoxide = {
-			prompt_title = "Change Path",
+			prompt_title = "Projects",
 			mappings = {
 				["<C-b>"] = {
 					action = function(selection)
