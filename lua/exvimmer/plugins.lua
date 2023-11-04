@@ -216,6 +216,7 @@ return require("lazy").setup({
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{ "jvgrootveld/telescope-zoxide", cmd = { "Telescope zoxide list" } },
 	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },
+	{ "kevinhwang91/nvim-hlslens", lazy = true },
 	{
 		"kristijanhusak/vim-dadbod-ui",
 		dependencies = {
