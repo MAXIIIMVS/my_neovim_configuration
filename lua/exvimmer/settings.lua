@@ -148,13 +148,13 @@ ab :separator_rtt: ❯
 -- }}}
 
 -- Fundamental {{{
-vim.o.list = true
-vim.opt.listchars = {
-	-- leadmultispace = ".",
-	trail = "▊",
-	tab = "│ ",
-	-- tab = " ",
-}
+-- vim.o.list = true
+-- vim.opt.listchars = {
+-- 	-- leadmultispace = ".",
+-- 	-- trail = "▊",
+-- 	-- tab = "│ ",
+-- 	-- tab = " ",
+-- }
 vim.g.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal" -- removed blank
 vim.wo.spell = true
 vim.o.spellcapcheck = ""
