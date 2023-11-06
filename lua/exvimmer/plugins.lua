@@ -422,6 +422,14 @@ return require("lazy").setup({
 	},
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
 	{ "tiagovla/tokyodark.nvim", opts = { transparent_background = false }, event = "VeryLazy" },
+	{
+		"tools-life/taskwiki",
+		-- init = function()
+		-- 	vim.g.taskwiki_taskrc_location = "~/.taskrc"
+		-- 	vim.g.taskwiki_tw_binary_location = "/usr/bin/task"
+		-- 	vim.g.taskwiki_disable_mappings = 1
+		-- end,
+	},
 	{ "tpope/vim-abolish", event = "VeryLazy" },
 	{ "tpope/vim-capslock", event = "VeryLazy" },
 	{ "tpope/vim-dadbod", event = "VeryLazy" },
@@ -434,7 +442,7 @@ return require("lazy").setup({
 		"vimwiki/vimwiki",
 		event = "VeryLazy",
 		init = function()
-			vim.g.vimwiki_listsyms = "    x"
+			vim.g.vimwiki_listsyms = "    X"
 			vim.g.vimwiki_markdown_link_ext = 1
 			vim.g.vimwiki_global_ext = 0
 			vim.g.vimwiki_list = { { path = "~/notes/wiki/", syntax = "markdown", ext = ".md", auto_diary_index = 1 } }

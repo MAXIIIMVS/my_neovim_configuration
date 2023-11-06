@@ -48,7 +48,6 @@ null_ls.setup({
 				"markdown.mdx",
 				"graphql",
 				"handlebars",
-				"vimwiki",
 				"xml",
 			},
 			extra_args = function(params)
