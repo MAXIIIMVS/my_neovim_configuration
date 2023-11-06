@@ -32,6 +32,7 @@ return require("lazy").setup({
 			vim.g.rooter_cd_cmd = "lcd"
 			vim.g.rooter_change_directory_for_non_project_files = "current"
 		end,
+		event = "VeryLazy",
 	},
 	{ "akinsho/bufferline.nvim", event = "VeryLazy", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{
@@ -77,7 +78,7 @@ return require("lazy").setup({
         " \ | :lua require('mini.bracketed').setup()
       ]])
 		end,
-		event = "VeryLazy",
+		event = "UIEnter",
 	},
 	{
 		"echasnovski/mini.indentscope",
@@ -114,7 +115,7 @@ return require("lazy").setup({
 			silent = true,
 		},
 		version = false,
-		event = "VeryLazy",
+		event = "UIEnter",
 	},
 	{
 		"echasnovski/mini.move",
@@ -131,7 +132,7 @@ return require("lazy").setup({
 				line_up = "<C-k>",
 			},
 		},
-		event = "VeryLazy",
+		event = "BufEnter",
 	},
 	{ "EdenEast/nightfox.nvim", event = "VeryLazy" },
 	{ "famiu/bufdelete.nvim", cmd = { "Bdelete" } },
@@ -234,8 +235,8 @@ return require("lazy").setup({
 			vim.g.db_ui_use_nerd_fonts = 1
 		end,
 	},
-	{ "kristijanhusak/vim-dadbod-completion", event = "VeryLazy" },
-	{ "kylechui/nvim-surround", config = true, event = "VeryLazy" },
+	{ "kristijanhusak/vim-dadbod-completion", lazy = true },
+	{ "kylechui/nvim-surround", config = true, event = "BufEnter" },
 	{
 		"L3MON4D3/LuaSnip",
 		dependencies = { "rafamadriz/friendly-snippets" },
@@ -245,7 +246,6 @@ return require("lazy").setup({
 	{ "leoluz/nvim-dap-go", config = true, event = "VeryLazy", ft = "go" },
 	{
 		"lervag/vimtex",
-		event = "VeryLazy",
 		ft = "tex",
 		init = function()
 			vim.g.vimtex_view_method = "zathura"
@@ -290,7 +290,7 @@ return require("lazy").setup({
 	{ "nvim-lua/plenary.nvim" },
 	{
 		"nvim-telescope/telescope.nvim",
-		event = "VeryLazy",
+		lazy = true,
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 	{
@@ -311,7 +311,7 @@ return require("lazy").setup({
     ]])
 		end,
 	},
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", event = "BufEnter" },
 	{ "nvimtools/none-ls.nvim", event = "VeryLazy" },
 	{
 		"numToStr/Comment.nvim",
@@ -321,7 +321,17 @@ return require("lazy").setup({
 			line = "<C-_>",
 		} },
 	},
-	{ "numToStr/Navigator.nvim", opts = {}, event = "VeryLazy" },
+	{
+		"numToStr/Navigator.nvim",
+		opts = {},
+		cmd = {
+			"NavigatorLeft",
+			"NavigatorRight",
+			"NavigatorUp",
+			"NavigatorDown",
+			"NavigatorPrevious",
+		},
+	},
 	{
 		"NvChad/nvim-colorizer.lua",
 		opts = {
@@ -424,18 +434,17 @@ return require("lazy").setup({
 	{ "tiagovla/tokyodark.nvim", opts = { transparent_background = false }, event = "VeryLazy" },
 	{
 		"tools-life/taskwiki",
-		-- init = function()
-		-- 	vim.g.taskwiki_taskrc_location = "~/.taskrc"
-		-- 	vim.g.taskwiki_tw_binary_location = "/usr/bin/task"
-		-- 	vim.g.taskwiki_disable_mappings = 1
-		-- end,
+		init = function()
+			vim.g.taskwiki_disable_concealcursor = "yes"
+		end,
+		ft = "vimwiki",
 	},
 	{ "tpope/vim-abolish", event = "VeryLazy" },
-	{ "tpope/vim-capslock", event = "VeryLazy" },
-	{ "tpope/vim-dadbod", event = "VeryLazy" },
+	{ "tpope/vim-capslock", event = "InsertEnter" },
+	{ "tpope/vim-dadbod", lazy = true },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },
-	{ "tpope/vim-rsi", event = "VeryLazy" },
+	{ "tpope/vim-rsi", event = "InsertEnter" },
 	{ "tpope/vim-obsession", cmd = { "Obsession" } },
 	{ "tpope/vim-speeddating", event = "VeryLazy" },
 	{

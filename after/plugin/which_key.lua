@@ -489,7 +489,8 @@ wk.register({
 		q = { "<cmd>tabclose<CR>", "Close tab" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
 		s = { "<cmd>silent so %<CR>", "Source the file" },
-		t = { "<cmd>tabnew<CR>", "Create an empty tab" },
+		t = { "<cmd>!task<CR>", "Show taskwarrior" },
+		T = { "<cmd>tabnew<CR>", "Create an empty tab" },
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
 	-- TODO: add the next keybinding if the bug is fixed
