@@ -172,7 +172,8 @@ vim.o.showcmd = true
 vim.o.cmdheight = 0
 vim.o.laststatus = 3
 vim.o.scrolloff = 4
-vim.o.timeoutlen = 500
+vim.o.timeoutlen = 300
+vim.o.completeopt = "menuone,noselect"
 -- incremental substitution (neovim)
 if vim.fn.has("nvim") == 1 then
 	vim.o.inccommand = "split"
@@ -238,7 +239,7 @@ vim.o.wildmenu = true
 vim.g.wildmenu = true
 vim.o.splitright = true
 vim.o.splitbelow = true
-vim.o.updatetime = 500
+vim.o.updatetime = 250
 vim.wo.foldenable = true
 vim.o.foldlevelstart = 99
 -- vim.wo.foldnestmax = 10
@@ -253,16 +254,16 @@ vim.g.python3_host_prog = "/usr/bin/python3"
 -- vim.o.smarttab = true
 -- b.smartindent = true
 vim.o.tabstop = 2
-vim.bo.tabstop = 2
-vim.o.softtabstop = 2
-vim.o.shiftwidth = 2
-vim.bo.shiftwidth = 2
+-- vim.bo.tabstop = 2
+-- vim.o.softtabstop = 2
+-- vim.o.shiftwidth = 2
+-- vim.bo.shiftwidth = 2
 vim.o.autoindent = true
 vim.bo.autoindent = true
 vim.o.breakindent = true
-vim.o.expandtab = true
-vim.bo.expandtab = true
--- vim.o.nrformats = "alpha,bin,hex"
+-- vim.o.expandtab = true
+-- vim.bo.expandtab = true
+vim.o.nrformats = "alpha,bin,octal,hex"
 
 -- hide tildes (only vim), this doesn't work for nvim-tree
 vim.wo.fillchars = "eob: "
