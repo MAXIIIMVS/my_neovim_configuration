@@ -440,7 +440,7 @@ return require("lazy").setup({
 		ft = "vimwiki",
 	},
 	{ "tpope/vim-abolish", event = "VeryLazy" },
-	{ "tpope/vim-capslock", event = "InsertEnter" },
+	{ "tpope/vim-capslock", event = "VeryLazy" },
 	{ "tpope/vim-dadbod", lazy = true },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },
