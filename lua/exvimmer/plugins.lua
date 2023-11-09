@@ -56,7 +56,7 @@ return require("lazy").setup({
 	},
 	{
 		"echasnovski/mini.bracketed",
-		version = false,
+		-- version = false,
 		opts = {
 			conflict = { suffix = "", options = {} },
 			quickfix = { suffix = "", options = {} },
@@ -83,7 +83,7 @@ return require("lazy").setup({
 	{
 		"echasnovski/mini.indentscope",
 		event = "UIEnter",
-		version = false,
+		-- version = false,
 		opts = {
 			options = {
 				indent_at_cursor = false,
@@ -114,12 +114,12 @@ return require("lazy").setup({
 			},
 			silent = true,
 		},
-		version = false,
+		-- version = false,
 		event = "UIEnter",
 	},
 	{
 		"echasnovski/mini.move",
-		version = false,
+		-- version = false,
 		opts = {
 			mappings = {
 				left = "<C-h>",
@@ -209,6 +209,12 @@ return require("lazy").setup({
 			vim.g.calendar_task_delete = true
 			-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 		end,
+	},
+	{
+		"j-hui/fidget.nvim",
+		tag = "legacy", -- TODO: update to main after rewrite
+		event = "LspAttach",
+		opts = { text = { spinner = "dots" } },
 	},
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },

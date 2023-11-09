@@ -173,7 +173,7 @@ vim.o.cmdheight = 0
 vim.o.laststatus = 3
 vim.o.scrolloff = 4
 vim.o.timeoutlen = 300
-vim.o.completeopt = "menuone,noselect"
+-- vim.o.completeopt = "menuone,noselect"
 -- incremental substitution (neovim)
 if vim.fn.has("nvim") == 1 then
 	vim.o.inccommand = "split"

@@ -17,6 +17,7 @@ saga.setup({
 		kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
 	},
 	lightbulb = {
+		enable = false,
 		virtual_text = false,
 		-- debounce = 0,
 	},
