@@ -203,7 +203,6 @@ ins_right({
 			return ""
 		end
 	end,
-	cond = conditions.buffer_not_empty,
 	color = { fg = colors.orange },
 })
 
@@ -226,15 +225,27 @@ ins_right({
 		if next(clients) == nil then
 			return msg
 		end
+
+		local uniqueNames = {}
 		for _, client in ipairs(clients) do
 			local filetypes = client.config.filetypes
 			if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-				return client.name
+				if not uniqueNames[client.name] then
+					uniqueNames[client.name] = true
+					if msg ~= "" then
+						msg = msg .. ", "
+					end
+					msg = msg .. client.name
+				end
 			end
+			-- if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+			-- 	return client.name
+			-- end
 		end
+
 		return msg
 	end,
-	fmt = string.upper,
+	-- fmt = string.upper,
 	color = { fg = colors.violet, gui = "bold" },
 })
 

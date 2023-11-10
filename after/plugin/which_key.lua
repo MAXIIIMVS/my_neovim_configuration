@@ -268,6 +268,13 @@ wk.register({
 		["9"] = { "<cmd>BufferLineGoToBuffer 9<CR>", "Go to 9th buffer" },
 		a = {
 			name = "appeareance",
+			a = {
+				function()
+					local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
+					vim.cmd.colorscheme(vim.g.colors_name == "rose-pine" and flavor or "rose-pine")
+				end,
+				"alternative",
+			},
 			b = {
 				function()
 					if vim.o.background == "dark" then
@@ -310,13 +317,6 @@ wk.register({
 					sync_bg_lualine_tmux()
 				end,
 				"Transparency",
-			},
-			o = {
-				function()
-					local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
-					vim.cmd.colorscheme(vim.g.colors_name == "rose-pine" and flavor or "rose-pine")
-				end,
-				"other theme",
 			},
 		},
 		-- b = { "<cmd>Telescope buffers previewer=false<CR>", "List open buffers" },
