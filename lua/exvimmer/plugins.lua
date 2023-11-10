@@ -218,7 +218,6 @@ return require("lazy").setup({
 	},
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },
-	{ "kevinhwang91/nvim-hlslens", opts = { nearest_only = true }, lazy = true },
 	{
 		"kristijanhusak/vim-dadbod-ui",
 		dependencies = {

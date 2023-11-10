@@ -195,8 +195,6 @@ wk.setup(options)
 
 -- Normal mode {{{
 wk.register({
-	["*"] = { [[*<Cmd>lua require('hlslens').start()<CR>]], "Search forward" },
-	["#"] = { [[#<Cmd>lua require('hlslens').start()<CR>]], "Search backward" },
 	-- ["<M-l>"] = { "<C-w>l", "Go to the right window" },
 	-- ["<M-h>"] = { "<C-w>h", "Go to the left window" },
 	-- ["<M-k>"] = { "<C-w>k", "Go to the up window" },
@@ -499,8 +497,6 @@ wk.register({
 	-- ["'"] = { "<cmd>Telescope marks<CR>", "marks" },
 	-- ["q:"] = { "<cmd>Telescope command_history<CR>", "command history" },
 	g = {
-		["*"] = { [[g*<Cmd>lua require('hlslens').start()<CR>]], "Search forward" },
-		["#"] = { [[g#<Cmd>lua require('hlslens').start()<CR>]], "Search backward" },
 		-- d = { "<cmd>Lspsaga goto_definition<CR>", "Go to definition" },
 		P = { "<cmd>Lspsaga peek_type_definition<CR>", "Peek type definition" },
 		p = { "<cmd>Lspsaga peek_definition<CR>", "Show the definition" },
@@ -509,14 +505,6 @@ wk.register({
 		r = { "<cmd>Lspsaga rename<CR>", "Rename the symbol" },
 	},
 	K = { "<cmd>Lspsaga hover_doc<CR>", "Hover info" },
-	n = {
-		[[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
-		"show next search result",
-	},
-	N = {
-		[[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
-		"show previous search result",
-	},
 }, { prefix = "", noremap = true, silent = true, nowait = true })
 
 wk.register({
