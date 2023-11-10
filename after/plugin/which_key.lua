@@ -88,7 +88,8 @@ end
 
 function sync_bg_lualine_tmux()
 	local current_background = get_highlight("Normal")["guibg"]
-	vim.api.nvim_set_hl(0, "lualine_c", { bg = current_background == nil and "NONE" or "bg" })
+	-- vim.api.nvim_set_hl(0, "lualine_c", { bg = current_background == nil and "NONE" or "bg" })
+	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
 	vim.wo.fillchars = "eob: "
 	vim.cmd.highlight("NonText guifg=bg")

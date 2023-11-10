@@ -2,10 +2,9 @@ local home = os.getenv("HOME")
 local utils = require("utils")
 
 local signs = {
-	Error = " ", -- original one
-	-- Error = " ",
-	Warn = " ",
-	Hint = " ",
+	Error = " ",
+	Warn = " ",
+	Hint = "󰌶 ",
 	Info = " ",
 }
 
