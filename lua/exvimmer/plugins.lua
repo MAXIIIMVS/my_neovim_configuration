@@ -135,7 +135,7 @@ return require("lazy").setup({
 		event = "BufEnter",
 	},
 	{ "EdenEast/nightfox.nvim", event = "VeryLazy" },
-	{ "famiu/bufdelete.nvim", cmd = { "Bdelete" } },
+	{ "famiu/bufdelete.nvim", cmd = { "Bdelete", "Bwipeout" } },
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -214,7 +214,10 @@ return require("lazy").setup({
 		"j-hui/fidget.nvim",
 		tag = "legacy", -- TODO: update to main after rewrite
 		event = "LspAttach",
-		opts = { text = { spinner = "dots" } },
+		opts = {
+			text = { spinner = "dots" },
+			window = { blend = 0 },
+		},
 	},
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },

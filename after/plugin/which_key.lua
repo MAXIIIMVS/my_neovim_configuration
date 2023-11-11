@@ -726,8 +726,10 @@ wk.register({
 		s = {
 			function()
 				if vim.o.statusline == "" then
+					---@diagnostic disable-next-line: missing-fields
 					lualine.hide({ unhide = true })
 				else
+					---@diagnostic disable-next-line: missing-fields
 					lualine.hide({ unhide = false })
 					vim.o.statusline = "" -- "" is same as "%t %m"
 				end
