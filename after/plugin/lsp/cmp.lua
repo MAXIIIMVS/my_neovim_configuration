@@ -32,6 +32,7 @@ local function border(hl_name)
 end
 
 local cmp_window = require("cmp.utils.window")
+---@diagnostic disable-next-line: inject-field
 cmp_window.info_ = cmp_window.info
 ---@diagnostic disable-next-line: duplicate-set-field
 cmp_window.info = function(self)
@@ -96,14 +97,15 @@ local options = {
 		end, { "i", "s" }),
 	}),
 	sources = {
+		{ name = "emoji", option = { insert = false } },
 		{ name = "nvim_lsp" },
-		{ name = "buffer" },
 		{
 			name = "luasnip",
 			entry_filter = function()
 				return not context.in_treesitter_capture("string") and not context.in_syntax_group("String")
 			end,
 		},
+		{ name = "buffer" },
 		{ name = "path" },
 		{ name = "vim-dadbod-completion" },
 		-- { name = "nvim_lsp_signature_help" },
@@ -112,15 +114,16 @@ local options = {
 }
 
 -- Set configuration for specific filetype.
-cmp.setup.filetype("gitcommit", {
-	sources = cmp.config.sources({
-		{ name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
-	}, {
-		{ name = "buffer" },
-	}),
-})
+-- cmp.setup.filetype("gitcommit", {
+-- 	sources = cmp.config.sources({
+-- 		{ name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
+-- 	}, {
+-- 		{ name = "buffer" },
+-- 	}),
+-- })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+---@diagnostic disable-next-line: missing-fields
 cmp.setup.cmdline("/", {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
@@ -129,6 +132,7 @@ cmp.setup.cmdline("/", {
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+---@diagnostic disable-next-line: missing-fields
 cmp.setup.cmdline(":", {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({

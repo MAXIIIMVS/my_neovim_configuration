@@ -185,6 +185,7 @@ return require("lazy").setup({
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
+			"hrsh7th/cmp-emoji",
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
@@ -341,7 +342,7 @@ return require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
+			{ "JoosepAlviste/nvim-ts-context-commentstring", config = true, lazy = true },
 		},
 		build = ":TSUpdate",
 		event = "BufEnter",
@@ -350,10 +351,6 @@ return require("lazy").setup({
 	{
 		"numToStr/Comment.nvim",
 		event = "VeryLazy",
-		config = true,
-		opts = { toggler = {
-			line = "<C-_>",
-		} },
 	},
 	{
 		"numToStr/Navigator.nvim",
@@ -386,7 +383,10 @@ return require("lazy").setup({
 	},
 	{ "onsails/lspkind.nvim", dependencies = { "hrsh7th/nvim-cmp" }, event = "InsertEnter" },
 	{ "rafamadriz/friendly-snippets" },
-	{ "ray-x/lsp_signature.nvim", opts = { hint_enable = false }, event = "VeryLazy" },
+	{ "ray-x/lsp_signature.nvim", opts = {
+		hint_enable = false,
+		toggle_key = "<M-x>",
+	}, event = "VeryLazy" },
 	{
 		"rcarriga/nvim-dap-ui",
 		opts = {
@@ -475,6 +475,7 @@ return require("lazy").setup({
 	},
 	{ "tpope/vim-abolish", event = "VeryLazy" },
 	{ "tpope/vim-capslock", event = "VeryLazy" },
+	-- { "tpope/vim-commentary", event = "VeryLazy" },
 	{ "tpope/vim-dadbod", lazy = true },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },

@@ -134,13 +134,8 @@ ab :pi: 𝞹
 ab :micro: μ
 ab :dh: ⏃
 ab :degree: \u02DA
-ab :biohazard: ☣️
-ab :radioactive: ☢️
 ab :bullseye: 🎯
 ab :note: 📝
-ab :kite: 🩺
-ab :thread: 🧵
-ab :sauropod: 🦕
 ab :separator_ltt: ❮
 ab :separator_rtt: ❯
 ]])

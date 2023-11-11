@@ -195,16 +195,16 @@ ins_right({
 	color = { fg = colors.orange },
 })
 
-ins_right({
-	function()
-		if #vim.api.nvim_list_wins() > 1 then
-			return "[" .. vim.api.nvim_win_get_number(0) .. "]"
-		else
-			return ""
-		end
-	end,
-	color = { fg = colors.orange },
-})
+-- ins_right({
+-- 	function()
+-- 		if #vim.api.nvim_list_wins() > 1 then
+-- 			return "[" .. vim.api.nvim_win_get_number(0) .. "]"
+-- 		else
+-- 			return ""
+-- 		end
+-- 	end,
+-- 	color = { fg = colors.orange },
+-- })
 
 ins_right({
 	"diagnostics",
