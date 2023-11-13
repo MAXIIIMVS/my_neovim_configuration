@@ -97,6 +97,7 @@ local options = {
 		end, { "i", "s" }),
 	}),
 	sources = {
+		{ name = "calc" },
 		{ name = "emoji", option = { insert = false } },
 		{ name = "nvim_lsp" },
 		{

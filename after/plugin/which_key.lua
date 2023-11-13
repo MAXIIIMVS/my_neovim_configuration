@@ -209,20 +209,20 @@ wk.register({
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
 	["]g"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
 	["[g"] = { ":Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
-	["[E"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to the previous diagnostic" },
-	["[e"] = {
+	["[E"] = {
 		function()
 			lspsaga_diagnostics:goto_prev({ severity = vim.diagnostic.severity.ERROR })
 		end,
 		"Jump to the previous error",
 	},
-	["]E"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to the next diagnostic" },
-	["]e"] = {
+	["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to the previous diagnostic" },
+	["]E"] = {
 		function()
 			lspsaga_diagnostics:goto_next({ severity = vim.diagnostic.severity.ERROR })
 		end,
 		"Jump to the next error",
 	},
+	["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to the next diagnostic" },
 	["[n"] = {
 		todo_comments.jump_prev,
 		"Previous todo comment",

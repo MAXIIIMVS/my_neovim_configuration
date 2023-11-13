@@ -257,7 +257,7 @@ vim.bo.autoindent = true
 vim.o.breakindent = true
 -- vim.o.expandtab = true
 -- vim.bo.expandtab = true
-vim.o.nrformats = "alpha,bin,octal,hex"
+vim.o.nrformats = "bin,octal,hex"
 
 -- hide tildes (only vim), this doesn't work for nvim-tree
 vim.wo.fillchars = "eob: "

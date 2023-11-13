@@ -63,20 +63,20 @@ return require("lazy").setup({
 		},
 		init = function()
 			vim.cmd([[
-        augroup diff_keys
-          autocmd!
-          autocmd OptionSet diff if &diff
-            \ | nnoremap <silent> ]c ]c
-            \ | nnoremap <silent> [c [c
-            \ | else
-            \ | nnoremap <silent> ]c :lua require('mini.bracketed').comment('forward', nil)<CR>
-            \ | nnoremap <silent> [c :lua require('mini.bracketed').comment('backward', nil)<CR>
-            \ | nnoremap <silent> [C :lua require('mini.bracketed').comment('first', nil)<CR>
-            \ | nnoremap <silent> ]C :lua require('mini.bracketed').comment('last', nil)<CR>
-            \ | endif
-        augroup END
-        " \ | :lua require('mini.bracketed').setup()
-      ]])
+				augroup diff_keys
+				  autocmd!
+				  autocmd OptionSet diff if &diff
+				    \ | nnoremap <silent> ]c ]c
+				    \ | nnoremap <silent> [c [c
+				    \ | else
+				    \ | nnoremap <silent> ]c :lua require('mini.bracketed').comment('forward', nil)<CR>
+				    \ | nnoremap <silent> [c :lua require('mini.bracketed').comment('backward', nil)<CR>
+				    \ | nnoremap <silent> [C :lua require('mini.bracketed').comment('first', nil)<CR>
+				    \ | nnoremap <silent> ]C :lua require('mini.bracketed').comment('last', nil)<CR>
+				    \ | endif
+				augroup END
+				" \ | :lua require('mini.bracketed').setup()
+		      ]])
 		end,
 		event = "UIEnter",
 	},
@@ -98,8 +98,8 @@ return require("lazy").setup({
 		},
 		init = function()
 			vim.cmd([[
-        au FileType NvimTree,dashboard,help,lazy,lazyterm,mason,netrw,toggleterm,checkhealth,undotree,dbout lua vim.b.miniindentscope_disable = true
-      ]])
+				au FileType NvimTree,dashboard,help,lazy,lazyterm,mason,netrw,toggleterm,checkhealth,undotree,dbout lua vim.b.miniindentscope_disable = true
+		        ]])
 		end,
 	},
 	{
@@ -184,6 +184,7 @@ return require("lazy").setup({
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-calc",
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/cmp-emoji",
 			"L3MON4D3/LuaSnip",
@@ -348,10 +349,7 @@ return require("lazy").setup({
 		event = "BufEnter",
 	},
 	{ "nvimtools/none-ls.nvim", event = "VeryLazy" },
-	{
-		"numToStr/Comment.nvim",
-		event = "VeryLazy",
-	},
+	{ "numToStr/Comment.nvim", event = "VeryLazy" },
 	{
 		"numToStr/Navigator.nvim",
 		opts = {},
