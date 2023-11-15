@@ -257,6 +257,7 @@ wk.register({
 	[";"] = {
 		name = "Quick",
 		[";"] = { ":Bdelete<CR>", "Delete current buffer" },
+		["<space>"] = { "<cmd>Telescope<CR>", "Telescope" },
 		["1"] = { "<cmd>BufferLineGoToBuffer 1<CR>", "Go to 1st buffer" },
 		["2"] = { "<cmd>BufferLineGoToBuffer 2<CR>", "Go to 2nd buffer" },
 		["3"] = { "<cmd>BufferLineGoToBuffer 3<CR>", "Go to 3rd buffer" },

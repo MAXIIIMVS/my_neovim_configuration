@@ -70,16 +70,9 @@ endfunction
 
 autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 
-" I don't know what these line do
-au FocusGained,BufEnter * :silent! !
 " hi CursorLine cterm=NONE ctermbg=232
 " autocmd InsertEnter * highlight  CursorLine ctermbg=17 ctermfg=None
 " autocmd InsertLeave * highlight  CursorLine ctermbg=232
-
-if &term =~ "screen"
-  autocmd BufEnter * if bufname("") !~ "^?[A-Za-z0-9?]*://" | silent! exe '!echo -n "\ek[`hostname`:`basename $PWD`/`basename %`]\e\\"' | endif
-  autocmd VimLeave * silent!  exe '!echo -n "\ek[`hostname`:`basename $PWD`]\e\\"'
-endif
 
 " netrw settings and functions
 " let g:netrw_list_hide= netrw_gitignore#Hide()
