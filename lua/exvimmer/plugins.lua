@@ -312,9 +312,6 @@ return require("lazy").setup({
 			disable = {
 				colored_cursor = true,
 			},
-			custom_highlights = {
-				StatusLine = { bg = "bg" },
-			},
 		},
 		init = function()
 			vim.g.material_style = "deep ocean"

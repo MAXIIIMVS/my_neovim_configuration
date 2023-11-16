@@ -300,6 +300,7 @@ wk.register({
 						and scheme ~= "catppuccin-frappe"
 						and scheme ~= "catppuccin-macchiato"
 						and scheme ~= "rose-pine"
+						and scheme ~= "material"
 					then
 						return
 					end
@@ -308,9 +309,11 @@ wk.register({
 						return
 					end
 					local rose_pine_options = require("rose-pine.config").options
+					local material_settings = require("material.util.config").settings
 					rose_pine_options.disable_background = next_transparency
 					rose_pine_options.disable_float_background = next_transparency
 					catppuccin.options.transparent_background = next_transparency
+					material_settings.disable.background = next_transparency
 					catppuccin.compile()
 					-- vim.o.cursorline = not transparent
 					-- vim.o.cursorlineopt = transparent and "number" or "number,line"
