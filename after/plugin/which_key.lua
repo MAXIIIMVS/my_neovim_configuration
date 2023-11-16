@@ -691,6 +691,7 @@ wk.register({
 		-- d = { "<cmd>silent Dashboard<CR>", "dashboard" },
 		D = { "<cmd>silent DBUIToggle<CR>", "DB UI" },
 		d = { ":silent lua ToggleDiagnostics()<CR>", "diagnostics" },
+		e = { ":lua require('material.functions').toggle_eob()<CR>", "eob" },
 		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
 		h = {
 			"<cmd>TSToggle highlight<CR>",

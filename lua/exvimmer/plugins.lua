@@ -288,6 +288,38 @@ return require("lazy").setup({
 			"UndotreePersistUndo",
 		},
 	},
+	{
+		"marko-cerovac/material.nvim",
+		-- lazy = false,
+		-- priority = 1000,
+		event = "VeryLazy",
+		opts = {
+			lualine_style = "stealth", -- the stealth style
+			async_loading = false,
+			plugins = {
+				"dap",
+				"dashboard",
+				"fidget",
+				"gitsigns",
+				"lspsaga",
+				"mini",
+				"nvim-cmp",
+				"nvim-tree",
+				"nvim-web-devicons",
+				"telescope",
+				"which-key",
+			},
+			disable = {
+				colored_cursor = true,
+			},
+			custom_highlights = {
+				StatusLine = { bg = "bg" },
+			},
+		},
+		init = function()
+			vim.g.material_style = "deep ocean"
+		end,
+	},
 	{ "mfussenegger/nvim-dap", event = "VeryLazy" },
 	{ "mfussenegger/nvim-dap-python", ft = "python", event = "VeryLazy" },
 	{
@@ -298,7 +330,7 @@ return require("lazy").setup({
 			"folke/neodev.nvim",
 		},
 	},
-	{ "nvim-lualine/lualine.nvim", event = "VeryLazy" },
+	{ "nvim-lualine/lualine.nvim", event = "UIEnter" },
 	{ "nvim-lua/plenary.nvim" },
 	{
 		"nvim-telescope/telescope.nvim",
@@ -463,7 +495,6 @@ return require("lazy").setup({
 		end,
 	},
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
-	{ "tiagovla/tokyodark.nvim", opts = { transparent_background = false }, event = "VeryLazy" },
 	{
 		"tools-life/taskwiki",
 		init = function()
