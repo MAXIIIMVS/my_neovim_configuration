@@ -272,7 +272,7 @@ wk.register({
 			a = {
 				function()
 					local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
-					vim.cmd.colorscheme(vim.g.colors_name == "rose-pine" and flavor or "rose-pine")
+					vim.cmd.colorscheme(vim.g.colors_name == "material" and flavor or "material")
 				end,
 				"alternative",
 			},
