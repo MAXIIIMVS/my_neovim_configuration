@@ -56,6 +56,7 @@ catppuccin.setup({
 				-- 	-- 	-- 	["@text.note"] = { fg = "#0AF106", bg = "#171421" },
 				-- 	-- 	-- 	["@text.warning"] = { fg = "#F0FD00", bg = "#171421" },
 				["VertSplit"] = { fg = "#403d52" },
+				["FloatBorder"] = { fg = "#525D8E" },
 			}
 		end,
 	},

@@ -134,7 +134,6 @@ return require("lazy").setup({
 		},
 		event = "BufEnter",
 	},
-	{ "EdenEast/nightfox.nvim", event = "VeryLazy" },
 	{ "famiu/bufdelete.nvim", cmd = { "Bdelete", "Bwipeout" } },
 	{
 		"folke/todo-comments.nvim",
