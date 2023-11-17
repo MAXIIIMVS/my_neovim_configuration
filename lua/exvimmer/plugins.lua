@@ -311,6 +311,7 @@ return require("lazy").setup({
 			},
 			disable = {
 				colored_cursor = true,
+				background = true,
 			},
 		},
 		init = function()

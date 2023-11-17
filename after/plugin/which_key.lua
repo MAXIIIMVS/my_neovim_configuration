@@ -5,6 +5,7 @@ if not present then
 end
 
 local catppuccin = require("catppuccin")
+local material_settings = require("material.util.config").settings
 local lualine = require("lualine")
 local nvim_window = require("nvim-window")
 local bufferlineUi = require("bufferline.ui")
@@ -282,8 +283,12 @@ wk.register({
 						local rose_pine_options = require("rose-pine.config").options
 						rose_pine_options.disable_background = false
 						rose_pine_options.disable_float_background = false
+						material_settings.disable.background = false
+						vim.g.material_style = "lighter"
 						catppuccin.options.transparent_background = false
 						catppuccin.compile()
+					else
+						vim.g.material_style = "deep ocean"
 					end
 					vim.o.background = vim.o.background == "dark" and "light" or "dark"
 					sync_bg_lualine_tmux()
@@ -309,7 +314,6 @@ wk.register({
 						return
 					end
 					local rose_pine_options = require("rose-pine.config").options
-					local material_settings = require("material.util.config").settings
 					rose_pine_options.disable_background = next_transparency
 					rose_pine_options.disable_float_background = next_transparency
 					catppuccin.options.transparent_background = next_transparency
