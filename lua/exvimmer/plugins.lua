@@ -485,6 +485,20 @@ return require("lazy").setup({
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
 	-- {"simrat39/rust-tools.nvim"},
 	{
+		"stevearc/oil.nvim",
+		opts = {
+			keymaps = {
+				["<C-s>"] = false,
+				["<C-v>"] = "actions.select_vsplit",
+			},
+			view_options = {
+				show_hidden = true,
+			},
+		},
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		cmd = "Oil",
+	},
+	{
 		"szw/vim-maximizer",
 		cmd = { "MaximizerToggle" },
 		init = function()

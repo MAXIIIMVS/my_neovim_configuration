@@ -201,6 +201,7 @@ wk.register({
 	-- ["<M-h>"] = { "<C-w>h", "Go to the left window" },
 	-- ["<M-k>"] = { "<C-w>k", "Go to the up window" },
 	-- ["<M-j>"] = { "<C-w>j", "Go to the down window" },
+	["-"] = { "<cmd>Oil<CR>", "Open parent directory" },
 	["<A-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<A-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
 	["<A-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
