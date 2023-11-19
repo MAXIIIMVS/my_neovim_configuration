@@ -134,6 +134,7 @@ return require("lazy").setup({
 		},
 		event = "BufEnter",
 	},
+	{ "echasnovski/mini.splitjoin", opts = {}, event = "BufEnter" },
 	{ "famiu/bufdelete.nvim", cmd = { "Bdelete", "Bwipeout" } },
 	{
 		"folke/todo-comments.nvim",
@@ -219,6 +220,14 @@ return require("lazy").setup({
 			text = { spinner = "dots" },
 			window = { blend = 0 },
 		},
+	},
+	{
+		"JoosepAlviste/nvim-ts-context-commentstring",
+		opts = {},
+		event = "VeryLazy",
+		init = function()
+			vim.g.skip_ts_context_commentstring_module = true
+		end,
 	},
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },
@@ -371,9 +380,6 @@ return require("lazy").setup({
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
-		dependencies = {
-			{ "JoosepAlviste/nvim-ts-context-commentstring", config = true, lazy = true },
-		},
 		build = ":TSUpdate",
 		event = "BufEnter",
 	},
