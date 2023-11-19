@@ -490,9 +490,6 @@ wk.register({
 			"List workspace folders",
 		},
 		h = { "<cmd>WhichKey<CR>", "Which Key" },
-		i = { "<cmd>silent LspInfo<CR>", "See LSP info" },
-		L = { ":silent LspRestart ", "Restart a LSP", silent = false },
-		l = { ":LspStop ", "Stop a LSP", silent = false },
 		m = { "<cmd>messages<CR>", "messages" },
 		q = { "<cmd>tabclose<CR>", "Close tab" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
@@ -519,71 +516,47 @@ wk.register({
 
 wk.register({
 	name = "Groups",
-	e = {
-		name = "Emojis & Icons",
-		e = { "<cmd>silent Telescope emoji<CR>", "Emojis" },
-		i = { "<cmd>silent Telescope glyph<CR>", "Glyphs" },
+	b = {
+		name = "Buffer",
+		a = { "<cmd>bufdo bd<CR>", "Close all buffers" },
+		d = { "<cmd>silent bd<CR>", "Close this buffer" },
+		e = {
+			function()
+				local current_buffer = vim.api.nvim_get_current_buf()
+				local buffers = vim.api.nvim_list_bufs()
+
+				for _, buf in ipairs(buffers) do
+					if buf ~= current_buffer and vim.api.nvim_buf_is_valid(buf) then
+						local buf_name = vim.api.nvim_buf_get_name(buf)
+						local buf_loaded = vim.api.nvim_buf_is_loaded(buf)
+						local buf_empty = buf_loaded and vim.api.nvim_buf_line_count(buf) <= 1
+
+						if buf_empty and buf_name == "" then
+							vim.api.nvim_buf_delete(buf, { force = true })
+						end
+					end
+				end
+				bufferlineUi.refresh()
+			end,
+			"Close empty buffers (not current one)",
+		},
+		O = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "Close other buffers" },
+		o = { "<cmd>BufferLineCloseOthers<CR>|'\"", "Close other buffers" },
+		h = { "<cmd>BufferLineMovePrev<CR>", "Move the buffer to the previous position" },
+		l = { "<cmd>BufferLineMoveNext<CR>", "Move the buffer to the next position" },
+		P = { "<cmd>BufferLineTogglePin<CR>", "Pin buffer" },
+		p = { "<cmd>BufferLinePick<CR>", "Pick a Buffer" },
 	},
-	m = {
-		name = "Make",
-		a = {
-			":make all<CR>",
-			"All",
-		},
-		B = {
-			":make clean-build<CR>",
-			"Clean build",
-		},
-		b = {
-			":make build<CR>",
-			"Build",
-		},
-		c = {
-			":make clean<CR>",
-			"Clean",
-		},
-		d = {
-			":make docs<CR>",
-			"Generate docs",
-		},
-		G = {
-			":make clean && make generate && make build<CR>",
-			"Clean, generate and build again",
-		},
-		g = {
-			":make generate<CR>",
-			"Generate",
-		},
-		h = {
-			":make help<CR>",
-			"Help",
-		},
-		i = {
-			":make install<CR>",
-			"Install",
-		},
-		m = {
-			":make ",
-			"Insert a make command",
-			silent = false,
-		},
-		r = {
-			":make run<CR>",
-			"Run",
-		},
-		t = {
-			":make test<CR>",
-			"Test",
-		},
-		w = {
-			":make watch<CR>",
-			"Watch",
-		},
-	},
-	s = {
-		name = "Session",
-		m = { "<cmd>Obsession<CR>", "Make a session" },
-		d = { "<cmd>Obsession!<CR>", "Delete the session" },
+	c = {
+		name = "Calendar",
+		c = { "<cmd>Calendar<CR>", "Main Calendar (view month)" },
+		y = { "<cmd>Calendar -view=year<CR>", "View Year" },
+		w = { "<cmd>Calendar -view=week<CR>", "View Week" },
+		d = { "<cmd>Calendar -view=day<CR>", "View Day" },
+		D = { "<cmd>Calendar -view=days<CR>", "View Days" },
+		t = { "<cmd>Calendar -view=clock<CR>", "View Clock" },
+		o = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r<CR>", "Open Google Calendar" },
+		g = { ":Calendar ", "Go to date (mm dd yyyy)", silent = false },
 	},
 	d = {
 		name = "Debugger",
@@ -683,6 +656,105 @@ wk.register({
 			end,
 			"Watch the word under cursor",
 		},
+	},
+	e = {
+		name = "Emojis & Icons",
+		e = { "<cmd>silent Telescope emoji<CR>", "Emojis" },
+		i = { "<cmd>silent Telescope glyph<CR>", "Glyphs" },
+	},
+	g = {
+		name = "Git",
+		["["] = {
+			function()
+				git_previous()
+				vim.cmd("G log -1 --stat")
+			end,
+			"Checkout previous commit",
+		},
+		["]"] = {
+			function()
+				git_next()
+				vim.cmd("G log -1 --stat")
+			end,
+			"checkout next commit",
+		},
+		A = {
+			"<cmd>silent vertical G commit --amend<CR>",
+			"Amend commit with staged changes",
+		},
+		B = { "<cmd>Gitsigns blame_line<CR>", "Blame on the current line" },
+		b = { "<cmd>silent G blame<CR>", "Blame on the current file" },
+		C = { ":silent G checkout ", "Checkout", silent = false },
+		c = { "<cmd>silent vertical G commit<CR>", "Commit" },
+		D = { "<cmd>silent Gvdiffsplit! HEAD~<CR>", "Diff with previous commit" },
+		d = { "<cmd>silent Gvdiffsplit!<CR>", "Diff" },
+		f = { "<cmd>silent G fetch<CR>", "Fetch" },
+		g = { ":Ggrep! -q ", "Grep", silent = false },
+		h = { get_git_hash, "copy current git hash to g register" },
+		L = { "<cmd>silent G log --stat<CR>", "Log with stats" },
+		l = { "<cmd>silent G log --decorate<CR>", "Log" },
+		n = { "<cmd>silent G! difftool --name-only HEAD~1 | cfirst <CR>", "changed files since last commit" },
+		o = { "<cmd>silent GBrowse<CR>", "Open in the browser" },
+		P = { "<cmd>silent G push<CR>", "Push" },
+		p = { "<cmd>silent G pull<CR>", "Pull" },
+		R = { "<cmd>silent G checkout HEAD -- %<CR>", "Reset the file" },
+		r = {
+			"<cmd>Gitsigns reset_hunk<CR>",
+			"Reset the lines of the hunk at the cursor position, or all lines in the given range.",
+		},
+		s = { "<cmd>silent Git<CR>", "Status" },
+		S = { ":silent G switch ", "Switch", silent = false },
+		T = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle current line blame" },
+		t = { "<cmd>GitTimeLaps<CR>", "Show time lapse of the file" },
+		W = { "<cmd>silent G restore --staged %<CR>", "Unstage the file" },
+		w = { "<cmd>silent G add %<CR>", "Stage the file" },
+	},
+	l = {
+		name = "LSP",
+		I = { ":LspInstall ", "Install", silent = false },
+		i = { "<cmd>LspInfo<CR>", "Info" },
+		L = { ":LspLog<CR>", "Log" },
+		r = { ":LspRestart ", "Restart", silent = false },
+		S = { ":LspStart ", "Start", silent = false },
+		s = { ":LspStop ", "Stop", silent = false },
+		u = { ":LspUninstall ", "Uninstall", silent = false },
+	},
+	m = {
+		name = "Make",
+		a = { ":make all<CR>", "All" },
+		B = { ":make clean-build<CR>", "Clean build" },
+		b = { ":make build<CR>", "Build" },
+		c = { ":make clean<CR>", "Clean" },
+		d = { ":make docs<CR>", "Generate docs" },
+		G = {
+			":make clean && make generate && make build<CR>",
+			"Clean, generate and build again",
+		},
+		g = { ":make generate<CR>", "Generate" },
+		h = { ":make help<CR>", "Help" },
+		i = { ":make install<CR>", "Install" },
+		m = {
+			":make ",
+			"Insert a make command",
+			silent = false,
+		},
+		r = {
+			":make run<CR>",
+			"Run",
+		},
+		t = {
+			":make test<CR>",
+			"Test",
+		},
+		w = {
+			":make watch<CR>",
+			"Watch",
+		},
+	},
+	s = {
+		name = "Session",
+		m = { "<cmd>Obsession<CR>", "Make a session" },
+		d = { "<cmd>Obsession!<CR>", "Delete the session" },
 	},
 	t = {
 		name = "Toggle",
@@ -793,95 +865,6 @@ wk.register({
 			"Zen mode",
 		},
 	},
-	b = {
-		name = "Buffer",
-		a = { "<cmd>bufdo bd<CR>", "Close all buffers" },
-		d = { "<cmd>silent bd<CR>", "Close this buffer" },
-		e = {
-			function()
-				local current_buffer = vim.api.nvim_get_current_buf()
-				local buffers = vim.api.nvim_list_bufs()
-
-				for _, buf in ipairs(buffers) do
-					if buf ~= current_buffer and vim.api.nvim_buf_is_valid(buf) then
-						local buf_name = vim.api.nvim_buf_get_name(buf)
-						local buf_loaded = vim.api.nvim_buf_is_loaded(buf)
-						local buf_empty = buf_loaded and vim.api.nvim_buf_line_count(buf) <= 1
-
-						if buf_empty and buf_name == "" then
-							vim.api.nvim_buf_delete(buf, { force = true })
-						end
-					end
-				end
-				bufferlineUi.refresh()
-			end,
-			"Close empty buffers (not current one)",
-		},
-		O = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "Close other buffers" },
-		o = { "<cmd>BufferLineCloseOthers<CR>|'\"", "Close other buffers" },
-		h = { "<cmd>BufferLineMovePrev<CR>", "Move the buffer to the previous position" },
-		l = { "<cmd>BufferLineMoveNext<CR>", "Move the buffer to the next position" },
-		P = { "<cmd>BufferLineTogglePin<CR>", "Pin buffer" },
-		p = { "<cmd>BufferLinePick<CR>", "Pick a Buffer" },
-	},
-	c = {
-		name = "Calendar",
-		c = { "<cmd>Calendar<CR>", "Main Calendar (view month)" },
-		y = { "<cmd>Calendar -view=year<CR>", "View Year" },
-		w = { "<cmd>Calendar -view=week<CR>", "View Week" },
-		d = { "<cmd>Calendar -view=day<CR>", "View Day" },
-		D = { "<cmd>Calendar -view=days<CR>", "View Days" },
-		t = { "<cmd>Calendar -view=clock<CR>", "View Clock" },
-		o = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r<CR>", "Open Google Calendar" },
-		g = { ":Calendar ", "Go to date (mm dd yyyy)", silent = false },
-	},
-	g = {
-		name = "Git",
-		["["] = {
-			function()
-				git_previous()
-				vim.cmd("G log -1 --stat")
-			end,
-			"Checkout previous commit",
-		},
-		["]"] = {
-			function()
-				git_next()
-				vim.cmd("G log -1 --stat")
-			end,
-			"checkout next commit",
-		},
-		A = {
-			"<cmd>silent vertical G commit --amend<CR>",
-			"Amend commit with staged changes",
-		},
-		B = { "<cmd>Gitsigns blame_line<CR>", "Blame on the current line" },
-		b = { "<cmd>silent G blame<CR>", "Blame on the current file" },
-		C = { ":silent G checkout ", "Checkout", silent = false },
-		c = { "<cmd>silent vertical G commit<CR>", "Commit" },
-		D = { "<cmd>silent Gvdiffsplit! HEAD~<CR>", "Diff with previous commit" },
-		d = { "<cmd>silent Gvdiffsplit!<CR>", "Diff" },
-		f = { "<cmd>silent G fetch<CR>", "Fetch" },
-		g = { ":Ggrep! -q ", "Grep", silent = false },
-		h = { get_git_hash, "copy current git hash to g register" },
-		L = { "<cmd>silent G log --stat<CR>", "Log with stats" },
-		l = { "<cmd>silent G log --decorate<CR>", "Log" },
-		n = { "<cmd>silent G! difftool --name-only HEAD~1 | cfirst <CR>", "changed files since last commit" },
-		o = { "<cmd>silent GBrowse<CR>", "Open in the browser" },
-		P = { "<cmd>silent G push<CR>", "Push" },
-		p = { "<cmd>silent G pull<CR>", "Pull" },
-		R = { "<cmd>silent G checkout HEAD -- %<CR>", "Reset the file" },
-		r = {
-			"<cmd>Gitsigns reset_hunk<CR>",
-			"Reset the lines of the hunk at the cursor position, or all lines in the given range.",
-		},
-		s = { "<cmd>silent Git<CR>", "Status" },
-		S = { ":silent G switch ", "Switch", silent = false },
-		T = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle current line blame" },
-		t = { "<cmd>GitTimeLaps<CR>", "Show time lapse of the file" },
-		W = { "<cmd>silent G restore --staged %<CR>", "Unstage the file" },
-		w = { "<cmd>silent G add %<CR>", "Stage the file" },
-	},
 	w = {
 		name = "Window",
 		d = { "<cmd>windo diffthis<CR>", "Show the difference between 2 windows" },
@@ -927,6 +910,7 @@ wk.register({
 	},
 	["<c-s>"] = { "<ESC><ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
+	["<M-k>"] = { "<c-o>dd", "kill the line" },
 	["<c-k>"] = { "<c-o>C", "Delete to the end of the line" },
 	-- ["<C-r>"] = { "<cmd>Telescope registers<CR>", "show registers" },
 }, { prefix = "", mode = "i", noremap = true, silent = true, nowait = true })

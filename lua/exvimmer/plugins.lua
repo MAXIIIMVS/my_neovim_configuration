@@ -493,6 +493,7 @@ return require("lazy").setup({
 	{
 		"stevearc/oil.nvim",
 		opts = {
+			default_file_explorer = false,
 			keymaps = {
 				["<C-s>"] = false,
 				["<C-v>"] = "actions.select_vsplit",
