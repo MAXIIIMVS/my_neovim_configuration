@@ -373,6 +373,7 @@ wk.register({
 			end,
 			"Show man pages",
 		},
+		l = { "<cmd>Telescope lsp_document_symbols<CR>", "Show LSP document symbols" },
 		m = { "<cmd>make<CR>", "Make" },
 		n = { "<cmd>TodoTelescope<CR>", "See notes/todos..." },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
