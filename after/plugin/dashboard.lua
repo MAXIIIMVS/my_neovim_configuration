@@ -174,12 +174,12 @@ db.setup({
 				action = "Telescope find_files",
 				key = "f",
 			},
-			{
-				icon = "💼 ",
-				desc = "Recent Files                                      ",
-				action = "Telescope oldfiles",
-				key = "r",
-			},
+			-- {
+			-- 	icon = "💼 ",
+			-- 	desc = "Recent Files                                      ",
+			-- 	action = "Telescope oldfiles",
+			-- 	key = "r",
+			-- },
 			{
 				icon = "🗓 ",
 				desc = "Calendar                                          ",
@@ -203,6 +203,12 @@ db.setup({
 				desc = "Manage LSP/Formatters/...                         ",
 				action = "Mason",
 				key = "m",
+			},
+			{
+				icon = "🚪 ",
+				desc = "Quit                                              ",
+				action = "q",
+				key = "q",
 			},
 		},
 		footer = { "👑 " .. "Stop Asking; Just go do something" .. " 👑" },

@@ -38,6 +38,18 @@ vim.cmd([[
 " dadbod completion with cmp
 " autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
 
+if has('nvim')
+  augroup hide_terminal_numbers
+    autocmd!
+    autocmd TermOpen * setlocal nonumber norelativenumber
+  augroup END
+else
+  augroup hide_terminal_numbers
+    autocmd!
+    autocmd BufEnter term://* setlocal nonumber norelativenumber
+  augroup END
+endif
+
 " Turn off paste mode when leaving insert
 autocmd InsertLeave * set nopaste
 
@@ -215,8 +227,8 @@ vim.opt.backup = false
 vim.opt.undodir = home .. "/.config/undodir"
 vim.opt.undofile = true
 vim.o.showmode = true
-vim.bo.textwidth = 79
--- vim.wo.colorcolumn = "79"
+vim.bo.textwidth = 80
+-- vim.wo.colorcolumn = "80"
 vim.wo.linebreak = true
 vim.o.autochdir = true
 vim.o.hidden = true

@@ -963,6 +963,7 @@ wk.register({
 
 -- terminal mode {{{
 wk.register({
+	["<Esc>"] = { "<C-\\><C-n>", "quit insert mode" },
 	["<A-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<A-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
 	["<A-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
