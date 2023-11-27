@@ -320,8 +320,6 @@ wk.register({
 					catppuccin.options.transparent_background = next_transparency
 					material_settings.disable.background = next_transparency
 					catppuccin.compile()
-					-- vim.o.cursorline = not transparent
-					-- vim.o.cursorlineopt = transparent and "number" or "number,line"
 					vim.cmd.colorscheme(vim.g.colors_name)
 					sync_bg_lualine_tmux()
 				end,
@@ -556,6 +554,7 @@ wk.register({
 		d = { "<cmd>Calendar -view=day<CR>", "View Day" },
 		D = { "<cmd>Calendar -view=days<CR>", "View Days" },
 		t = { "<cmd>Calendar -view=clock<CR>", "View Clock" },
+		O = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r/tasks<CR>", "Open Google Tasks" },
 		o = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r<CR>", "Open Google Calendar" },
 		g = { ":Calendar ", "Go to date (mm dd yyyy)", silent = false },
 	},
@@ -778,8 +777,18 @@ wk.register({
 			"<cmd>TSToggle highlight<CR>",
 			"Treesitter highlight",
 		},
-		L = { "<cmd>Lazy<CR>", "Lazy" },
-		l = { "<cmd>Telescope ToggleLSP<CR>", "LSP" },
+		L = { "<cmd>Telescope ToggleLSP<CR>", "LSP" },
+		l = {
+			function()
+				vim.o.cursorline = not vim.o.cursorline
+				if vim.o.cursorline then
+					vim.o.cursorlineopt = "number,line"
+				else
+					vim.o.cursorlineopt = "number"
+				end
+			end,
+			"Cursor line",
+		},
 		m = { "<cmd>MaximizerToggle<CR>", "Maximize window" },
 		o = { "<cmd>Lspsaga outline<CR>", "Outline" },
 		q = {

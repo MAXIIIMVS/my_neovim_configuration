@@ -34,7 +34,45 @@ return require("lazy").setup({
 		end,
 		event = "VeryLazy",
 	},
-	{ "akinsho/bufferline.nvim", event = "VeryLazy", dependencies = { "nvim-tree/nvim-web-devicons" } },
+	{
+		"akinsho/bufferline.nvim",
+		event = "VeryLazy",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			options = {
+				offsets = {
+					{
+						filetype = "NvimTree",
+						text = "Explorer",
+						highlight = "Directory",
+						separator = true, -- use a "true" to enable the default, or set your own character
+					},
+					{
+						filetype = "netrw",
+						text = "Netrw",
+						highlight = "Directory",
+						separator = false,
+					},
+					{
+						filetype = "undotree",
+						text = "Undo Tree",
+						highlight = "Directory",
+						separator = false,
+					},
+					{
+						filetype = "sagaoutline",
+						text = "Lspsaga Outline",
+						highlight = "Directory",
+						separator = false,
+					},
+				},
+				sort_by = "insert_at_end",
+				numbers = "ordinal",
+				separator_style = "thin", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
+				diagnostics = "nvim_lsp",
+			},
+		},
+	},
 	{
 		"akinsho/toggleterm.nvim",
 		version = "*",
@@ -228,6 +266,7 @@ return require("lazy").setup({
 		init = function()
 			vim.g.skip_ts_context_commentstring_module = true
 		end,
+		dependencies = { "numToStr/Comment.nvim" },
 	},
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },
@@ -378,13 +417,21 @@ return require("lazy").setup({
     ]])
 		end,
 	},
-	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		event = "BufEnter",
-	},
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", event = "BufEnter" },
 	{ "nvimtools/none-ls.nvim", event = "VeryLazy" },
-	{ "numToStr/Comment.nvim", event = "VeryLazy" },
+	{
+		"numToStr/Comment.nvim",
+		event = "VeryLazy",
+		config = function()
+			---@diagnostic disable: missing-fields
+			require("Comment").setup({
+				toggler = {
+					line = "<C-_>",
+				},
+				pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+			})
+		end,
+	},
 	{
 		"numToStr/Navigator.nvim",
 		opts = {},
