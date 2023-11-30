@@ -7,7 +7,6 @@ end
 local catppuccin = require("catppuccin")
 local material_settings = require("material.util.config").settings
 local lualine = require("lualine")
-local nvim_window = require("nvim-window")
 local bufferlineUi = require("bufferline.ui")
 -- local telescope = require("telescope")
 local telescope_builtins = require("telescope.builtin")
@@ -210,7 +209,7 @@ wk.register({
 	["]<space>"] = { "o<ESC>k", "Insert a blank line below" },
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
 	["]g"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
-	["[g"] = { ":Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
+	["[g"] = { "<cmd>silent Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
 	["[E"] = {
 		function()
 			lspsaga_diagnostics:goto_prev({ severity = vim.diagnostic.severity.ERROR })
@@ -354,6 +353,7 @@ wk.register({
 		F = { "<cmd>Telescope git_files<CR>", "Fuzzy search for files tracked by Git" },
 		g = { "<cmd>Telescope live_grep<CR>", "Live grep" },
 		G = { "<cmd>Telescope grep_string<CR>", "Grep string under the cursor" },
+		H = { ":Man ", "Show man pages", silent = false },
 		h = {
 			function()
 				telescope_builtins.help_tags(telescope_themes.get_dropdown({
@@ -361,15 +361,6 @@ wk.register({
 				}))
 			end,
 			"Show help tags",
-		},
-		-- H = { "<cmd>Telescope man_pages previewer=false<CR>", "Show help tags" },
-		H = {
-			function()
-				telescope_builtins.man_pages(telescope_themes.get_dropdown({
-					previewer = false,
-				}))
-			end,
-			"Show man pages",
 		},
 		l = { "<cmd>Telescope lsp_document_symbols<CR>", "Show LSP document symbols" },
 		m = { "<cmd>make<CR>", "Make" },
@@ -462,7 +453,6 @@ wk.register({
 			g = { "<cmd>silent !tmux new-window 'lazygit'<CR>", "LazyGit" },
 		},
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
-		w = { nvim_window.pick, "Choose Win" },
 		x = { vim.cmd.NvimTreeToggle, "Nvim Tree" },
 		X = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
 		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
@@ -777,7 +767,6 @@ wk.register({
 			"<cmd>TSToggle highlight<CR>",
 			"Treesitter highlight",
 		},
-		L = { "<cmd>Telescope ToggleLSP<CR>", "LSP" },
 		l = {
 			function()
 				vim.o.cursorline = not vim.o.cursorline
@@ -828,41 +817,6 @@ wk.register({
 			end,
 			"Statusline/lualine",
 		},
-		t = {
-			name = "Terminal",
-			h = {
-				function()
-					local p = vim.fn.expand("%:p:h")
-					local cmd = "ToggleTerm direction=horizontal dir=" .. p
-					vim.cmd(cmd)
-				end,
-				"Horizontal",
-			},
-			v = {
-				function()
-					local p = vim.fn.expand("%:p:h")
-					local cmd = "ToggleTerm size=80 direction=vertical dir=" .. p
-					vim.cmd(cmd)
-				end,
-				"Vertical",
-			},
-			f = {
-				function()
-					local p = vim.fn.expand("%:p:h")
-					local cmd = "ToggleTerm size=160 direction=float dir=" .. p
-					vim.cmd(cmd)
-				end,
-				"Float",
-			},
-			t = {
-				function()
-					local p = vim.fn.expand("%:p:h")
-					local cmd = "ToggleTerm direction=tab dir=" .. p
-					vim.cmd(cmd)
-				end,
-				"Tab",
-			},
-		},
 		u = { vim.cmd.UndotreeToggle, "Undotree" },
 		-- w = {
 		--  function()
@@ -885,7 +839,6 @@ wk.register({
 		l = { "<c-w>l", "Move the left window" },
 		m = { "<cmd>MaximizerToggle<CR>", "Maximize the window" },
 		o = { "<cmd>only<CR>", "close all other windows" },
-		p = { nvim_window.pick, "Pick a window" },
 		s = { "<cmd>windo set scrollbind<CR>", "Set scrollbind" },
 		S = { "<cmd>windo set scrollbind!<CR>", "Unset scrollbind" },
 	},
@@ -920,7 +873,7 @@ wk.register({
 	},
 	["<c-s>"] = { "<ESC><ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
-	["<M-k>"] = { "<c-o>dd", "kill the line" },
+	["<M-k>"] = { "<ESC>ddO", "kill the line" },
 	["<c-k>"] = { "<c-o>C", "Delete to the end of the line" },
 	-- ["<C-r>"] = { "<cmd>Telescope registers<CR>", "show registers" },
 }, { prefix = "", mode = "i", noremap = true, silent = true, nowait = true })

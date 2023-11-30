@@ -14,17 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 
 return require("lazy").setup({
 	{
-		"adoyle-h/lsp-toggle.nvim",
-		opts = {
-			create_cmds = true,
-			telescope = true,
-		},
-		cmd = {
-			"ToggleLSP",
-			"ToggleNullLSP",
-		},
-	},
-	{
 		"airblade/vim-rooter",
 		init = function()
 			vim.g.rooter_silent_chdir = true
@@ -136,8 +125,8 @@ return require("lazy").setup({
 		},
 		init = function()
 			vim.cmd([[
-				au FileType NvimTree,dashboard,help,lazy,lazyterm,mason,netrw,toggleterm,checkhealth,undotree,dbout lua vim.b.miniindentscope_disable = true
-		        ]])
+				au FileType NvimTree,dashboard,help,lazy,lazyterm,man,text,mason,netrw,toggleterm,checkhealth,undotree,dbout lua vim.b.miniindentscope_disable = true
+			]])
 		end,
 	},
 	{
@@ -560,13 +549,6 @@ return require("lazy").setup({
 		end,
 	},
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
-	{
-		"tools-life/taskwiki",
-		init = function()
-			vim.g.taskwiki_disable_concealcursor = "yes"
-		end,
-		ft = "vimwiki",
-	},
 	{ "tpope/vim-abolish", event = "VeryLazy" },
 	{ "tpope/vim-capslock", event = "VeryLazy" },
 	-- { "tpope/vim-commentary", event = "VeryLazy" },
@@ -592,7 +574,6 @@ return require("lazy").setup({
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "windwp/nvim-ts-autotag", event = "InsertEnter" },
 	{ "windwp/nvim-autopairs", opts = { check_ts = true }, event = "InsertEnter" },
-	{ "yorickpeterse/nvim-window", opts = { border = "rounded" }, event = "VeryLazy" },
 }, {
 	ui = {
 		border = "rounded",
