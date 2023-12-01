@@ -400,6 +400,41 @@ wk.register({
 			"Change the word under the cursor in the whole file",
 			silent = false,
 		},
+		T = {
+			name = "Terminal",
+			f = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local cmd = "ToggleTerm size=160 direction=float dir=" .. p
+					vim.cmd(cmd)
+				end,
+				"Float",
+			},
+			h = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local cmd = "ToggleTerm direction=horizontal dir=" .. p
+					vim.cmd(cmd)
+				end,
+				"Horizontal",
+			},
+			v = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local cmd = "ToggleTerm size=80 direction=vertical dir=" .. p
+					vim.cmd(cmd)
+				end,
+				"Vertical",
+			},
+			t = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local cmd = "ToggleTerm direction=tab dir=" .. p
+					vim.cmd(cmd)
+				end,
+				"Tab",
+			},
+		},
 		t = {
 			name = "tmux",
 			F = {
@@ -439,7 +474,7 @@ wk.register({
 			h = {
 				function()
 					local filepath = vim.fn.expand("%:p:h")
-					vim.cmd("silent !tmux split-window -l 9 -c " .. filepath)
+					vim.cmd("silent !tmux split-window -l 12 -c " .. filepath)
 				end,
 				"Horizontal split",
 			},
@@ -483,8 +518,7 @@ wk.register({
 		q = { "<cmd>tabclose<CR>", "Close tab" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
 		s = { "<cmd>silent so %<CR>", "Source the file" },
-		t = { "<cmd>!task<CR>", "Show taskwarrior" },
-		T = { "<cmd>tabnew<CR>", "Create an empty tab" },
+		t = { "<cmd>tabnew<CR>", "Create an empty tab" },
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
 	-- TODO: add the next keybinding if the bug is fixed

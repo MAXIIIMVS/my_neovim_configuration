@@ -65,7 +65,11 @@ return require("lazy").setup({
 	{
 		"akinsho/toggleterm.nvim",
 		version = "*",
-		config = true,
+		opts = {
+			float_opts = {
+				border = "rounded",
+			},
+		},
 		cmd = {
 			"ToggleTerm",
 			"ToggleTermSetName",
