@@ -129,7 +129,7 @@ return require("lazy").setup({
 		},
 		init = function()
 			vim.cmd([[
-				au FileType NvimTree,dashboard,help,lazy,lazyterm,man,text,mason,netrw,toggleterm,checkhealth,undotree,dbout lua vim.b.miniindentscope_disable = true
+				au FileType NvimTree,dashboard,help,lazy,lazyterm,lspinfo,man,text,mason,netrw,toggleterm,checkhealth,undotree,dbout lua vim.b.miniindentscope_disable = true
 			]])
 		end,
 	},

@@ -353,7 +353,7 @@ wk.register({
 		F = { "<cmd>Telescope git_files<CR>", "Fuzzy search for files tracked by Git" },
 		g = { "<cmd>Telescope live_grep<CR>", "Live grep" },
 		G = { "<cmd>Telescope grep_string<CR>", "Grep string under the cursor" },
-		H = { ":Man ", "Show man pages", silent = false },
+		H = { ":vertical Man ", "Show man pages", silent = false },
 		h = {
 			function()
 				telescope_builtins.help_tags(telescope_themes.get_dropdown({
@@ -379,16 +379,6 @@ wk.register({
 			end,
 			"Show recently opened files",
 		},
-		-- s = {
-		-- 	[[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-		-- 	"Change the word under the cursor in the line",
-		-- 	silent = false,
-		-- },
-		-- S = {
-		-- 	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-		-- 	"Change the word under the cursor in the whole file",
-		-- 	silent = false,
-		-- },
 		-- NOTE: the next two substitution commands depend on vim-abolish
 		s = {
 			[[:S/<c-r><c-w>/<c-r><c-w>/g<Left><left>]],
@@ -517,7 +507,16 @@ wk.register({
 		m = { "<cmd>messages<CR>", "messages" },
 		q = { "<cmd>tabclose<CR>", "Close tab" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
-		s = { "<cmd>silent so %<CR>", "Source the file" },
+		S = {
+			[[:%s/<c-r><c-w>/<c-r><c-w>/gi<left><left><left>]],
+			"Substitute the word in the whole file (ignore case)",
+			silent = false,
+		},
+		s = {
+			[[:s/<c-r><c-w>/<c-r><c-w>/gi<left><left><left>]],
+			"Substitute the word in this line (ignore case)",
+			silent = false,
+		},
 		t = { "<cmd>tabnew<CR>", "Create an empty tab" },
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
@@ -735,8 +734,13 @@ wk.register({
 		w = {
 			name = "worktree",
 			a = { ":G worktree add ", "add", silent = false },
-			l = { ":G worktree list<CR>", "list" },
+			L = { ":G worktree lock ", "Lock", silent = false },
+			l = { ":G worktree list<CR>", "List" },
+			m = { ":G worktree move ", "Move", silent = false },
+			p = { ":G worktree prune<CR>", "prune" },
+			R = { ":G worktree repair ", "Repair", silent = false },
 			r = { ":G worktree remove ", "remove", silent = false },
+			u = { ":G worktree unlock ", "Unlock", silent = false },
 		},
 	},
 	l = {
@@ -892,6 +896,7 @@ wk.register({
 		end,
 		"Format buffer",
 	},
+	s = { "<cmd>silent so %<CR>", "Source the file" },
 	w = {
 		name = "VimWiki",
 		l = { "<cmd>VimwikiTOC<CR>", "Create or update the Table of Contents for the current wiki file" },
