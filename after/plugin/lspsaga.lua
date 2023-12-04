@@ -1,6 +1,9 @@
 local saga = require("lspsaga")
 
 saga.setup({
+	hover = {
+		max_width = 0.5,
+	},
 	preview = {
 		lines_above = 0,
 		lines_below = 0,

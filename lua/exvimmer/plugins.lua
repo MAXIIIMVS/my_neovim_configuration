@@ -66,8 +66,13 @@ return require("lazy").setup({
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		opts = {
+			size = 13,
+			open_mapping = [[<c-\>]],
+			-- autochdir = true,
+			direction = "horizontal",
 			float_opts = {
 				border = "rounded",
+				winblend = 0,
 			},
 		},
 		cmd = {

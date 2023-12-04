@@ -390,41 +390,6 @@ wk.register({
 			"Change the word under the cursor in the whole file",
 			silent = false,
 		},
-		T = {
-			name = "Terminal",
-			f = {
-				function()
-					local p = vim.fn.expand("%:p:h")
-					local cmd = "ToggleTerm size=160 direction=float dir=" .. p
-					vim.cmd(cmd)
-				end,
-				"Float",
-			},
-			h = {
-				function()
-					local p = vim.fn.expand("%:p:h")
-					local cmd = "ToggleTerm direction=horizontal dir=" .. p
-					vim.cmd(cmd)
-				end,
-				"Horizontal",
-			},
-			v = {
-				function()
-					local p = vim.fn.expand("%:p:h")
-					local cmd = "ToggleTerm size=80 direction=vertical dir=" .. p
-					vim.cmd(cmd)
-				end,
-				"Vertical",
-			},
-			t = {
-				function()
-					local p = vim.fn.expand("%:p:h")
-					local cmd = "ToggleTerm direction=tab dir=" .. p
-					vim.cmd(cmd)
-				end,
-				"Tab",
-			},
-		},
 		t = {
 			name = "tmux",
 			F = {
@@ -517,7 +482,42 @@ wk.register({
 			"Substitute the word in this line (ignore case)",
 			silent = false,
 		},
-		t = { "<cmd>tabnew<CR>", "Create an empty tab" },
+		T = { "<cmd>tabnew<CR>", "Create an empty tab" },
+		t = {
+			name = "Terminal",
+			f = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local cmd = "ToggleTerm size=160 direction=float dir=" .. p
+					vim.cmd(cmd)
+				end,
+				"Float",
+			},
+			h = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local cmd = "ToggleTerm direction=horizontal dir=" .. p
+					vim.cmd(cmd)
+				end,
+				"Horizontal",
+			},
+			v = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local cmd = "ToggleTerm size=80 direction=vertical dir=" .. p
+					vim.cmd(cmd)
+				end,
+				"Vertical",
+			},
+			t = {
+				function()
+					local p = vim.fn.expand("%:p:h")
+					local cmd = "ToggleTerm direction=tab dir=" .. p
+					vim.cmd(cmd)
+				end,
+				"Tab",
+			},
+		},
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
 	-- TODO: add the next keybinding if the bug is fixed
