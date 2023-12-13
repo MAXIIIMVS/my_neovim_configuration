@@ -74,6 +74,7 @@ return require("lazy").setup({
 				border = "rounded",
 				winblend = 0,
 			},
+			autochdir = true,
 		},
 		cmd = {
 			"ToggleTerm",
@@ -134,7 +135,7 @@ return require("lazy").setup({
 		},
 		init = function()
 			vim.cmd([[
-				au FileType NvimTree,dashboard,help,lazy,lazyterm,lspinfo,man,text,mason,netrw,toggleterm,checkhealth,undotree,dbout lua vim.b.miniindentscope_disable = true
+				au FileType NvimTree,dashboard,help,lazy,lazyterm,lspinfo,man,text,mason,markdown,netrw,toggleterm,checkhealth,undotree,dbout lua vim.b.miniindentscope_disable = true
 			]])
 		end,
 	},
@@ -171,6 +172,7 @@ return require("lazy").setup({
 		event = "BufEnter",
 	},
 	{ "echasnovski/mini.splitjoin", opts = {}, event = "BufEnter" },
+	{ "EdenEast/nightfox.nvim", event = "VeryLazy", opts = {} },
 	{ "famiu/bufdelete.nvim", cmd = { "Bdelete", "Bwipeout" } },
 	{
 		"folke/todo-comments.nvim",
@@ -323,17 +325,6 @@ return require("lazy").setup({
 		event = "BufEnter",
 	},
 	{
-		"mbbill/undotree",
-		cmd = {
-			"UndotreeToggle",
-			"UndotreeShow",
-			"UndotreeToggle",
-			"UndotreeHide",
-			"UndotreeFocus",
-			"UndotreePersistUndo",
-		},
-	},
-	{
 		"marko-cerovac/material.nvim",
 		-- lazy = false,
 		-- priority = 1000,
@@ -362,6 +353,17 @@ return require("lazy").setup({
 		init = function()
 			vim.g.material_style = "deep ocean"
 		end,
+	},
+	{
+		"mbbill/undotree",
+		cmd = {
+			"UndotreeToggle",
+			"UndotreeShow",
+			"UndotreeToggle",
+			"UndotreeHide",
+			"UndotreeFocus",
+			"UndotreePersistUndo",
+		},
 	},
 	{ "mfussenegger/nvim-dap", event = "VeryLazy" },
 	{ "mfussenegger/nvim-dap-python", ft = "python", event = "VeryLazy" },
@@ -572,7 +574,7 @@ return require("lazy").setup({
 		"vimwiki/vimwiki",
 		event = "VeryLazy",
 		init = function()
-			vim.g.vimwiki_listsyms = "    X"
+			vim.g.vimwiki_listsyms = "    x"
 			vim.g.vimwiki_markdown_link_ext = 1
 			vim.g.vimwiki_global_ext = 0
 			vim.g.vimwiki_list = { { path = "~/notes/wiki/", syntax = "markdown", ext = ".md", auto_diary_index = 1 } }

@@ -918,7 +918,7 @@ wk.register({
 	},
 	["<c-s>"] = { "<ESC><ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
-	["<M-k>"] = { "<ESC>ddO", "kill the line" },
+	["<M-k>"] = { "<ESC>dd", "kill the line" },
 	["<c-k>"] = { "<c-o>C", "Delete to the end of the line" },
 	-- ["<C-r>"] = { "<cmd>Telescope registers<CR>", "show registers" },
 }, { prefix = "", mode = "i", noremap = true, silent = true, nowait = true })

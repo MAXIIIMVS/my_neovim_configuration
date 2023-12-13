@@ -46,6 +46,7 @@ null_ls.setup({
 				"yaml",
 				"markdown",
 				"markdown.mdx",
+				"vimwiki",
 				"graphql",
 				"handlebars",
 				"xml",
