@@ -118,28 +118,6 @@ return require("lazy").setup({
 		event = "UIEnter",
 	},
 	{
-		"echasnovski/mini.indentscope",
-		event = "UIEnter",
-		-- version = false,
-		opts = {
-			options = {
-				indent_at_cursor = false,
-			},
-			draw = {
-				delay = 0,
-				animation = function()
-					return 0
-				end,
-			},
-			symbol = "┃",
-		},
-		init = function()
-			vim.cmd([[
-				au FileType NvimTree,dashboard,help,lazy,lazyterm,lspinfo,man,text,mason,markdown,netrw,toggleterm,checkhealth,undotree,dbout lua vim.b.miniindentscope_disable = true
-			]])
-		end,
-	},
-	{
 		"echasnovski/mini.jump2d",
 		opts = {
 			mappings = {
@@ -326,8 +304,6 @@ return require("lazy").setup({
 	},
 	{
 		"marko-cerovac/material.nvim",
-		-- lazy = false,
-		-- priority = 1000,
 		event = "VeryLazy",
 		opts = {
 			lualine_style = "stealth", -- the stealth style
@@ -446,7 +422,7 @@ return require("lazy").setup({
 	{
 		"NvChad/nvim-colorizer.lua",
 		opts = {
-			filetypes = { "*" },
+			filetypes = { "html", "css", "sass", "javascriptreact", "typescriptreact", "scss" },
 			user_default_options = {
 				AARRGGBB = true,
 				RRGGBBAA = true,
