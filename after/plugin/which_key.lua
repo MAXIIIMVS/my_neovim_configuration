@@ -88,7 +88,6 @@ end
 
 function sync_bg_lualine_tmux()
 	local current_background = get_highlight("Normal")["guibg"]
-	-- vim.api.nvim_set_hl(0, "lualine_c", { bg = current_background == nil and "NONE" or "bg" })
 	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
 	vim.wo.fillchars = "eob: "
@@ -280,11 +279,10 @@ wk.register({
 			b = {
 				function()
 					if vim.o.background == "dark" then
-						local rose_pine_options = require("rose-pine.config").options
-						rose_pine_options.disable_background = false
-						rose_pine_options.disable_float_background = false
 						material_settings.disable.background = false
 						vim.g.material_style = "lighter"
+						local tokyonight_options = require("tokyonight.config").options
+						tokyonight_options.transparent = false
 						catppuccin.options.transparent_background = false
 						catppuccin.compile()
 					else
@@ -304,20 +302,19 @@ wk.register({
 						and scheme ~= "catppuccin-latte"
 						and scheme ~= "catppuccin-frappe"
 						and scheme ~= "catppuccin-macchiato"
-						and scheme ~= "rose-pine"
 						and scheme ~= "material"
+						and scheme ~= "tokyonight"
 					then
 						return
 					end
-					local next_transparency = not catppuccin.options.transparent_background
-					if vim.o.background == "light" and next_transparency then
+					vim.g.is_transparent = not vim.g.is_transparent
+					if vim.o.background == "light" and vim.g.is_transparent then
 						return
 					end
-					local rose_pine_options = require("rose-pine.config").options
-					rose_pine_options.disable_background = next_transparency
-					rose_pine_options.disable_float_background = next_transparency
-					catppuccin.options.transparent_background = next_transparency
-					material_settings.disable.background = next_transparency
+					catppuccin.options.transparent_background = vim.g.is_transparent
+					material_settings.disable.background = vim.g.is_transparent
+					local tokyonight_options = require("tokyonight.config").options
+					tokyonight_options.transparent = vim.g.is_transparent
 					catppuccin.compile()
 					vim.cmd.colorscheme(vim.g.colors_name)
 					sync_bg_lualine_tmux()

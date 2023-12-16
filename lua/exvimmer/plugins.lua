@@ -150,7 +150,6 @@ return require("lazy").setup({
 		event = "BufEnter",
 	},
 	{ "echasnovski/mini.splitjoin", opts = {}, event = "BufEnter" },
-	{ "EdenEast/nightfox.nvim", event = "VeryLazy", opts = {} },
 	{ "famiu/bufdelete.nvim", cmd = { "Bdelete", "Bwipeout" } },
 	{
 		"folke/todo-comments.nvim",
@@ -174,6 +173,17 @@ return require("lazy").setup({
 				TEST = { icon = "", color = "#FF004E", alt = { "TESTING", "PASSED", "FAILED" } },
 			},
 		},
+	},
+	{
+		"folke/tokyonight.nvim",
+		opts = {
+			transparent = vim.g.is_transparent,
+			styles = {
+				floats = vim.g.is_transparent and "transparent" or "normal",
+				sidebars = vim.g.is_transparent and "transparent" or "normal",
+			},
+		},
+		event = "VeryLazy",
 	},
 	{ "folke/which-key.nvim", lazy = true },
 	{
@@ -322,8 +332,8 @@ return require("lazy").setup({
 				"which-key",
 			},
 			disable = {
-				colored_cursor = true,
-				background = true,
+				colored_cursor = vim.g.is_transparent,
+				background = vim.g.is_transparent,
 			},
 		},
 		init = function()
@@ -501,15 +511,6 @@ return require("lazy").setup({
 			vim.g.clever_f_smart_case = true
 			vim.g.clever_f_mark_char_color = 0
 		end,
-	},
-	{
-		"rose-pine/neovim",
-		name = "rose-pine",
-		opts = {
-			disable_background = true,
-			disable_float_background = true,
-		},
-		event = "VeryLazy",
 	},
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
 	-- {"simrat39/rust-tools.nvim"},

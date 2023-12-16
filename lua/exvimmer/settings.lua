@@ -41,12 +41,12 @@ vim.cmd([[
 if has('nvim')
   augroup hide_terminal_numbers
     autocmd!
-    autocmd TermOpen * setlocal nonumber norelativenumber
+    autocmd TermOpen * setlocal nonumber norelativenumber nospell
   augroup END
 else
   augroup hide_terminal_numbers
     autocmd!
-    autocmd BufEnter term://* setlocal nonumber norelativenumber
+    autocmd BufEnter term://* setlocal nonumber norelativenumber nospell
   augroup END
 endif
 
@@ -144,6 +144,10 @@ ab :note: 📝
 ab :separator_ltt: ❮
 ab :separator_rtt: ❯
 ]])
+-- }}}
+
+-- My variables {{{
+vim.g.is_transparent = true
 -- }}}
 
 -- Fundamental {{{

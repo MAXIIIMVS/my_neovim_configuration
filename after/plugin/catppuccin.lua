@@ -34,7 +34,7 @@ catppuccin.setup({
 	show_end_of_buffer = false,
 	compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
 	-- transparent_background = vim.o.background == "dark",
-	transparent_background = true,
+	transparent_background = vim.g.is_transparent,
 	term_colors = true,
 	color_overrides = {
 		mocha = {
@@ -64,10 +64,7 @@ catppuccin.setup({
 		cmp = true,
 		gitsigns = true,
 		dashboard = true,
-		dap = {
-			enabled = true,
-			enable_ui = true, -- enable nvim-dap-ui
-		},
+		dap = true,
 		telescope = {
 			enabled = true,
 			-- style = "nvchad",
