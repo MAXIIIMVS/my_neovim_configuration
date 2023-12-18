@@ -92,6 +92,17 @@ return require("lazy").setup({
 		priority = 1000,
 	},
 	{
+		"craftzdog/solarized-osaka.nvim",
+		event = "VeryLazy",
+		opts = {
+			transparent = vim.g.is_transparent,
+			styles = {
+				floats = vim.g.is_transparent and "transparent" or "normal",
+				sidebars = vim.g.is_transparent and "transparent" or "normal",
+			},
+		},
+	},
+	{
 		"echasnovski/mini.bracketed",
 		-- version = false,
 		opts = {
@@ -176,6 +187,7 @@ return require("lazy").setup({
 	},
 	{
 		"folke/tokyonight.nvim",
+		event = "VeryLazy",
 		opts = {
 			transparent = vim.g.is_transparent,
 			styles = {
@@ -192,17 +204,6 @@ return require("lazy").setup({
 		cmd = { "ZenMode" },
 	},
 	{ "folke/neodev.nvim", opts = {}, lazy = true },
-	{ "nvimdev/dashboard-nvim", event = "VimEnter", dependencies = { "nvim-tree/nvim-web-devicons" } },
-	{
-		"glepnir/lspsaga.nvim",
-		lazy = true,
-		branch = "main",
-		event = "LspAttach",
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-			"nvim-treesitter/nvim-treesitter",
-		},
-	},
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
@@ -359,6 +360,16 @@ return require("lazy").setup({
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"folke/neodev.nvim",
+		},
+	},
+	{ "nvimdev/dashboard-nvim", event = "VimEnter", dependencies = { "nvim-tree/nvim-web-devicons" } },
+	{
+		"nvimdev/lspsaga.nvim",
+		lazy = true,
+		event = "LspAttach",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+			"nvim-treesitter/nvim-treesitter",
 		},
 	},
 	{ "nvim-lualine/lualine.nvim", event = "UIEnter" },

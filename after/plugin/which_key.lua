@@ -284,6 +284,8 @@ wk.register({
 						vim.g.material_style = "lighter"
 						local tokyonight_options = require("tokyonight.config").options
 						tokyonight_options.transparent = false
+						local osaka_options = require("solarized-osaka.config").options
+						osaka_options.transparent = false
 						catppuccin.options.transparent_background = false
 						catppuccin.compile()
 					else
@@ -305,6 +307,7 @@ wk.register({
 						and scheme ~= "catppuccin-macchiato"
 						and scheme ~= "material"
 						and scheme ~= "tokyonight"
+						and scheme ~= "solarized-osaka"
 					then
 						return
 					end
@@ -316,6 +319,8 @@ wk.register({
 					material_settings.disable.background = vim.g.is_transparent
 					local tokyonight_options = require("tokyonight.config").options
 					tokyonight_options.transparent = vim.g.is_transparent
+					local osaka_options = require("solarized-osaka.config").options
+					osaka_options.transparent = vim.g.is_transparent
 					catppuccin.compile()
 					vim.cmd.colorscheme(vim.g.colors_name)
 					sync_bg_lualine_tmux()
