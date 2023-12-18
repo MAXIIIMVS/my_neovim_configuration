@@ -86,13 +86,11 @@ local function get_git_hash()
 	end
 end
 
-function sync_bg_lualine_tmux()
+function sync_statusline_with_tmux()
 	local current_background = get_highlight("Normal")["guibg"]
 	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
-	vim.wo.fillchars = "eob: "
-	vim.cmd("hi NonText guifg=bg")
-	vim.cmd.highlight("NonText guifg=bg")
+	vim.o.fillchars = "eob: "
 end
 
 local function git_next()
@@ -273,7 +271,7 @@ wk.register({
 			a = {
 				function()
 					local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
-					vim.cmd.colorscheme(vim.g.colors_name == "tokyonight" and flavor or "tokyonight")
+					vim.cmd.colorscheme(vim.g.colors_name == "solarized-osaka" and flavor or "solarized-osaka")
 				end,
 				"alternative",
 			},
@@ -292,7 +290,7 @@ wk.register({
 						vim.g.material_style = "deep ocean"
 					end
 					vim.o.background = vim.o.background == "dark" and "light" or "dark"
-					sync_bg_lualine_tmux()
+					sync_statusline_with_tmux()
 				end,
 				"Background color (Light/dark) ",
 			},
@@ -323,7 +321,7 @@ wk.register({
 					osaka_options.transparent = vim.g.is_transparent
 					catppuccin.compile()
 					vim.cmd.colorscheme(vim.g.colors_name)
-					sync_bg_lualine_tmux()
+					sync_statusline_with_tmux()
 				end,
 				"Transparency",
 			},

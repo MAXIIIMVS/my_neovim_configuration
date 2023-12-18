@@ -66,7 +66,7 @@ augroup END
 " autocmd VimLeave * silent !tmux set -g status-style bg=default
 augroup sync_tmux
     autocmd!
-    autocmd UIEnter * lua sync_bg_lualine_tmux()
+    autocmd UIEnter * lua sync_statusline_with_tmux()
 augroup END
 
 let g:first_color_scheme_change = 1
@@ -77,7 +77,7 @@ function! SyncTmuxOnColorSchemeChange()
     else
         augroup sync_all
           autocmd!
-          autocmd ColorScheme * lua sync_bg_lualine_tmux()
+          autocmd ColorScheme * lua sync_statusline_with_tmux()
         augroup END
     endif
 endfunction
@@ -267,9 +267,10 @@ vim.o.breakindent = true
 vim.o.nrformats = "bin,octal,hex"
 
 -- hide tildes (only vim), this doesn't work for nvim-tree
-vim.wo.fillchars = "eob: "
+-- hi! EndOfBuffer ctermbg=0 ctermfg=0 guibg=0 guifg=0
+vim.o.fillchars = "eob: "
 -- or put this after colorscheme (vim & nvim), works for nvim-tree
-vim.cmd("hi NonText guifg=bg")
+-- vim.cmd("hi NonText guifg=bg")
 -- }}}
 
 -- Highlights {{{
