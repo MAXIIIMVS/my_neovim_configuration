@@ -91,6 +91,7 @@ function sync_bg_lualine_tmux()
 	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
 	vim.wo.fillchars = "eob: "
+	vim.cmd("hi NonText guifg=bg")
 	vim.cmd.highlight("NonText guifg=bg")
 end
 
@@ -272,7 +273,7 @@ wk.register({
 			a = {
 				function()
 					local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
-					vim.cmd.colorscheme(vim.g.colors_name == "material" and flavor or "material")
+					vim.cmd.colorscheme(vim.g.colors_name == "tokyonight" and flavor or "tokyonight")
 				end,
 				"alternative",
 			},

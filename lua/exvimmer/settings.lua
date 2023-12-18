@@ -38,6 +38,8 @@ vim.cmd([[
 " dadbod completion with cmp
 " autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
 
+au FileType * set fo-=c fo-=r fo-=o
+
 if has('nvim')
   augroup hide_terminal_numbers
     autocmd!
@@ -193,10 +195,6 @@ vim.o.ignorecase = true
 vim.o.backspace = "start,eol,indent"
 vim.o.path = vim.o.path .. "**" -- or vim.wo.path, IDK
 vim.o.wildignore = vim.o.wildignore .. "*/node_modules/*"
-
--- Add asterisks in block comments
-vim.bo.formatoptions = vim.bo.formatoptions .. "r"
---}}}
 
 -- Syntax theme "{{{
 -----------------------------------------------------------------------
