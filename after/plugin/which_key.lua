@@ -719,7 +719,7 @@ wk.register({
 		h = { get_git_hash, "copy current git hash to g register" },
 		L = { "<cmd>silent G log --stat<CR>", "Log with stats" },
 		l = { "<cmd>silent G log --decorate<CR>", "Log" },
-		n = { "<cmd>silent G! difftool --name-only HEAD~1 | cfirst <CR>", "changed files since last commit" },
+		n = { "<cmd>silent G! difftool HEAD~1 | cfirst <CR>", "changed files since last commit" },
 		o = { "<cmd>silent GBrowse<CR>", "Open in the browser" },
 		P = { "<cmd>silent G push<CR>", "Push" },
 		p = { "<cmd>silent G pull<CR>", "Pull" },

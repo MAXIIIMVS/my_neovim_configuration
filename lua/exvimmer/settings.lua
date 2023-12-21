@@ -254,7 +254,7 @@ vim.g.python3_host_prog = "/usr/bin/python3"
 
 -- vim.o.smarttab = true
 -- b.smartindent = true
-vim.o.tabstop = 2
+vim.o.tabstop = 4
 -- vim.bo.tabstop = 2
 -- vim.o.softtabstop = 2
 -- vim.o.shiftwidth = 2
