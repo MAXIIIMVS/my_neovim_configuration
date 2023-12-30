@@ -14,7 +14,7 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 
 local on_attach = function(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
-	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+	-- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	if client.name == "clangd" or client.name == "prismals" then
 		vim.api.nvim_command([[augroup Format]])
@@ -23,8 +23,6 @@ local on_attach = function(client, bufnr)
 		vim.api.nvim_command([[augroup END]])
 	end
 
-	-- Mappings.
-	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 	vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", bufopts)
 	vim.keymap.set("n", "gd", "<cmd>silent lua vim.lsp.buf.definition()<CR>", bufopts)

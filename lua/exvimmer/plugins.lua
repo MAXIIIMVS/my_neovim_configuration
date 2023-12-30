@@ -314,34 +314,6 @@ return require("lazy").setup({
 		event = "BufEnter",
 	},
 	{
-		"marko-cerovac/material.nvim",
-		event = "VeryLazy",
-		opts = {
-			lualine_style = "stealth", -- the stealth style
-			async_loading = false,
-			plugins = {
-				"dap",
-				"dashboard",
-				"fidget",
-				"gitsigns",
-				"lspsaga",
-				"mini",
-				"nvim-cmp",
-				"nvim-tree",
-				"nvim-web-devicons",
-				"telescope",
-				"which-key",
-			},
-			disable = {
-				colored_cursor = vim.g.is_transparent,
-				background = vim.g.is_transparent,
-			},
-		},
-		init = function()
-			vim.g.material_style = "deep ocean"
-		end,
-	},
-	{
 		"mbbill/undotree",
 		cmd = {
 			"UndotreeToggle",

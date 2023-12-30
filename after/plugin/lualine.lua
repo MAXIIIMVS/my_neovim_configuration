@@ -55,7 +55,7 @@ local conditions = {
 		return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
 	end,
 	hide_in_width = function()
-		return vim.fn.winwidth(0) > 80
+		return vim.fn.winwidth(0) > 85
 	end,
 	check_git_workspace = function()
 		local filepath = vim.fn.expand("%:p:h")
@@ -139,6 +139,7 @@ ins_left({
 	"filetype",
 	icon_only = true,
 	-- icon = { align = "left" },
+	cond = conditions.hide_in_width,
 })
 
 ins_left({
@@ -176,6 +177,7 @@ ins_left({
 ins_right({
 	"selectioncount",
 	color = { fg = colors.orange },
+	cond = conditions.hide_in_width,
 })
 
 ins_right({
@@ -247,6 +249,7 @@ ins_right({
 	end,
 	-- fmt = string.upper,
 	color = { fg = colors.violet, gui = "bold" },
+	cond = conditions.hide_in_width,
 })
 
 ins_right({
@@ -262,6 +265,7 @@ ins_right({
 	icons_enabled = false,
 	-- icons_enabled = true,
 	color = { fg = colors.green, gui = "bold" },
+	cond = conditions.hide_in_width,
 })
 
 ins_right({ "progress", color = { fg = colors.cyan, gui = "bold" } })

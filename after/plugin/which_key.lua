@@ -5,7 +5,6 @@ if not present then
 end
 
 local catppuccin = require("catppuccin")
-local material_settings = require("material.util.config").settings
 local lualine = require("lualine")
 local bufferlineUi = require("bufferline.ui")
 -- local telescope = require("telescope")
@@ -278,16 +277,12 @@ wk.register({
 			b = {
 				function()
 					if vim.o.background == "dark" then
-						material_settings.disable.background = false
-						vim.g.material_style = "lighter"
 						local tokyonight_options = require("tokyonight.config").options
 						tokyonight_options.transparent = false
 						local osaka_options = require("solarized-osaka.config").options
 						osaka_options.transparent = false
 						catppuccin.options.transparent_background = false
 						catppuccin.compile()
-					else
-						vim.g.material_style = "deep ocean"
 					end
 					vim.o.background = vim.o.background == "dark" and "light" or "dark"
 					sync_statusline_with_tmux()
@@ -303,7 +298,6 @@ wk.register({
 						and scheme ~= "catppuccin-latte"
 						and scheme ~= "catppuccin-frappe"
 						and scheme ~= "catppuccin-macchiato"
-						and scheme ~= "material"
 						and scheme ~= "tokyonight"
 						and scheme ~= "solarized-osaka"
 					then
@@ -314,7 +308,6 @@ wk.register({
 						return
 					end
 					catppuccin.options.transparent_background = vim.g.is_transparent
-					material_settings.disable.background = vim.g.is_transparent
 					local tokyonight_options = require("tokyonight.config").options
 					tokyonight_options.transparent = vim.g.is_transparent
 					local osaka_options = require("solarized-osaka.config").options
@@ -806,7 +799,6 @@ wk.register({
 		-- d = { "<cmd>silent Dashboard<CR>", "dashboard" },
 		D = { "<cmd>silent DBUIToggle<CR>", "DB UI" },
 		d = { ":silent lua ToggleDiagnostics()<CR>", "diagnostics" },
-		e = { ":lua require('material.functions').toggle_eob()<CR>", "eob" },
 		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
 		h = {
 			"<cmd>TSToggle highlight<CR>",

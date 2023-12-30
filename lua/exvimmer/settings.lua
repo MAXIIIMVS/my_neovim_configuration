@@ -52,6 +52,19 @@ else
   augroup END
 endif
 
+" WARNING: this function will prevent large files from opening, and it needs tmux
+" function! OpenWithVimInTmuxIfBig()
+"   let l:file = expand('%:p') " get the full path of the file
+"   let l:size = getfsize(l:file) " get the size of the file
+" 
+"   " If the file size is more than 300KB, open with vim in a new tmux window
+"   if l:size > 1024 * 300
+"     execute '!tmux new-window vim ' . l:file
+"     silent bdelete
+"   endif
+" endfunction
+" autocmd BufReadPre * call OpenWithVimInTmuxIfBig()
+
 " Turn off paste mode when leaving insert
 autocmd InsertLeave * set nopaste
 
