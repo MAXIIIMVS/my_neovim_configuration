@@ -177,7 +177,6 @@ ins_left({
 ins_right({
 	"selectioncount",
 	color = { fg = colors.orange },
-	cond = conditions.hide_in_width,
 })
 
 ins_right({

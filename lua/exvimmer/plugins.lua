@@ -195,7 +195,6 @@ return require("lazy").setup({
 				sidebars = vim.g.is_transparent and "transparent" or "normal",
 			},
 		},
-		event = "VeryLazy",
 	},
 	{ "folke/which-key.nvim", lazy = true },
 	{

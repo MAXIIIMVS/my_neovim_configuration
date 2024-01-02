@@ -56,7 +56,7 @@ endif
 " function! OpenWithVimInTmuxIfBig()
 "   let l:file = expand('%:p') " get the full path of the file
 "   let l:size = getfsize(l:file) " get the size of the file
-" 
+"
 "   " If the file size is more than 300KB, open with vim in a new tmux window
 "   if l:size > 1024 * 300
 "     execute '!tmux new-window vim ' . l:file
@@ -166,13 +166,8 @@ vim.g.is_transparent = true
 -- }}}
 
 -- Fundamental {{{
--- vim.o.list = true
--- vim.opt.listchars = {
--- 	-- leadmultispace = ".",
--- 	-- trail = "▊",
--- 	-- tab = "│ ",
--- 	-- tab = " ",
--- }
+vim.o.list = true
+vim.o.listchars = "trail:,nbsp:.,precedes:❮,extends:❯,tab:▎ "
 vim.g.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal" -- removed blank
 vim.wo.spell = true
 vim.o.spellcapcheck = ""

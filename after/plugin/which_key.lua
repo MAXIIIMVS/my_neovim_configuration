@@ -270,7 +270,7 @@ wk.register({
 			a = {
 				function()
 					local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
-					vim.cmd.colorscheme(vim.g.colors_name == "solarized-osaka" and flavor or "solarized-osaka")
+					vim.cmd.colorscheme(vim.g.colors_name == flavor and "solarized-osaka" or flavor)
 				end,
 				"alternative",
 			},
