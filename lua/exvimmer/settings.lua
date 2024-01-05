@@ -167,7 +167,7 @@ vim.g.is_transparent = true
 
 -- Fundamental {{{
 vim.o.list = true
-vim.o.listchars = "trail:,nbsp:.,precedes:❮,extends:❯,tab:▎ "
+vim.o.listchars = "trail:,nbsp:.,precedes:❮,extends:❯,tab:  "
 vim.g.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal" -- removed blank
 vim.wo.spell = true
 vim.o.spellcapcheck = ""

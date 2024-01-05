@@ -347,7 +347,7 @@ wk.register({
 		F = { "<cmd>Telescope git_files<CR>", "Fuzzy search for files tracked by Git" },
 		g = { "<cmd>Telescope live_grep<CR>", "Live grep" },
 		G = { "<cmd>Telescope grep_string<CR>", "Grep string under the cursor" },
-		H = { ":vertical Man ", "Show man pages", silent = false },
+		H = { ":Man ", "Show man pages", silent = false },
 		h = {
 			function()
 				telescope_builtins.help_tags(telescope_themes.get_dropdown({

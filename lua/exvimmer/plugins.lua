@@ -160,6 +160,28 @@ return require("lazy").setup({
 		},
 		event = "BufEnter",
 	},
+	{
+		"echasnovski/mini.notify",
+		opts = {
+			lsp_progress = {
+				duration_last = 1500,
+			},
+			window = {
+				winblend = 0,
+				config = function()
+					local has_statusline = vim.o.laststatus > 0
+					local bottom_space = vim.o.cmdheight + (has_statusline and 1 or 0)
+					return {
+						border = "rounded",
+						anchor = "SE",
+						col = vim.o.columns,
+						row = vim.o.lines - bottom_space,
+					}
+				end,
+			},
+		},
+		event = "BufEnter",
+	},
 	{ "echasnovski/mini.splitjoin", opts = {}, event = "BufEnter" },
 	{ "famiu/bufdelete.nvim", cmd = { "Bdelete", "Bwipeout" } },
 	{
@@ -237,15 +259,6 @@ return require("lazy").setup({
 			vim.g.calendar_task_delete = true
 			-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 		end,
-	},
-	{
-		"j-hui/fidget.nvim",
-		tag = "legacy", -- TODO: update to main after rewrite
-		event = "LspAttach",
-		opts = {
-			text = { spinner = "dots" },
-			window = { blend = 0 },
-		},
 	},
 	{
 		"JoosepAlviste/nvim-ts-context-commentstring",
