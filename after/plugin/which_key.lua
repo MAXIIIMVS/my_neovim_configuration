@@ -237,10 +237,10 @@ wk.register({
 	["]Q"] = { "<cmd>silent clast<CR>", "See the last item in QuickFix" },
 	["]x"] = { "<cmd>BufferLineCloseRight<CR>", "Close all the buffers to the right" },
 	["[x"] = { "<cmd>BufferLineCloseLeft<CR>", "Close all the buffers to the left" },
-	["<C-Left>"] = { ":vertical resize +2<CR>", "Increase window width" },
-	["<C-Right>"] = { ":vertical resize -1<CR>", "Decrease window width" },
-	["<C-Up>"] = { ":resize -1<CR>", "Increase window height" },
-	["<C-Down>"] = { ":resize +1<CR>", "Decrease window height" },
+	["<M-Left>"] = { "<cmd>vertical resize +2<CR>", "Increase window width" },
+	["<M-Right>"] = { "<cmd>vertical resize -1<CR>", "Decrease window width" },
+	["<M-Up>"] = { "<cmd>resize -1<CR>", "Increase window height" },
+	["<M-Down>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
 	["<c-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
 	-- ["<c-\\>"] = { "<cmd>Lspsaga term_toggle<CR>", "lspsaga terminal" },
@@ -254,7 +254,7 @@ wk.register({
 	},
 	[";"] = {
 		name = "Quick",
-		[";"] = { ":Bdelete<CR>", "Delete current buffer" },
+		[";"] = { "<cmd>Bdelete<CR>", "Delete current buffer" },
 		["<space>"] = { "<cmd>Telescope<CR>", "Telescope" },
 		["1"] = { "<cmd>BufferLineGoToBuffer 1<CR>", "Go to 1st buffer" },
 		["2"] = { "<cmd>BufferLineGoToBuffer 2<CR>", "Go to 2nd buffer" },
@@ -265,60 +265,6 @@ wk.register({
 		["7"] = { "<cmd>BufferLineGoToBuffer 7<CR>", "Go to 7th buffer" },
 		["8"] = { "<cmd>BufferLineGoToBuffer 8<CR>", "Go to 8th buffer" },
 		["9"] = { "<cmd>BufferLineGoToBuffer 9<CR>", "Go to 9th buffer" },
-		a = {
-			name = "appeareance",
-			a = {
-				function()
-					local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
-					vim.cmd.colorscheme(vim.g.colors_name == flavor and "solarized-osaka" or flavor)
-				end,
-				"alternative",
-			},
-			b = {
-				function()
-					if vim.o.background == "dark" then
-						local tokyonight_options = require("tokyonight.config").options
-						tokyonight_options.transparent = false
-						local osaka_options = require("solarized-osaka.config").options
-						osaka_options.transparent = false
-						catppuccin.options.transparent_background = false
-						catppuccin.compile()
-					end
-					vim.o.background = vim.o.background == "dark" and "light" or "dark"
-					sync_statusline_with_tmux()
-				end,
-				"Background color (Light/dark) ",
-			},
-			t = {
-				function()
-					local scheme = vim.g.colors_name
-					if
-						scheme ~= "catppuccin"
-						and scheme ~= "catppuccin-mocha"
-						and scheme ~= "catppuccin-latte"
-						and scheme ~= "catppuccin-frappe"
-						and scheme ~= "catppuccin-macchiato"
-						and scheme ~= "tokyonight"
-						and scheme ~= "solarized-osaka"
-					then
-						return
-					end
-					vim.g.is_transparent = not vim.g.is_transparent
-					if vim.o.background == "light" and vim.g.is_transparent then
-						return
-					end
-					catppuccin.options.transparent_background = vim.g.is_transparent
-					local tokyonight_options = require("tokyonight.config").options
-					tokyonight_options.transparent = vim.g.is_transparent
-					local osaka_options = require("solarized-osaka.config").options
-					osaka_options.transparent = vim.g.is_transparent
-					catppuccin.compile()
-					vim.cmd.colorscheme(vim.g.colors_name)
-					sync_statusline_with_tmux()
-				end,
-				"Transparency",
-			},
-		},
 		-- b = { "<cmd>Telescope buffers previewer=false<CR>", "List open buffers" },
 		b = {
 			function()
@@ -455,6 +401,18 @@ wk.register({
 		["8"] = { "8<c-w>w", "Go to 8th window" },
 		["9"] = { "9<c-w>w", "Go to 9th window" },
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
+		c = {
+			name = "Calendar",
+			c = { "<cmd>Calendar<CR>", "Main Calendar (view month)" },
+			y = { "<cmd>Calendar -view=year<CR>", "View Year" },
+			w = { "<cmd>Calendar -view=week<CR>", "View Week" },
+			d = { "<cmd>Calendar -view=day<CR>", "View Day" },
+			D = { "<cmd>Calendar -view=days<CR>", "View Days" },
+			t = { "<cmd>Calendar -view=clock<CR>", "View Clock" },
+			O = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r/tasks<CR>", "Open Google Tasks" },
+			o = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r<CR>", "Open Google Calendar" },
+			g = { ":Calendar ", "Go to date (mm dd yyyy)", silent = false },
+		},
 		d = { "<cmd>silent Dashboard<CR>", "Dashboard" },
 		f = {
 			function()
@@ -481,33 +439,25 @@ wk.register({
 			name = "Terminal",
 			f = {
 				function()
-					local p = vim.fn.expand("%:p:h")
-					local cmd = "ToggleTerm size=160 direction=float dir=" .. p
-					vim.cmd(cmd)
+					vim.cmd("ToggleTerm size=160 direction=float dir=%:p:h")
 				end,
 				"Float",
 			},
 			h = {
 				function()
-					local p = vim.fn.expand("%:p:h")
-					local cmd = "ToggleTerm direction=horizontal dir=" .. p
-					vim.cmd(cmd)
+					vim.cmd("ToggleTerm direction=horizontal dir=%:p:h")
 				end,
 				"Horizontal",
 			},
 			v = {
 				function()
-					local p = vim.fn.expand("%:p:h")
-					local cmd = "ToggleTerm size=80 direction=vertical dir=" .. p
-					vim.cmd(cmd)
+					vim.cmd("ToggleTerm size=80 direction=vertical dir=%:p:h")
 				end,
 				"Vertical",
 			},
 			t = {
 				function()
-					local p = vim.fn.expand("%:p:h")
-					local cmd = "ToggleTerm direction=tab dir=" .. p
-					vim.cmd(cmd)
+					vim.cmd("ToggleTerm direction=tab dir=%:p:h")
 				end,
 				"Tab",
 			},
@@ -532,6 +482,60 @@ wk.register({
 
 wk.register({
 	name = "Groups",
+	a = {
+		name = "appeareance",
+		a = {
+			function()
+				local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
+				vim.cmd.colorscheme(vim.g.colors_name == flavor and "solarized-osaka" or flavor)
+			end,
+			"alternative colorscheme",
+		},
+		b = {
+			function()
+				if vim.o.background == "dark" then
+					local tokyonight_options = require("tokyonight.config").options
+					tokyonight_options.transparent = false
+					local osaka_options = require("solarized-osaka.config").options
+					osaka_options.transparent = false
+					catppuccin.options.transparent_background = false
+					catppuccin.compile()
+				end
+				vim.o.background = vim.o.background == "dark" and "light" or "dark"
+				sync_statusline_with_tmux()
+			end,
+			"Background color (Light/dark) ",
+		},
+		t = {
+			function()
+				local scheme = vim.g.colors_name
+				if
+					scheme ~= "catppuccin"
+					and scheme ~= "catppuccin-mocha"
+					and scheme ~= "catppuccin-latte"
+					and scheme ~= "catppuccin-frappe"
+					and scheme ~= "catppuccin-macchiato"
+					and scheme ~= "tokyonight"
+					and scheme ~= "solarized-osaka"
+				then
+					return
+				end
+				vim.g.is_transparent = not vim.g.is_transparent
+				if vim.o.background == "light" and vim.g.is_transparent then
+					return
+				end
+				catppuccin.options.transparent_background = vim.g.is_transparent
+				local tokyonight_options = require("tokyonight.config").options
+				tokyonight_options.transparent = vim.g.is_transparent
+				local osaka_options = require("solarized-osaka.config").options
+				osaka_options.transparent = vim.g.is_transparent
+				catppuccin.compile()
+				vim.cmd.colorscheme(vim.g.colors_name)
+				sync_statusline_with_tmux()
+			end,
+			"Transparency (only in dark mode)",
+		},
+	},
 	b = {
 		name = "Buffer",
 		a = { "<cmd>bufdo bd<CR>", "Close all buffers" },
@@ -564,16 +568,53 @@ wk.register({
 		p = { "<cmd>BufferLinePick<CR>", "Pick a Buffer" },
 	},
 	c = {
-		name = "Calendar",
-		c = { "<cmd>Calendar<CR>", "Main Calendar (view month)" },
-		y = { "<cmd>Calendar -view=year<CR>", "View Year" },
-		w = { "<cmd>Calendar -view=week<CR>", "View Week" },
-		d = { "<cmd>Calendar -view=day<CR>", "View Day" },
-		D = { "<cmd>Calendar -view=days<CR>", "View Days" },
-		t = { "<cmd>Calendar -view=clock<CR>", "View Clock" },
-		O = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r/tasks<CR>", "Open Google Tasks" },
-		o = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r<CR>", "Open Google Calendar" },
-		g = { ":Calendar ", "Go to date (mm dd yyyy)", silent = false },
+		name = "Comments (Box/Line)",
+		b = {
+			name = "Box",
+			c = {
+				name = "Box Center",
+				a = { "<cmd>CBcabox<CR>", "Text Adopted" },
+				c = { "<cmd>CBccbox<CR>", "Text Center" },
+				l = { "<cmd>CBclbox<CR>", "Text Left" },
+				r = { "<cmd>CBcrbox<CR>", "Text Right" },
+			},
+			l = {
+				name = "Box Left",
+				a = { "<cmd>CBlabox<CR>", "Text Adopted" },
+				c = { "<cmd>CBlcbox<CR>", "Text Center" },
+				l = { "<cmd>CBllbox<CR>", "Text Left" },
+				r = { "<cmd>CBlrbox<CR>", "Text Right" },
+			},
+			r = {
+				name = "Box Right",
+				a = { "<cmd>CBrabox<CR>", "Text Adopted" },
+				c = { "<cmd>CBrcbox<CR>", "Text Center" },
+				l = { "<cmd>CBrlbox<CR>", "Text Left" },
+				r = { "<cmd>CBrrbox<CR>", "Text Right" },
+			},
+		},
+		l = {
+			name = "Line",
+			c = {
+				name = "Line Center",
+				c = { "<cmd>CBccline<CR>", "Text Center" },
+				l = { "<cmd>CBclline<CR>", "Text Left" },
+				r = { "<cmd>CBcrline<CR>", "Text Right" },
+			},
+			L = { "<cmd>CBline<CR>", "Line" },
+			l = {
+				name = "Line Left",
+				c = { "<cmd>CBlcline<CR>", "Text Center" },
+				l = { "<cmd>CBllline<CR>", "Text Left" },
+				r = { "<cmd>CBlrline<CR>", "Text Right" },
+			},
+			r = {
+				name = "Line Right",
+				c = { "<cmd>CBrcline<CR>", "Text Center" },
+				l = { "<cmd>CBrlline<CR>", "Text Left" },
+				r = { "<cmd>CBrrline<CR>", "Text Right" },
+			},
+		},
 	},
 	d = {
 		name = "Debugger",
@@ -729,9 +770,9 @@ wk.register({
 			name = "worktree",
 			a = { ":G worktree add ", "add", silent = false },
 			L = { ":G worktree lock ", "Lock", silent = false },
-			l = { ":G worktree list<CR>", "List" },
+			l = { "<cmd>G worktree list<CR>", "List" },
 			m = { ":G worktree move ", "Move", silent = false },
-			p = { ":G worktree prune<CR>", "prune" },
+			p = { "<cmd>G worktree prune<CR>", "prune" },
 			R = { ":G worktree repair ", "Repair", silent = false },
 			r = { ":G worktree remove ", "remove", silent = false },
 			u = { ":G worktree unlock ", "Unlock", silent = false },
@@ -741,7 +782,7 @@ wk.register({
 		name = "LSP",
 		I = { ":LspInstall ", "Install", silent = false },
 		i = { "<cmd>LspInfo<CR>", "Info" },
-		L = { ":LspLog<CR>", "Log" },
+		L = { "<cmd>LspLog<CR>", "Log" },
 		r = { ":LspRestart ", "Restart", silent = false },
 		S = { ":LspStart ", "Start", silent = false },
 		s = { ":LspStop ", "Stop", silent = false },
@@ -749,35 +790,22 @@ wk.register({
 	},
 	m = {
 		name = "Make",
-		a = { ":make all<CR>", "All" },
-		B = { ":make clean-build<CR>", "Clean build" },
-		b = { ":make build<CR>", "Build" },
-		c = { ":make clean<CR>", "Clean" },
-		d = { ":make docs<CR>", "Generate docs" },
+		a = { "<cmd>make all<CR>", "All" },
+		B = { "<cmd>make clean-build<CR>", "Clean build" },
+		b = { "<cmd>make build<CR>", "Build" },
+		c = { "<cmd>make clean<CR>", "Clean" },
+		d = { "<cmd>make docs<CR>", "Generate docs" },
 		G = {
-			":make clean && make generate && make build<CR>",
+			"<cmd>make clean && make generate && make build<CR>",
 			"Clean, generate and build again",
 		},
-		g = { ":make generate<CR>", "Generate" },
-		h = { ":make help<CR>", "Help" },
-		i = { ":make install<CR>", "Install" },
-		m = {
-			":make ",
-			"Insert a make command",
-			silent = false,
-		},
-		r = {
-			":make run<CR>",
-			"Run",
-		},
-		t = {
-			":make test<CR>",
-			"Test",
-		},
-		w = {
-			":make watch<CR>",
-			"Watch",
-		},
+		g = { "<cmd>make generate<CR>", "Generate" },
+		h = { "<cmd>make help<CR>", "Help" },
+		i = { "<cmd>make install<CR>", "Install" },
+		m = { ":make ", "Insert a make command", silent = false },
+		r = { "<cmd>make run<CR>", "Run" },
+		t = { "<cmd>make test<CR>", "Test" },
+		w = { "<cmd>make watch<CR>", "Watch" },
 	},
 	s = {
 		name = "Session",
@@ -798,7 +826,7 @@ wk.register({
 		},
 		-- d = { "<cmd>silent Dashboard<CR>", "dashboard" },
 		D = { "<cmd>silent DBUIToggle<CR>", "DB UI" },
-		d = { ":silent lua ToggleDiagnostics()<CR>", "diagnostics" },
+		d = { "<cmd>silent lua ToggleDiagnostics()<CR>", "diagnostics" },
 		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
 		h = {
 			"<cmd>TSToggle highlight<CR>",
@@ -941,6 +969,55 @@ wk.register({
 }, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })
 
 wk.register({
+	c = {
+		name = "Comments (Box/Line)",
+		b = {
+			name = "Box",
+			c = {
+				name = "Box Center",
+				a = { "<cmd>CBcabox<CR>", "Text Adopted" },
+				c = { "<cmd>CBccbox<CR>", "Text Center" },
+				l = { "<cmd>CBclbox<CR>", "Text Left" },
+				r = { "<cmd>CBcrbox<CR>", "Text Right" },
+			},
+			l = {
+				name = "Box Left",
+				a = { "<cmd>CBlabox<CR>", "Text Adopted" },
+				c = { "<cmd>CBlcbox<CR>", "Text Center" },
+				l = { "<cmd>CBllbox<CR>", "Text Left" },
+				r = { "<cmd>CBlrbox<CR>", "Text Right" },
+			},
+			r = {
+				name = "Box Right",
+				a = { "<cmd>CBrabox<CR>", "Text Adopted" },
+				c = { "<cmd>CBrcbox<CR>", "Text Center" },
+				l = { "<cmd>CBrlbox<CR>", "Text Left" },
+				r = { "<cmd>CBrrbox<CR>", "Text Right" },
+			},
+		},
+		l = {
+			name = "Line",
+			c = {
+				name = "Line Center",
+				c = { "<cmd>CBccline<CR>", "Text Center" },
+				l = { "<cmd>CBclline<CR>", "Text Left" },
+				r = { "<cmd>CBcrline<CR>", "Text Right" },
+			},
+			L = { "<cmd>CBline<CR>", "Line" },
+			l = {
+				name = "Line Left",
+				c = { "<cmd>CBlcline<CR>", "Text Center" },
+				l = { "<cmd>CBllline<CR>", "Text Left" },
+				r = { "<cmd>CBlrline<CR>", "Text Right" },
+			},
+			r = {
+				name = "Line Right",
+				c = { "<cmd>CBrcline<CR>", "Text Center" },
+				l = { "<cmd>CBrlline<CR>", "Text Left" },
+				r = { "<cmd>CBrrline<CR>", "Text Right" },
+			},
+		},
+	},
 	g = {
 		name = "Git",
 		w = { "<cmd>Gitsigns stage_hunk<CR>", "Stage hunk" },

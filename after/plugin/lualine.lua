@@ -63,7 +63,8 @@ local conditions = {
 		return gitdir and #gitdir > 0 and #gitdir < #filepath
 	end,
 	search_available = function()
-		return vim.fn.searchcount().total > 0
+		local search_count = vim.fn.searchcount()
+		return (search_count and search_count.total or 0) > 0
 	end,
 }
 

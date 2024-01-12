@@ -68,7 +68,6 @@ return require("lazy").setup({
 		opts = {
 			size = 13,
 			open_mapping = [[<c-\>]],
-			-- autochdir = true,
 			direction = "horizontal",
 			float_opts = {
 				border = "rounded",
@@ -145,7 +144,6 @@ return require("lazy").setup({
 	},
 	{
 		"echasnovski/mini.move",
-		-- version = false,
 		opts = {
 			mappings = {
 				left = "<C-h>",
@@ -156,28 +154,6 @@ return require("lazy").setup({
 				line_right = "", -- disabled
 				line_down = "<C-j>",
 				line_up = "<C-k>",
-			},
-		},
-		event = "BufEnter",
-	},
-	{
-		"echasnovski/mini.notify",
-		opts = {
-			lsp_progress = {
-				duration_last = 1500,
-			},
-			window = {
-				winblend = 0,
-				config = function()
-					local has_statusline = vim.o.laststatus > 0
-					local bottom_space = vim.o.cmdheight + (has_statusline and 1 or 0)
-					return {
-						border = "rounded",
-						anchor = "SE",
-						col = vim.o.columns,
-						row = vim.o.lines - bottom_space,
-					}
-				end,
 			},
 		},
 		event = "BufEnter",
@@ -204,6 +180,20 @@ return require("lazy").setup({
 				HACK = { color = "#F0FD00" },
 				WARN = { color = "#FBBF24", alt = { "WARNING", "XXX" } },
 				TEST = { icon = "", color = "#FF004E", alt = { "TESTING", "PASSED", "FAILED" } },
+			},
+		},
+	},
+	{
+		"j-hui/fidget.nvim",
+		tag = "v1.0.0",
+		event = "LspAttach",
+		opts = {
+			text = { spinner = "dots" },
+			notification = {
+				window = {
+					winblend = 0,
+					-- border = "rounded",
+				},
 			},
 		},
 	},
@@ -326,6 +316,40 @@ return require("lazy").setup({
 		event = "BufEnter",
 	},
 	{
+		"LudoPinelli/comment-box.nvim",
+		opts = {},
+		cmd = {
+			"CBacbox",
+			"CBline",
+			"CBalbox",
+			"CBcabox",
+			"CBccbox",
+			"CBclbox",
+			"CBcline",
+			"CBcrbox",
+			"CBlabox",
+			"CBlcbox",
+			"CBllbox",
+			"CBlline",
+			"CBlrbox",
+			"CBrabox",
+			"CBrcbox",
+			"CBrlbox",
+			"CBrline",
+			"CBrrbox",
+			"CBccline",
+			"CBclline",
+			"CBcrline",
+			"CBlcline",
+			"CBllline",
+			"CBlrline",
+			"CBrcline",
+			"CBrlline",
+			"CBrrline",
+			"CBcatalog",
+		},
+	},
+	{
 		"mbbill/undotree",
 		cmd = {
 			"UndotreeToggle",
@@ -338,6 +362,18 @@ return require("lazy").setup({
 	},
 	{ "mfussenegger/nvim-dap", event = "VeryLazy" },
 	{ "mfussenegger/nvim-dap-python", ft = "python", event = "VeryLazy" },
+	{
+		"mg979/vim-visual-multi",
+		event = "VeryLazy",
+		init = function()
+			vim.cmd([[
+			let g:VM_mouse_mappings = 1
+			let g:VM_maps = {}
+			let g:VM_maps['Add Cursor Down'] = '<M-n>'
+			let g:VM_maps['Add Cursor Up'] = '<M-p>'
+			]])
+		end,
+	},
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -508,7 +544,6 @@ return require("lazy").setup({
 		end,
 	},
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
-	-- {"simrat39/rust-tools.nvim"},
 	{
 		"stevearc/oil.nvim",
 		opts = {

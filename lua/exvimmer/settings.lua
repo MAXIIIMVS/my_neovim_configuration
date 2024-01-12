@@ -65,6 +65,11 @@ endif
 " endfunction
 " autocmd BufReadPre * call OpenWithVimInTmuxIfBig()
 
+augroup Mkdir
+  autocmd!
+  autocmd BufWritePre * call mkdir(expand("<afile>:p:h"), "p")
+augroup END
+
 " Turn off paste mode when leaving insert
 autocmd InsertLeave * set nopaste
 
@@ -77,6 +82,7 @@ augroup END
 " hide tmux
 " autocmd VimEnter,VimLeave * silent !tmux set status
 " autocmd VimLeave * silent !tmux set -g status-style bg=default
+
 augroup sync_tmux
     autocmd!
     autocmd UIEnter * lua sync_statusline_with_tmux()
@@ -263,10 +269,8 @@ vim.g.python3_host_prog = "/usr/bin/python3"
 -- vim.o.smarttab = true
 -- b.smartindent = true
 vim.o.tabstop = 4
--- vim.bo.tabstop = 2
+vim.o.shiftwidth = 4
 -- vim.o.softtabstop = 2
--- vim.o.shiftwidth = 2
--- vim.bo.shiftwidth = 2
 vim.o.autoindent = true
 vim.bo.autoindent = true
 vim.o.breakindent = true
