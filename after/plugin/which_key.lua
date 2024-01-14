@@ -401,18 +401,6 @@ wk.register({
 		["8"] = { "8<c-w>w", "Go to 8th window" },
 		["9"] = { "9<c-w>w", "Go to 9th window" },
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
-		c = {
-			name = "Calendar",
-			c = { "<cmd>Calendar<CR>", "Main Calendar (view month)" },
-			y = { "<cmd>Calendar -view=year<CR>", "View Year" },
-			w = { "<cmd>Calendar -view=week<CR>", "View Week" },
-			d = { "<cmd>Calendar -view=day<CR>", "View Day" },
-			D = { "<cmd>Calendar -view=days<CR>", "View Days" },
-			t = { "<cmd>Calendar -view=clock<CR>", "View Clock" },
-			O = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r/tasks<CR>", "Open Google Tasks" },
-			o = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r<CR>", "Open Google Calendar" },
-			g = { ":Calendar ", "Go to date (mm dd yyyy)", silent = false },
-		},
 		d = { "<cmd>silent Dashboard<CR>", "Dashboard" },
 		f = {
 			function()
@@ -568,53 +556,16 @@ wk.register({
 		p = { "<cmd>BufferLinePick<CR>", "Pick a Buffer" },
 	},
 	c = {
-		name = "Comments (Box/Line)",
-		b = {
-			name = "Box",
-			c = {
-				name = "Box Center",
-				a = { "<cmd>CBcabox<CR>", "Text Adopted" },
-				c = { "<cmd>CBccbox<CR>", "Text Center" },
-				l = { "<cmd>CBclbox<CR>", "Text Left" },
-				r = { "<cmd>CBcrbox<CR>", "Text Right" },
-			},
-			l = {
-				name = "Box Left",
-				a = { "<cmd>CBlabox<CR>", "Text Adopted" },
-				c = { "<cmd>CBlcbox<CR>", "Text Center" },
-				l = { "<cmd>CBllbox<CR>", "Text Left" },
-				r = { "<cmd>CBlrbox<CR>", "Text Right" },
-			},
-			r = {
-				name = "Box Right",
-				a = { "<cmd>CBrabox<CR>", "Text Adopted" },
-				c = { "<cmd>CBrcbox<CR>", "Text Center" },
-				l = { "<cmd>CBrlbox<CR>", "Text Left" },
-				r = { "<cmd>CBrrbox<CR>", "Text Right" },
-			},
-		},
-		l = {
-			name = "Line",
-			c = {
-				name = "Line Center",
-				c = { "<cmd>CBccline<CR>", "Text Center" },
-				l = { "<cmd>CBclline<CR>", "Text Left" },
-				r = { "<cmd>CBcrline<CR>", "Text Right" },
-			},
-			L = { "<cmd>CBline<CR>", "Line" },
-			l = {
-				name = "Line Left",
-				c = { "<cmd>CBlcline<CR>", "Text Center" },
-				l = { "<cmd>CBllline<CR>", "Text Left" },
-				r = { "<cmd>CBlrline<CR>", "Text Right" },
-			},
-			r = {
-				name = "Line Right",
-				c = { "<cmd>CBrcline<CR>", "Text Center" },
-				l = { "<cmd>CBrlline<CR>", "Text Left" },
-				r = { "<cmd>CBrrline<CR>", "Text Right" },
-			},
-		},
+		name = "Calendar",
+		c = { "<cmd>Calendar<CR>", "Main Calendar (view month)" },
+		y = { "<cmd>Calendar -view=year<CR>", "View Year" },
+		w = { "<cmd>Calendar -view=week<CR>", "View Week" },
+		d = { "<cmd>Calendar -view=day<CR>", "View Day" },
+		D = { "<cmd>Calendar -view=days<CR>", "View Days" },
+		t = { "<cmd>Calendar -view=clock<CR>", "View Clock" },
+		O = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r/tasks<CR>", "Open Google Tasks" },
+		o = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r<CR>", "Open Google Calendar" },
+		g = { ":Calendar ", "Go to date (mm dd yyyy)", silent = false },
 	},
 	d = {
 		name = "Debugger",
@@ -969,55 +920,6 @@ wk.register({
 }, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })
 
 wk.register({
-	c = {
-		name = "Comments (Box/Line)",
-		b = {
-			name = "Box",
-			c = {
-				name = "Box Center",
-				a = { "<cmd>CBcabox<CR>", "Text Adopted" },
-				c = { "<cmd>CBccbox<CR>", "Text Center" },
-				l = { "<cmd>CBclbox<CR>", "Text Left" },
-				r = { "<cmd>CBcrbox<CR>", "Text Right" },
-			},
-			l = {
-				name = "Box Left",
-				a = { "<cmd>CBlabox<CR>", "Text Adopted" },
-				c = { "<cmd>CBlcbox<CR>", "Text Center" },
-				l = { "<cmd>CBllbox<CR>", "Text Left" },
-				r = { "<cmd>CBlrbox<CR>", "Text Right" },
-			},
-			r = {
-				name = "Box Right",
-				a = { "<cmd>CBrabox<CR>", "Text Adopted" },
-				c = { "<cmd>CBrcbox<CR>", "Text Center" },
-				l = { "<cmd>CBrlbox<CR>", "Text Left" },
-				r = { "<cmd>CBrrbox<CR>", "Text Right" },
-			},
-		},
-		l = {
-			name = "Line",
-			c = {
-				name = "Line Center",
-				c = { "<cmd>CBccline<CR>", "Text Center" },
-				l = { "<cmd>CBclline<CR>", "Text Left" },
-				r = { "<cmd>CBcrline<CR>", "Text Right" },
-			},
-			L = { "<cmd>CBline<CR>", "Line" },
-			l = {
-				name = "Line Left",
-				c = { "<cmd>CBlcline<CR>", "Text Center" },
-				l = { "<cmd>CBllline<CR>", "Text Left" },
-				r = { "<cmd>CBlrline<CR>", "Text Right" },
-			},
-			r = {
-				name = "Line Right",
-				c = { "<cmd>CBrcline<CR>", "Text Center" },
-				l = { "<cmd>CBrlline<CR>", "Text Left" },
-				r = { "<cmd>CBrrline<CR>", "Text Right" },
-			},
-		},
-	},
 	g = {
 		name = "Git",
 		w = { "<cmd>Gitsigns stage_hunk<CR>", "Stage hunk" },

@@ -349,6 +349,17 @@ return require("lazy").setup({
 			"CBcatalog",
 		},
 	},
+	-- NOTE: install universal-ctags using apt (the snap version wasn't compatible)
+	-- {
+	-- 	"ludovicchabant/vim-gutentags",
+	-- 	event = "VeryLazy",
+	-- 	init = function()
+	-- 		vim.g.gutentags_generate_on_new = true
+	-- 		vim.g.gutentags_generate_on_missing = true
+	-- 		vim.g.gutentags_generate_on_write = true
+	-- 		vim.g.gutentags_generate_on_empty_buffer = false
+	-- 	end,
+	-- },
 	{
 		"mbbill/undotree",
 		cmd = {
