@@ -57,7 +57,7 @@ return require("lazy").setup({
 				},
 				sort_by = "insert_at_end",
 				numbers = "ordinal",
-				separator_style = "thin", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
+				separator_style = "thin",
 				diagnostics = "nvim_lsp",
 			},
 		},
@@ -73,7 +73,7 @@ return require("lazy").setup({
 				border = "rounded",
 				winblend = 0,
 			},
-			autochdir = true,
+			-- autochdir = true,
 		},
 		cmd = {
 			"ToggleTerm",
@@ -139,7 +139,6 @@ return require("lazy").setup({
 			},
 			silent = true,
 		},
-		-- version = false,
 		event = "UIEnter",
 	},
 	{
@@ -184,20 +183,6 @@ return require("lazy").setup({
 		},
 	},
 	{
-		"j-hui/fidget.nvim",
-		tag = "v1.0.0",
-		event = "LspAttach",
-		opts = {
-			text = { spinner = "dots" },
-			notification = {
-				window = {
-					winblend = 0,
-					-- border = "rounded",
-				},
-			},
-		},
-	},
-	{
 		"folke/tokyonight.nvim",
 		event = "VeryLazy",
 		opts = {
@@ -214,7 +199,6 @@ return require("lazy").setup({
 		opts = { window = { width = 100 } },
 		cmd = { "ZenMode" },
 	},
-	{ "folke/neodev.nvim", opts = {}, lazy = true },
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
@@ -249,6 +233,20 @@ return require("lazy").setup({
 			vim.g.calendar_task_delete = true
 			-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 		end,
+	},
+	{
+		"j-hui/fidget.nvim",
+		tag = "v1.0.0",
+		event = "LspAttach",
+		opts = {
+			text = { spinner = "dots" },
+			notification = {
+				window = {
+					winblend = 0,
+					-- border = "rounded",
+				},
+			},
+		},
 	},
 	{
 		"JoosepAlviste/nvim-ts-context-commentstring",
@@ -350,16 +348,16 @@ return require("lazy").setup({
 		},
 	},
 	-- NOTE: install universal-ctags using apt (the snap version wasn't compatible)
-	-- {
-	-- 	"ludovicchabant/vim-gutentags",
-	-- 	event = "VeryLazy",
-	-- 	init = function()
-	-- 		vim.g.gutentags_generate_on_new = true
-	-- 		vim.g.gutentags_generate_on_missing = true
-	-- 		vim.g.gutentags_generate_on_write = true
-	-- 		vim.g.gutentags_generate_on_empty_buffer = false
-	-- 	end,
-	-- },
+	{
+		"ludovicchabant/vim-gutentags",
+		event = "VeryLazy",
+		init = function()
+			vim.g.gutentags_generate_on_new = true
+			vim.g.gutentags_generate_on_missing = true
+			vim.g.gutentags_generate_on_write = true
+			vim.g.gutentags_generate_on_empty_buffer = false
+		end,
+	},
 	{
 		"mbbill/undotree",
 		cmd = {
@@ -377,12 +375,11 @@ return require("lazy").setup({
 		"mg979/vim-visual-multi",
 		event = "VeryLazy",
 		init = function()
-			vim.cmd([[
-			let g:VM_mouse_mappings = 1
-			let g:VM_maps = {}
-			let g:VM_maps['Add Cursor Down'] = '<M-n>'
-			let g:VM_maps['Add Cursor Up'] = '<M-p>'
-			]])
+			vim.g.VM_mouse_mappings = true
+			vim.g.VM_maps = {
+				["Add Cursor Down"] = "<M-n>",
+				["Add Cursor Up"] = "<M-p>",
+			}
 		end,
 	},
 	{
@@ -390,7 +387,6 @@ return require("lazy").setup({
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
-			"folke/neodev.nvim",
 		},
 	},
 	{ "nvimdev/dashboard-nvim", event = "VimEnter", dependencies = { "nvim-tree/nvim-web-devicons" } },
@@ -580,7 +576,6 @@ return require("lazy").setup({
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
 	{ "tpope/vim-abolish", event = "VeryLazy" },
 	{ "tpope/vim-capslock", event = "VeryLazy" },
-	-- { "tpope/vim-commentary", event = "VeryLazy" },
 	{ "tpope/vim-dadbod", lazy = true },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },

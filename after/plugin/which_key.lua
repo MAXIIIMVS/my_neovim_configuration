@@ -243,12 +243,9 @@ wk.register({
 	["<M-Down>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
 	["<c-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
-	-- ["<c-\\>"] = { "<cmd>Lspsaga term_toggle<CR>", "lspsaga terminal" },
 	["<c-\\>"] = {
 		function()
-			local p = vim.fn.expand("%:p:h")
-			local cmd = "ToggleTerm direction=horizontal dir=" .. p
-			vim.cmd(cmd)
+			vim.cmd("ToggleTerm direction=horizontal dir=%:p:h")
 		end,
 		"horizaontal terminal",
 	},
@@ -391,6 +388,12 @@ wk.register({
 	},
 	[","] = {
 		name = "Miscellaneous",
+		[","] = {
+			function()
+				vim.cmd("ToggleTerm direction=horizontal dir=%:p:h")
+			end,
+			"terminal in current directory",
+		},
 		["1"] = { "1<c-w>w", "Go to 1st window" },
 		["2"] = { "2<c-w>w", "Go to 2nd window" },
 		["3"] = { "3<c-w>w", "Go to 3rd window" },
@@ -490,6 +493,7 @@ wk.register({
 					catppuccin.compile()
 				end
 				vim.o.background = vim.o.background == "dark" and "light" or "dark"
+				vim.g.is_transparent = false
 				sync_statusline_with_tmux()
 			end,
 			"Background color (Light/dark) ",
