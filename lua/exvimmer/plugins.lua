@@ -66,9 +66,8 @@ return require("lazy").setup({
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		opts = {
-			size = 13,
 			open_mapping = [[<c-\>]],
-			direction = "horizontal",
+			direction = "float",
 			float_opts = {
 				border = "rounded",
 				winblend = 0,
@@ -314,41 +313,8 @@ return require("lazy").setup({
 		event = "BufEnter",
 	},
 	{
-		"LudoPinelli/comment-box.nvim",
-		opts = {},
-		cmd = {
-			"CBacbox",
-			"CBline",
-			"CBalbox",
-			"CBcabox",
-			"CBccbox",
-			"CBclbox",
-			"CBcline",
-			"CBcrbox",
-			"CBlabox",
-			"CBlcbox",
-			"CBllbox",
-			"CBlline",
-			"CBlrbox",
-			"CBrabox",
-			"CBrcbox",
-			"CBrlbox",
-			"CBrline",
-			"CBrrbox",
-			"CBccline",
-			"CBclline",
-			"CBcrline",
-			"CBlcline",
-			"CBllline",
-			"CBlrline",
-			"CBrcline",
-			"CBrlline",
-			"CBrrline",
-			"CBcatalog",
-		},
-	},
-	-- NOTE: install universal-ctags using apt (the snap version wasn't compatible)
-	{
+		-- NOTE: install universal-ctags using apt (the snap version wasn't
+		-- compatible)
 		"ludovicchabant/vim-gutentags",
 		event = "VeryLazy",
 		init = function()
@@ -551,28 +517,6 @@ return require("lazy").setup({
 		end,
 	},
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
-	{
-		"stevearc/oil.nvim",
-		opts = {
-			default_file_explorer = false,
-			keymaps = {
-				["<C-s>"] = false,
-				["<C-v>"] = "actions.select_vsplit",
-			},
-			view_options = {
-				show_hidden = true,
-			},
-		},
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		cmd = "Oil",
-	},
-	{
-		"szw/vim-maximizer",
-		cmd = { "MaximizerToggle" },
-		init = function()
-			vim.g.maximizer_set_default_mapping = false
-		end,
-	},
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
 	{ "tpope/vim-abolish", event = "VeryLazy" },
 	{ "tpope/vim-capslock", event = "VeryLazy" },

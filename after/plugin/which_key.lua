@@ -197,12 +197,11 @@ wk.register({
 	-- ["<M-h>"] = { "<C-w>h", "Go to the left window" },
 	-- ["<M-k>"] = { "<C-w>k", "Go to the up window" },
 	-- ["<M-j>"] = { "<C-w>j", "Go to the down window" },
-	["-"] = { "<cmd>Oil<CR>", "Open parent directory" },
-	["<A-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
-	["<A-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
-	["<A-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
-	["<A-j>"] = { "<CMD>silent NavigatorDown<CR>", "Go to the down window" },
-	["<A-p>"] = { "<CMD>silent NavigatorPrevious<CR>", "Go to the down window" },
+	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
+	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
+	["<M-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
+	["<M-j>"] = { "<CMD>silent NavigatorDown<CR>", "Go to the down window" },
+	["<M-p>"] = { "<CMD>silent NavigatorPrevious<CR>", "Go to the down window" },
 	["]<space>"] = { "o<ESC>k", "Insert a blank line below" },
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
 	["]g"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
@@ -245,7 +244,7 @@ wk.register({
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
 	["<c-\\>"] = {
 		function()
-			vim.cmd("ToggleTerm direction=horizontal dir=%:p:h")
+			vim.cmd("ToggleTerm dir=%:p:h")
 		end,
 		"horizaontal terminal",
 	},
@@ -390,7 +389,7 @@ wk.register({
 		name = "Miscellaneous",
 		[","] = {
 			function()
-				vim.cmd("ToggleTerm direction=horizontal dir=%:p:h")
+				vim.cmd("ToggleTerm dir=%:p:h")
 			end,
 			"terminal in current directory",
 		},
@@ -824,6 +823,7 @@ wk.register({
 			end,
 			"Relative number",
 		},
+		S = { "<cmd>silent Sleuth<CR>", "sleuth" },
 		s = {
 			function()
 				if vim.o.statusline == "" then
