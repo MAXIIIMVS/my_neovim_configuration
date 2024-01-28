@@ -197,6 +197,11 @@ wk.register({
 	-- ["<M-h>"] = { "<C-w>h", "Go to the left window" },
 	-- ["<M-k>"] = { "<C-w>k", "Go to the up window" },
 	-- ["<M-j>"] = { "<C-w>j", "Go to the down window" },
+	["<Nop>"] = { "<Plug>VimwikiRemoveHeaderLevel", "disabled" },
+	["-"] = {
+		"<cmd>e %:p:h<CR>",
+		"Current directory",
+	},
 	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
 	["<M-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
@@ -383,7 +388,6 @@ wk.register({
 		X = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
 		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
 		-- Z = { "<c-w>|<c-w>_", "Maximize the window" },
-		Z = { "<cmd>MaximizerToggle<cr>", "Maximize the window" },
 	},
 	[","] = {
 		name = "Miscellaneous",
@@ -797,7 +801,6 @@ wk.register({
 			end,
 			"Cursor line",
 		},
-		m = { "<cmd>MaximizerToggle<CR>", "Maximize window" },
 		o = { "<cmd>Lspsaga outline<CR>", "Outline" },
 		q = {
 			function()
@@ -857,7 +860,6 @@ wk.register({
 		j = { "<c-w>j", "Move the window below" },
 		k = { "<c-w>k", "Move the window above" },
 		l = { "<c-w>l", "Move the left window" },
-		m = { "<cmd>MaximizerToggle<CR>", "Maximize the window" },
 		o = { "<cmd>only<CR>", "close all other windows" },
 		s = { "<cmd>windo set scrollbind<CR>", "Set scrollbind" },
 		S = { "<cmd>windo set scrollbind!<CR>", "Unset scrollbind" },
