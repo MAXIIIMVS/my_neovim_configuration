@@ -61,7 +61,9 @@ local options = {
 	view = {
 		-- side = "right",
 		width = 40,
+		-- adaptive_size = true,
 		preserve_window_proportions = true,
+		cursorline = false,
 	},
 	diagnostics = {
 		enable = true,

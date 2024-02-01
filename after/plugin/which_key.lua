@@ -331,6 +331,7 @@ wk.register({
 			"Change the word under the cursor in the whole file",
 			silent = false,
 		},
+		T = { "<cmd>Telescope tags<CR>", "tags" },
 		t = {
 			name = "tmux",
 			F = {

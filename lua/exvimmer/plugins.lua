@@ -199,6 +199,11 @@ return require("lazy").setup({
 		cmd = { "ZenMode" },
 	},
 	{
+		"ghassan0/telescope-glyph.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim" },
+		cmd = { "Telescope glyph" },
+	},
+	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		dependencies = {
@@ -235,16 +240,11 @@ return require("lazy").setup({
 	},
 	{
 		"j-hui/fidget.nvim",
-		tag = "v1.0.0",
+		tag = "legacy", -- TODO: update to main after rewrite
 		event = "LspAttach",
 		opts = {
 			text = { spinner = "dots" },
-			notification = {
-				window = {
-					winblend = 0,
-					-- border = "rounded",
-				},
-			},
+			window = { blend = 0 },
 		},
 	},
 	{
@@ -257,6 +257,7 @@ return require("lazy").setup({
 		dependencies = { "numToStr/Comment.nvim" },
 	},
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
+	{ "jvgrootveld/telescope-zoxide", cmd = { "Telescope zoxide list" } },
 	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },
 	{
 		"kristijanhusak/vim-dadbod-ui",
@@ -324,6 +325,7 @@ return require("lazy").setup({
 			vim.g.gutentags_generate_on_empty_buffer = false
 		end,
 	},
+	{ "LunarVim/bigfile.nvim", event = "BufReadPre", opts = {} },
 	{
 		"mbbill/undotree",
 		cmd = {
@@ -367,33 +369,18 @@ return require("lazy").setup({
 	},
 	{ "nvim-lualine/lualine.nvim", event = "UIEnter" },
 	{ "nvim-lua/plenary.nvim" },
+	{ "nvim-telescope/telescope.nvim", cmd = { "Telescope" } },
 	{
-		"nvim-telescope/telescope.nvim",
-		lazy = true,
-		dependencies = {
-			{
-				"ghassan0/telescope-glyph.nvim",
-				dependencies = { "nvim-telescope/telescope.nvim" },
-				cmd = { "Telescope glyph" },
-			},
-			"nvim-lua/plenary.nvim",
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				build = "make",
-				cond = function()
-					return vim.fn.executable("make") == 1
-				end,
-			},
-			{
-				"nvim-telescope/telescope-file-browser.nvim",
-				cmd = { "Telescope file_browser" },
-			},
-			{
-				"xiyaowong/telescope-emoji.nvim",
-				cmd = { "Telescope emoji" },
-			},
-			{ "jvgrootveld/telescope-zoxide", cmd = { "Telescope zoxide list" } },
-		},
+		"nvim-telescope/telescope-file-browser.nvim",
+		cmd = { "Telescope file_browser" },
+		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+	},
+	{
+		"nvim-telescope/telescope-fzf-native.nvim",
+		build = "make",
+		cond = function()
+			return vim.fn.executable("make") == 1
+		end,
 	},
 	{ "nvim-tree/nvim-web-devicons", config = true, lazy = true },
 	{
@@ -519,7 +506,6 @@ return require("lazy").setup({
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
 	{ "tpope/vim-abolish", event = "VeryLazy" },
-	{ "tpope/vim-capslock", event = "VeryLazy" },
 	{ "tpope/vim-dadbod", lazy = true },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },
@@ -542,6 +528,11 @@ return require("lazy").setup({
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "windwp/nvim-ts-autotag", event = "InsertEnter" },
 	{ "windwp/nvim-autopairs", opts = { check_ts = true }, event = "InsertEnter" },
+	{
+		"xiyaowong/telescope-emoji.nvim",
+		cmd = { "Telescope emoji" },
+		dependencies = { "nvim-telescope/telescope.nvim" },
+	},
 }, {
 	ui = {
 		border = "rounded",

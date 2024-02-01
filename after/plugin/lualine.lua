@@ -140,7 +140,7 @@ ins_left({
 	"filetype",
 	icon_only = true,
 	-- icon = { align = "left" },
-	cond = conditions.hide_in_width,
+	-- cond = conditions.hide_in_width,
 })
 
 ins_left({
