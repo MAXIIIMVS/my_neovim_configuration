@@ -40,8 +40,10 @@ vim.cmd([[
 
 au FileType * set fo-=c fo-=r fo-=o
 
+" terminal
 " autocmd TermEnter * setlocal notermguicolors
 " autocmd TermLeave * setlocal termguicolors
+" autocmd TermClose * execute 'bdelete! ' . expand('<abuf>')
 
 autocmd BufEnter * if &buftype == 'terminal' | startinsert | endif
 
@@ -174,7 +176,6 @@ ab :separator_rtt: ❯
 
 -- My variables {{{
 vim.g.is_transparent = true
-vim.g.in_window_terminal = true
 -- }}}
 
 -- listchars {{{

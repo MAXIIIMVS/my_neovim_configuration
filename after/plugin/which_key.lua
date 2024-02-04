@@ -18,6 +18,43 @@ local dap_go = require("dap-go")
 local dap = require("dap")
 local todo_comments = require("todo-comments")
 
+local function open_floating_terminal()
+	local current_dir = vim.fn.expand("%:p:h")
+	local width = vim.api.nvim_get_option("columns")
+	local height = vim.api.nvim_get_option("lines")
+	local win_width = math.ceil(width * 0.95 - 4) -- Subtract 4 for the window border
+	local win_height = math.ceil(height * 0.95 - 4)
+	-- Calculate the starting position of the new floating window
+	local row = math.ceil((height - win_height) / 2 - 1)
+	local col = math.ceil((width - win_width) / 2)
+	local config = {
+		relative = "editor",
+		width = win_width,
+		height = win_height,
+		row = row,
+		col = col,
+		style = "minimal",
+		border = "rounded",
+	}
+	local buf = vim.api.nvim_create_buf(false, true)
+	local win = vim.api.nvim_open_win(buf, true, config)
+	vim.api.nvim_win_set_option(win, "winblend", 0)
+	vim.api.nvim_win_set_option(win, "winhighlight", "NormalFloat:NormalFloat,FloatBorder:FloatBorder")
+	vim.api.nvim_win_set_option(win, "winhighlight", "Normal:Normal")
+	vim.api.nvim_win_set_option(win, "signcolumn", "no")
+	vim.api.nvim_win_set_option(win, "number", false)
+	vim.api.nvim_win_set_option(win, "relativenumber", false)
+	vim.api.nvim_win_set_option(win, "cursorline", false)
+	vim.api.nvim_win_set_option(win, "cursorcolumn", false)
+	vim.api.nvim_win_set_option(win, "foldcolumn", "0")
+	vim.api.nvim_win_set_option(win, "list", false)
+	vim.api.nvim_win_set_option(win, "spell", false)
+	vim.api.nvim_win_set_option(win, "winhl", "Normal:Normal")
+	vim.api.nvim_win_set_option(win, "winhl", "NormalFloat:NormalFloat")
+	vim.api.nvim_win_set_option(win, "winhl", "FloatBorder:FloatBorder")
+	vim.api.nvim_command("startinsert | e term://" .. current_dir .. "//bash")
+end
+
 function toggle_terminal()
 	if vim.bo.buftype == "terminal" then
 		if #vim.api.nvim_list_wins() > 1 then
@@ -35,7 +72,6 @@ function toggle_terminal()
 		if win_buffer_name == term_name then
 			vim.api.nvim_set_current_win(win)
 			vim.api.nvim_command("startinsert")
-			vim.g.in_window_terminal = true
 			return
 		end
 	end
@@ -44,16 +80,8 @@ function toggle_terminal()
 		vim.cmd("buffer " .. term_name .. " | startinsert")
 		if vim.bo.buftype ~= "terminal" then
 			vim.cmd("bd! | startinsert | e term://%:p:h//bash | file " .. term_name)
-			vim.g.in_window_terminal = false
 		end
 	else
-		if vim.g.in_window_terminal then
-			if vim.fn.winwidth(0) > 85 then
-				vim.cmd("vsplit")
-			else
-				vim.cmd("split | resize 12")
-			end
-		end
 		vim.cmd("startinsert | e term://%:p:h//bash | file " .. term_name)
 	end
 end
@@ -287,13 +315,7 @@ wk.register({
 	["<M-Down>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
 	["<c-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
-	["<c-\\>"] = {
-		function()
-			vim.g.in_window_terminal = false
-			toggle_terminal()
-		end,
-		"horizaontal terminal",
-	},
+	["<c-\\>"] = { toggle_terminal, "horizaontal terminal" },
 	[";"] = {
 		name = "Quick",
 		[";"] = { "<cmd>Bdelete<CR>", "Delete current buffer" },
@@ -433,13 +455,7 @@ wk.register({
 	},
 	[","] = {
 		name = "Miscellaneous",
-		[","] = {
-			function()
-				vim.g.in_window_terminal = true
-				toggle_terminal()
-			end,
-			"Vertical split",
-		},
+		[","] = { open_floating_terminal, "Floating terminal" },
 		["1"] = { "1<c-w>w", "Go to 1st window" },
 		["2"] = { "2<c-w>w", "Go to 2nd window" },
 		["3"] = { "3<c-w>w", "Go to 3rd window" },
@@ -471,7 +487,35 @@ wk.register({
 			"Substitute the word in this line (ignore case)",
 			silent = false,
 		},
-		t = { "<cmd>tabnew<CR>", "Create an empty tab" },
+		T = { "<cmd>tabnew<CR>", "Create an empty tab" },
+		t = {
+			name = "Terminal",
+			f = {
+				open_floating_terminal,
+				"Float",
+			},
+			h = {
+				function()
+					vim.cmd("split")
+					toggle_terminal()
+				end,
+				"Horizontal",
+			},
+			v = {
+				function()
+					vim.cmd("vsplit")
+					toggle_terminal()
+				end,
+				"Vertical",
+			},
+			t = {
+				function()
+					local current_dir = vim.fn.expand("%:p:h")
+					vim.api.nvim_command("tabnew | startinsert | e term://" .. current_dir .. "//bash")
+				end,
+				"Tab",
+			},
+		},
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
 	g = {
@@ -890,9 +934,14 @@ wk.register({
 	s = { "<cmd>silent so %<CR>", "Source the file" },
 	t = {
 		function()
-			vim.cmd("tabnew | startinsert | term")
+			if vim.fn.winwidth(0) > 85 then
+				vim.cmd("vsplit")
+			else
+				vim.cmd("split")
+			end
+			toggle_terminal()
 		end,
-		"Terminal in a new tab",
+		"Automatic vertical/horizontal terminal",
 	},
 	w = {
 		name = "VimWiki",
@@ -979,7 +1028,8 @@ wk.register({
 		end,
 		"Go back",
 	},
-	["<c-d>"] = { "<C-\\><C-n>:bd!<CR>", "Quit terminal" },
+	["<M-d>"] = { "<C-\\><C-n>:bd!<CR>", "Quit terminal" }, -- TODO: remove when this is fixed
+
 	["<c-x>"] = { "<C-\\><C-n><c-w>s <cmd>startinsert | term<CR>", "Horizontal split" },
 	["<c-v>"] = { "<C-\\><C-n><c-w>v<cmd>startinsert | term<CR>", "Vertical split" },
 	["<A-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
@@ -989,7 +1039,7 @@ wk.register({
 	["<A-p>"] = { "<CMD>silent NavigatorPrevious<CR>", "Go to the down window" },
 	["<M-Left>"] = { "<cmd>vertical resize +2<CR>", "Increase window width" },
 	["<M-Right>"] = { "<cmd>vertical resize -1<CR>", "Decrease window width" },
-	["<M-Up>"] = { "<cmd>resize -1<CR>", "Increase window height" },
-	["<M-Down>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
+	["<M-Down>"] = { "<cmd>resize -1<CR>", "Increase window height" },
+	["<M-Up>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
 }, { prefix = "", mode = "t", noremap = true, silent = true, nowait = true })
 -- }}}
