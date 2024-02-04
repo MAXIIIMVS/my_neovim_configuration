@@ -421,6 +421,18 @@ wk.register({
 	},
 	[","] = {
 		name = "Miscellaneous",
+		[","] = {
+			function()
+				if vim.fn.winwidth(0) > 85 then
+					vim.cmd("vsplit")
+					toggle_terminal()
+				else
+					vim.cmd("split | resize 12")
+					toggle_terminal()
+				end
+			end,
+			"Vertical split",
+		},
 		["1"] = { "1<c-w>w", "Go to 1st window" },
 		["2"] = { "2<c-w>w", "Go to 2nd window" },
 		["3"] = { "3<c-w>w", "Go to 3rd window" },
@@ -978,12 +990,16 @@ wk.register({
 		"Go back",
 	},
 	["<c-d>"] = { "<C-\\><C-n>:bd!<CR>", "Quit terminal" },
-	["<c-x>"] = { "<C-\\><C-n><c-w>s<CR>", "Horizontal split" },
-	["<c-v>"] = { "<C-\\><C-n><c-w>v<CR>", "Vertical split" },
+	["<c-x>"] = { "<C-\\><C-n><c-w>s <cmd>startinsert | term<CR>", "Horizontal split" },
+	["<c-v>"] = { "<C-\\><C-n><c-w>v<cmd>startinsert | term<CR>", "Vertical split" },
 	["<A-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<A-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
 	["<A-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
 	["<A-j>"] = { "<CMD>silent NavigatorDown<CR>", "Go to the down window" },
 	["<A-p>"] = { "<CMD>silent NavigatorPrevious<CR>", "Go to the down window" },
+	["<M-Left>"] = { "<cmd>vertical resize +2<CR>", "Increase window width" },
+	["<M-Right>"] = { "<cmd>vertical resize -1<CR>", "Decrease window width" },
+	["<M-Up>"] = { "<cmd>resize -1<CR>", "Increase window height" },
+	["<M-Down>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
 }, { prefix = "", mode = "t", noremap = true, silent = true, nowait = true })
 -- }}}
