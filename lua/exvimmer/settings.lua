@@ -174,6 +174,7 @@ ab :separator_rtt: ❯
 
 -- My variables {{{
 vim.g.is_transparent = true
+vim.g.in_window_terminal = true
 -- }}}
 
 -- listchars {{{

@@ -20,9 +20,6 @@ local todo_comments = require("todo-comments")
 
 function toggle_terminal()
 	if vim.bo.buftype == "terminal" then
-		-- local term_name = vim.fn.bufname("%")
-		-- local buf = string.gsub(term_name, "^Terminal%s*", "")
-		-- vim.cmd("buffer " .. buf)
 		if #vim.api.nvim_list_wins() > 1 then
 			vim.api.nvim_command("wincmd p")
 		else
@@ -38,6 +35,7 @@ function toggle_terminal()
 		if win_buffer_name == term_name then
 			vim.api.nvim_set_current_win(win)
 			vim.api.nvim_command("startinsert")
+			vim.g.in_window_terminal = true
 			return
 		end
 	end
@@ -46,8 +44,16 @@ function toggle_terminal()
 		vim.cmd("buffer " .. term_name .. " | startinsert")
 		if vim.bo.buftype ~= "terminal" then
 			vim.cmd("bd! | startinsert | e term://%:p:h//bash | file " .. term_name)
+			vim.g.in_window_terminal = false
 		end
 	else
+		if vim.g.in_window_terminal then
+			if vim.fn.winwidth(0) > 85 then
+				vim.cmd("vsplit")
+			else
+				vim.cmd("split | resize 12")
+			end
+		end
 		vim.cmd("startinsert | e term://%:p:h//bash | file " .. term_name)
 	end
 end
@@ -281,7 +287,13 @@ wk.register({
 	["<M-Down>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
 	["<c-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
-	["<c-\\>"] = { toggle_terminal, "horizaontal terminal" },
+	["<c-\\>"] = {
+		function()
+			vim.g.in_window_terminal = false
+			toggle_terminal()
+		end,
+		"horizaontal terminal",
+	},
 	[";"] = {
 		name = "Quick",
 		[";"] = { "<cmd>Bdelete<CR>", "Delete current buffer" },
@@ -423,13 +435,8 @@ wk.register({
 		name = "Miscellaneous",
 		[","] = {
 			function()
-				if vim.fn.winwidth(0) > 85 then
-					vim.cmd("vsplit")
-					toggle_terminal()
-				else
-					vim.cmd("split | resize 12")
-					toggle_terminal()
-				end
+				vim.g.in_window_terminal = true
+				toggle_terminal()
 			end,
 			"Vertical split",
 		},
@@ -464,30 +471,7 @@ wk.register({
 			"Substitute the word in this line (ignore case)",
 			silent = false,
 		},
-		T = { "<cmd>tabnew<CR>", "Create an empty tab" },
-		t = {
-			name = "Terminal",
-			h = {
-				function()
-					vim.cmd("split | resize 12")
-					toggle_terminal()
-				end,
-				"Horizontal",
-			},
-			v = {
-				function()
-					vim.cmd("vsplit")
-					toggle_terminal()
-				end,
-				"Vertical",
-			},
-			t = {
-				function()
-					vim.cmd("tabnew | lua toggle_terminal()")
-				end,
-				"Tab",
-			},
-		},
+		t = { "<cmd>tabnew<CR>", "Create an empty tab" },
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
 	g = {
@@ -904,6 +888,12 @@ wk.register({
 		"Format buffer",
 	},
 	s = { "<cmd>silent so %<CR>", "Source the file" },
+	t = {
+		function()
+			vim.cmd("tabnew | startinsert | term")
+		end,
+		"Terminal in a new tab",
+	},
 	w = {
 		name = "VimWiki",
 		l = { "<cmd>VimwikiTOC<CR>", "Create or update the Table of Contents for the current wiki file" },
