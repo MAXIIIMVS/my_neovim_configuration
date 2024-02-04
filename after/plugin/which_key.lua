@@ -315,7 +315,7 @@ wk.register({
 	["<M-Down>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
 	["<c-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
-	["<c-\\>"] = { toggle_terminal, "horizaontal terminal" },
+	["<M-t>"] = { toggle_terminal, "horizaontal terminal" },
 	[";"] = {
 		name = "Quick",
 		[";"] = { "<cmd>Bdelete<CR>", "Delete current buffer" },
@@ -1017,8 +1017,8 @@ wk.register({
 -- terminal mode {{{
 wk.register({
 	["<Esc>"] = { "<C-\\><C-n>", "quit insert mode" },
-	-- ["<c-\\>"] = { "<C-\\><C-n><c-o>", "go back" },
-	["<c-\\>"] = {
+	-- ["<M-t>"] = { "<C-\\><C-n><c-o>", "go back" },
+	["<M-t>"] = {
 		function()
 			if #vim.api.nvim_list_wins() > 1 then
 				vim.api.nvim_command("wincmd p")
@@ -1029,7 +1029,6 @@ wk.register({
 		"Go back",
 	},
 	["<M-d>"] = { "<C-\\><C-n>:bd!<CR>", "Quit terminal" }, -- TODO: remove when this is fixed
-
 	["<c-x>"] = { "<C-\\><C-n><c-w>s <cmd>startinsert | term<CR>", "Horizontal split" },
 	["<c-v>"] = { "<C-\\><C-n><c-w>v<cmd>startinsert | term<CR>", "Vertical split" },
 	["<A-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
