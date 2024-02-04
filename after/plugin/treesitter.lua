@@ -45,6 +45,7 @@ require("nvim-treesitter.configs").setup({
 		"prisma",
 		"json",
 		"html",
+		"http",
 		"htmldjango",
 		"jsdoc",
 		"ini",

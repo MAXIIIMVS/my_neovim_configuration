@@ -63,27 +63,6 @@ return require("lazy").setup({
 		},
 	},
 	{
-		"akinsho/toggleterm.nvim",
-		version = "*",
-		opts = {
-			open_mapping = [[<c-\>]],
-			direction = "float",
-			float_opts = {
-				border = "rounded",
-				winblend = 0,
-			},
-			-- autochdir = true,
-		},
-		cmd = {
-			"ToggleTerm",
-			"ToggleTermSetName",
-			"ToggleTermToggleAll",
-			"ToggleTermSendCurrentLine",
-			"ToggleTermSendVisualLines",
-			"ToggleTermSendVisualSelection",
-		},
-	},
-	{
 		"catppuccin/nvim",
 		name = "catppuccin",
 		lazy = false,
@@ -104,6 +83,7 @@ return require("lazy").setup({
 		"echasnovski/mini.bracketed",
 		-- version = false,
 		opts = {
+			-- buffer = { suffix = "", options = {} },
 			conflict = { suffix = "", options = {} },
 			quickfix = { suffix = "", options = {} },
 		},

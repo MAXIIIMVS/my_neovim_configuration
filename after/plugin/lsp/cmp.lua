@@ -42,6 +42,9 @@ cmp_window.info = function(self)
 end
 
 local options = {
+	completion = {
+		autocomplete = false, -- manual control
+	},
 	formatting = {
 		format = lspkind.cmp_format({
 			mode = "symbol_text", -- 'text', 'text_symbol', 'symbol_text', 'symbol'

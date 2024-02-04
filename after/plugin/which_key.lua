@@ -18,6 +18,40 @@ local dap_go = require("dap-go")
 local dap = require("dap")
 local todo_comments = require("todo-comments")
 
+function toggle_terminal()
+	if vim.bo.buftype == "terminal" then
+		-- local term_name = vim.fn.bufname("%")
+		-- local buf = string.gsub(term_name, "^Terminal%s*", "")
+		-- vim.cmd("buffer " .. buf)
+		if #vim.api.nvim_list_wins() > 1 then
+			vim.api.nvim_command("wincmd p")
+		else
+			vim.api.nvim_command("bprevious")
+		end
+		return
+	end
+	local term_name = "Terminal " .. vim.fn.bufname("%")
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local win_buffer = vim.api.nvim_win_get_buf(win)
+		local win_buffer_name = vim.fn.bufname(win_buffer)
+
+		if win_buffer_name == term_name then
+			vim.api.nvim_set_current_win(win)
+			vim.api.nvim_command("startinsert")
+			return
+		end
+	end
+	local buffer_exists = vim.fn.bufexists(term_name)
+	if buffer_exists ~= 0 then
+		vim.cmd("buffer " .. term_name .. " | startinsert")
+		if vim.bo.buftype ~= "terminal" then
+			vim.cmd("bd! | startinsert | e term://%:p:h//bash | file " .. term_name)
+		end
+	else
+		vim.cmd("startinsert | e term://%:p:h//bash | file " .. term_name)
+	end
+end
+
 local function get_highlight(group)
 	local src = "redir @a | silent! hi " .. group .. " | redir END | let output = @a"
 	vim.api.nvim_exec2(src, { output = true })
@@ -89,7 +123,7 @@ function sync_statusline_with_tmux()
 	local current_background = get_highlight("Normal")["guibg"]
 	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
-	vim.o.fillchars = "eob: "
+	-- vim.o.fillchars = "eob: "
 end
 
 local function git_next()
@@ -247,12 +281,7 @@ wk.register({
 	["<M-Down>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
 	["<c-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
-	["<c-\\>"] = {
-		function()
-			vim.cmd("ToggleTerm dir=%:p:h")
-		end,
-		"horizaontal terminal",
-	},
+	["<c-\\>"] = { toggle_terminal, "horizaontal terminal" },
 	[";"] = {
 		name = "Quick",
 		[";"] = { "<cmd>Bdelete<CR>", "Delete current buffer" },
@@ -334,6 +363,7 @@ wk.register({
 		T = { "<cmd>Telescope tags<CR>", "tags" },
 		t = {
 			name = "tmux",
+			c = { "<cmd>silent !tmux clock-mode<CR>", "Clock" },
 			F = {
 				function()
 					local p = vim.fn.expand("%:p:h")
@@ -353,14 +383,7 @@ wk.register({
 				end,
 				"Floating Bash (terminal)",
 			},
-			t = { "<cmd>silent !tmux clock-mode<CR>", "Clock" },
-			w = {
-				function()
-					local filepath = vim.fn.expand("%:p:h")
-					vim.cmd("silent !tmux new-window -c " .. filepath)
-				end,
-				"Window",
-			},
+			g = { "<cmd>silent !tmux new-window 'lazygit'<CR>", "LazyGit" },
 			H = {
 				function()
 					local filepath = vim.fn.expand("%:p:h")
@@ -375,6 +398,13 @@ wk.register({
 				end,
 				"Horizontal split",
 			},
+			t = {
+				function()
+					local filepath = vim.fn.expand("%:p:h")
+					vim.cmd("silent !tmux new-window -c " .. filepath)
+				end,
+				"Window",
+			},
 			v = {
 				function()
 					local filepath = vim.fn.expand("%:p:h")
@@ -382,7 +412,6 @@ wk.register({
 				end,
 				"Vertical split",
 			},
-			g = { "<cmd>silent !tmux new-window 'lazygit'<CR>", "LazyGit" },
 		},
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		x = { vim.cmd.NvimTreeToggle, "Nvim Tree" },
@@ -392,12 +421,6 @@ wk.register({
 	},
 	[","] = {
 		name = "Miscellaneous",
-		[","] = {
-			function()
-				vim.cmd("ToggleTerm dir=%:p:h")
-			end,
-			"terminal in current directory",
-		},
 		["1"] = { "1<c-w>w", "Go to 1st window" },
 		["2"] = { "2<c-w>w", "Go to 2nd window" },
 		["3"] = { "3<c-w>w", "Go to 3rd window" },
@@ -432,38 +455,29 @@ wk.register({
 		T = { "<cmd>tabnew<CR>", "Create an empty tab" },
 		t = {
 			name = "Terminal",
-			f = {
-				function()
-					vim.cmd("ToggleTerm size=160 direction=float dir=%:p:h")
-				end,
-				"Float",
-			},
 			h = {
 				function()
-					vim.cmd("ToggleTerm direction=horizontal dir=%:p:h")
+					vim.cmd("split | resize 12")
+					toggle_terminal()
 				end,
 				"Horizontal",
 			},
 			v = {
 				function()
-					vim.cmd("ToggleTerm size=80 direction=vertical dir=%:p:h")
+					vim.cmd("vsplit")
+					toggle_terminal()
 				end,
 				"Vertical",
 			},
 			t = {
 				function()
-					vim.cmd("ToggleTerm direction=tab dir=%:p:h")
+					vim.cmd("tabnew | lua toggle_terminal()")
 				end,
 				"Tab",
 			},
 		},
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
-	-- TODO: add the next keybinding if the bug is fixed
-	-- ["z="] = { "<cmd>silent Telescope spell_suggest<CR>", "show spell suggestions" },
-	-- ['"'] = { "<cmd>Telescope registers<CR>", "registers" },
-	-- ["'"] = { "<cmd>Telescope marks<CR>", "marks" },
-	-- ["q:"] = { "<cmd>Telescope command_history<CR>", "command history" },
 	g = {
 		-- d = { "<cmd>Lspsaga goto_definition<CR>", "Go to definition" },
 		P = { "<cmd>Lspsaga peek_type_definition<CR>", "Peek type definition" },
@@ -472,7 +486,9 @@ wk.register({
 		a = { "<cmd>Lspsaga code_action<CR>", "Code actions" },
 		r = { "<cmd>Lspsaga rename<CR>", "Rename the symbol" },
 	},
+	j = { "gj", "Down" },
 	K = { "<cmd>Lspsaga hover_doc<CR>", "Hover info" },
+	k = { "gk", "Up" },
 }, { prefix = "", noremap = true, silent = true, nowait = true })
 
 wk.register({
@@ -950,6 +966,20 @@ wk.register({
 -- terminal mode {{{
 wk.register({
 	["<Esc>"] = { "<C-\\><C-n>", "quit insert mode" },
+	-- ["<c-\\>"] = { "<C-\\><C-n><c-o>", "go back" },
+	["<c-\\>"] = {
+		function()
+			if #vim.api.nvim_list_wins() > 1 then
+				vim.api.nvim_command("wincmd p")
+			else
+				vim.api.nvim_command("bprevious")
+			end
+		end,
+		"Go back",
+	},
+	["<c-d>"] = { "<C-\\><C-n>:bd!<CR>", "Quit terminal" },
+	["<c-x>"] = { "<C-\\><C-n><c-w>s<CR>", "Horizontal split" },
+	["<c-v>"] = { "<C-\\><C-n><c-w>v<CR>", "Vertical split" },
 	["<A-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<A-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
 	["<A-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
