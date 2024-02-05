@@ -466,6 +466,15 @@ wk.register({
 		["8"] = { "8<c-w>w", "Go to 8th window" },
 		["9"] = { "9<c-w>w", "Go to 9th window" },
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
+		D = {
+			function()
+				local current_dir = vim.fn.expand("%:p:h")
+				vim.cmd("packadd termdebug | startinsert | Termdebug")
+				vim.api.nvim_feedkeys("cd " .. current_dir .. "\n", "n", true)
+				vim.api.nvim_feedkeys("file " .. current_dir .. "/", "n", true)
+			end,
+			"Debug with GDB",
+		},
 		d = { "<cmd>silent Dashboard<CR>", "Dashboard" },
 		f = {
 			function()
@@ -496,14 +505,14 @@ wk.register({
 			},
 			h = {
 				function()
-					vim.cmd("split")
+					vim.cmd("new")
 					toggle_terminal()
 				end,
 				"Horizontal",
 			},
 			v = {
 				function()
-					vim.cmd("vsplit")
+					vim.cmd("vnew")
 					toggle_terminal()
 				end,
 				"Vertical",
@@ -1032,7 +1041,7 @@ wk.register({
 		"Go back",
 	},
 	["<M-d>"] = { "<C-\\><C-n>:bd!<CR>", "Quit terminal" }, -- TODO: remove when this is fixed
-	["<c-x>"] = { "<C-\\><C-n><c-w>s <cmd>startinsert | term<CR>", "Horizontal split" },
+	["<c-s>"] = { "<C-\\><C-n><c-w>s <cmd>startinsert | term<CR>", "Horizontal split" },
 	["<c-v>"] = { "<C-\\><C-n><c-w>v<cmd>startinsert | term<CR>", "Vertical split" },
 	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
