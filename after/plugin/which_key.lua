@@ -470,7 +470,10 @@ wk.register({
 			function()
 				local current_dir = vim.fn.expand("%:p:h")
 				vim.cmd("packadd termdebug | startinsert | Termdebug")
+				vim.cmd("resize +10 | wincmd k | wincmd J | resize 15 | wincmd k | wincmd l | wincmd L")
+				vim.api.nvim_feedkeys("dal\n", "n", true) -- NOTE: this works if gdb-dashboard is enabled
 				vim.api.nvim_feedkeys("cd " .. current_dir .. "\n", "n", true)
+				-- vim.api.nvim_feedkeys("layout asm\nlayout regs\n", "n", true)
 				vim.api.nvim_feedkeys("file " .. current_dir .. "/", "n", true)
 			end,
 			"Debug with GDB",

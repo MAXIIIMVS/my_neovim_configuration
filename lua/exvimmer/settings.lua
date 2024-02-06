@@ -40,6 +40,9 @@ vim.cmd([[
 
 au FileType * set fo-=c fo-=r fo-=o
 
+let g:termdebug_wide=1
+let g:termdebug_map_K = 0
+
 " terminal
 " autocmd TermEnter * setlocal notermguicolors
 " autocmd TermLeave * setlocal termguicolors

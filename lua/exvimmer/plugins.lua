@@ -507,7 +507,7 @@ return require("lazy").setup({
 	{ "williamboman/mason.nvim", build = ":MasonUpdate", lazy = true },
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "windwp/nvim-ts-autotag", event = "InsertEnter" },
-	{ "windwp/nvim-autopairs", opts = { check_ts = true }, event = "InsertEnter" },
+	-- { "windwp/nvim-autopairs", opts = { check_ts = true }, event = "InsertEnter" },
 	{
 		"xiyaowong/telescope-emoji.nvim",
 		cmd = { "Telescope emoji" },
