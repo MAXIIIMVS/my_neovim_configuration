@@ -18,6 +18,14 @@ local dap_go = require("dap-go")
 local dap = require("dap")
 local todo_comments = require("todo-comments")
 
+local function make(target)
+	if target == nil then
+		target = ""
+	end
+	toggle_terminal()
+	vim.api.nvim_feedkeys("make " .. target .. "\n", "n", true)
+end
+
 local function open_floating_terminal()
 	local current_dir = vim.fn.expand("%:p:h")
 	local width = vim.api.nvim_get_option("columns")
@@ -367,7 +375,12 @@ wk.register({
 			"Show help tags",
 		},
 		l = { "<cmd>Telescope lsp_document_symbols<CR>", "Show LSP document symbols" },
-		m = { "<cmd>make<CR>", "Make" },
+		m = {
+			function()
+				make()
+			end,
+			"Make",
+		},
 		n = { "<cmd>TodoTelescope<CR>", "See notes/todos..." },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open %:p:h<CR>", "Open the current directory" },
@@ -468,10 +481,15 @@ wk.register({
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
 		D = {
 			function()
+				vim.g.termdebug_wide = vim.fn.winwidth(0) > 85
 				local current_dir = vim.fn.expand("%:p:h")
 				vim.cmd("packadd termdebug | startinsert | Termdebug")
-				vim.cmd("resize +10 | wincmd k | wincmd J | resize 15 | wincmd k | wincmd l | wincmd L")
-				vim.api.nvim_feedkeys("dal\n", "n", true) -- NOTE: this works if gdb-dashboard is enabled
+				if vim.g.termdebug_wide then
+					vim.cmd("resize +10 | wincmd k | wincmd J | resize 15 | wincmd k | wincmd l | wincmd L")
+					vim.api.nvim_feedkeys("dal\n", "n", true) -- NOTE: this works if gdb-dashboard is enabled
+				else
+					vim.api.nvim_feedkeys("dashboard -layout variables\n", "n", true) -- NOTE: this works if gdb-dashboard is enabled
+				end
 				vim.api.nvim_feedkeys("cd " .. current_dir .. "\n", "n", true)
 				-- vim.api.nvim_feedkeys("layout asm\nlayout regs\n", "n", true)
 				vim.api.nvim_feedkeys("file " .. current_dir .. "/", "n", true)
@@ -817,22 +835,78 @@ wk.register({
 	},
 	m = {
 		name = "Make",
-		a = { "<cmd>make all<CR>", "All" },
-		B = { "<cmd>make clean-build<CR>", "Clean build" },
-		b = { "<cmd>make build<CR>", "Build" },
-		c = { "<cmd>make clean<CR>", "Clean" },
-		d = { "<cmd>make docs<CR>", "Generate docs" },
-		G = {
-			"<cmd>make clean && make generate && make build<CR>",
-			"Clean, generate and build again",
+		a = {
+			function()
+				make("all")
+			end,
+			"All",
 		},
-		g = { "<cmd>make generate<CR>", "Generate" },
-		h = { "<cmd>make help<CR>", "Help" },
-		i = { "<cmd>make install<CR>", "Install" },
-		m = { ":make ", "Insert a make command", silent = false },
-		r = { "<cmd>make run<CR>", "Run" },
-		t = { "<cmd>make test<CR>", "Test" },
-		w = { "<cmd>make watch<CR>", "Watch" },
+		B = {
+			function()
+				make("clean-build")
+			end,
+			"Clean build",
+		},
+		b = {
+			function()
+				make("build")
+			end,
+			"Build",
+		},
+		c = {
+			function()
+				make("clean")
+			end,
+			"Clean",
+		},
+		d = {
+			function()
+				make("docs")
+			end,
+			"Generate docs",
+		},
+		g = {
+			function()
+				make("generate")
+			end,
+			"Generate",
+		},
+		h = {
+			function()
+				make("help")
+			end,
+			"Help",
+		},
+		i = {
+			function()
+				make("install")
+			end,
+			"Install",
+		},
+		r = {
+			function()
+				make("run")
+			end,
+			"Run",
+		},
+		t = {
+			function()
+				make("test")
+			end,
+			"Test",
+		},
+		v = {
+			function()
+				make("valgrind")
+			end,
+			"valgrind",
+		},
+		w = {
+			function()
+				make("watch")
+			end,
+			"Watch",
+		},
 	},
 	s = {
 		name = "Session",
@@ -949,7 +1023,7 @@ wk.register({
 			if vim.fn.winwidth(0) > 85 then
 				vim.cmd("vsplit")
 			else
-				vim.cmd("split")
+				vim.cmd("split | resize 10")
 			end
 			toggle_terminal()
 		end,

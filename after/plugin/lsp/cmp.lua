@@ -6,8 +6,8 @@ end
 
 local lspkind = require("lspkind")
 local context = require("cmp.config.context")
--- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
--- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
 local luasnip = require("luasnip")
 luasnip.filetype_extend("vimwiki", { "markdown" })
@@ -42,9 +42,9 @@ cmp_window.info = function(self)
 end
 
 local options = {
-	completion = {
-		autocomplete = false, -- manual control
-	},
+	-- completion = {
+	-- 	autocomplete = false, -- manual control
+	-- },
 	formatting = {
 		format = lspkind.cmp_format({
 			mode = "symbol_text", -- 'text', 'text_symbol', 'symbol_text', 'symbol'
