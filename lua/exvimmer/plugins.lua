@@ -121,6 +121,28 @@ return require("lazy").setup({
 		event = "UIEnter",
 	},
 	{
+		"echasnovski/mini.indentscope",
+		event = "UIEnter",
+		-- version = false,
+		opts = {
+			options = {
+				indent_at_cursor = false,
+			},
+			draw = {
+				delay = 0,
+				animation = function()
+					return 0
+				end,
+			},
+			symbol = "┃",
+		},
+		init = function()
+			vim.cmd([[
+				au FileType NvimTree,dashboard,help,lazy,lazyterm,lspinfo,man,text,mason,markdown,netrw,toggleterm,checkhealth,undotree,dbout lua vim.b.miniindentscope_disable = true
+			]])
+		end,
+	},
+	{
 		"echasnovski/mini.move",
 		opts = {
 			mappings = {
