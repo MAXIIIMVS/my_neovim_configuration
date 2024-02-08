@@ -130,12 +130,6 @@ ins_left({
 	padding = { right = 1 },
 })
 
---[[ ins_left({
-	-- filesize component
-	"filesize",
-	cond = conditions.buffer_not_empty,
-}) ]]
-
 ins_left({
 	"filetype",
 	icon_only = true,
@@ -266,6 +260,13 @@ ins_right({
 	-- icons_enabled = true,
 	color = { fg = colors.green, gui = "bold" },
 	cond = conditions.hide_in_width,
+})
+
+ins_right({
+	"filesize",
+	cond = function()
+		return conditions.buffer_not_empty() and conditions.hide_in_width()
+	end,
 })
 
 ins_right({ "progress", color = { fg = colors.cyan, gui = "bold" } })

@@ -69,6 +69,11 @@ catppuccin.setup({
 			enabled = true,
 			-- style = "nvchad",
 		},
+		indent_blankline = {
+			enabled = true,
+			scope_color = "", -- catppuccin color (eg. `lavender`) Default: text
+			colored_indent_levels = false,
+		},
 		which_key = false,
 		treesitter = true,
 		mason = false,

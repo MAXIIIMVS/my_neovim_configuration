@@ -121,28 +121,6 @@ return require("lazy").setup({
 		event = "UIEnter",
 	},
 	{
-		"echasnovski/mini.indentscope",
-		event = "UIEnter",
-		-- version = false,
-		opts = {
-			options = {
-				indent_at_cursor = false,
-			},
-			draw = {
-				delay = 0,
-				animation = function()
-					return 0
-				end,
-			},
-			symbol = "┃",
-		},
-		init = function()
-			vim.cmd([[
-				au FileType NvimTree,dashboard,help,lazy,lazyterm,lspinfo,man,text,mason,markdown,netrw,toggleterm,checkhealth,undotree,dbout lua vim.b.miniindentscope_disable = true
-			]])
-		end,
-	},
-	{
 		"echasnovski/mini.move",
 		opts = {
 			mappings = {
@@ -326,6 +304,20 @@ return require("lazy").setup({
 			vim.g.gutentags_generate_on_write = true
 			vim.g.gutentags_generate_on_empty_buffer = false
 		end,
+	},
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {
+			scope = {
+				show_start = false,
+				show_end = false,
+			},
+			exclude = {
+				buftypes = { "terminal", "nofile" },
+				filetypes = { "help", "dashboard", "NvimTree", "mason", "fugitive" },
+			},
+		},
 	},
 	{ "LunarVim/bigfile.nvim", event = "BufReadPre", opts = {} },
 	{

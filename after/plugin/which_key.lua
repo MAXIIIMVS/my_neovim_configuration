@@ -22,7 +22,28 @@ local function make(target)
 	if target == nil then
 		target = ""
 	end
-	toggle_terminal()
+	local term_name = " Make Terminal"
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local win_buffer = vim.api.nvim_win_get_buf(win)
+		local win_buffer_name = vim.fn.bufname(win_buffer)
+
+		if win_buffer_name == term_name then
+			vim.api.nvim_set_current_win(win)
+			vim.api.nvim_feedkeys("make " .. target .. "\n", "n", true)
+			return
+		end
+	end
+	local buffer_exists = vim.fn.bufexists(term_name)
+	if buffer_exists ~= 0 then
+		vim.cmd("buffer " .. term_name .. " | startinsert")
+		if vim.bo.buftype ~= "terminal" then
+			vim.cmd("bd! | startinsert | term")
+			vim.cmd("file " .. term_name)
+		end
+	else
+		vim.cmd("split | resize 13 | startinsert | term")
+		vim.cmd("file " .. term_name)
+	end
 	vim.api.nvim_feedkeys("make " .. target .. "\n", "n", true)
 end
 
@@ -278,6 +299,16 @@ wk.register({
 		"<cmd>e %:p:h<CR>",
 		"Current directory",
 	},
+	["<M-d>"] = {
+		function()
+			local bufnr = vim.api.nvim_get_current_buf()
+			local buftype = vim.api.nvim_buf_get_option(bufnr, "buftype")
+			if buftype == "terminal" then
+				vim.cmd("<cmd>bd!<CR>")
+			end
+		end,
+		"Go to the right window",
+	},
 	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
 	["<M-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
@@ -481,6 +512,14 @@ wk.register({
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
 		D = {
 			function()
+				-- specific to my system
+				local gdbfake_file = os.getenv("HOME") .. "/.gdbfake"
+				local gdbinit_file = os.getenv("HOME") .. "/.gdbinit"
+				local has_gdbfake = vim.fn.filereadable(gdbfake_file) == 1
+				if has_gdbfake then
+					os.rename(gdbfake_file, gdbinit_file)
+				end
+				-- until here
 				vim.g.termdebug_wide = vim.fn.winwidth(0) > 85
 				local current_dir = vim.fn.expand("%:p:h")
 				vim.cmd("packadd termdebug | startinsert | Termdebug")
@@ -526,14 +565,14 @@ wk.register({
 			},
 			h = {
 				function()
-					vim.cmd("new")
+					vim.cmd("split")
 					toggle_terminal()
 				end,
 				"Horizontal",
 			},
 			v = {
 				function()
-					vim.cmd("vnew")
+					vim.cmd("vsplit")
 					toggle_terminal()
 				end,
 				"Vertical",
