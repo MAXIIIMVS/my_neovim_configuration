@@ -366,9 +366,9 @@ wk.register({
 	["<F11>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Until")
+				vim.cmd("Step")
 			else
-				dap.run_to_cursor()
+				dap.DapStepInto()
 			end
 		end,
 		"Run to cursor",
@@ -382,6 +382,16 @@ wk.register({
 			end
 		end,
 		"Step out",
+	},
+	["<F12>"] = {
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("Evaluate")
+			else
+				dapui.eval(nil, { enter = true })
+			end
+		end,
+		"Run to cursor",
 	},
 	["<Nop>"] = { "<Plug>VimwikiRemoveHeaderLevel", "disabled" },
 	["-"] = {
@@ -1289,9 +1299,9 @@ wk.register({
 	["<F11>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Until")
+				vim.cmd("Step")
 			else
-				dap.run_to_cursor()
+				dap.DapStepInto()
 			end
 		end,
 		"Run to cursor",
@@ -1305,6 +1315,16 @@ wk.register({
 			end
 		end,
 		"Step out",
+	},
+	["<F12>"] = {
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("Evaluate")
+			else
+				dapui.eval(nil, { enter = true })
+			end
+		end,
+		"Run to cursor",
 	},
 	["<c-_>"] = {
 		function()
@@ -1446,9 +1466,9 @@ wk.register({
 	["<F11>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Until")
+				vim.cmd("Step")
 			else
-				dap.run_to_cursor()
+				dap.DapStepInto()
 			end
 		end,
 		"Run to cursor",
@@ -1462,6 +1482,16 @@ wk.register({
 			end
 		end,
 		"Step out",
+	},
+	["<F12>"] = {
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("Evaluate")
+			else
+				dapui.eval(nil, { enter = true })
+			end
+		end,
+		"Run to cursor",
 	},
 	-- ["<M-t>"] = { "<C-\\><C-n><c-o>", "go back" },
 	["<M-t>"] = {
