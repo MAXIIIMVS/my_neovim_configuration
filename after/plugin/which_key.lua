@@ -22,7 +22,7 @@ local function make(target)
 	if target == nil then
 		target = ""
 	end
-	local term_name = " Make Terminal"
+	local term_name = " Make Terminal"
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
 		local win_buffer = vim.api.nvim_win_get_buf(win)
 		local win_buffer_name = vim.fn.bufname(win_buffer)
@@ -521,7 +521,7 @@ wk.register({
 				end
 				-- until here
 				vim.g.termdebug_wide = vim.fn.winwidth(0) > 85
-				local current_dir = vim.fn.expand("%:p:h")
+				-- local current_dir = vim.fn.expand("%:p:h")
 				vim.cmd("packadd termdebug | startinsert | Termdebug")
 				if vim.g.termdebug_wide then
 					vim.cmd("resize +10 | wincmd k | wincmd J | resize 15 | wincmd k | wincmd l | wincmd L")
@@ -529,9 +529,10 @@ wk.register({
 				else
 					vim.api.nvim_feedkeys("dashboard -layout variables\n", "n", true) -- NOTE: this works if gdb-dashboard is enabled
 				end
-				vim.api.nvim_feedkeys("cd " .. current_dir .. "\n", "n", true)
 				-- vim.api.nvim_feedkeys("layout asm\nlayout regs\n", "n", true)
-				vim.api.nvim_feedkeys("file " .. current_dir .. "/", "n", true)
+				-- vim.api.nvim_feedkeys("cd " .. current_dir .. "\n", "n", true)
+				-- vim.api.nvim_feedkeys("file " .. current_dir .. "/", "n", true)
+				vim.api.nvim_feedkeys("file ", "n", true)
 			end,
 			"Debug with GDB",
 		},
@@ -900,9 +901,9 @@ wk.register({
 		},
 		d = {
 			function()
-				make("docs")
+				make("debug")
 			end,
-			"Generate docs",
+			"Debug",
 		},
 		g = {
 			function()
