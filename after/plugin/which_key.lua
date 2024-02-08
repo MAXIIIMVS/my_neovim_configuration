@@ -18,6 +18,35 @@ local dap_go = require("dap-go")
 local dap = require("dap")
 local todo_comments = require("todo-comments")
 
+local function term_debug()
+	-- specific to my system
+	local gdbfake_file = os.getenv("HOME") .. "/.gdbfake"
+	local gdbinit_file = os.getenv("HOME") .. "/.gdbinit"
+	local has_gdbfake = vim.fn.filereadable(gdbfake_file) == 1
+	if has_gdbfake then
+		os.rename(gdbfake_file, gdbinit_file)
+	end
+	-- until here
+	vim.g.termdebug_wide = vim.fn.winwidth(0) > 85
+	-- local current_dir = vim.fn.expand("%:p:h")
+	vim.cmd("packadd termdebug | startinsert | Termdebug")
+	if vim.g.termdebug_wide then
+		vim.cmd("wincmd k | wincmd J | resize 10 | wincmd k | wincmd l | wincmd L")
+		vim.api.nvim_feedkeys(
+			"dashboard -layout variables stack breakpoints  expressions memory registers\n",
+			"n",
+			true
+		)
+	else
+		vim.api.nvim_feedkeys("dashboard -layout variables\n", "n", true)
+	end
+	vim.g.termdebug_running = true
+	-- vim.api.nvim_feedkeys("layout asm\nlayout regs\n", "n", true)
+	-- vim.api.nvim_feedkeys("cd " .. current_dir .. "\n", "n", true)
+	-- vim.api.nvim_feedkeys("file " .. current_dir .. "/", "n", true)
+	vim.api.nvim_feedkeys("file ", "n", true)
+end
+
 local function make(target)
 	if target == nil then
 		target = ""
@@ -290,6 +319,7 @@ wk.setup(options)
 
 -- Normal mode {{{
 wk.register({
+	["<F4>"] = { term_debug, "Debug with GDB" },
 	["<F5>"] = {
 		function()
 			if vim.g.termdebug_running then
@@ -299,7 +329,7 @@ wk.register({
 				vim.cmd.DapContinue()
 			end
 		end,
-		"Debug",
+		"Continue/Debug with DAP",
 	},
 	["<c-F5>"] = {
 		function()
@@ -368,7 +398,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("Step")
 			else
-				dap.DapStepInto()
+				vim.cmd.DapStepInto()
 			end
 		end,
 		"Run to cursor",
@@ -609,37 +639,7 @@ wk.register({
 		["8"] = { "8<c-w>w", "Go to 8th window" },
 		["9"] = { "9<c-w>w", "Go to 9th window" },
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
-		D = {
-			function()
-				-- specific to my system
-				local gdbfake_file = os.getenv("HOME") .. "/.gdbfake"
-				local gdbinit_file = os.getenv("HOME") .. "/.gdbinit"
-				local has_gdbfake = vim.fn.filereadable(gdbfake_file) == 1
-				if has_gdbfake then
-					os.rename(gdbfake_file, gdbinit_file)
-				end
-				-- until here
-				vim.g.termdebug_wide = vim.fn.winwidth(0) > 85
-				-- local current_dir = vim.fn.expand("%:p:h")
-				vim.cmd("packadd termdebug | startinsert | Termdebug")
-				if vim.g.termdebug_wide then
-					vim.cmd("wincmd k | wincmd J | resize 10 | wincmd k | wincmd l | wincmd L")
-					vim.api.nvim_feedkeys(
-						"dashboard -layout variables stack breakpoints  expressions memory registers\n",
-						"n",
-						true
-					)
-				else
-					vim.api.nvim_feedkeys("dashboard -layout variables\n", "n", true)
-				end
-				vim.g.termdebug_running = true
-				-- vim.api.nvim_feedkeys("layout asm\nlayout regs\n", "n", true)
-				-- vim.api.nvim_feedkeys("cd " .. current_dir .. "\n", "n", true)
-				-- vim.api.nvim_feedkeys("file " .. current_dir .. "/", "n", true)
-				vim.api.nvim_feedkeys("file ", "n", true)
-			end,
-			"Debug with GDB",
-		},
+		D = { term_debug, "Debug with GDB" },
 		d = {
 			name = "GDB debugger",
 			A = { "<cmd>call TermDebugSendCommand('layout regs asm')<CR>", "Show disassembly and registers" },
@@ -1301,7 +1301,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("Step")
 			else
-				dap.DapStepInto()
+				vim.cmd.StepInto()
 			end
 		end,
 		"Run to cursor",
@@ -1468,7 +1468,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("Step")
 			else
-				dap.DapStepInto()
+				vim.cmd.StepInto()
 			end
 		end,
 		"Run to cursor",
