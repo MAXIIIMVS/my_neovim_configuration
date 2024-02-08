@@ -40,8 +40,13 @@ vim.cmd([[
 
 au FileType * set fo-=c fo-=r fo-=o
 
+autocmd User TermdebugStartPost lua vim.g.termdebug_running = true
+autocmd User TermdebugStopPost lua vim.g.termdebug_running = false
+autocmd TermClose * lua vim.g.termdebug_running = false
+
 let g:termdebug_wide=1
 let g:termdebug_map_K = 0
+" let g:termdebug_disasm_window = 15
 
 " terminal
 " autocmd TermEnter * setlocal notermguicolors
@@ -179,6 +184,7 @@ ab :separator_rtt: ❯
 
 -- My variables {{{
 vim.g.is_transparent = true
+vim.g.termdebug_running = false
 -- }}}
 
 -- listchars {{{

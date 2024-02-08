@@ -247,6 +247,13 @@ ins_right({
 })
 
 ins_right({
+	"filesize",
+	cond = function()
+		return conditions.buffer_not_empty() and conditions.hide_in_width()
+	end,
+})
+
+ins_right({
 	"o:encoding", -- option component same as &encoding in viml
 	fmt = string.upper, -- I'm not sure why it's upper case either ;)
 	cond = conditions.hide_in_width,
@@ -260,13 +267,6 @@ ins_right({
 	-- icons_enabled = true,
 	color = { fg = colors.green, gui = "bold" },
 	cond = conditions.hide_in_width,
-})
-
-ins_right({
-	"filesize",
-	cond = function()
-		return conditions.buffer_not_empty() and conditions.hide_in_width()
-	end,
 })
 
 ins_right({ "progress", color = { fg = colors.cyan, gui = "bold" } })
