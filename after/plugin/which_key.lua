@@ -113,6 +113,19 @@ local function open_floating_terminal()
 	vim.api.nvim_command("startinsert | e term://" .. current_dir .. "//bash")
 end
 
+local function responsive_terminal()
+	local term_name = "Terminal " .. vim.fn.bufname("%")
+	local buffer_exists = vim.fn.bufexists(term_name)
+	if buffer_exists == 0 then
+		if vim.fn.winwidth(0) > 85 then
+			vim.cmd("vsplit")
+		else
+			vim.cmd("split | resize 10")
+		end
+	end
+	toggle_terminal()
+end
+
 function toggle_terminal()
 	if vim.bo.buftype == "terminal" then
 		if #vim.api.nvim_list_wins() > 1 then
@@ -708,17 +721,7 @@ wk.register({
 
 wk.register({
 	name = "Groups",
-	["<space>"] = {
-		function()
-			if vim.fn.winwidth(0) > 85 then
-				vim.cmd("vsplit")
-			else
-				vim.cmd("split | resize 10")
-			end
-			toggle_terminal()
-		end,
-		"Automatic vertical/horizontal terminal",
-	},
+	["<space>"] = { responsive_terminal, "Automatic vertical/horizontal terminal" },
 	a = {
 		name = "appeareance",
 		a = {
@@ -1270,17 +1273,6 @@ wk.register({
 		"Format buffer",
 	},
 	s = { "<cmd>silent so %<CR>", "Source the file" },
-	t = {
-		function()
-			if vim.fn.winwidth(0) > 85 then
-				vim.cmd("vsplit")
-			else
-				vim.cmd("split | resize 10")
-			end
-			toggle_terminal()
-		end,
-		"Automatic vertical/horizontal terminal",
-	},
 	w = {
 		name = "VimWiki",
 		l = { "<cmd>VimwikiTOC<CR>", "Create or update the Table of Contents for the current wiki file" },
