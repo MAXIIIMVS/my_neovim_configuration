@@ -6,3 +6,4 @@ spell
 indent.log
 .luarc.json
 tags
+.gdb_history

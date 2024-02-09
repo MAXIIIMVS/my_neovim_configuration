@@ -319,23 +319,23 @@ wk.setup(options)
 
 -- Normal mode {{{
 wk.register({
-	["<F4>"] = { term_debug, "Debug with GDB" },
+	["<F4>"] = { term_debug, "Start GDB" },
 	["<F5>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Until")
+				vim.cmd("call TermDebugSendCommand('start')")
 			else
 				vim.cmd.DapToggleBreakpoint()
 				vim.cmd.DapContinue()
 			end
 		end,
-		"Continue/Debug with DAP",
+		"Start debugging",
 	},
 	["<c-F5>"] = {
 		function()
 			make("run")
 		end,
-		"Run",
+		"Start without debugging",
 	},
 	["<S-F5>"] = {
 		function()
@@ -345,7 +345,7 @@ wk.register({
 				vim.cmd.DapTerminate()
 			end
 		end,
-		"Stop/Terminate termdebug",
+		"Stop/Terminate",
 	},
 	["<c-S-F5>"] = {
 		function()
@@ -355,13 +355,7 @@ wk.register({
 				dap.restart()
 			end
 		end,
-		"Stop/Terminate termdebug",
-	},
-	["<F6>"] = {
-		function()
-			make("build")
-		end,
-		"Build",
+		"Restart",
 	},
 	["<F9>"] = {
 		function()
@@ -372,6 +366,16 @@ wk.register({
 			end
 		end,
 		"Break",
+	},
+	["<c-F9>"] = {
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("call TermDebugSendCommand('delete')")
+			else
+				dap.clear_breakpoints()
+			end
+		end,
+		"Delete all breakpoints",
 	},
 	["<F10>"] = {
 		function()
@@ -386,12 +390,12 @@ wk.register({
 	["<c-F10>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Over")
+				vim.cmd("Until")
 			else
-				vim.cmd.DapStepOver()
+				dap.run_to_cursor()
 			end
 		end,
-		"Step over",
+		"Run to cursor",
 	},
 	["<F11>"] = {
 		function()
@@ -401,7 +405,7 @@ wk.register({
 				vim.cmd.DapStepInto()
 			end
 		end,
-		"Run to cursor",
+		"Step into",
 	},
 	["<S-F11>"] = {
 		function()
@@ -421,7 +425,7 @@ wk.register({
 				dapui.eval(nil, { enter = true })
 			end
 		end,
-		"Run to cursor",
+		"Evaluate",
 	},
 	["<Nop>"] = { "<Plug>VimwikiRemoveHeaderLevel", "disabled" },
 	["-"] = {
@@ -640,43 +644,7 @@ wk.register({
 		["9"] = { "9<c-w>w", "Go to 9th window" },
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
 		D = { term_debug, "Debug with GDB" },
-		d = {
-			name = "GDB debugger",
-			A = { "<cmd>call TermDebugSendCommand('layout regs asm')<CR>", "Show disassembly and registers" },
-			a = { "<cmd>silent Asm<CR>", "Disassembly" },
-			B = { "<cmd>silent Clear<CR>", "Delete current break point" },
-			b = { "<cmd>silent Break<CR>", "Break" },
-			C = { "<cmd>silent Until<CR>", "Run to cursor" },
-			c = { "<cmd>call TermDebugSendCommand('c')<CR>", "Continue" },
-			d = {
-				"<cmd>call TermDebugSendCommand('down 1')<CR>",
-				"Go down in current stacktrace without stepping",
-			},
-			e = { "<cmd>silent Evaluate<CR>", "Evaluate the expression under the cursor" },
-			f = { "<cmd>silent Finish<CR>", "Finish" },
-			-- R = { "<cmd>call TermDebugSendCommand('layout regs')<CR>", "Registers" },
-			R = {
-				name = "Reverse",
-				c = { "<cmd>call TermDebugSendCommand('reverse-continue')<CR>", "Continue" },
-				f = { "<cmd>call TermDebugSendCommand('reverse-finish')<CR>", "Finish" },
-				n = { "<cmd>call TermDebugSendCommand('reverse-next')<CR>", "Next" },
-				R = { "<cmd>call TermDebugSendCommand('record stop')<CR>", "Stop" },
-				r = { "<cmd>call TermDebugSendCommand('record')<CR>", "Record" },
-				-- S = { "<cmd>call TermDebugSendCommand('reverse-search')<CR>", "Record" },
-				s = { "<cmd>call TermDebugSendCommand('reverse-step')<CR>", "Step" },
-			},
-			r = { "<cmd>call TermDebugSendCommand('start')<CR>", "Restart" },
-			s = { "<cmd>silent Step<CR>", "Step into" },
-			t = { "<cmd>call TermDebugSendCommand('bt')<CR>", "Bracktrace" },
-			l = { "<cmd>call TermDebugSendCommand('info locals')<CR>", "Show local variables" },
-			N = { "<cmd>call TermDebugSendCommand('reverse-step')<CR>", "Step back" },
-			n = { "<cmd>silent Over<CR>", "Step over (next)" },
-			u = {
-				"<cmd>call TermDebugSendCommand('up 1')<CR>",
-				"Go up in current stacktrace without stepping",
-			},
-			q = { "<cmd>call TermDebugSendCommand('quit')<CR>", "Quit" },
-		},
+		d = { "<cmd>silent Dashboard<CR>", "dashboard" },
 		f = {
 			function()
 				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
@@ -843,27 +811,78 @@ wk.register({
 	},
 	d = {
 		name = "Debugger",
+		A = { "<cmd>call TermDebugSendCommand('layout regs asm')<CR>", "GDB: disassembly and registers" },
+		a = { "<cmd>silent Asm<CR>", "GDB: Disassembly" },
+		-- B = { "<cmd>silent Clear<CR>", "GDB: remove breakpoint" },
+		B = {
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('delete')")
+				else
+					dap.clear_breakpoints()
+				end
+			end,
+			"Delete all breakpoints",
+		},
 		b = {
-			vim.cmd.DapToggleBreakpoint,
-			"Toggle breakpoint",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Break")
+				else
+					vim.cmd.DapToggleBreakpoint()
+				end
+			end,
+			"Break",
 		},
 		C = {
-			dap.run_to_cursor,
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Until")
+				else
+					dap.run_to_cursor()
+				end
+			end,
 			"Run to cursor",
 		},
 		c = {
-			vim.cmd.DapContinue,
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('c')")
+				else
+					vim.cmd.DapContinue()
+				end
+			end,
 			"Continue",
 		},
 		d = {
-			dap.down,
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('down 1')")
+				else
+					dap.down()
+				end
+			end,
 			"Go down in current stacktrace without stepping",
 		},
 		e = {
 			function()
-				dapui.eval(nil, { enter = true })
+				if vim.g.termdebug_running then
+					vim.cmd("Evaluate")
+				else
+					dapui.eval(nil, { enter = true })
+				end
 			end,
 			"Evaluate expression",
+		},
+		f = {
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Finish")
+				else
+					vim.cmd.DapStepOut()
+				end
+			end,
+			"Step out (finish)",
 		},
 		g = {
 			name = "Go programming language",
@@ -890,47 +909,92 @@ wk.register({
 			dap.goto_,
 			"Jump to a specific line or line under cursor",
 		},
-		s = {
-			vim.cmd.DapStepInto,
-			"Step into",
+		l = {
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('info locals')")
+				else
+					dap_ui_widgets.sidebar(dap_ui_widgets.scopes).open()
+				end
+			end,
+			"Locals",
 		},
 		N = {
-			dap.step_back,
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('reverse-step')")
+				else
+					dap.step_back()
+				end
+			end,
 			"Step back",
 		},
 		n = {
-			vim.cmd.DapStepOver,
-			"Step over (next)",
-		},
-		f = {
-			vim.cmd.DapStepOut,
-			"Step out (finish)",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Over")
+				else
+					vim.cmd.DapStepOver()
+				end
+			end,
+			"Step over",
 		},
 		p = {
 			dap.pause,
 			"Pause the thread",
 		},
 		R = {
-			dap.restart,
-			"Restart the current session",
-		},
-		r = {
 			vim.cmd.DapToggleRepl,
 			"Toggle repl",
 		},
-		l = {
+		-- R = {
+		-- 	name = "GDB: Reverse",
+		-- 	c = { "<cmd>call TermDebugSendCommand('reverse-continue')<CR>", "Continue" },
+		-- 	n = { "<cmd>call TermDebugSendCommand('reverse-next')<CR>", "Next" },
+		-- 	R = { "<cmd>call TermDebugSendCommand('record stop')<CR>", "Stop" },
+		-- 	r = { "<cmd>call TermDebugSendCommand('record')<CR>", "Record" },
+		-- 	-- S = { "<cmd>call TermDebugSendCommand('reverse-search')<CR>", "Record" },
+		-- 	s = { "<cmd>call TermDebugSendCommand('reverse-step')<CR>", "Step" },
+		-- },
+		r = {
 			function()
-				local sidebar = dap_ui_widgets.sidebar(dap_ui_widgets.scopes)
-				sidebar.open()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('start')")
+				else
+					dap.restart()
+				end
 			end,
-			"Open locals window",
+			"Restart",
 		},
 		q = {
-			vim.cmd.DapTerminate,
-			"Quit",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('quit')")
+				else
+					vim.cmd.DapTerminate()
+				end
+			end,
+			"Stop/Terminate",
 		},
+		s = {
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Step")
+				else
+					vim.cmd.DapStepInto()
+				end
+			end,
+			"Step into",
+		},
+		t = { "<cmd>call TermDebugSendCommand('bt')<CR>", "GDB: Bracktrace" },
 		u = {
-			dap.up,
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('up 1')")
+				else
+					dap.up()
+				end
+			end,
 			"Go up in current stacktrace without stepping",
 		},
 		w = {
@@ -1105,7 +1169,6 @@ wk.register({
 			end,
 			"Color column",
 		},
-		-- d = { "<cmd>silent Dashboard<CR>", "dashboard" },
 		D = { "<cmd>silent DBUIToggle<CR>", "DB UI" },
 		d = { "<cmd>silent lua ToggleDiagnostics()<CR>", "diagnostics" },
 		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
@@ -1223,22 +1286,23 @@ wk.register({
 
 -- Insert mode {{{
 wk.register({
+	["<F4>"] = { term_debug, "Start GDB" },
 	["<F5>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Until")
+				vim.cmd("call TermDebugSendCommand('start')")
 			else
 				vim.cmd.DapToggleBreakpoint()
 				vim.cmd.DapContinue()
 			end
 		end,
-		"Debug",
+		"Start debugging",
 	},
 	["<c-F5>"] = {
 		function()
 			make("run")
 		end,
-		"Run",
+		"Start without debugging",
 	},
 	["<S-F5>"] = {
 		function()
@@ -1248,7 +1312,7 @@ wk.register({
 				vim.cmd.DapTerminate()
 			end
 		end,
-		"Stop/Terminate termdebug",
+		"Stop/Terminate",
 	},
 	["<c-S-F5>"] = {
 		function()
@@ -1258,13 +1322,7 @@ wk.register({
 				dap.restart()
 			end
 		end,
-		"Stop/Terminate termdebug",
-	},
-	["<F6>"] = {
-		function()
-			make("build")
-		end,
-		"Build",
+		"Restart",
 	},
 	["<F9>"] = {
 		function()
@@ -1275,6 +1333,16 @@ wk.register({
 			end
 		end,
 		"Break",
+	},
+	["<c-F9>"] = {
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("call TermDebugSendCommand('delete')")
+			else
+				dap.clear_breakpoints()
+			end
+		end,
+		"Delete all breakpoints",
 	},
 	["<F10>"] = {
 		function()
@@ -1289,12 +1357,12 @@ wk.register({
 	["<c-F10>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Over")
+				vim.cmd("Until")
 			else
-				vim.cmd.DapStepOver()
+				dap.run_to_cursor()
 			end
 		end,
-		"Step over",
+		"Run to cursor",
 	},
 	["<F11>"] = {
 		function()
@@ -1304,7 +1372,7 @@ wk.register({
 				vim.cmd.StepInto()
 			end
 		end,
-		"Run to cursor",
+		"Step into",
 	},
 	["<S-F11>"] = {
 		function()
@@ -1324,7 +1392,7 @@ wk.register({
 				dapui.eval(nil, { enter = true })
 			end
 		end,
-		"Run to cursor",
+		"Evaluate",
 	},
 	["<c-_>"] = {
 		function()
@@ -1390,22 +1458,23 @@ wk.register({
 -- terminal mode {{{
 wk.register({
 	["<Esc>"] = { "<C-\\><C-n>", "quit insert mode" },
+	["<F4>"] = { term_debug, "Start GDB" },
 	["<F5>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Until")
+				vim.cmd("call TermDebugSendCommand('start')")
 			else
 				vim.cmd.DapToggleBreakpoint()
 				vim.cmd.DapContinue()
 			end
 		end,
-		"Debug",
+		"Start debugging",
 	},
 	["<c-F5>"] = {
 		function()
 			make("run")
 		end,
-		"Run",
+		"Start without debugging",
 	},
 	["<S-F5>"] = {
 		function()
@@ -1415,7 +1484,7 @@ wk.register({
 				vim.cmd.DapTerminate()
 			end
 		end,
-		"Stop/Terminate termdebug",
+		"Stop/Terminate",
 	},
 	["<c-S-F5>"] = {
 		function()
@@ -1425,13 +1494,7 @@ wk.register({
 				dap.restart()
 			end
 		end,
-		"Stop/Terminate termdebug",
-	},
-	["<F6>"] = {
-		function()
-			make("build")
-		end,
-		"Build",
+		"Restart",
 	},
 	["<F9>"] = {
 		function()
@@ -1442,6 +1505,16 @@ wk.register({
 			end
 		end,
 		"Break",
+	},
+	["<c-F9>"] = {
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("call TermDebugSendCommand('delete')")
+			else
+				dap.clear_breakpoints()
+			end
+		end,
+		"Delete all breakpoints",
 	},
 	["<F10>"] = {
 		function()
@@ -1456,12 +1529,12 @@ wk.register({
 	["<c-F10>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Over")
+				vim.cmd("Until")
 			else
-				vim.cmd.DapStepOver()
+				dap.run_to_cursor()
 			end
 		end,
-		"Step over",
+		"Run to cursor",
 	},
 	["<F11>"] = {
 		function()
@@ -1471,7 +1544,7 @@ wk.register({
 				vim.cmd.StepInto()
 			end
 		end,
-		"Run to cursor",
+		"Step into",
 	},
 	["<S-F11>"] = {
 		function()
@@ -1491,7 +1564,7 @@ wk.register({
 				dapui.eval(nil, { enter = true })
 			end
 		end,
-		"Run to cursor",
+		"Evaluate",
 	},
 	-- ["<M-t>"] = { "<C-\\><C-n><c-o>", "go back" },
 	["<M-t>"] = {
