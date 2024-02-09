@@ -37,8 +37,13 @@ end
 vim.cmd([[
 " dadbod completion with cmp
 " autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
-
 au FileType * set fo-=c fo-=r fo-=o
+
+" Automatically open Quickfix window if there are errors after :make
+augroup auto_open_quickfix
+  autocmd!
+  autocmd QuickFixCmdPost [^l]* cwindow
+augroup END
 
 autocmd User TermdebugStartPost lua vim.g.termdebug_running = true
 autocmd User TermdebugStopPost lua vim.g.termdebug_running = false

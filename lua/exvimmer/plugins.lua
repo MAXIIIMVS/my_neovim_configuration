@@ -500,6 +500,7 @@ return require("lazy").setup({
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
 	{ "tpope/vim-abolish", event = "VeryLazy" },
+	-- { "tpope/vim-capslock", event = "VeryLazy" },
 	{ "tpope/vim-dadbod", lazy = true },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },

@@ -323,13 +323,14 @@ wk.register({
 	["<F5>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('start')")
+				vim.cmd("Break")
+				vim.cmd("call TermDebugSendCommand('c')")
 			else
 				vim.cmd.DapToggleBreakpoint()
 				vim.cmd.DapContinue()
 			end
 		end,
-		"Start debugging",
+		"Break and Continue/Start DAP",
 	},
 	["<c-F5>"] = {
 		function()
@@ -357,6 +358,7 @@ wk.register({
 		end,
 		"Restart",
 	},
+	["<F6>"] = { "<cmd>silent make<CR>", "Build" },
 	["<F9>"] = {
 		function()
 			if vim.g.termdebug_running then
@@ -481,8 +483,8 @@ wk.register({
 	["]Q"] = { "<cmd>silent clast<CR>", "See the last item in QuickFix" },
 	["]x"] = { "<cmd>BufferLineCloseRight<CR>", "Close all the buffers to the right" },
 	["[x"] = { "<cmd>BufferLineCloseLeft<CR>", "Close all the buffers to the left" },
-	["<M-Left>"] = { "<cmd>vertical resize +2<CR>", "Increase window width" },
-	["<M-Right>"] = { "<cmd>vertical resize -1<CR>", "Decrease window width" },
+	["<M-Left>"] = { "<cmd>vertical resize -1<CR>", "Increase window width" },
+	["<M-Right>"] = { "<cmd>vertical resize +1<CR>", "Decrease window width" },
 	["<M-Up>"] = { "<cmd>resize -1<CR>", "Increase window height" },
 	["<M-Down>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
 	["<c-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
@@ -539,12 +541,7 @@ wk.register({
 			"Show help tags",
 		},
 		l = { "<cmd>Telescope lsp_document_symbols<CR>", "Show LSP document symbols" },
-		m = {
-			function()
-				make()
-			end,
-			"Make",
-		},
+		m = { make, "Make" },
 		n = { "<cmd>TodoTelescope<CR>", "See notes/todos..." },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open %:p:h<CR>", "Open the current directory" },
@@ -711,6 +708,17 @@ wk.register({
 
 wk.register({
 	name = "Groups",
+	["<space>"] = {
+		function()
+			if vim.fn.winwidth(0) > 85 then
+				vim.cmd("vsplit")
+			else
+				vim.cmd("split | resize 10")
+			end
+			toggle_terminal()
+		end,
+		"Automatic vertical/horizontal terminal",
+	},
 	a = {
 		name = "appeareance",
 		a = {
@@ -1290,13 +1298,14 @@ wk.register({
 	["<F5>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('start')")
+				vim.cmd("Break")
+				vim.cmd("call TermDebugSendCommand('c')")
 			else
 				vim.cmd.DapToggleBreakpoint()
 				vim.cmd.DapContinue()
 			end
 		end,
-		"Start debugging",
+		"Break and Continue/Start DAP",
 	},
 	["<c-F5>"] = {
 		function()
@@ -1324,6 +1333,7 @@ wk.register({
 		end,
 		"Restart",
 	},
+	["<F6>"] = { "<cmd>silent make<CR>", "Build" },
 	["<F9>"] = {
 		function()
 			if vim.g.termdebug_running then
@@ -1462,13 +1472,14 @@ wk.register({
 	["<F5>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('start')")
+				vim.cmd("Break")
+				vim.cmd("call TermDebugSendCommand('c')")
 			else
 				vim.cmd.DapToggleBreakpoint()
 				vim.cmd.DapContinue()
 			end
 		end,
-		"Start debugging",
+		"Break and Continue/Start DAP",
 	},
 	["<c-F5>"] = {
 		function()
@@ -1496,6 +1507,7 @@ wk.register({
 		end,
 		"Restart",
 	},
+	["<F6>"] = { "<cmd>silent make<CR>", "Build" },
 	["<F9>"] = {
 		function()
 			if vim.g.termdebug_running then
