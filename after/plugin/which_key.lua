@@ -114,7 +114,7 @@ local function open_floating_terminal()
 end
 
 local function responsive_terminal()
-	local term_name = "Terminal " .. vim.fn.bufname("%")
+	local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
 	local buffer_exists = vim.fn.bufexists(term_name)
 	if buffer_exists == 0 then
 		if vim.fn.winwidth(0) > 85 then
@@ -135,7 +135,7 @@ function toggle_terminal()
 		end
 		return
 	end
-	local term_name = "Terminal " .. vim.fn.bufname("%")
+	local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
 		local win_buffer = vim.api.nvim_win_get_buf(win)
 		local win_buffer_name = vim.fn.bufname(win_buffer)
