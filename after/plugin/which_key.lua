@@ -18,6 +18,21 @@ local dap_go = require("dap-go")
 local dap = require("dap")
 local todo_comments = require("todo-comments")
 
+local function close_buffer(buffer_name)
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		local name = vim.api.nvim_buf_get_name(buf)
+		if name ~= "" and vim.fn.bufexists(buf) == 1 and vim.fn.bufname(buf) == buffer_name then
+			local is_modified = vim.api.nvim_buf_get_option(buf, "modified")
+			if is_modified then
+				vim.api.nvim_command("confirm bd")
+			else
+				vim.api.nvim_buf_delete(buf, { force = true })
+			end
+			return
+		end
+	end
+end
+
 local function term_debug()
 	-- specific to my system
 	local gdbfake_file = os.getenv("HOME") .. "/.gdbfake"
@@ -323,8 +338,8 @@ local options = {
 		height = { max = 9 },
 	},
 	popup_mappings = {
-		scroll_down = "<c-d>", -- binding to scroll down inside the popup
-		scroll_up = "<c-u>", -- binding to scroll up inside the popup
+		scroll_down = "<C-d>", -- binding to scroll down inside the popup
+		scroll_up = "<C-u>", -- binding to scroll up inside the popup
 	},
 }
 
@@ -345,9 +360,9 @@ wk.register({
 		end,
 		"Break and Continue/Start DAP",
 	},
-	["<c-F5>"] = {
+	["<C-F5>"] = {
 		function()
-			make("run")
+			vim.cmd("silent make run")
 		end,
 		"Start without debugging",
 	},
@@ -361,7 +376,7 @@ wk.register({
 		end,
 		"Stop/Terminate",
 	},
-	["<c-S-F5>"] = {
+	["<C-S-F5>"] = {
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('start')")
@@ -371,7 +386,27 @@ wk.register({
 		end,
 		"Restart",
 	},
-	["<F6>"] = { "<cmd>silent make<CR>", "Build" },
+	["<F6>"] = {
+		function()
+			local term_name = " Make Terminal"
+			close_buffer(term_name)
+			local success, _ = pcall(vim.cmd, "silent make")
+			if success then
+				vim.notify("Build successful!", "info", { title = "Build" })
+			end
+		end,
+		"Build",
+	},
+	["<F7>"] = {
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("call TermDebugSendCommand('c')")
+			else
+				vim.cmd.DapContinue()
+			end
+		end,
+		"Break and Continue/Start DAP",
+	},
 	["<F9>"] = {
 		function()
 			if vim.g.termdebug_running then
@@ -382,7 +417,7 @@ wk.register({
 		end,
 		"Break",
 	},
-	["<c-F9>"] = {
+	["<C-F9>"] = {
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('delete')")
@@ -402,7 +437,7 @@ wk.register({
 		end,
 		"Step over",
 	},
-	["<c-F10>"] = {
+	["<C-F10>"] = {
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("Until")
@@ -500,7 +535,7 @@ wk.register({
 	["<M-Right>"] = { "<cmd>vertical resize +1<CR>", "Decrease window width" },
 	["<M-Up>"] = { "<cmd>resize -1<CR>", "Increase window height" },
 	["<M-Down>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
-	["<c-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
+	["<C-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
 	["<M-t>"] = { toggle_terminal, "horizaontal terminal" },
 	[";"] = {
@@ -572,12 +607,12 @@ wk.register({
 		},
 		-- NOTE: the next two substitution commands depend on vim-abolish
 		s = {
-			[[:S/<c-r><c-w>/<c-r><c-w>/g<Left><left>]],
+			[[:S/<C-r><C-w>/<C-r><C-w>/g<Left><left>]],
 			"Change the word under the cursor in the line",
 			silent = false,
 		},
 		S = {
-			[[:%S/<c-r><c-w>/<c-r><c-w>/g<Left><left>]],
+			[[:%S/<C-r><C-w>/<C-r><C-w>/g<Left><left>]],
 			"Change the word under the cursor in the whole file",
 			silent = false,
 		},
@@ -638,20 +673,20 @@ wk.register({
 		x = { vim.cmd.NvimTreeToggle, "Nvim Tree" },
 		X = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
 		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
-		-- Z = { "<c-w>|<c-w>_", "Maximize the window" },
+		-- Z = { "<C-w>|<C-w>_", "Maximize the window" },
 	},
 	[","] = {
 		name = "Miscellaneous",
 		[","] = { open_floating_terminal, "Floating terminal" },
-		["1"] = { "1<c-w>w", "Go to 1st window" },
-		["2"] = { "2<c-w>w", "Go to 2nd window" },
-		["3"] = { "3<c-w>w", "Go to 3rd window" },
-		["4"] = { "4<c-w>w", "Go to 4th window" },
-		["5"] = { "5<c-w>w", "Go to 5th window" },
-		["6"] = { "6<c-w>w", "Go to 6th window" },
-		["7"] = { "7<c-w>w", "Go to 7th window" },
-		["8"] = { "8<c-w>w", "Go to 8th window" },
-		["9"] = { "9<c-w>w", "Go to 9th window" },
+		["1"] = { "1<C-w>w", "Go to 1st window" },
+		["2"] = { "2<C-w>w", "Go to 2nd window" },
+		["3"] = { "3<C-w>w", "Go to 3rd window" },
+		["4"] = { "4<C-w>w", "Go to 4th window" },
+		["5"] = { "5<C-w>w", "Go to 5th window" },
+		["6"] = { "6<C-w>w", "Go to 6th window" },
+		["7"] = { "7<C-w>w", "Go to 7th window" },
+		["8"] = { "8<C-w>w", "Go to 8th window" },
+		["9"] = { "9<C-w>w", "Go to 9th window" },
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
 		D = { term_debug, "Debug with GDB" },
 		d = { "<cmd>silent Dashboard<CR>", "dashboard" },
@@ -666,12 +701,12 @@ wk.register({
 		q = { "<cmd>tabclose<CR>", "Close tab" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
 		S = {
-			[[:%s/<c-r><c-w>/<c-r><c-w>/gi<left><left><left>]],
+			[[:%s/<c-r><C-w>/<C-r><C-w>/gi<left><left><left>]],
 			"Substitute the word in the whole file (ignore case)",
 			silent = false,
 		},
 		s = {
-			[[:s/<c-r><c-w>/<c-r><c-w>/gi<left><left><left>]],
+			[[:s/<C-r><C-w>/<C-r><C-w>/gi<left><left><left>]],
 			"Substitute the word in this line (ignore case)",
 			silent = false,
 		},
@@ -1253,10 +1288,10 @@ wk.register({
 		name = "Window",
 		d = { "<cmd>windo diffthis<CR>", "Show the difference between 2 windows" },
 		D = { "<cmd>windo diffoff<CR>", "Hide the difference between 2 windows" },
-		h = { "<c-w>h", "Move the right window" },
-		j = { "<c-w>j", "Move the window below" },
-		k = { "<c-w>k", "Move the window above" },
-		l = { "<c-w>l", "Move the left window" },
+		h = { "<C-w>h", "Move the right window" },
+		j = { "<C-w>j", "Move the window below" },
+		k = { "<C-w>k", "Move the window above" },
+		l = { "<C-w>l", "Move the left window" },
 		o = { "<cmd>only<CR>", "close all other windows" },
 		s = { "<cmd>windo set scrollbind<CR>", "Set scrollbind" },
 		S = { "<cmd>windo set scrollbind!<CR>", "Unset scrollbind" },
@@ -1299,9 +1334,9 @@ wk.register({
 		end,
 		"Break and Continue/Start DAP",
 	},
-	["<c-F5>"] = {
+	["<C-F5>"] = {
 		function()
-			make("run")
+			vim.cmd("silent make run")
 		end,
 		"Start without debugging",
 	},
@@ -1315,7 +1350,7 @@ wk.register({
 		end,
 		"Stop/Terminate",
 	},
-	["<c-S-F5>"] = {
+	["<C-S-F5>"] = {
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('start')")
@@ -1325,7 +1360,27 @@ wk.register({
 		end,
 		"Restart",
 	},
-	["<F6>"] = { "<cmd>silent make<CR>", "Build" },
+	["<F6>"] = {
+		function()
+			local term_name = " Make Terminal"
+			close_buffer(term_name)
+			local success, _ = pcall(vim.cmd, "silent make")
+			if success then
+				vim.notify("Build successful!", "info", { title = "Build" })
+			end
+		end,
+		"Build",
+	},
+	["<F7>"] = {
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("call TermDebugSendCommand('c')")
+			else
+				vim.cmd.DapContinue()
+			end
+		end,
+		"Break and Continue/Start DAP",
+	},
 	["<F9>"] = {
 		function()
 			if vim.g.termdebug_running then
@@ -1336,7 +1391,7 @@ wk.register({
 		end,
 		"Break",
 	},
-	["<c-F9>"] = {
+	["<C-F9>"] = {
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('delete')")
@@ -1356,7 +1411,7 @@ wk.register({
 		end,
 		"Step over",
 	},
-	["<c-F10>"] = {
+	["<C-F10>"] = {
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("Until")
@@ -1396,19 +1451,19 @@ wk.register({
 		end,
 		"Evaluate",
 	},
-	["<c-_>"] = {
+	["<C-_>"] = {
 		function()
 			comment_api.toggle.linewise.current()
 		end,
 		"Comment/uncomment the line",
 	},
-	["<c-s>"] = { "<ESC><ESC><cmd>silent update<CR>", "Save buffer" },
+	["<C-s>"] = { "<ESC><ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
 	["<M-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
 	["<M-j>"] = { "<CMD>silent NavigatorDown<CR>", "Go to the down window" },
-	["<c-k>"] = { "<c-o>C", "Delete to the end of the line" },
+	["<C-k>"] = { "<C-o>C", "Delete to the end of the line" },
 	-- ["<C-r>"] = { "<cmd>Telescope registers<CR>", "show registers" },
 }, { prefix = "", mode = "i", noremap = true, silent = true, nowait = true })
 -- }}}
@@ -1417,14 +1472,14 @@ wk.register({
 wk.register({
 	[";"] = {
 		name = "Quick",
-		S = { 'y:%S/<c-r>"/<c-r>"/g<LEFT><LEFT>', "Change the selection in whole document", silent = false },
-		s = { 'y:S/<c-r>"/<c-r>"/g<LEFT><LEFT>', "Change the selection in this line", silent = false },
+		S = { 'y:%S/<C-r>"/<C-r>"/g<LEFT><LEFT>', "Change the selection in whole document", silent = false },
+		s = { 'y:S/<C-r>"/<C-r>"/g<LEFT><LEFT>', "Change the selection in this line", silent = false },
 	},
 	-- ["."] = { ":normal.<CR>", "Repeat previous action" },
 	-- ["p"] = { '"_dP', "Paste over currently selected text without yanking it" }, -- this causes pasting in select mode (when using snippets)
 	["<"] = { "<gv", "Indent left" },
 	[">"] = { ">gv", "Indent right" },
-	["<c-_>"] = {
+	["<C-_>"] = {
 		function()
 			local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
 			vim.api.nvim_feedkeys(esc, "nx", false)
@@ -1432,7 +1487,7 @@ wk.register({
 		end,
 		"Comment/uncomment selected lines",
 	},
-	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
+	["<C-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 }, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })
 
@@ -1451,9 +1506,9 @@ wk.register({
 	["<M-b>"] = { "<ESC>bi", "Move back" },
 	["<M-f>"] = { "<ESC>ei", "Move forward" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
-	["<c-a>"] = { "<ESC>I", "Go to the beginning of line" },
-	["<c-e>"] = { "<ESC>A", "Go to the end of line" },
-	["<c-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
+	["<C-a>"] = { "<ESC>I", "Go to the beginning of line" },
+	["<C-e>"] = { "<ESC>A", "Go to the end of line" },
+	["<C-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 }, { prefix = "", mode = "s", noremap = true, silent = true, nowait = true })
 -- }}}
 
@@ -1473,9 +1528,9 @@ wk.register({
 		end,
 		"Break and Continue/Start DAP",
 	},
-	["<c-F5>"] = {
+	["<C-F5>"] = {
 		function()
-			make("run")
+			vim.cmd("silent make run")
 		end,
 		"Start without debugging",
 	},
@@ -1489,7 +1544,7 @@ wk.register({
 		end,
 		"Stop/Terminate",
 	},
-	["<c-S-F5>"] = {
+	["<C-S-F5>"] = {
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('start')")
@@ -1499,7 +1554,27 @@ wk.register({
 		end,
 		"Restart",
 	},
-	["<F6>"] = { "<cmd>silent make<CR>", "Build" },
+	["<F6>"] = {
+		function()
+			local term_name = " Make Terminal"
+			close_buffer(term_name)
+			local success, _ = pcall(vim.cmd, "silent make")
+			if success then
+				vim.notify("Build successful!", "info", { title = "Build" })
+			end
+		end,
+		"Build",
+	},
+	["<F7>"] = {
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("call TermDebugSendCommand('c')")
+			else
+				vim.cmd.DapContinue()
+			end
+		end,
+		"Break and Continue/Start DAP",
+	},
 	["<F9>"] = {
 		function()
 			if vim.g.termdebug_running then
@@ -1510,7 +1585,7 @@ wk.register({
 		end,
 		"Break",
 	},
-	["<c-F9>"] = {
+	["<C-F9>"] = {
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('delete')")
@@ -1530,7 +1605,7 @@ wk.register({
 		end,
 		"Step over",
 	},
-	["<c-F10>"] = {
+	["<C-F10>"] = {
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("Until")
@@ -1582,8 +1657,8 @@ wk.register({
 		"Go back",
 	},
 	["<M-d>"] = { "<C-\\><C-n>:bd!<CR>", "Quit terminal" }, -- TODO: remove when this is fixed
-	["<c-s>"] = { "<C-\\><C-n><c-w>s <cmd>startinsert | term<CR>", "Horizontal split" },
-	["<c-v>"] = { "<C-\\><C-n><c-w>v<cmd>startinsert | term<CR>", "Vertical split" },
+	["<C-s>"] = { "<C-\\><C-n><C-w>s <cmd>startinsert | term<CR>", "Horizontal split" },
+	["<C-v>"] = { "<C-\\><C-n><C-w>v<cmd>startinsert | term<CR>", "Vertical split" },
 	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
 	["<M-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
