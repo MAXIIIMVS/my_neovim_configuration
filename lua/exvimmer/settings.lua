@@ -184,6 +184,7 @@ ab :bullseye: 🎯
 ab :note: 📝
 ab :separator_ltt: ❮
 ab :separator_rtt: ❯
+ab :degrees: °
 ]])
 -- }}}
 

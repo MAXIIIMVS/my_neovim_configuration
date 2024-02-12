@@ -354,6 +354,7 @@ wk.register({
 				vim.cmd("Break")
 				vim.cmd("call TermDebugSendCommand('c')")
 			else
+				dap.clear_breakpoints()
 				vim.cmd.DapToggleBreakpoint()
 				vim.cmd.DapContinue()
 			end
@@ -1328,6 +1329,7 @@ wk.register({
 				vim.cmd("Break")
 				vim.cmd("call TermDebugSendCommand('c')")
 			else
+				dap.clear_breakpoints()
 				vim.cmd.DapToggleBreakpoint()
 				vim.cmd.DapContinue()
 			end
@@ -1458,6 +1460,26 @@ wk.register({
 		"Comment/uncomment the line",
 	},
 	["<C-s>"] = { "<ESC><ESC><cmd>silent update<CR>", "Save buffer" },
+	["<C-x>"] = {
+		name = "Insert expand",
+		["<C-D>"] = "Complete defined identifiers",
+		["<C-E>"] = "Scroll up",
+		["<C-F>"] = "Complete file names",
+		["<C-I>"] = "Complete identifiers",
+		["<C-K>"] = "Complete identifiers from dictionary",
+		["<C-L>"] = "Complete whole lines",
+		["<C-N>"] = "Next completion",
+		["<C-O>"] = "Omni completion",
+		["<C-P>"] = "Previous completion",
+		["<C-S>"] = "Spelling suggestions",
+		["<C-T>"] = "Complete identifiers from thesaurus",
+		["<C-Y>"] = "Scroll down",
+		["<C-U>"] = "Complete with 'completefunc'",
+		["<C-V>"] = "Complete like in : command line",
+		["<C-Z>"] = "Stop completion, keeping the text as-is",
+		["<C-]>"] = "Complete tags",
+		["s"] = "Spelling suggestions",
+	},
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 	["<M-l>"] = { "<ESC><CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<M-h>"] = { "<ESC><CMD>silent NavigatorLeft<CR>", "Go to the left window" },
@@ -1522,6 +1544,7 @@ wk.register({
 				vim.cmd("Break")
 				vim.cmd("call TermDebugSendCommand('c')")
 			else
+				dap.clear_breakpoints()
 				vim.cmd.DapToggleBreakpoint()
 				vim.cmd.DapContinue()
 			end
