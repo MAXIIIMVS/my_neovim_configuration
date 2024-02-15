@@ -1680,8 +1680,8 @@ wk.register({
 		"Go back",
 	},
 	["<M-d>"] = { "<C-\\><C-n>:bd!<CR>", "Quit terminal" }, -- TODO: remove when this is fixed
+	["<C-s>"] = { "<C-\\><C-n><C-w>s <cmd>startinsert | term<CR>", "Horizontal split" },
 	["<C-v>"] = { "<C-\\><C-n><C-w>v<cmd>startinsert | term<CR>", "Vertical split" },
-	["<C-x>"] = { "<C-\\><C-n><C-w>s <cmd>startinsert | term<CR>", "Horizontal split" },
 	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
 	["<M-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
