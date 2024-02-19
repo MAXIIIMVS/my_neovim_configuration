@@ -248,6 +248,7 @@ ins_right({
 
 ins_right({
 	"filesize",
+	fmt = string.upper,
 	cond = function()
 		return conditions.buffer_not_empty() and conditions.hide_in_width()
 	end,
@@ -264,7 +265,6 @@ ins_right({
 	"fileformat",
 	fmt = string.upper,
 	icons_enabled = false,
-	-- icons_enabled = true,
 	color = { fg = colors.green, gui = "bold" },
 	cond = conditions.hide_in_width,
 })

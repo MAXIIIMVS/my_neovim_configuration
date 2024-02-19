@@ -91,6 +91,19 @@ local function make(target)
 	vim.api.nvim_feedkeys("make " .. target .. "\n", "n", true)
 end
 
+-- vim.api.nvim_create_autocmd({ "TermClose" }, {
+-- 	group = vim.api.nvim_create_augroup("toggle_terminal_close", { clear = true }),
+-- 	callback = function()
+-- 		if vim.bo.filetype ~= "termdebug" then
+-- 			if #vim.api.nvim_list_wins() > 1 then
+-- 				vim.cmd("quit!")
+-- 			else
+-- 				vim.cmd("bd!")
+-- 			end
+-- 		end
+-- 	end,
+-- })
+
 local function open_floating_terminal()
 	local current_dir = vim.fn.expand("%:p:h")
 	local width = vim.api.nvim_get_option("columns")
@@ -243,6 +256,8 @@ function sync_statusline_with_tmux()
 	local current_background = get_highlight("Normal")["guibg"]
 	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
+	vim.o.cursorline = not vim.g.is_transparent
+	vim.o.cursorlineopt = vim.g.is_transparent and "number" or "number,line"
 	-- vim.o.fillchars = "eob: "
 end
 
@@ -347,6 +362,23 @@ wk.setup(options)
 
 -- Normal mode {{{
 wk.register({
+	["<F1>"] = {
+		function()
+			local term_name = " Make Terminal"
+			close_buffer(term_name)
+			local success, _ = pcall(vim.cmd, "silent make")
+			if success then
+				vim.notify("Build successful!", "info", { title = "Build" })
+			end
+		end,
+		"Build",
+	},
+	["<F2>"] = {
+		function()
+			make("valgrind")
+		end,
+		"Valgrind",
+	},
 	["<F4>"] = { term_debug, "Start GDB" },
 	["<F5>"] = {
 		function()
@@ -387,26 +419,15 @@ wk.register({
 		end,
 		"Restart",
 	},
-	["<F6>"] = {
-		function()
-			local term_name = " Make Terminal"
-			close_buffer(term_name)
-			local success, _ = pcall(vim.cmd, "silent make")
-			if success then
-				vim.notify("Build successful!", "info", { title = "Build" })
-			end
-		end,
-		"Build",
-	},
-	["<F7>"] = {
+	["<F8>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('c')")
+				vim.cmd("Evaluate")
 			else
-				vim.cmd.DapContinue()
+				dapui.eval(nil, { enter = true })
 			end
 		end,
-		"Break and Continue/Start DAP",
+		"Evaluate",
 	},
 	["<F9>"] = {
 		function()
@@ -471,12 +492,12 @@ wk.register({
 	["<F12>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Evaluate")
+				vim.cmd("call TermDebugSendCommand('c')")
 			else
-				dapui.eval(nil, { enter = true })
+				vim.cmd.DapContinue()
 			end
 		end,
-		"Evaluate",
+		"Continue/Start DAP",
 	},
 	["<Nop>"] = { "<Plug>VimwikiRemoveHeaderLevel", "disabled" },
 	["-"] = {
@@ -1322,6 +1343,23 @@ wk.register({
 
 -- Insert mode {{{
 wk.register({
+	["<F1>"] = {
+		function()
+			local term_name = " Make Terminal"
+			close_buffer(term_name)
+			local success, _ = pcall(vim.cmd, "silent make")
+			if success then
+				vim.notify("Build successful!", "info", { title = "Build" })
+			end
+		end,
+		"Build",
+	},
+	["<F2>"] = {
+		function()
+			make("valgrind")
+		end,
+		"Valgrind",
+	},
 	["<F4>"] = { term_debug, "Start GDB" },
 	["<F5>"] = {
 		function()
@@ -1362,26 +1400,15 @@ wk.register({
 		end,
 		"Restart",
 	},
-	["<F6>"] = {
-		function()
-			local term_name = " Make Terminal"
-			close_buffer(term_name)
-			local success, _ = pcall(vim.cmd, "silent make")
-			if success then
-				vim.notify("Build successful!", "info", { title = "Build" })
-			end
-		end,
-		"Build",
-	},
-	["<F7>"] = {
+	["<F8>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('c')")
+				vim.cmd("Evaluate")
 			else
-				vim.cmd.DapContinue()
+				dapui.eval(nil, { enter = true })
 			end
 		end,
-		"Break and Continue/Start DAP",
+		"Evaluate",
 	},
 	["<F9>"] = {
 		function()
@@ -1446,12 +1473,12 @@ wk.register({
 	["<F12>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Evaluate")
+				vim.cmd("call TermDebugSendCommand('c')")
 			else
-				dapui.eval(nil, { enter = true })
+				vim.cmd.DapContinue()
 			end
 		end,
-		"Evaluate",
+		"Continue/Start DAP",
 	},
 	["<C-_>"] = {
 		function()
@@ -1537,6 +1564,23 @@ wk.register({
 -- terminal mode {{{
 wk.register({
 	["<Esc>"] = { "<C-\\><C-n>", "quit insert mode" },
+	["<F1>"] = {
+		function()
+			local term_name = " Make Terminal"
+			close_buffer(term_name)
+			local success, _ = pcall(vim.cmd, "silent make")
+			if success then
+				vim.notify("Build successful!", "info", { title = "Build" })
+			end
+		end,
+		"Build",
+	},
+	["<F2>"] = {
+		function()
+			make("valgrind")
+		end,
+		"Valgrind",
+	},
 	["<F4>"] = { term_debug, "Start GDB" },
 	["<F5>"] = {
 		function()
@@ -1577,26 +1621,15 @@ wk.register({
 		end,
 		"Restart",
 	},
-	["<F6>"] = {
-		function()
-			local term_name = " Make Terminal"
-			close_buffer(term_name)
-			local success, _ = pcall(vim.cmd, "silent make")
-			if success then
-				vim.notify("Build successful!", "info", { title = "Build" })
-			end
-		end,
-		"Build",
-	},
-	["<F7>"] = {
+	["<F8>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('c')")
+				vim.cmd("Evaluate")
 			else
-				vim.cmd.DapContinue()
+				dapui.eval(nil, { enter = true })
 			end
 		end,
-		"Break and Continue/Start DAP",
+		"Evaluate",
 	},
 	["<F9>"] = {
 		function()
@@ -1661,12 +1694,12 @@ wk.register({
 	["<F12>"] = {
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Evaluate")
+				vim.cmd("call TermDebugSendCommand('c')")
 			else
-				dapui.eval(nil, { enter = true })
+				vim.cmd.DapContinue()
 			end
 		end,
-		"Evaluate",
+		"Continue/Start DAP",
 	},
 	-- ["<M-t>"] = { "<C-\\><C-n><c-o>", "go back" },
 	["<M-t>"] = {

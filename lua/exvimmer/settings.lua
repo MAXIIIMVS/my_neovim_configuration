@@ -39,6 +39,8 @@ vim.cmd([[
 " autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
 au FileType * set fo-=c fo-=r fo-=o
 
+autocmd FileType TelescopePrompt,dashboard setlocal nocursorline
+
 " Automatically open Quickfix window if there are errors after :make
 augroup auto_open_quickfix
   autocmd!

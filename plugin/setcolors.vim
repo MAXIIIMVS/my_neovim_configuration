@@ -44,8 +44,8 @@ function! SwitchColor(swinc)
 	execute "colorscheme"
 endfunction
 
- map <F8>        :silent call SwitchColor(1)<CR>
-imap <F8>   <Esc>:silent call SwitchColor(1)<CR>
+ map <F6>        :silent call SwitchColor(1)<CR>
+imap <F6>   <Esc>:silent call SwitchColor(1)<CR>
 
- map <S-F8>      :silent call SwitchColor(-1)<CR>
-imap <S-F8> <Esc>:silent call SwitchColor(-1)<CR>
+ map <S-F6>      :silent call SwitchColor(-1)<CR>
+imap <S-F6> <Esc>:silent call SwitchColor(-1)<CR>

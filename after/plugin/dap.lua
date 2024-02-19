@@ -54,7 +54,14 @@ dap.configurations.cpp = {
 		request = "launch",
 		console = "integratedTerminal",
 		program = function()
-			local p = vim.fn.expand("%:p:h")
+			local p
+			vim.ui.input({ prompt = "1. File\n2.Root\nEnter the starting directory: " }, function(input)
+				if input == "1" then
+					p = vim.fn.expand("%:p:h")
+				else
+					p = vim.fn.getcwd()
+				end
+			end)
 			---@diagnostic disable-next-line: redundant-parameter
 			return vim.fn.input("Path to executable: ", p .. "/", "file")
 			-- return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
