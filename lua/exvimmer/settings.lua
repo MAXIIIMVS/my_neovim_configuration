@@ -107,7 +107,7 @@ augroup END
 
 augroup sync_tmux
     autocmd!
-    autocmd UIEnter * lua sync_statusline_with_tmux()
+    autocmd VimEnter * lua sync_statusline_with_tmux()
 augroup END
 
 let g:first_color_scheme_change = 1

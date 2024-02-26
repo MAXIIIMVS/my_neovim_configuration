@@ -512,6 +512,43 @@ wk.register({
 	["<M-p>"] = { "<CMD>silent NavigatorPrevious<CR>", "Go to the down window" },
 	["]<space>"] = { "o<ESC>k", "Insert a blank line below" },
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
+	["[a"] = {
+		function()
+			local flavors = { "catppuccin-mocha", "catppuccin-macchiato", "catppuccin-frappe", "catppuccin-latte" }
+			local index = #flavors
+			for i, f in ipairs(flavors) do
+				if vim.g.colors_name == f then
+					index = i - 1
+					break
+				end
+			end
+			if index < 1 then
+				index = #flavors
+			end
+			vim.cmd.colorscheme(flavors[index])
+			sync_statusline_with_tmux()
+		end,
+		"Previous catppuccin flavor",
+	},
+	["]a"] = {
+		function()
+			local flavors = { "catppuccin-mocha", "catppuccin-macchiato", "catppuccin-frappe", "catppuccin-latte" }
+			local index = 1
+			for i, f in ipairs(flavors) do
+				if vim.g.colors_name == f then
+					index = i + 1
+					break
+				end
+			end
+			if index > #flavors then
+				index = 1
+			end
+			vim.cmd.colorscheme(flavors[index])
+			sync_statusline_with_tmux()
+		end,
+		"Next catppuccin flavor",
+	},
+
 	["]g"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
 	["[g"] = { "<cmd>silent Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
 	["[E"] = {
@@ -770,59 +807,6 @@ wk.register({
 wk.register({
 	name = "Groups",
 	["<space>"] = { responsive_terminal, "Automatic vertical/horizontal terminal" },
-	a = {
-		name = "appeareance",
-		a = {
-			function()
-				local flavors = { "catppuccin-mocha", "catppuccin-macchiato", "catppuccin-frappe", "catppuccin-latte" }
-				local index = 1
-				for i, f in ipairs(flavors) do
-					if vim.g.colors_name == f then
-						index = i + 1
-						break
-					end
-				end
-				if index > #flavors then
-					index = 1
-				end
-				vim.cmd.colorscheme(flavors[index])
-				sync_statusline_with_tmux()
-			end,
-			"alternative colorscheme",
-		},
-		b = {
-			function()
-				vim.o.background = vim.o.background == "dark" and "light" or "dark"
-				vim.g.is_transparent = false
-				sync_statusline_with_tmux()
-			end,
-			"Background color (Light/dark) ",
-		},
-		t = {
-			function()
-				local scheme = vim.g.colors_name
-				if
-					(
-						scheme ~= "catppuccin"
-						and scheme ~= "catppuccin-mocha"
-						and scheme ~= "catppuccin-latte"
-						and scheme ~= "catppuccin-frappe"
-						and scheme ~= "catppuccin-macchiato"
-						and scheme ~= "tokyonight"
-						and scheme ~= "solarized-osaka"
-					) or vim.o.background == "light"
-				then
-					return
-				end
-				vim.g.is_transparent = not vim.g.is_transparent
-				catppuccin.options.transparent_background = vim.g.is_transparent
-				catppuccin.compile()
-				vim.cmd.colorscheme(vim.g.colors_name)
-				sync_statusline_with_tmux()
-			end,
-			"Transparency (only in dark mode)",
-		},
-	},
 	b = {
 		name = "Buffer",
 		a = { "<cmd>bufdo bd<CR>", "Close all buffers" },
@@ -1234,6 +1218,13 @@ wk.register({
 	},
 	t = {
 		name = "Toggle",
+		b = {
+			function()
+				vim.o.background = vim.o.background == "dark" and "light" or "dark"
+				sync_statusline_with_tmux()
+			end,
+			"Background color (Light/dark) ",
+		},
 		C = {
 			"<cmd>ColorizerToggle<CR>",
 			"Colorizer",
@@ -1300,6 +1291,19 @@ wk.register({
 				end
 			end,
 			"Statusline/lualine",
+		},
+		t = {
+			function()
+				-- if not vim.g.is_transparent and vim.o.background == "light" then
+				-- 	return
+				-- end
+				vim.g.is_transparent = not vim.g.is_transparent
+				catppuccin.options.transparent_background = vim.g.is_transparent
+				catppuccin.compile()
+				vim.cmd.colorscheme(vim.g.colors_name)
+				sync_statusline_with_tmux()
+			end,
+			"Transparency",
 		},
 		u = { vim.cmd.UndotreeToggle, "Undotree" },
 		-- w = {
