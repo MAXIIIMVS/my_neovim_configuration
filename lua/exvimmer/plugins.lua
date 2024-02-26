@@ -69,17 +69,6 @@ return require("lazy").setup({
 		priority = 1000,
 	},
 	{
-		"craftzdog/solarized-osaka.nvim",
-		event = "VeryLazy",
-		opts = {
-			transparent = vim.g.is_transparent,
-			styles = {
-				floats = vim.g.is_transparent and "transparent" or "normal",
-				sidebars = vim.g.is_transparent and "transparent" or "normal",
-			},
-		},
-	},
-	{
 		"echasnovski/mini.bracketed",
 		-- version = false,
 		opts = {
@@ -158,17 +147,6 @@ return require("lazy").setup({
 				HACK = { color = "#F0FD00" },
 				WARN = { color = "#FBBF24", alt = { "WARNING", "XXX" } },
 				TEST = { icon = "", color = "#FF004E", alt = { "TESTING", "PASSED", "FAILED" } },
-			},
-		},
-	},
-	{
-		"folke/tokyonight.nvim",
-		event = "VeryLazy",
-		opts = {
-			transparent = vim.g.is_transparent,
-			styles = {
-				floats = vim.g.is_transparent and "transparent" or "normal",
-				sidebars = vim.g.is_transparent and "transparent" or "normal",
 			},
 		},
 	},

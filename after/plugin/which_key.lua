@@ -257,8 +257,8 @@ function sync_statusline_with_tmux()
 	local current_background = get_highlight("Normal")["guibg"]
 	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
-	vim.o.cursorline = not vim.g.is_transparent
 	vim.o.cursorlineopt = vim.g.is_transparent and "number" or "number,line"
+	vim.o.cursorline = not vim.g.is_transparent
 	-- vim.o.fillchars = "eob: "
 end
 
@@ -774,21 +774,24 @@ wk.register({
 		name = "appeareance",
 		a = {
 			function()
-				local flavor = vim.o.background == "dark" and "catppuccin-mocha" or "catppuccin-latte"
-				vim.cmd.colorscheme(vim.g.colors_name == flavor and "solarized-osaka" or flavor)
+				local flavors = { "catppuccin-mocha", "catppuccin-macchiato", "catppuccin-frappe", "catppuccin-latte" }
+				local index = 1
+				for i, f in ipairs(flavors) do
+					if vim.g.colors_name == f then
+						index = i + 1
+						break
+					end
+				end
+				if index > #flavors then
+					index = 1
+				end
+				vim.cmd.colorscheme(flavors[index])
+				sync_statusline_with_tmux()
 			end,
 			"alternative colorscheme",
 		},
 		b = {
 			function()
-				if vim.o.background == "dark" then
-					local tokyonight_options = require("tokyonight.config").options
-					tokyonight_options.transparent = false
-					local osaka_options = require("solarized-osaka.config").options
-					osaka_options.transparent = false
-					catppuccin.options.transparent_background = false
-					catppuccin.compile()
-				end
 				vim.o.background = vim.o.background == "dark" and "light" or "dark"
 				vim.g.is_transparent = false
 				sync_statusline_with_tmux()
@@ -799,25 +802,20 @@ wk.register({
 			function()
 				local scheme = vim.g.colors_name
 				if
-					scheme ~= "catppuccin"
-					and scheme ~= "catppuccin-mocha"
-					and scheme ~= "catppuccin-latte"
-					and scheme ~= "catppuccin-frappe"
-					and scheme ~= "catppuccin-macchiato"
-					and scheme ~= "tokyonight"
-					and scheme ~= "solarized-osaka"
+					(
+						scheme ~= "catppuccin"
+						and scheme ~= "catppuccin-mocha"
+						and scheme ~= "catppuccin-latte"
+						and scheme ~= "catppuccin-frappe"
+						and scheme ~= "catppuccin-macchiato"
+						and scheme ~= "tokyonight"
+						and scheme ~= "solarized-osaka"
+					) or vim.o.background == "light"
 				then
 					return
 				end
 				vim.g.is_transparent = not vim.g.is_transparent
-				if vim.o.background == "light" and vim.g.is_transparent then
-					return
-				end
 				catppuccin.options.transparent_background = vim.g.is_transparent
-				local tokyonight_options = require("tokyonight.config").options
-				tokyonight_options.transparent = vim.g.is_transparent
-				local osaka_options = require("solarized-osaka.config").options
-				osaka_options.transparent = vim.g.is_transparent
 				catppuccin.compile()
 				vim.cmd.colorscheme(vim.g.colors_name)
 				sync_statusline_with_tmux()
