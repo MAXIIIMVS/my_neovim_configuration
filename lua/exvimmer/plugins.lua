@@ -114,7 +114,7 @@ return require("lazy").setup({
 			},
 			view = {
 				dim = true,
-				n_steps_ahead = 1,
+				n_steps_ahead = 2,
 			},
 			silent = true,
 		},
@@ -219,15 +219,6 @@ return require("lazy").setup({
 		end,
 	},
 	{
-		"j-hui/fidget.nvim",
-		tag = "legacy", -- TODO: update to main after rewrite
-		event = "LspAttach",
-		opts = {
-			text = { spinner = "dots" },
-			window = { blend = 0 },
-		},
-	},
-	{
 		"JoosepAlviste/nvim-ts-context-commentstring",
 		opts = {},
 		event = "VeryLazy",
@@ -315,7 +306,7 @@ return require("lazy").setup({
 			},
 			exclude = {
 				buftypes = { "terminal", "nofile" },
-				filetypes = { "help", "dashboard", "NvimTree", "mason", "fugitive" },
+				filetypes = { "help", "dashboard", "NvimTree", "mason", "fugitive", "git", "cmake" },
 			},
 		},
 	},

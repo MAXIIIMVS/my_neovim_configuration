@@ -129,12 +129,6 @@ db.setup({
 		header = headers[2],
 		center = {
 			{
-				icon = "📂 ",
-				desc = "Projects",
-				action = "Telescope zoxide list",
-				key = "p",
-			},
-			{
 				icon = "🗄 ",
 				desc = "Find Files                                        ",
 				-- action = "Telescope find_files find_command=rg,--hidden,--files",
@@ -158,6 +152,12 @@ db.setup({
 				desc = "Open Wiki",
 				action = "VimwikiIndex",
 				key = "w",
+			},
+			{
+				icon = "💻 ",
+				desc = "Terminal",
+				action = "lua responsive_terminal()",
+				key = "t",
 			},
 			{
 				icon = "🔌 ",

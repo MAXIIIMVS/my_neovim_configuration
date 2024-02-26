@@ -16,7 +16,14 @@ local on_attach = function(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	-- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-	if client.name == "clangd" or client.name == "prismals" then
+	if
+		client.name == "clangd"
+		or client.name == "prismals"
+		or client.name == "neocmake"
+		or client.name == "rust_analyzer"
+		or client.name == "eslint_d"
+		or client.name == "texlab" -- doesn't work
+	then
 		vim.api.nvim_command([[augroup Format]])
 		vim.api.nvim_command([[autocmd! * <buffer>]])
 		vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
@@ -169,8 +176,27 @@ mason_lspconfig.setup_handlers({
 			root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
 			settings = {
 				gopls = {
+					templateExtensions = { "tpl", "yaml", "tmpl", "tmpl.html" },
+					experimentalPostfixCompletions = true,
+					gofumpt = true,
+					usePlaceholders = true,
 					analyses = {
+						shadow = true,
+						nilness = true,
+						unusedresult = true,
 						unusedparams = true,
+						unusedwrite = true,
+						useany = true,
+						unreachable = true,
+					},
+					hints = {
+						assignVariableTypes = true,
+						compositeLiteralFields = true,
+						compositeLiteralTypes = true,
+						constantValues = true,
+						functionTypeParameters = true,
+						parameterNames = true,
+						rangeVariableTypes = true,
 					},
 					staticcheck = true,
 				},

@@ -91,20 +91,21 @@ local function make(target)
 	vim.api.nvim_feedkeys("make " .. target .. "\n", "n", true)
 end
 
--- vim.api.nvim_create_autocmd({ "TermClose" }, {
--- 	group = vim.api.nvim_create_augroup("toggle_terminal_close", { clear = true }),
--- 	callback = function()
--- 		if vim.bo.filetype ~= "termdebug" then
--- 			if #vim.api.nvim_list_wins() > 1 then
--- 				vim.cmd("quit!")
--- 			else
--- 				vim.cmd("bd!")
--- 			end
--- 		end
--- 	end,
--- })
+vim.api.nvim_create_autocmd({ "TermClose" }, {
+	group = vim.api.nvim_create_augroup("toggle_terminal_close", { clear = true }),
+	callback = function()
+		if vim.bo.filetype ~= "termdebug" then
+			if #vim.api.nvim_list_wins() > 1 then
+				vim.cmd("quit!")
+			else
+				vim.cmd("bd!")
+			end
+		end
+	end,
+})
 
 local function open_floating_terminal()
+	-- shell = vim.env.SHELL
 	local current_dir = vim.fn.expand("%:p:h")
 	local width = vim.api.nvim_get_option("columns")
 	local height = vim.api.nvim_get_option("lines")
@@ -141,14 +142,14 @@ local function open_floating_terminal()
 	vim.api.nvim_command("startinsert | e term://" .. current_dir .. "//bash")
 end
 
-local function responsive_terminal()
+function responsive_terminal()
 	local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
 	local buffer_exists = vim.fn.bufexists(term_name)
 	if buffer_exists == 0 then
 		if vim.fn.winwidth(0) > 85 then
 			vim.cmd("vsplit")
 		else
-			vim.cmd("split | resize 10")
+			vim.cmd("split | resize 13")
 		end
 	end
 	toggle_terminal()
@@ -503,16 +504,6 @@ wk.register({
 	["-"] = {
 		"<cmd>e %:p:h<CR>",
 		"Current directory",
-	},
-	["<M-d>"] = {
-		function()
-			local bufnr = vim.api.nvim_get_current_buf()
-			local buftype = vim.api.nvim_buf_get_option(bufnr, "buftype")
-			if buftype == "terminal" then
-				vim.cmd("<cmd>bd!<CR>")
-			end
-		end,
-		"Go to the right window",
 	},
 	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
@@ -1099,8 +1090,26 @@ wk.register({
 		b = { "<cmd>silent G blame<CR>", "Blame on the current file" },
 		C = { ":silent G checkout ", "Checkout", silent = false },
 		c = { "<cmd>silent vertical G commit<CR>", "Commit" },
-		D = { "<cmd>silent Gvdiffsplit! HEAD~<CR>", "Diff with previous commit" },
-		d = { "<cmd>silent Gvdiffsplit!<CR>", "Diff" },
+		D = {
+			function()
+				if vim.fn.winwidth(0) > 85 then
+					vim.cmd("silent Gvdiffsplit! HEAD~")
+				else
+					vim.cmd("silent Gdiffsplit! HEAD~")
+				end
+			end,
+			"Diff with previous commit",
+		},
+		d = {
+			function()
+				if vim.fn.winwidth(0) > 85 then
+					vim.cmd("silent Gvdiffsplit!")
+				else
+					vim.cmd("silent Gdiffsplit!")
+				end
+			end,
+			"Diff with previous commit",
+		},
 		E = {
 			"<cmd>silent vertical G commit --amend<CR>",
 			"Amend (edit) commit with staged changes",
@@ -1712,7 +1721,6 @@ wk.register({
 		end,
 		"Go back",
 	},
-	["<M-d>"] = { "<C-\\><C-n>:bd!<CR>", "Quit terminal" }, -- TODO: remove when this is fixed
 	["<C-s>"] = { "<C-\\><C-n><C-w>s <cmd>startinsert | term<CR>", "Horizontal split" },
 	["<C-v>"] = { "<C-\\><C-n><C-w>v<cmd>startinsert | term<CR>", "Vertical split" },
 	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
