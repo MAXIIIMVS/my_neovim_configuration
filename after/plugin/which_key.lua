@@ -4,7 +4,20 @@ if not present then
 	return
 end
 
-local catppuccin = require("catppuccin")
+local flavors = {
+	"catppuccin-mocha",
+	"duskfox",
+	"catppuccin-macchiato",
+	"catppuccin-frappe",
+	"nightfox",
+	"nordfox",
+	"carbonfox",
+	"terafox",
+	"dayfox",
+	"dawnfox",
+	"catppuccin-latte",
+}
+
 local lualine = require("lualine")
 local bufferlineUi = require("bufferline.ui")
 -- local telescope = require("telescope")
@@ -512,9 +525,15 @@ wk.register({
 	["<M-p>"] = { "<CMD>silent NavigatorPrevious<CR>", "Go to the down window" },
 	["]<space>"] = { "o<ESC>k", "Insert a blank line below" },
 	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
+	["[A"] = {
+		function()
+			vim.cmd.colorscheme(flavors[1])
+			sync_statusline_with_tmux()
+		end,
+		"First dark theme",
+	},
 	["[a"] = {
 		function()
-			local flavors = { "catppuccin-mocha", "catppuccin-macchiato", "catppuccin-frappe", "catppuccin-latte" }
 			local index = #flavors
 			for i, f in ipairs(flavors) do
 				if vim.g.colors_name == f then
@@ -528,11 +547,17 @@ wk.register({
 			vim.cmd.colorscheme(flavors[index])
 			sync_statusline_with_tmux()
 		end,
-		"Previous catppuccin flavor",
+		"Previous flavor",
+	},
+	["]A"] = {
+		function()
+			vim.cmd.colorscheme(flavors[#flavors])
+			sync_statusline_with_tmux()
+		end,
+		"Last light theme",
 	},
 	["]a"] = {
 		function()
-			local flavors = { "catppuccin-mocha", "catppuccin-macchiato", "catppuccin-frappe", "catppuccin-latte" }
 			local index = 1
 			for i, f in ipairs(flavors) do
 				if vim.g.colors_name == f then
@@ -546,9 +571,8 @@ wk.register({
 			vim.cmd.colorscheme(flavors[index])
 			sync_statusline_with_tmux()
 		end,
-		"Next catppuccin flavor",
+		"Next flavor",
 	},
-
 	["]g"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
 	["[g"] = { "<cmd>silent Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
 	["[E"] = {
@@ -1298,8 +1322,16 @@ wk.register({
 				-- 	return
 				-- end
 				vim.g.is_transparent = not vim.g.is_transparent
+				-- local tokyonight_options = require("tokyonight.config").options
+				-- tokyonight_options.transparent = vim.g.is_transparent
+				-- local osaka_options = require("solarized-osaka.config").options
+				-- osaka_options.transparent = vim.g.is_transparent
+				local catppuccin = require("catppuccin")
 				catppuccin.options.transparent_background = vim.g.is_transparent
+				local nightfox = require("nightfox.config")
+				nightfox.options.transparent = vim.g.is_transparent
 				catppuccin.compile()
+				vim.cmd("NightfoxCompile")
 				vim.cmd.colorscheme(vim.g.colors_name)
 				sync_statusline_with_tmux()
 			end,

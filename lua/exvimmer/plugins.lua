@@ -126,6 +126,15 @@ return require("lazy").setup({
 		event = "BufEnter",
 	},
 	{ "echasnovski/mini.splitjoin", opts = {}, event = "BufEnter" },
+	{
+		"EdenEast/nightfox.nvim",
+		event = "VeryLazy",
+		opts = {
+			options = {
+				transparent = vim.g.is_transparent,
+			},
+		},
+	},
 	{ "famiu/bufdelete.nvim", cmd = { "Bdelete", "Bwipeout" } },
 	{
 		"folke/todo-comments.nvim",

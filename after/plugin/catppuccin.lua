@@ -105,5 +105,3 @@ catppuccin.setup({
 		-- (https://github.com/catppuccin/nvim#integrations)
 	},
 })
-
-vim.cmd.colorscheme("catppuccin")

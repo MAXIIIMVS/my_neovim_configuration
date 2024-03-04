@@ -1,6 +1,11 @@
 local lualine = require("lualine")
 local custom_auto = require("lualine.themes.auto")
--- custom_auto.normal.c.bg = "NONE"
+custom_auto.normal.c.bg = "NONE"
+custom_auto.insert.c.bg = "NONE"
+custom_auto.terminal.c.bg = "NONE"
+custom_auto.visual.c.bg = "NONE"
+custom_auto.command.c.bg = "NONE"
+custom_auto.replace.c.bg = "NONE"
 
 -- stylua: ignore
 local colors = {
@@ -75,6 +80,7 @@ local config = {
 		component_separators = "",
 		section_separators = "",
 		-- theme = "catppuccin",
+		-- theme = "auto", -- remove custom_auto
 		theme = custom_auto,
 		-- theme = {
 		-- 	normal = { c = { fg = colors.fg, bg = colors.bg } },
