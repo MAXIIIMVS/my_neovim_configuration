@@ -129,11 +129,19 @@ return require("lazy").setup({
 	{
 		"EdenEast/nightfox.nvim",
 		event = "VeryLazy",
-		opts = {
-			options = {
-				transparent = vim.g.is_transparent,
-			},
-		},
+		config = function()
+			require("nightfox").setup({
+				options = {
+					transparent = vim.g.is_transparent,
+					terminal_colors = false,
+				},
+				groups = {
+					all = {
+						NormalFloat = { fg = "fg1", bg = "NONE" },
+					},
+				},
+			})
+		end,
 	},
 	{ "famiu/bufdelete.nvim", cmd = { "Bdelete", "Bwipeout" } },
 	{

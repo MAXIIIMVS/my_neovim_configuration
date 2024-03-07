@@ -162,7 +162,7 @@ function responsive_terminal()
 		if vim.fn.winwidth(0) > 85 then
 			vim.cmd("vsplit")
 		else
-			vim.cmd("split | resize 13")
+			vim.cmd("split | resize 12")
 		end
 	end
 	toggle_terminal()
@@ -793,7 +793,7 @@ wk.register({
 			},
 			h = {
 				function()
-					vim.cmd("split")
+					vim.cmd("split | resize 12")
 					toggle_terminal()
 				end,
 				"Horizontal",
