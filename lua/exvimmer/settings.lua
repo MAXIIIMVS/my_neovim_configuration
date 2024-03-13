@@ -190,11 +190,6 @@ ab :degrees: °
 ]])
 -- }}}
 
--- My variables {{{
-vim.g.is_transparent = true
-vim.g.termdebug_running = false
--- }}}
-
 -- listchars {{{
 -- vim.o.list = true
 -- vim.g.indentline_char = "│"
@@ -315,6 +310,7 @@ vim.o.belloff = "all"
 vim.o.confirm = true
 vim.opt.guifont = "FiraCode Nerd Font Mono Medium"
 vim.go.t_Co = "256"
+vim.g.scrollopt = "ver,hor,jump"
 -- vim.go.t_ut = ""
 vim.o.clipboard = "unnamedplus"
 vim.o.mouse = "a"
@@ -369,8 +365,6 @@ vim.o.fillchars = "eob: "
 
 -- Highlights {{{
 -----------------------------------------------------------------------
-vim.o.cursorlineopt = "number" -- disable cursorline in transparent mode
-
 -- vim.cmd("highlight GitSignsCurrentLineBlame guifg=#666666")
 
 utils.create_augroup({

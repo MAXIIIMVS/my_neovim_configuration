@@ -66,6 +66,84 @@ return require("lazy").setup({
 		"catppuccin/nvim",
 		name = "catppuccin",
 		lazy = false,
+		opts = {
+			flavour = "mocha", -- latte, frappe, macchiato, mocha
+			background = { -- :h background
+				light = "latte",
+				dark = "mocha",
+			},
+			compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
+			transparent_background = vim.g.is_transparent,
+			term_colors = true,
+			color_overrides = {
+				mocha = {
+					-- base = "#1A1A2F",
+					-- base = "#1D182E",
+					-- base = "#171421",
+					base = "#191724",
+				},
+			},
+			highlight_overrides = {
+				-- 	-- latte = telescopeBorderless("latte"),
+				-- 	-- frappe = telescopeBorderless("frappe"),
+				-- 	-- macchiato = telescopeBorderless("macchiato"),
+				-- 	-- mocha = telescopeBorderless("mocha"),
+				mocha = function()
+					return {
+						-- 	-- 	-- 	-- ["@text.todo"] = { fg = "#FF007A", bg = "#171421" },
+						-- 	-- 	-- 	["@text.todo"] = { fg = "#FF1C7B", bg = "#171421" },
+						-- 	-- 	-- 	["@text.note"] = { fg = "#0AF106", bg = "#171421" },
+						-- 	-- 	-- 	["@text.warning"] = { fg = "#F0FD00", bg = "#171421" },
+						["VertSplit"] = { fg = "#403d52" },
+						["FloatBorder"] = { fg = "#525D8E" },
+					}
+				end,
+			},
+			integrations = {
+				cmp = true,
+				gitsigns = true,
+				dashboard = true,
+				dap = true,
+				telescope = {
+					enabled = true,
+					-- style = "nvchad",
+				},
+				indent_blankline = {
+					enabled = true,
+					scope_color = "", -- catppuccin color (eg. `lavender`) Default: text
+					colored_indent_levels = false,
+				},
+				which_key = false,
+				treesitter = true,
+				mason = false,
+				nvimtree = true,
+				lsp_saga = false,
+				native_lsp = {
+					enabled = true,
+					virtual_text = {
+						errors = { "italic" },
+						hints = { "italic" },
+						warnings = { "italic" },
+						information = { "italic" },
+					},
+					underlines = {
+						errors = { "underline" },
+						hints = { "underline" },
+						warnings = { "underline" },
+						information = { "underline" },
+					},
+					inlay_hints = {
+						background = true,
+					},
+				},
+				mini = {
+					enabled = true,
+					indentscope_color = "lavender",
+				},
+				vimwiki = true,
+				-- (https://github.com/catppuccin/nvim#integrations)
+			},
+		},
 		priority = 1000,
 	},
 	{
@@ -486,7 +564,7 @@ return require("lazy").setup({
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
 	{ "tpope/vim-abolish", event = "VeryLazy" },
-	-- { "tpope/vim-capslock", event = "VeryLazy" },
+	{ "tpope/vim-capslock", event = "VeryLazy" },
 	{ "tpope/vim-dadbod", lazy = true },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },

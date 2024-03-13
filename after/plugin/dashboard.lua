@@ -142,22 +142,22 @@ db.setup({
 				key = "w",
 			},
 			{
-				icon = "💻 ",
-				desc = "Terminal",
-				action = "lua responsive_terminal()",
-				key = "t",
-			},
-			{
 				icon = "🔌 ",
 				desc = "Manage Plugins",
 				action = "Lazy",
-				key = "l",
+				key = "p",
 			},
 			{
 				icon = "🚀 ",
 				desc = "Manage LSP/Formatters/...",
 				action = "Mason",
 				key = "m",
+			},
+			{
+				icon = "💻 ",
+				desc = "Terminal",
+				action = "lua responsive_terminal()",
+				key = "t",
 			},
 			{
 				icon = "🚪 ",

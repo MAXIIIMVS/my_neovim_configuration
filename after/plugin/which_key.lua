@@ -267,11 +267,11 @@ local function get_git_hash()
 end
 
 function sync_statusline_with_tmux()
+	vim.o.cursorlineopt = vim.g.is_transparent and "number" or "number,line"
+	vim.o.cursorline = not vim.g.is_transparent
 	local current_background = get_highlight("Normal")["guibg"]
 	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
-	vim.o.cursorlineopt = vim.g.is_transparent and "number" or "number,line"
-	vim.o.cursorline = not vim.g.is_transparent
 	-- vim.o.fillchars = "eob: "
 end
 
@@ -528,7 +528,6 @@ wk.register({
 	["[A"] = {
 		function()
 			vim.cmd.colorscheme(flavors[1])
-			sync_statusline_with_tmux()
 		end,
 		"First dark theme",
 	},
@@ -545,14 +544,12 @@ wk.register({
 				index = #flavors
 			end
 			vim.cmd.colorscheme(flavors[index])
-			sync_statusline_with_tmux()
 		end,
 		"Previous flavor",
 	},
 	["]A"] = {
 		function()
 			vim.cmd.colorscheme(flavors[#flavors])
-			sync_statusline_with_tmux()
 		end,
 		"Last light theme",
 	},
@@ -569,7 +566,6 @@ wk.register({
 				index = 1
 			end
 			vim.cmd.colorscheme(flavors[index])
-			sync_statusline_with_tmux()
 		end,
 		"Next flavor",
 	},
@@ -1245,7 +1241,6 @@ wk.register({
 		b = {
 			function()
 				vim.o.background = vim.o.background == "dark" and "light" or "dark"
-				sync_statusline_with_tmux()
 			end,
 			"Background color (Light/dark) ",
 		},
@@ -1333,7 +1328,6 @@ wk.register({
 				catppuccin.compile()
 				vim.cmd("NightfoxCompile")
 				vim.cmd.colorscheme(vim.g.colors_name)
-				sync_statusline_with_tmux()
 			end,
 			"Transparency",
 		},
