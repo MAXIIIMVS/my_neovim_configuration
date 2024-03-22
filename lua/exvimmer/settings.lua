@@ -87,10 +87,11 @@ endif
 " endfunction
 " autocmd BufReadPre * call OpenWithVimInTmuxIfBig()
 
-augroup Mkdir
-  autocmd!
-  autocmd BufWritePre * call mkdir(expand("<afile>:p:h"), "p")
-augroup END
+" NOTE: this autocmd makes oil.nvim stop working
+" augroup Mkdir
+"   autocmd!
+"   autocmd BufWritePre * call mkdir(expand("<afile>:p:h"), "p")
+" augroup END
 
 " Turn off paste mode when leaving insert
 autocmd InsertLeave * set nopaste

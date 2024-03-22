@@ -551,6 +551,7 @@ return require("lazy").setup({
 			},
 		},
 		event = "VeryLazy",
+		dependencies = { "nvim-neotest/nvim-nio" },
 	},
 	{
 		"rhysd/clever-f.vim",
@@ -562,6 +563,21 @@ return require("lazy").setup({
 		end,
 	},
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
+	{
+		"stevearc/oil.nvim",
+		opts = {
+			default_file_explorer = false,
+			keymaps = {
+				["<C-s>"] = false,
+				["<C-v>"] = "actions.select_vsplit",
+			},
+			view_options = {
+				show_hidden = true,
+			},
+		},
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		cmd = "Oil",
+	},
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
 	{ "tpope/vim-abolish", event = "VeryLazy" },
 	{ "tpope/vim-capslock", event = "VeryLazy" },

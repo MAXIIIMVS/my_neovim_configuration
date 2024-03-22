@@ -104,18 +104,18 @@ local function make(target)
 	vim.api.nvim_feedkeys("make " .. target .. "\n", "n", true)
 end
 
-vim.api.nvim_create_autocmd({ "TermClose" }, {
-	group = vim.api.nvim_create_augroup("toggle_terminal_close", { clear = true }),
-	callback = function()
-		if vim.bo.filetype ~= "termdebug" then
-			if #vim.api.nvim_list_wins() > 1 then
-				vim.cmd("quit!")
-			else
-				vim.cmd("bd!")
-			end
-		end
-	end,
-})
+-- vim.api.nvim_create_autocmd({ "TermClose" }, {
+-- 	group = vim.api.nvim_create_augroup("toggle_terminal_close", { clear = true }),
+-- 	callback = function()
+-- 		if vim.bo.filetype ~= "termdebug" then
+-- 			if #vim.api.nvim_list_wins() > 1 then
+-- 				vim.cmd("quit!")
+-- 			else
+-- 				vim.cmd("bd!")
+-- 			end
+-- 		end
+-- 	end,
+-- })
 
 local function open_floating_terminal()
 	-- shell = vim.env.SHELL
@@ -514,10 +514,8 @@ wk.register({
 		"Continue/Start DAP",
 	},
 	["<Nop>"] = { "<Plug>VimwikiRemoveHeaderLevel", "disabled" },
-	["-"] = {
-		"<cmd>e %:p:h<CR>",
-		"Current directory",
-	},
+	["-"] = { "<cmd>silent Oil<CR>", "Current directory" },
+	-- ["-"] = { "<cmd>e %:p:h<CR>", "Current directory" },
 	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
 	["<M-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
