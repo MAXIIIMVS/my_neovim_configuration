@@ -764,6 +764,7 @@ wk.register({
 			end,
 			"List workspace folders",
 		},
+		H = { "<cmd>silent Telescope keymaps<CR>", "Keymaps" },
 		h = { "<cmd>WhichKey<CR>", "Which Key" },
 		m = { "<cmd>messages<CR>", "messages" },
 		q = { "<cmd>tabclose<CR>", "Close tab" },
