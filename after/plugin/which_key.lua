@@ -516,6 +516,36 @@ wk.register({
 	["<Nop>"] = { "<Plug>VimwikiRemoveHeaderLevel", "disabled" },
 	["-"] = { "<cmd>silent Oil<CR>", "Current directory" },
 	-- ["-"] = { "<cmd>e %:p:h<CR>", "Current directory" },
+	["_"] = {
+		function()
+			if vim.bo.buftype == "terminal" then
+				vim.cmd("startinsert")
+				return
+			end
+			local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
+			local buffer_exists = vim.fn.bufexists(term_name)
+			if buffer_exists == 0 then
+				vim.cmd("split | resize 12")
+			end
+			toggle_terminal()
+		end,
+		"Horizontal Terminal",
+	},
+	["|"] = {
+		function()
+			if vim.bo.buftype == "terminal" then
+				vim.cmd("startinsert")
+				return
+			end
+			local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
+			local buffer_exists = vim.fn.bufexists(term_name)
+			if buffer_exists == 0 then
+				vim.cmd("vsplit")
+			end
+			toggle_terminal()
+		end,
+		"Vertical Terminal",
+	},
 	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
 	["<M-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
@@ -605,7 +635,7 @@ wk.register({
 	["<M-Down>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
 	["<C-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
-	["<M-t>"] = { toggle_terminal, "horizaontal terminal" },
+	["<M-t>"] = { toggle_terminal, "Terminal" },
 	[";"] = {
 		name = "Quick",
 		[";"] = { "<cmd>Bdelete<CR>", "Delete current buffer" },

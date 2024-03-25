@@ -154,10 +154,10 @@ db.setup({
 				key = "m",
 			},
 			{
-				icon = "💻 ",
-				desc = "Terminal",
-				action = "lua responsive_terminal()",
-				key = "t",
+				icon = "📂 ",
+				desc = "Other Places",
+				action = "Telescope zoxide list",
+				key = "r",
 			},
 			{
 				icon = "🚪 ",
