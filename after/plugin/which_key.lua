@@ -818,14 +818,30 @@ wk.register({
 			},
 			h = {
 				function()
-					vim.cmd("split | resize 12")
+					if vim.bo.buftype == "terminal" then
+						vim.cmd("startinsert")
+						return
+					end
+					local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
+					local buffer_exists = vim.fn.bufexists(term_name)
+					if buffer_exists == 0 then
+						vim.cmd("split | resize 12")
+					end
 					toggle_terminal()
 				end,
 				"Horizontal",
 			},
 			v = {
 				function()
-					vim.cmd("vsplit")
+					if vim.bo.buftype == "terminal" then
+						vim.cmd("startinsert")
+						return
+					end
+					local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
+					local buffer_exists = vim.fn.bufexists(term_name)
+					if buffer_exists == 0 then
+						vim.cmd("vsplit")
+					end
 					toggle_terminal()
 				end,
 				"Vertical",
