@@ -27,6 +27,7 @@ local quotes = {
 	"You know when you're out of the zone because you are thinking and making decisions",
 	"A joyful life is an individual creation that cannot be copied from a recipe",
 	"If you're interested in something, you'll focus on it",
+	"Self-respect is the fruit of discipline",
 	"Focused, Hard Work Is the Real Key to Success",
 	"If you don't play, you won't win!",
 	"Stop Asking; Just go do something",
@@ -167,7 +168,7 @@ db.setup({
 			},
 		},
 		footer = {
-			"👑 " .. "If you're interested in something, you'll focus on it" .. " 👑",
+			"👑 " .. "Self-respect is the fruit of discipline" .. " 👑",
 		},
 	},
 })

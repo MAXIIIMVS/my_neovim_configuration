@@ -1645,7 +1645,20 @@ wk.register({
 
 -- terminal mode {{{
 wk.register({
-	["<Esc>"] = { "<C-\\><C-n>", "quit insert mode" },
+	["<Esc>"] = { "<C-\\><C-n>", "Quit insert mode" },
+	[";Q"] = { vim.cmd.qall, "Quit" },
+	[";q"] = {
+		function()
+			if vim.bo.filetype ~= "termdebug" then
+				if #vim.api.nvim_list_wins() > 1 then
+					vim.cmd("quit!")
+				else
+					vim.cmd("bd!")
+				end
+			end
+		end,
+		"Quit",
+	},
 	["<F1>"] = {
 		function()
 			local term_name = " Make Terminal"
