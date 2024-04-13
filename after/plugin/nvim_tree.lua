@@ -27,7 +27,7 @@ end
 local options = {
 	on_attach = my_on_attach,
 	disable_netrw = false,
-	hijack_netrw = true,
+	hijack_netrw = false,
 	hijack_cursor = true,
 	hijack_unnamed_buffer_when_opening = true,
 	sync_root_with_cwd = true,

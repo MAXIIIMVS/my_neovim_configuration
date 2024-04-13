@@ -104,6 +104,7 @@ return require("lazy").setup({
 				gitsigns = true,
 				dashboard = true,
 				dap = true,
+				dap_ui = true,
 				telescope = {
 					enabled = true,
 					-- style = "nvchad",
@@ -566,7 +567,7 @@ return require("lazy").setup({
 	{
 		"stevearc/oil.nvim",
 		opts = {
-			default_file_explorer = false,
+			default_file_explorer = true,
 			keymaps = {
 				["<C-s>"] = false,
 				["<C-v>"] = "actions.select_vsplit",

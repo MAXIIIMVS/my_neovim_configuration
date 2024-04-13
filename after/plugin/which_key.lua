@@ -1639,6 +1639,7 @@ wk.register({
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 	["<C-a>"] = { "<ESC>I", "Go to the beginning of line" },
 	["<C-e>"] = { "<ESC>A", "Go to the end of line" },
+	["<C-l>"] = { "<Plug>CapsLockEnable", "Toggle capslock" },
 	["<C-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 }, { prefix = "", mode = "s", noremap = true, silent = true, nowait = true })
 -- }}}

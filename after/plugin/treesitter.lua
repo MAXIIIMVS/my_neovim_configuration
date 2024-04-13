@@ -67,6 +67,7 @@ require("nvim-treesitter.configs").setup({
 		"tsx",
 		"vim",
 		"yaml",
+		"proto",
 	},
 	sync_install = false,
 	indent = {

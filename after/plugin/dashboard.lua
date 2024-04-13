@@ -20,9 +20,6 @@ local quotes = {
 	"In Order to Be Irreplaceable, One Must Always Be Different",
 	"The Best Way to Predict the Future Is to Invent It",
 	"You Can't Learn Anything From the Things You Already Know",
-	"The Code You Write Makes You a Programmer",
-	"The Code You Delete Makes You a Good Programmer",
-	"The Code You Don't Have to Write Makes You a Great Programmer",
 	"Stop thinking of life as something that happens to you",
 	"You know when you're out of the zone because you are thinking and making decisions",
 	"A joyful life is an individual creation that cannot be copied from a recipe",
@@ -31,6 +28,7 @@ local quotes = {
 	"Focused, Hard Work Is the Real Key to Success",
 	"If you don't play, you won't win!",
 	"Stop Asking; Just go do something",
+	"Insanity is doing the same thing over and over again and expecting different results",
 }
 
 -- source: https://emojicombos.com/
