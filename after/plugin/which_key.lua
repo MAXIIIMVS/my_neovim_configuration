@@ -153,6 +153,7 @@ local function open_floating_terminal()
 	vim.api.nvim_win_set_option(win, "winhl", "NormalFloat:NormalFloat")
 	vim.api.nvim_win_set_option(win, "winhl", "FloatBorder:FloatBorder")
 	vim.api.nvim_command("startinsert | e term://" .. current_dir .. "//bash")
+	-- vim.cmd("setlocal nobuflisted")
 end
 
 function responsive_terminal()
@@ -168,7 +169,7 @@ function responsive_terminal()
 	toggle_terminal()
 end
 
-function toggle_terminal()
+function toggle_terminal(name)
 	if vim.bo.buftype == "terminal" then
 		if #vim.api.nvim_list_wins() > 1 then
 			vim.api.nvim_command("wincmd p")
@@ -178,6 +179,9 @@ function toggle_terminal()
 		return
 	end
 	local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
+	if name then
+		term_name = name .. " (Terminal)"
+	end
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
 		local win_buffer = vim.api.nvim_win_get_buf(win)
 		local win_buffer_name = vim.fn.bufname(win_buffer)
@@ -197,6 +201,8 @@ function toggle_terminal()
 	else
 		vim.cmd("startinsert | e term://%:p:h//bash | file " .. term_name)
 	end
+	vim.cmd("setlocal nobuflisted")
+	-- vim.cmd("normal mT") -- Set mark 'T' at the current cursor position
 end
 
 local function get_highlight(group)
@@ -635,7 +641,12 @@ wk.register({
 	["<M-Down>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
 	["<C-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
-	["<M-t>"] = { toggle_terminal, "Terminal" },
+	["<M-t>"] = {
+		function()
+			toggle_terminal("main")
+		end,
+		"Main Terminal",
+	},
 	[";"] = {
 		name = "Quick",
 		[";"] = { "<cmd>Bdelete<CR>", "Delete current buffer" },
@@ -1647,6 +1658,11 @@ wk.register({
 -- terminal mode {{{
 wk.register({
 	["<Esc>"] = { "<C-\\><C-n>", "Quit insert mode" },
+	[";f"] = {
+		"<C-\\><C-n>:f ",
+		"Set filename",
+		silent = false,
+	},
 	[";Q"] = { vim.cmd.qall, "Quit" },
 	[";q"] = {
 		function()
@@ -1798,18 +1814,21 @@ wk.register({
 		"Continue/Start DAP",
 	},
 	-- ["<M-t>"] = { "<C-\\><C-n><c-o>", "go back" },
-	["<M-t>"] = {
+	["<M-t>"] = { toggle_terminal, "Go back" },
+	["<C-s>"] = {
 		function()
-			if #vim.api.nvim_list_wins() > 1 then
-				vim.api.nvim_command("wincmd p")
-			else
-				vim.api.nvim_command("bprevious")
-			end
+			vim.cmd("split | startinsert | term")
+			vim.cmd("setlocal nobuflisted")
 		end,
-		"Go back",
+		"Horizontal split",
 	},
-	["<C-s>"] = { "<C-\\><C-n><C-w>s <cmd>startinsert | term<CR>", "Horizontal split" },
-	["<C-v>"] = { "<C-\\><C-n><C-w>v<cmd>startinsert | term<CR>", "Vertical split" },
+	["<C-v>"] = {
+		function()
+			vim.cmd("vs | startinsert | term")
+			vim.cmd("setlocal nobuflisted")
+		end,
+		"Horizontal split",
+	},
 	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
 	["<M-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
