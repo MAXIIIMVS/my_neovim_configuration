@@ -156,55 +156,6 @@ local function open_floating_terminal()
 	-- vim.cmd("setlocal nobuflisted")
 end
 
-function responsive_terminal()
-	local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
-	local buffer_exists = vim.fn.bufexists(term_name)
-	if buffer_exists == 0 then
-		if vim.fn.winwidth(0) > 85 then
-			vim.cmd("vsplit")
-		else
-			vim.cmd("split | resize 12")
-		end
-	end
-	toggle_terminal()
-end
-
-function toggle_terminal(name)
-	if vim.bo.buftype == "terminal" then
-		if #vim.api.nvim_list_wins() > 1 then
-			vim.api.nvim_command("wincmd p")
-		else
-			vim.api.nvim_command("bprevious")
-		end
-		return
-	end
-	local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
-	if name then
-		term_name = name .. " (Terminal)"
-	end
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		local win_buffer = vim.api.nvim_win_get_buf(win)
-		local win_buffer_name = vim.fn.bufname(win_buffer)
-
-		if win_buffer_name == term_name then
-			vim.api.nvim_set_current_win(win)
-			vim.api.nvim_command("startinsert")
-			return
-		end
-	end
-	local buffer_exists = vim.fn.bufexists(term_name)
-	if buffer_exists ~= 0 then
-		vim.cmd("buffer " .. term_name .. " | startinsert")
-		if vim.bo.buftype ~= "terminal" then
-			vim.cmd("bd! | startinsert | e term://%:p:h//bash | file " .. term_name)
-		end
-	else
-		vim.cmd("startinsert | e term://%:p:h//bash | file " .. term_name)
-	end
-	vim.cmd("setlocal nobuflisted")
-	-- vim.cmd("normal mT") -- Set mark 'T' at the current cursor position
-end
-
 local function get_highlight(group)
 	local src = "redir @a | silent! hi " .. group .. " | redir END | let output = @a"
 	vim.api.nvim_exec2(src, { output = true })
@@ -521,36 +472,17 @@ wk.register({
 	},
 	["<Nop>"] = { "<Plug>VimwikiRemoveHeaderLevel", "disabled" },
 	["-"] = { "<cmd>silent Oil<CR>", "Current directory" },
-	-- ["-"] = { "<cmd>e %:p:h<CR>", "Current directory" },
 	["_"] = {
 		function()
-			if vim.bo.buftype == "terminal" then
-				vim.cmd("startinsert")
-				return
-			end
-			local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
-			local buffer_exists = vim.fn.bufexists(term_name)
-			if buffer_exists == 0 then
-				vim.cmd("split | resize 12")
-			end
-			toggle_terminal()
+			vim.cmd("ToggleTerm direction=horizontal dir=%:p:h")
 		end,
-		"Horizontal Terminal",
+		"Horizontal",
 	},
 	["|"] = {
 		function()
-			if vim.bo.buftype == "terminal" then
-				vim.cmd("startinsert")
-				return
-			end
-			local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
-			local buffer_exists = vim.fn.bufexists(term_name)
-			if buffer_exists == 0 then
-				vim.cmd("vsplit")
-			end
-			toggle_terminal()
+			vim.cmd("ToggleTerm size=80 direction=vertical dir=%:p:h")
 		end,
-		"Vertical Terminal",
+		"Vertical",
 	},
 	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
@@ -643,9 +575,9 @@ wk.register({
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
 	["<M-t>"] = {
 		function()
-			toggle_terminal("main")
+			vim.cmd("ToggleTerm dir=%:p:h")
 		end,
-		"Main Terminal",
+		"horizaontal terminal",
 	},
 	[";"] = {
 		name = "Quick",
@@ -824,43 +756,26 @@ wk.register({
 		t = {
 			name = "Terminal",
 			f = {
-				open_floating_terminal,
+				function()
+					vim.cmd("ToggleTerm size=160 direction=float dir=%:p:h")
+				end,
 				"Float",
 			},
 			h = {
 				function()
-					if vim.bo.buftype == "terminal" then
-						vim.cmd("startinsert")
-						return
-					end
-					local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
-					local buffer_exists = vim.fn.bufexists(term_name)
-					if buffer_exists == 0 then
-						vim.cmd("split | resize 12")
-					end
-					toggle_terminal()
+					vim.cmd("ToggleTerm direction=horizontal dir=%:p:h")
 				end,
 				"Horizontal",
 			},
 			v = {
 				function()
-					if vim.bo.buftype == "terminal" then
-						vim.cmd("startinsert")
-						return
-					end
-					local term_name = vim.fn.expand("%:p:h") .. " (Terminal)"
-					local buffer_exists = vim.fn.bufexists(term_name)
-					if buffer_exists == 0 then
-						vim.cmd("vsplit")
-					end
-					toggle_terminal()
+					vim.cmd("ToggleTerm size=80 direction=vertical dir=%:p:h")
 				end,
 				"Vertical",
 			},
 			t = {
 				function()
-					local current_dir = vim.fn.expand("%:p:h")
-					vim.api.nvim_command("tabnew | startinsert | e term://" .. current_dir .. "//bash")
+					vim.cmd("ToggleTerm direction=tab dir=%:p:h")
 				end,
 				"Tab",
 			},
@@ -1658,24 +1573,7 @@ wk.register({
 -- terminal mode {{{
 wk.register({
 	["<Esc>"] = { "<C-\\><C-n>", "Quit insert mode" },
-	[";f"] = {
-		"<C-\\><C-n>:f ",
-		"Set filename",
-		silent = false,
-	},
-	[";Q"] = { vim.cmd.qall, "Quit" },
-	[";q"] = {
-		function()
-			if vim.bo.filetype ~= "termdebug" then
-				if #vim.api.nvim_list_wins() > 1 then
-					vim.cmd("quit!")
-				else
-					vim.cmd("bd!")
-				end
-			end
-		end,
-		"Quit",
-	},
+	[";f"] = { "<C-\\><C-n>:f ", "Set filename", silent = false },
 	["<F1>"] = {
 		function()
 			local term_name = " Make Terminal"
@@ -1812,22 +1710,6 @@ wk.register({
 			end
 		end,
 		"Continue/Start DAP",
-	},
-	-- ["<M-t>"] = { "<C-\\><C-n><c-o>", "go back" },
-	["<M-t>"] = { toggle_terminal, "Go back" },
-	["<C-s>"] = {
-		function()
-			vim.cmd("split | startinsert | term")
-			vim.cmd("setlocal nobuflisted")
-		end,
-		"Horizontal split",
-	},
-	["<C-v>"] = {
-		function()
-			vim.cmd("vs | startinsert | term")
-			vim.cmd("setlocal nobuflisted")
-		end,
-		"Horizontal split",
 	},
 	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
 	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },

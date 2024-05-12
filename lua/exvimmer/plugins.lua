@@ -63,6 +63,28 @@ return require("lazy").setup({
 		},
 	},
 	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		opts = {
+			size = 13,
+			open_mapping = [[<M-t>]],
+			direction = "horizontal",
+			float_opts = {
+				border = "rounded",
+				winblend = 0,
+			},
+			autochdir = true,
+		},
+		cmd = {
+			"ToggleTerm",
+			"ToggleTermSetName",
+			"ToggleTermToggleAll",
+			"ToggleTermSendCurrentLine",
+			"ToggleTermSendVisualLines",
+			"ToggleTermSendVisualSelection",
+		},
+	},
+	{
 		"catppuccin/nvim",
 		name = "catppuccin",
 		lazy = false,
