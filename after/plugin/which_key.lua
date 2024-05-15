@@ -117,45 +117,6 @@ end
 -- 	end,
 -- })
 
-local function open_floating_terminal()
-	-- shell = vim.env.SHELL
-	local current_dir = vim.fn.expand("%:p:h")
-	local width = vim.api.nvim_get_option("columns")
-	local height = vim.api.nvim_get_option("lines")
-	local win_width = math.ceil(width * 0.95 - 4) -- Subtract 4 for the window border
-	local win_height = math.ceil(height * 0.95 - 4)
-	-- Calculate the starting position of the new floating window
-	local row = math.ceil((height - win_height) / 2 - 1)
-	local col = math.ceil((width - win_width) / 2)
-	local config = {
-		relative = "editor",
-		width = win_width,
-		height = win_height,
-		row = row,
-		col = col,
-		style = "minimal",
-		border = "rounded",
-	}
-	local buf = vim.api.nvim_create_buf(false, true)
-	local win = vim.api.nvim_open_win(buf, true, config)
-	vim.api.nvim_win_set_option(win, "winblend", 0)
-	vim.api.nvim_win_set_option(win, "winhighlight", "NormalFloat:NormalFloat,FloatBorder:FloatBorder")
-	vim.api.nvim_win_set_option(win, "winhighlight", "Normal:Normal")
-	vim.api.nvim_win_set_option(win, "signcolumn", "no")
-	vim.api.nvim_win_set_option(win, "number", false)
-	vim.api.nvim_win_set_option(win, "relativenumber", false)
-	vim.api.nvim_win_set_option(win, "cursorline", false)
-	vim.api.nvim_win_set_option(win, "cursorcolumn", false)
-	vim.api.nvim_win_set_option(win, "foldcolumn", "0")
-	vim.api.nvim_win_set_option(win, "list", false)
-	vim.api.nvim_win_set_option(win, "spell", false)
-	vim.api.nvim_win_set_option(win, "winhl", "Normal:Normal")
-	vim.api.nvim_win_set_option(win, "winhl", "NormalFloat:NormalFloat")
-	vim.api.nvim_win_set_option(win, "winhl", "FloatBorder:FloatBorder")
-	vim.api.nvim_command("startinsert | e term://" .. current_dir .. "//bash")
-	-- vim.cmd("setlocal nobuflisted")
-end
-
 local function get_highlight(group)
 	local src = "redir @a | silent! hi " .. group .. " | redir END | let output = @a"
 	vim.api.nvim_exec2(src, { output = true })
@@ -171,40 +132,27 @@ local function get_highlight(group)
 	return dict
 end
 
-function toggle_tmux_status(useTransparent)
-	local bgStyle = ""
-	if useTransparent then
-		bgStyle = "default"
-	else
-		local color = get_highlight("lualine_c_normal")["guibg"]
-		bgStyle = color ~= nil and color or "#181825"
-	end
-	local command = string.format(
-		"tmux show-option -gq status-style | grep -q 'bg=%s' && tmux set-option -gq status-style bg=%s || tmux set-option -gq status-style bg=%s; tmux refresh-client -S",
-		bgStyle,
-		bgStyle,
-		bgStyle
-	)
-	local handle = io.popen(command)
-	if handle then
-		handle:close()
-	else
-		print("Failed to execute the command.")
-	end
+local function is_tmux_running()
+	local tmux_env = vim.env.TMUX
+	return tmux_env ~= nil and tmux_env ~= ""
 end
 
 local function set_tmux_status_color(color)
-	local command = string.format(
-		"tmux show-option -gq status-style | grep -q 'bg=%s' && tmux set-option -gq status-style bg=%s || tmux set-option -gq status-style bg=%s; tmux refresh-client -S",
-		color,
-		color,
-		color
-	)
-	local handle = io.popen(command)
-	if handle then
-		handle:close()
+	if is_tmux_running() then
+		local command = string.format(
+			"tmux show-option -gq status-style | grep -q 'bg=%s' && tmux set-option -gq status-style bg=%s || tmux set-option -gq status-style bg=%s; tmux refresh-client -S",
+			color,
+			color,
+			color
+		)
+		local handle = io.popen(command)
+		if handle then
+			handle:close()
+		else
+			print("Failed to execute the command.")
+		end
 	else
-		print("Failed to execute the command.")
+		print("Tmux is not running. Skipping statusline color change.")
 	end
 end
 

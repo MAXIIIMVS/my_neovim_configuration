@@ -25,7 +25,6 @@ return require("lazy").setup({
 	},
 	{
 		"akinsho/bufferline.nvim",
-		event = "VeryLazy",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			options = {
@@ -66,6 +65,9 @@ return require("lazy").setup({
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		opts = {
+			start_in_insert = true,
+			persist_size = true,
+			persist_mode = false,
 			size = 13,
 			open_mapping = [[<M-t>]],
 			direction = "horizontal",
@@ -603,7 +605,7 @@ return require("lazy").setup({
 	},
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
 	{ "tpope/vim-abolish", event = "VeryLazy" },
-	{ "tpope/vim-capslock", event = "VeryLazy" },
+	-- { "tpope/vim-capslock", event = "VeryLazy" },
 	{ "tpope/vim-dadbod", lazy = true },
 	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },

@@ -60,7 +60,7 @@ let g:termdebug_map_K = 0
 " autocmd TermLeave * setlocal termguicolors
 " autocmd TermClose * execute 'bdelete! ' . expand('<abuf>')
 
-autocmd BufEnter * if &buftype == 'terminal' | startinsert | endif
+" autocmd BufEnter * if &buftype == 'terminal' | startinsert | endif
 
 if has('nvim')
   augroup hide_terminal_numbers
@@ -73,19 +73,6 @@ else
     autocmd BufEnter term://* setlocal nonumber norelativenumber nospell
   augroup END
 endif
-
-" WARNING: this function will prevent large files from opening, and it needs tmux
-" function! OpenWithVimInTmuxIfBig()
-"   let l:file = expand('%:p') " get the full path of the file
-"   let l:size = getfsize(l:file) " get the size of the file
-"
-"   " If the file size is more than 300KB, open with vim in a new tmux window
-"   if l:size > 1024 * 300
-"     execute '!tmux new-window vim ' . l:file
-"     silent bdelete
-"   endif
-" endfunction
-" autocmd BufReadPre * call OpenWithVimInTmuxIfBig()
 
 " NOTE: this autocmd makes oil.nvim stop working
 " augroup Mkdir
