@@ -177,6 +177,7 @@ return require("lazy").setup({
 		opts = {
 			-- buffer = { suffix = "", options = {} },
 			conflict = { suffix = "", options = {} },
+			diagnostic = { suffix = "", options = {} },
 			quickfix = { suffix = "", options = {} },
 		},
 		init = function()

@@ -523,7 +523,7 @@ wk.register({
 	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
 	["<M-t>"] = {
 		function()
-			vim.cmd("ToggleTerm dir=%:p:h")
+			vim.cmd("ToggleTerm")
 		end,
 		"horizaontal terminal",
 	},
@@ -607,6 +607,75 @@ wk.register({
 		},
 		T = { "<cmd>Telescope tags<CR>", "tags" },
 		t = {
+			name = "Terminal",
+			f = {
+				function()
+					vim.cmd("ToggleTerm size=160 direction=float dir=%:p:h")
+				end,
+				"Float",
+			},
+			h = {
+				function()
+					vim.cmd("ToggleTerm direction=horizontal dir=%:p:h")
+				end,
+				"Horizontal",
+			},
+			v = {
+				function()
+					vim.cmd("ToggleTerm size=80 direction=vertical dir=%:p:h")
+				end,
+				"Vertical",
+			},
+			t = {
+				function()
+					vim.cmd("ToggleTerm direction=tab dir=%:p:h")
+				end,
+				"Tab",
+			},
+		},
+		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
+		x = { vim.cmd.NvimTreeToggle, "Nvim Tree" },
+		X = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
+		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
+		-- Z = { "<C-w>|<C-w>_", "Maximize the window" },
+	},
+	[","] = {
+		name = "Miscellaneous",
+		["1"] = { "1<C-w>w", "Go to 1st window" },
+		["2"] = { "2<C-w>w", "Go to 2nd window" },
+		["3"] = { "3<C-w>w", "Go to 3rd window" },
+		["4"] = { "4<C-w>w", "Go to 4th window" },
+		["5"] = { "5<C-w>w", "Go to 5th window" },
+		["6"] = { "6<C-w>w", "Go to 6th window" },
+		["7"] = { "7<C-w>w", "Go to 7th window" },
+		["8"] = { "8<C-w>w", "Go to 8th window" },
+		["9"] = { "9<C-w>w", "Go to 9th window" },
+		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
+		D = { term_debug, "Debug with GDB" },
+		d = { "<cmd>silent Dashboard<CR>", "dashboard" },
+		f = {
+			function()
+				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+			end,
+			"List workspace folders",
+		},
+		H = { "<cmd>silent Telescope keymaps<CR>", "Keymaps" },
+		h = { "<cmd>WhichKey<CR>", "Which Key" },
+		m = { "<cmd>messages<CR>", "messages" },
+		q = { "<cmd>tabclose<CR>", "Close tab" },
+		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
+		S = {
+			[[:%s/<c-r><C-w>/<C-r><C-w>/gi<left><left><left>]],
+			"Substitute the word in the whole file (ignore case)",
+			silent = false,
+		},
+		s = {
+			[[:s/<C-r><C-w>/<C-r><C-w>/gi<left><left><left>]],
+			"Substitute the word in this line (ignore case)",
+			silent = false,
+		},
+		T = { "<cmd>tabnew<CR>", "Create an empty tab" },
+		t = {
 			name = "tmux",
 			c = { "<cmd>silent !tmux clock-mode<CR>", "Clock" },
 			F = {
@@ -658,76 +727,6 @@ wk.register({
 				"Vertical split",
 			},
 		},
-		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
-		x = { vim.cmd.NvimTreeToggle, "Nvim Tree" },
-		X = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
-		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
-		-- Z = { "<C-w>|<C-w>_", "Maximize the window" },
-	},
-	[","] = {
-		name = "Miscellaneous",
-		[","] = { open_floating_terminal, "Floating terminal" },
-		["1"] = { "1<C-w>w", "Go to 1st window" },
-		["2"] = { "2<C-w>w", "Go to 2nd window" },
-		["3"] = { "3<C-w>w", "Go to 3rd window" },
-		["4"] = { "4<C-w>w", "Go to 4th window" },
-		["5"] = { "5<C-w>w", "Go to 5th window" },
-		["6"] = { "6<C-w>w", "Go to 6th window" },
-		["7"] = { "7<C-w>w", "Go to 7th window" },
-		["8"] = { "8<C-w>w", "Go to 8th window" },
-		["9"] = { "9<C-w>w", "Go to 9th window" },
-		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
-		D = { term_debug, "Debug with GDB" },
-		d = { "<cmd>silent Dashboard<CR>", "dashboard" },
-		f = {
-			function()
-				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-			end,
-			"List workspace folders",
-		},
-		H = { "<cmd>silent Telescope keymaps<CR>", "Keymaps" },
-		h = { "<cmd>WhichKey<CR>", "Which Key" },
-		m = { "<cmd>messages<CR>", "messages" },
-		q = { "<cmd>tabclose<CR>", "Close tab" },
-		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
-		S = {
-			[[:%s/<c-r><C-w>/<C-r><C-w>/gi<left><left><left>]],
-			"Substitute the word in the whole file (ignore case)",
-			silent = false,
-		},
-		s = {
-			[[:s/<C-r><C-w>/<C-r><C-w>/gi<left><left><left>]],
-			"Substitute the word in this line (ignore case)",
-			silent = false,
-		},
-		T = { "<cmd>tabnew<CR>", "Create an empty tab" },
-		t = {
-			name = "Terminal",
-			f = {
-				function()
-					vim.cmd("ToggleTerm size=160 direction=float dir=%:p:h")
-				end,
-				"Float",
-			},
-			h = {
-				function()
-					vim.cmd("ToggleTerm direction=horizontal dir=%:p:h")
-				end,
-				"Horizontal",
-			},
-			v = {
-				function()
-					vim.cmd("ToggleTerm size=80 direction=vertical dir=%:p:h")
-				end,
-				"Vertical",
-			},
-			t = {
-				function()
-					vim.cmd("ToggleTerm direction=tab dir=%:p:h")
-				end,
-				"Tab",
-			},
-		},
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
 	g = {
@@ -745,7 +744,6 @@ wk.register({
 
 wk.register({
 	name = "Groups",
-	["<space>"] = { responsive_terminal, "Automatic vertical/horizontal terminal" },
 	b = {
 		name = "Buffer",
 		a = { "<cmd>bufdo bd<CR>", "Close all buffers" },
@@ -1179,6 +1177,12 @@ wk.register({
 		h = {
 			"<cmd>TSToggle highlight<CR>",
 			"Treesitter highlight",
+		},
+		i = {
+			function()
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+			end,
+			"Inlay Hints",
 		},
 		l = {
 			function()

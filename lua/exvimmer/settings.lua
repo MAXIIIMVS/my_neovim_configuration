@@ -297,7 +297,6 @@ vim.o.errorbells = false
 vim.o.belloff = "all"
 vim.o.confirm = true
 vim.opt.guifont = "FiraCode Nerd Font Mono Medium"
-vim.go.t_Co = "256"
 vim.g.scrollopt = "ver,hor,jump"
 -- vim.go.t_ut = ""
 vim.o.clipboard = "unnamedplus"

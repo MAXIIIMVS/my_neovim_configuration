@@ -16,6 +16,10 @@ local on_attach = function(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	-- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
+	-- if vim.lsp.inlay_hint then
+	-- 	vim.lsp.inlay_hint.enable(true)
+	-- end
+
 	if
 		client.name == "clangd"
 		or client.name == "prismals"
