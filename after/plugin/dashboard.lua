@@ -166,7 +166,7 @@ db.setup({
 			},
 		},
 		footer = {
-			"👑 " .. "Self-respect is the fruit of discipline" .. " 👑",
+			"👑 " .. "Don’t Stop When You’re Tired. Stop When You’re Done!" .. " 👑",
 		},
 	},
 })

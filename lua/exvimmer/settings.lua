@@ -55,12 +55,7 @@ let g:termdebug_wide=1
 let g:termdebug_map_K = 0
 " let g:termdebug_disasm_window = 15
 
-" terminal
-" autocmd TermEnter * setlocal notermguicolors
-" autocmd TermLeave * setlocal termguicolors
-" autocmd TermClose * execute 'bdelete! ' . expand('<abuf>')
-
-" autocmd BufEnter * if &buftype == 'terminal' | startinsert | endif
+autocmd BufEnter * if &buftype == 'terminal' | startinsert | endif
 
 if has('nvim')
   augroup hide_terminal_numbers
