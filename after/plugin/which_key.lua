@@ -422,13 +422,13 @@ wk.register({
 	["-"] = { "<cmd>silent Oil<CR>", "Current directory" },
 	["_"] = {
 		function()
-			vim.cmd("ToggleTerm direction=horizontal dir=%:p:h")
+			vim.cmd("ToggleTerm direction=horizontal")
 		end,
 		"Horizontal",
 	},
 	["|"] = {
 		function()
-			vim.cmd("ToggleTerm size=80 direction=vertical dir=%:p:h")
+			vim.cmd("ToggleTerm size=80 direction=vertical")
 		end,
 		"Vertical",
 	},
@@ -525,7 +525,7 @@ wk.register({
 		function()
 			vim.cmd("ToggleTerm")
 		end,
-		"horizaontal terminal",
+		"horizontal terminal",
 	},
 	[";"] = {
 		name = "Quick",

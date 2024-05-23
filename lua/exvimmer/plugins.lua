@@ -75,7 +75,7 @@ return require("lazy").setup({
 				border = "rounded",
 				winblend = 0,
 			},
-			autochdir = true,
+			autochdir = false,
 		},
 		cmd = {
 			"ToggleTerm",
