@@ -19,7 +19,7 @@ function M.add_rtp(path)
 end
 
 function M.get_setup(name)
-	return string.format('require("exvimmer/%s")', name)
+	return string.format('require("user/%s")', name)
 end
 
 -- Map a key with optional options
