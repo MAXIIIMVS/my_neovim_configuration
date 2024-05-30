@@ -71,6 +71,9 @@ local conditions = {
 		local search_count = vim.fn.searchcount()
 		return (search_count and search_count.total or 0) > 0
 	end,
+	is_not_terminal = function()
+		return vim.bo.buftype ~= "terminal"
+	end,
 }
 
 -- Config
@@ -140,12 +143,12 @@ ins_left({
 	"filetype",
 	icon_only = true,
 	-- icon = { align = "left" },
-	-- cond = conditions.hide_in_width,
+	cond = conditions.is_not_terminal,
 })
 
 ins_left({
 	"filename",
-	cond = conditions.buffer_not_empty,
+	cond = conditions.is_not_terminal,
 	color = { fg = colors.magenta, gui = "bold" },
 	path = 1,
 })
