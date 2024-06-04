@@ -172,8 +172,8 @@ local function get_git_hash()
 end
 
 function sync_statusline_with_tmux()
-	vim.o.cursorlineopt = vim.g.is_transparent and "number" or "number,line"
 	vim.o.cursorline = not vim.g.is_transparent
+	vim.o.cursorlineopt = vim.g.is_transparent and "number" or "number,line"
 	local current_background = get_highlight("Normal")["guibg"]
 	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
@@ -661,7 +661,7 @@ wk.register({
 		},
 		H = { "<cmd>silent Telescope keymaps<CR>", "Keymaps" },
 		h = { "<cmd>WhichKey<CR>", "Which Key" },
-		m = { "<cmd>messages<CR>", "messages" },
+		m = { "<cmd>messages<CR>", "Messages" },
 		q = { "<cmd>tabclose<CR>", "Close tab" },
 		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
 		S = {
@@ -1289,6 +1289,7 @@ wk.register({
 		end,
 		"Format buffer",
 	},
+	n = { "<cmd>silent noa w<CR>", "Save with no actions" },
 	s = { "<cmd>silent so %<CR>", "Source the file" },
 	w = {
 		name = "VimWiki",
@@ -1483,6 +1484,7 @@ wk.register({
 		name = "Quick",
 		S = { 'y:%S/<C-r>"/<C-r>"/g<LEFT><LEFT>', "Change the selection in whole document", silent = false },
 		s = { 'y:S/<C-r>"/<C-r>"/g<LEFT><LEFT>', "Change the selection in this line", silent = false },
+		q = { "<cmd>q<CR>", "quit" },
 	},
 	-- ["."] = { ":normal.<CR>", "Repeat previous action" },
 	-- ["p"] = { '"_dP', "Paste over currently selected text without yanking it" }, -- this causes pasting in select mode (when using snippets)

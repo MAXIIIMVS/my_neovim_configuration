@@ -271,7 +271,7 @@ return require("lazy").setup({
 			},
 		},
 	},
-	{ "folke/which-key.nvim", lazy = true },
+	{ "folke/which-key.nvim", event = "VeryLazy" },
 	{
 		"folke/zen-mode.nvim",
 		opts = { window = { width = 100 } },
@@ -440,6 +440,7 @@ return require("lazy").setup({
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 		},
+		event = { "BufReadPost", "BufNewFile" },
 	},
 	{ "nvimdev/dashboard-nvim", event = "VimEnter", dependencies = { "nvim-tree/nvim-web-devicons" } },
 	{
@@ -478,7 +479,7 @@ return require("lazy").setup({
     ]])
 		end,
 	},
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", event = "BufEnter" },
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", event = { "BufReadPost", "BufNewFile" } },
 	{ "nvimtools/none-ls.nvim", event = "VeryLazy" },
 	{
 		"numToStr/Comment.nvim",
