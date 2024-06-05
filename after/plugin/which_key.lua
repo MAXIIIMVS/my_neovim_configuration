@@ -1008,7 +1008,16 @@ wk.register({
 		B = { "<cmd>Gitsigns blame_line<CR>", "Blame on the current line" },
 		b = { "<cmd>silent G blame<CR>", "Blame on the current file" },
 		C = { ":silent G checkout ", "Checkout", silent = false },
-		c = { "<cmd>silent vertical G commit<CR>", "Commit" },
+		c = {
+			function()
+				if vim.fn.winwidth(0) > 85 then
+					vim.cmd("silent vertical G commit")
+				else
+					vim.cmd("silent G commit")
+				end
+			end,
+			"Commit",
+		},
 		D = {
 			function()
 				if vim.fn.winwidth(0) > 85 then
@@ -1030,14 +1039,38 @@ wk.register({
 			"Diff with previous commit",
 		},
 		E = {
-			"<cmd>silent vertical G commit --amend<CR>",
+			function()
+				if vim.fn.winwidth(0) > 85 then
+					vim.cmd("silent vertical G commit --amend")
+				else
+					vim.cmd("silent G commit --amend")
+				end
+			end,
 			"Amend (edit) commit with staged changes",
 		},
 		f = { "<cmd>silent G fetch<CR>", "Fetch" },
 		g = { ":Ggrep! -q ", "Grep", silent = false },
 		h = { get_git_hash, "copy current git hash to g register" },
-		L = { "<cmd>silent G log --stat<CR>", "Log with stats" },
-		l = { "<cmd>silent G log --decorate<CR>", "Log" },
+		L = {
+			function()
+				if vim.fn.winwidth(0) > 85 then
+					vim.cmd("silent vertical G log --stat")
+				else
+					vim.cmd("silent G log --stat")
+				end
+			end,
+			"Log with stats",
+		},
+		l = {
+			function()
+				if vim.fn.winwidth(0) > 85 then
+					vim.cmd("silent vertical G log --decorate")
+				else
+					vim.cmd("silent G log --decorate")
+				end
+			end,
+			"Log",
+		},
 		n = { "<cmd>silent G! difftool HEAD~1 | cfirst <CR>", "changed files since last commit" },
 		o = { "<cmd>silent GBrowse<CR>", "Open in the browser" },
 		P = { "<cmd>silent G push<CR>", "Push" },
@@ -1047,7 +1080,16 @@ wk.register({
 			"<cmd>Gitsigns reset_hunk<CR>",
 			"Reset the lines of the hunk at the cursor position, or all lines in the given range.",
 		},
-		s = { "<cmd>silent Git<CR>", "Status" },
+		s = {
+			function()
+				if vim.fn.winwidth(0) > 85 then
+					vim.cmd("silent vertical Git")
+				else
+					vim.cmd("silent Git")
+				end
+			end,
+			"Status",
+		},
 		S = { ":silent G switch ", "Switch", silent = false },
 		T = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle current line blame" },
 		t = { "<cmd>GitTimeLaps<CR>", "Show time lapse of the file" },
