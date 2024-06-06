@@ -93,6 +93,7 @@ mason_lspconfig.setup_handlers({
 				"htmldjango", -- doesn't work
 				"gohtml",
 				"tmpl.html",
+				"template",
 			},
 		})
 	end,
@@ -108,6 +109,7 @@ mason_lspconfig.setup_handlers({
 				"blade",
 				"gohtml",
 				"tmpl.html",
+				"template",
 			},
 		})
 	end,
