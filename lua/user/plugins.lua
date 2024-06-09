@@ -197,7 +197,7 @@ return require("lazy").setup({
 				" \ | :lua require('mini.bracketed').setup()
 		      ]])
 		end,
-		event = "UIEnter",
+		keys = { "[", "]" },
 	},
 	{
 		"echasnovski/mini.jump2d",
@@ -211,7 +211,7 @@ return require("lazy").setup({
 			},
 			silent = true,
 		},
-		event = "UIEnter",
+		keys = ";j",
 	},
 	{
 		"echasnovski/mini.move",
@@ -227,9 +227,9 @@ return require("lazy").setup({
 				line_up = "<C-k>",
 			},
 		},
-		event = "BufEnter",
+		keys = { "<C-h>", "<C-j>", "<C-k>" },
 	},
-	{ "echasnovski/mini.splitjoin", opts = {}, event = "BufEnter" },
+	{ "echasnovski/mini.splitjoin", opts = {}, keys = "gS" },
 	{
 		"EdenEast/nightfox.nvim",
 		event = "VeryLazy",
@@ -485,7 +485,6 @@ return require("lazy").setup({
 		"numToStr/Comment.nvim",
 		event = "VeryLazy",
 		config = function()
-			---@diagnostic disable: missing-fields
 			require("Comment").setup({
 				toggler = {
 					line = "<C-_>",
@@ -639,11 +638,11 @@ return require("lazy").setup({
 			"GBrowse",
 		},
 	},
-	{ "tpope/vim-rhubarb", event = "VeryLazy" },
+	{ "tpope/vim-rhubarb", cmd = { "GBrowse" } },
 	{ "tpope/vim-rsi", event = "InsertEnter" },
 	{ "tpope/vim-sleuth", event = "BufEnter" },
 	{ "tpope/vim-obsession", cmd = { "Obsession" } },
-	{ "tpope/vim-speeddating", event = "VeryLazy" },
+	{ "tpope/vim-speeddating", keys = { "<c-a>", "<c-e>" } },
 	{
 		"vimwiki/vimwiki",
 		event = "VeryLazy",

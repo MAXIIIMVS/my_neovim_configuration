@@ -122,12 +122,6 @@ db.setup({
 				action = "Telescope find_files",
 				key = "f",
 			},
-			-- {
-			-- 	icon = "💼 ",
-			-- 	desc = "Recent Files                                      ",
-			-- 	action = "Telescope oldfiles",
-			-- 	key = "r",
-			-- },
 			{
 				icon = "🗓 ",
 				desc = "Calendar",
@@ -141,22 +135,22 @@ db.setup({
 				key = "w",
 			},
 			{
-				icon = "🔌 ",
-				desc = "Manage Plugins",
-				action = "Lazy",
+				icon = "📂 ",
+				desc = "Other Places",
+				action = "Telescope zoxide list",
 				key = "p",
+			},
+			{
+				icon = "🔌 ",
+				desc = "Extensions",
+				action = "Lazy",
+				key = "x",
 			},
 			{
 				icon = "🚀 ",
 				desc = "Manage LSP/Formatters/...",
 				action = "Mason",
 				key = "m",
-			},
-			{
-				icon = "📂 ",
-				desc = "Other Places",
-				action = "Telescope zoxide list",
-				key = "r",
 			},
 			{
 				icon = "🚪 ",

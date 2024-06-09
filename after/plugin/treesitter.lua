@@ -64,6 +64,8 @@ require("nvim-treesitter.configs").setup({
 		"ruby",
 		"sql",
 		"toml",
+		"templ",
+		"embedded_template",
 		"tsx",
 		"vim",
 		"yaml",
