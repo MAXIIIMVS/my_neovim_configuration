@@ -197,7 +197,7 @@ return require("lazy").setup({
 				" \ | :lua require('mini.bracketed').setup()
 		      ]])
 		end,
-		keys = { "[", "]" },
+		event = "UIEnter",
 	},
 	{
 		"echasnovski/mini.jump2d",
@@ -227,7 +227,7 @@ return require("lazy").setup({
 				line_up = "<C-k>",
 			},
 		},
-		keys = { "<C-h>", "<C-j>", "<C-k>" },
+		event = "BufEnter",
 	},
 	{ "echasnovski/mini.splitjoin", opts = {}, keys = "gS" },
 	{

@@ -76,7 +76,6 @@ local conditions = {
 	end,
 }
 
--- Config
 local config = {
 	options = {
 		-- Disable sections and component separators
@@ -161,7 +160,6 @@ ins_left({
 
 ins_left({
 	"diff",
-	-- Is it me or the symbol for modified us really weird
 	symbols = { added = " ", modified = "柳", removed = " " },
 	diff_color = {
 		added = { fg = colors.green },
@@ -244,14 +242,10 @@ ins_right({
 					msg = msg .. client.name
 				end
 			end
-			-- if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-			-- 	return client.name
-			-- end
 		end
 
 		return msg
 	end,
-	-- fmt = string.upper,
 	color = { fg = colors.violet, gui = "bold" },
 	cond = conditions.hide_in_width,
 })
@@ -262,21 +256,6 @@ ins_right({
 	cond = function()
 		return conditions.buffer_not_empty() and conditions.hide_in_width()
 	end,
-})
-
-ins_right({
-	"o:encoding", -- option component same as &encoding in viml
-	fmt = string.upper, -- I'm not sure why it's upper case either ;)
-	cond = conditions.hide_in_width,
-	color = { fg = colors.green, gui = "bold" },
-})
-
-ins_right({
-	"fileformat",
-	fmt = string.upper,
-	icons_enabled = false,
-	color = { fg = colors.green, gui = "bold" },
-	cond = conditions.hide_in_width,
 })
 
 ins_right({ "progress", color = { fg = colors.cyan, gui = "bold" } })
@@ -293,5 +272,4 @@ ins_right({
 	padding = { left = 1 },
 })
 
----@diagnostic disable-next-line: undefined-field
 lualine.setup(config)
