@@ -33,15 +33,6 @@ local on_attach = function(client, bufnr)
 		vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
 		vim.api.nvim_command([[augroup END]])
 	end
-
-	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", bufopts)
-	vim.keymap.set("n", "gd", "<cmd>silent lua vim.lsp.buf.definition()<CR>", bufopts)
-	-- vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", bufopts)
-	vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
-	-- vim.keymap.set("i", "<C-x>", "<c-o><cmd>lua vim.lsp.buf.signature_help()<CR>", bufopts)
-	vim.keymap.set("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", bufopts)
-	vim.keymap.set("n", "gR", "<cmd>lua vim.lsp.buf.references()<CR>", bufopts)
 end
 
 local mason_default_settings = {

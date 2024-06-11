@@ -20,7 +20,6 @@ local flavors = {
 
 local lualine = require("lualine")
 local bufferlineUi = require("bufferline.ui")
--- local telescope = require("telescope")
 local telescope_builtins = require("telescope.builtin")
 local telescope_themes = require("telescope.themes")
 local lspsaga_diagnostics = require("lspsaga.diagnostic")
@@ -730,12 +729,17 @@ wk.register({
 		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
 	},
 	g = {
-		-- d = { "<cmd>Lspsaga goto_definition<CR>", "Go to definition" },
+		a = { "<cmd>Lspsaga code_action<CR>", "Code actions" },
+		D = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration" },
+		d = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to definition" },
+		h = { "<cmd>Lspsaga finder def+ref+imp<CR>", "Show the definition, reference, implementation..." },
+		i = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation" },
 		P = { "<cmd>Lspsaga peek_type_definition<CR>", "Peek type definition" },
 		p = { "<cmd>Lspsaga peek_definition<CR>", "Show the definition" },
-		h = { "<cmd>Lspsaga finder def+ref+imp<CR>", "Show the definition, reference, implementation..." },
-		a = { "<cmd>Lspsaga code_action<CR>", "Code actions" },
+		R = { "<cmd>lua vim.lsp.buf.references()<CR>", "Show references" },
 		r = { "<cmd>Lspsaga rename<CR>", "Rename the symbol" },
+		s = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature" },
+		y = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Go to type definition" },
 	},
 	j = { "gj", "Down" },
 	K = { "<cmd>Lspsaga hover_doc<CR>", "Hover info" },

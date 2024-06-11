@@ -38,5 +38,3 @@ saga.setup({
 		enable = false,
 	},
 })
-
--- vim.keymap.set("n", "<M-k>", "<cmd>silent Lspsaga hover_doc ++keep ++quiet<CR>")

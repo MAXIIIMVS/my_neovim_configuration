@@ -69,15 +69,6 @@ else
   augroup END
 endif
 
-" NOTE: this autocmd makes oil.nvim stop working
-" augroup Mkdir
-"   autocmd!
-"   autocmd BufWritePre * call mkdir(expand("<afile>:p:h"), "p")
-" augroup END
-
-" Turn off paste mode when leaving insert
-autocmd InsertLeave * set nopaste
-
 augroup CmdHeight
     autocmd!
     autocmd CmdlineEnter * if &cmdheight == 0 | let g:cmdheight_prev = 0 | set cmdheight=1 | endif
@@ -173,64 +164,6 @@ ab :degrees: °
 ]])
 -- }}}
 
--- listchars {{{
--- vim.o.list = true
--- vim.g.indentline_char = "│"
--- vim.o.listchars = "trail:•,extends:#,nbsp:.,precedes:❮,extends:❯,tab:› ,leadmultispace:"
--- 	.. vim.g.indentline_char
--- 	.. "  "
---
--- local function update(is_local)
--- 	local listchars_update = function(items)
--- 		local listchars = vim.api.nvim_get_option_value("listchars", {})
--- 		for item, val in pairs(items) do
--- 			if listchars:match(item) then
--- 				listchars = listchars:gsub("(" .. item .. ":)[^,]*", "%1" .. val)
--- 			else
--- 				listchars = listchars .. "," .. item .. ":" .. val
--- 			end
--- 		end
--- 		return listchars
--- 	end
--- 	local new_listchars = ""
--- 	if vim.api.nvim_get_option_value("expandtab", {}) then
--- 		local spaces = vim.api.nvim_get_option_value("shiftwidth", {})
--- 		-- When shiftwidth is 0, vim will use tabstop value
--- 		if spaces == 0 then
--- 			spaces = vim.api.nvim_get_option_value("tabstop", {})
--- 		end
--- 		new_listchars = listchars_update({
--- 			tab = "› ",
--- 			leadmultispace = vim.g.indentline_char .. string.rep(" ", spaces - 1),
--- 		})
--- 	else
--- 		new_listchars = listchars_update({
--- 			tab = vim.g.indentline_char .. " ",
--- 			leadmultispace = "␣",
--- 		})
--- 	end
--- 	local opts = {}
--- 	if is_local then
--- 		opts.scope = "local"
--- 	end
--- 	vim.api.nvim_set_option_value("listchars", new_listchars, opts)
--- end
--- vim.api.nvim_create_augroup("indent_line", { clear = true })
--- vim.api.nvim_create_autocmd({ "OptionSet" }, {
--- 	group = "indent_line",
--- 	pattern = { "shiftwidth", "expandtab", "tabstop" },
--- 	callback = function()
--- 		update(vim.v.option_type == "local")
--- 	end,
--- })
--- vim.api.nvim_create_autocmd({ "VimEnter" }, {
--- 	group = "indent_line",
--- 	callback = function()
--- 		update(false)
--- 	end,
--- })
--- }}}
-
 -- Fundamental {{{
 vim.o.list = true
 vim.o.listchars = "trail:,nbsp:.,precedes:❮,extends:❯,tab:  "
@@ -253,14 +186,12 @@ vim.o.laststatus = 3
 vim.o.scrolloff = 4
 vim.o.timeoutlen = 300
 -- vim.o.completeopt = "menuone,noselect"
+
 -- incremental substitution (neovim)
 if vim.fn.has("nvim") == 1 then
 	vim.o.inccommand = "split"
 end
 
--- Suppress appending <PasteStart> and <PasteEnd> when pasting
--- xterm-bracketed-paste
--- set t_BE= -- NOTE: I don't know how to set this
 vim.o.ruler = false
 vim.o.showmatch = true
 vim.o.matchtime = 2
@@ -272,7 +203,6 @@ vim.o.wildignore = vim.o.wildignore .. "*/node_modules/*"
 
 -- Syntax theme "{{{
 -----------------------------------------------------------------------
--- true color
 if vim.fn.exists("&termguicolors") == 1 and vim.fn.exists("&winblend") then
 	vim.cmd("syntax enable")
 	vim.o.termguicolors = true
@@ -293,7 +223,6 @@ vim.o.belloff = "all"
 vim.o.confirm = true
 vim.opt.guifont = "FiraCode Nerd Font Mono Medium"
 vim.g.scrollopt = "ver,hor,jump"
--- vim.go.t_ut = ""
 vim.o.clipboard = "unnamedplus"
 vim.o.mouse = "a"
 vim.o.autoread = true
@@ -308,7 +237,6 @@ vim.bo.textwidth = 80
 vim.wo.linebreak = true
 vim.o.autochdir = true
 vim.o.hidden = true
--- cmd('highlight ColorColumn ctermbg=DarkBlue')
 vim.o.wildmode = "full"
 vim.o.wildmenu = true
 vim.g.wildmenu = true
@@ -320,11 +248,7 @@ vim.o.foldlevelstart = 99
 -- vim.wo.foldnestmax = 10
 vim.wo.foldmethod = "indent" -- manual, indent, syntax, marker, expr, diff
 vim.wo.conceallevel = 0
--- python3 path: change if it's necessary, -- NOTE: I'm not sure about this
 vim.g.python3_host_prog = "/usr/bin/python3"
--- cmd('autocmd FileType javascript set filetype=javascriptreact')
--- cmd('autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact')
--- cmd('autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact')
 
 -- vim.o.smarttab = true
 -- b.smartindent = true
@@ -338,27 +262,16 @@ vim.o.breakindent = true
 -- vim.bo.expandtab = true
 vim.o.nrformats = "bin,octal,hex"
 
--- hide tildes (only vim), this doesn't work for nvim-tree
--- hi! EndOfBuffer ctermbg=0 ctermfg=0 guibg=0 guifg=0
 vim.o.fillchars = "eob: "
--- or put this after colorscheme (vim & nvim), works for nvim-tree
--- vim.cmd("hi NonText guifg=bg")
 -- }}}
 
 -- Highlights {{{
 -----------------------------------------------------------------------
--- vim.cmd("highlight GitSignsCurrentLineBlame guifg=#666666")
-
 utils.create_augroup({
 	{ "WinEnter", "*", "set", "cul" },
 	{ "WinLeave", "*", "set", "nocul" },
 }, "BgHighlight")
-
--- vim.cmd.highlight("VertSplit guifg=#32afff")
 -- }}}
-
--- format files when using :wq and not using sync in lsp formatting
--- vim.cmd([[cabbrev wq execute "Format sync" <bar> wq]])
 
 -- Netrw {{{
 vim.g.netrw_banner = false

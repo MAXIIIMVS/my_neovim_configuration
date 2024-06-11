@@ -29,6 +29,7 @@ local quotes = {
 	"If you don't play, you won't win!",
 	"Stop Asking; Just go do something",
 	"Insanity is doing the same thing over and over again and expecting different results",
+	"Don’t Stop When You’re Tired. Stop When You’re Done!",
 }
 
 -- source: https://emojicombos.com/
@@ -160,7 +161,7 @@ db.setup({
 			},
 		},
 		footer = {
-			"👑 " .. "Don’t Stop When You’re Tired. Stop When You’re Done!" .. " 👑",
+			"👑 " .. "Destiny is a Decision" .. " 👑",
 		},
 	},
 })

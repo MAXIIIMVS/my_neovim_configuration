@@ -166,7 +166,6 @@ return require("lazy").setup({
 					indentscope_color = "lavender",
 				},
 				vimwiki = true,
-				-- (https://github.com/catppuccin/nvim#integrations)
 			},
 		},
 		priority = 1000,
@@ -211,7 +210,7 @@ return require("lazy").setup({
 			},
 			silent = true,
 		},
-		keys = ";j",
+		keys = { ";j", { ";j", mode = "v" } },
 	},
 	{
 		"echasnovski/mini.move",
@@ -222,14 +221,22 @@ return require("lazy").setup({
 				down = "<C-j>",
 				up = "<C-k>",
 				line_left = "<C-h>",
-				line_right = "", -- disabled
+				line_right = "",
 				line_down = "<C-j>",
 				line_up = "<C-k>",
 			},
 		},
-		event = "BufEnter",
+		keys = {
+			{ "<C-h>", mode = { "n", "v" } },
+			{ "<C-j>", mode = { "n", "v" } },
+			{ "<C-k>", mode = { "n", "v" } },
+		},
 	},
-	{ "echasnovski/mini.splitjoin", opts = {}, keys = "gS" },
+	{
+		"echasnovski/mini.splitjoin",
+		opts = {},
+		keys = { "gS", { "gS", mode = "v" } },
+	},
 	{
 		"EdenEast/nightfox.nvim",
 		event = "VeryLazy",
@@ -524,10 +531,11 @@ return require("lazy").setup({
 	},
 	{ "onsails/lspkind.nvim", dependencies = { "hrsh7th/nvim-cmp" }, event = "InsertEnter" },
 	{ "rafamadriz/friendly-snippets" },
-	{ "ray-x/lsp_signature.nvim", opts = {
-		hint_enable = false,
-		toggle_key = "<M-x>",
-	}, event = "VeryLazy" },
+	{
+		"ray-x/lsp_signature.nvim",
+		opts = { hint_enable = false, toggle_key = "<M-x>" },
+		event = "VeryLazy",
+	},
 	{
 		"rcarriga/nvim-dap-ui",
 		opts = {
@@ -581,7 +589,12 @@ return require("lazy").setup({
 	},
 	{
 		"rhysd/clever-f.vim",
-		event = "VeryLazy",
+		keys = {
+			{ "f", mode = { "n", "v" } },
+			{ "F", mode = { "n", "v" } },
+			{ "t", mode = { "n", "v" } },
+			{ "T", mode = { "n", "v" } },
+		},
 		init = function()
 			-- vim.g.clever_f_ignore_case = true
 			vim.g.clever_f_smart_case = true
@@ -606,7 +619,6 @@ return require("lazy").setup({
 	},
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
 	{ "tpope/vim-abolish", event = "VeryLazy" },
-	-- { "tpope/vim-capslock", event = "VeryLazy" },
 	{ "tpope/vim-dadbod", lazy = true },
 	{
 		"tpope/vim-fugitive",
@@ -638,11 +650,11 @@ return require("lazy").setup({
 			"GBrowse",
 		},
 	},
-	{ "tpope/vim-rhubarb", cmd = { "GBrowse" } },
+	{ "tpope/vim-rhubarb", event = "VeryLazy" },
 	{ "tpope/vim-rsi", event = "InsertEnter" },
 	{ "tpope/vim-sleuth", event = "BufEnter" },
 	{ "tpope/vim-obsession", cmd = { "Obsession" } },
-	{ "tpope/vim-speeddating", keys = { "<c-a>", "<c-e>" } },
+	{ "tpope/vim-speeddating", keys = { "<c-a>", "<c-x>" } },
 	{
 		"vimwiki/vimwiki",
 		event = "VeryLazy",
