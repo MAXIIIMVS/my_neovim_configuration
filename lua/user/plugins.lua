@@ -60,6 +60,7 @@ return require("lazy").setup({
 				diagnostics = "nvim_lsp",
 			},
 		},
+		event = "VeryLazy",
 	},
 	{
 		"akinsho/toggleterm.nvim",
@@ -89,10 +90,10 @@ return require("lazy").setup({
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
-		lazy = false,
+		lazy = true,
 		opts = {
-			flavour = "mocha", -- latte, frappe, macchiato, mocha
-			background = { -- :h background
+			flavour = "mocha",
+			background = {
 				light = "latte",
 				dark = "mocha",
 			},
@@ -168,13 +169,11 @@ return require("lazy").setup({
 				vimwiki = true,
 			},
 		},
-		priority = 1000,
 	},
 	{
 		"echasnovski/mini.bracketed",
 		-- version = false,
 		opts = {
-			-- buffer = { suffix = "", options = {} },
 			conflict = { suffix = "", options = {} },
 			diagnostic = { suffix = "", options = {} },
 			quickfix = { suffix = "", options = {} },
@@ -196,7 +195,7 @@ return require("lazy").setup({
 				" \ | :lua require('mini.bracketed').setup()
 		      ]])
 		end,
-		event = "UIEnter",
+		event = "VeryLazy",
 	},
 	{
 		"echasnovski/mini.jump2d",
@@ -234,12 +233,12 @@ return require("lazy").setup({
 	},
 	{
 		"echasnovski/mini.splitjoin",
-		opts = {},
-		keys = { "gS", { "gS", mode = "v" } },
+		opts = { mappings = { toggle = "gs", split = "", join = "" } },
+		keys = { "gs", { "gs", mode = "v" } },
 	},
 	{
 		"EdenEast/nightfox.nvim",
-		event = "VeryLazy",
+		lazy = true,
 		config = function()
 			require("nightfox").setup({
 				options = {
@@ -277,6 +276,12 @@ return require("lazy").setup({
 				TEST = { icon = "", color = "#FF004E", alt = { "TESTING", "PASSED", "FAILED" } },
 			},
 		},
+	},
+	{
+		"folke/ts-comments.nvim",
+		event = "VeryLazy",
+		opts = {},
+		enabled = vim.fn.has("nvim-0.10.0") == 1,
 	},
 	{ "folke/which-key.nvim", event = "VeryLazy" },
 	{
@@ -323,15 +328,6 @@ return require("lazy").setup({
 			vim.g.calendar_task_delete = true
 			-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 		end,
-	},
-	{
-		"JoosepAlviste/nvim-ts-context-commentstring",
-		opts = {},
-		event = "VeryLazy",
-		init = function()
-			vim.g.skip_ts_context_commentstring_module = true
-		end,
-		dependencies = { "numToStr/Comment.nvim" },
 	},
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{ "jvgrootveld/telescope-zoxide", cmd = { "Telescope zoxide list" } },
@@ -460,7 +456,7 @@ return require("lazy").setup({
 		},
 	},
 	{ "nvim-lualine/lualine.nvim", event = "UIEnter" },
-	{ "nvim-lua/plenary.nvim" },
+	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "nvim-telescope/telescope.nvim", cmd = { "Telescope" } },
 	{
 		"nvim-telescope/telescope-file-browser.nvim",
@@ -488,18 +484,6 @@ return require("lazy").setup({
 	},
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", event = { "BufReadPost", "BufNewFile" } },
 	{ "nvimtools/none-ls.nvim", event = "VeryLazy" },
-	{
-		"numToStr/Comment.nvim",
-		event = "VeryLazy",
-		config = function()
-			require("Comment").setup({
-				toggler = {
-					line = "<C-_>",
-				},
-				pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-			})
-		end,
-	},
 	{
 		"numToStr/Navigator.nvim",
 		opts = {},

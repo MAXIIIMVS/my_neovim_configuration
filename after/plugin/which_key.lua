@@ -23,7 +23,6 @@ local bufferlineUi = require("bufferline.ui")
 local telescope_builtins = require("telescope.builtin")
 local telescope_themes = require("telescope.themes")
 local lspsaga_diagnostics = require("lspsaga.diagnostic")
-local comment_api = require("Comment.api")
 local dapui = require("dapui")
 local dap_ui_widgets = require("dap.ui.widgets")
 local dap_go = require("dap-go")
@@ -482,8 +481,8 @@ wk.register({
 		end,
 		"Next flavor",
 	},
-	["]g"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
-	["[g"] = { "<cmd>silent Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
+	["]h"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
+	["[h"] = { "<cmd>silent Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
 	["[E"] = {
 		function()
 			lspsaga_diagnostics:goto_prev({ severity = vim.diagnostic.severity.ERROR })
@@ -736,9 +735,9 @@ wk.register({
 		i = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation" },
 		P = { "<cmd>Lspsaga peek_type_definition<CR>", "Peek type definition" },
 		p = { "<cmd>Lspsaga peek_definition<CR>", "Show the definition" },
-		R = { "<cmd>lua vim.lsp.buf.references()<CR>", "Show references" },
-		r = { "<cmd>Lspsaga rename<CR>", "Rename the symbol" },
-		s = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature" },
+		R = { "<cmd>Lspsaga rename<CR>", "Rename the symbol" },
+		r = { "<cmd>lua vim.lsp.buf.references()<CR>", "Show references" },
+		S = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature" },
 		y = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Go to type definition" },
 	},
 	j = { "gj", "Down" },
@@ -1487,12 +1486,6 @@ wk.register({
 		end,
 		"Continue/Start DAP",
 	},
-	["<C-_>"] = {
-		function()
-			comment_api.toggle.linewise.current()
-		end,
-		"Comment/uncomment the line",
-	},
 	["<C-s>"] = { "<ESC><ESC><cmd>silent update<CR>", "Save buffer" },
 	["<C-x>"] = {
 		name = "Insert expand",
@@ -1536,14 +1529,6 @@ wk.register({
 	-- ["p"] = { '"_dP', "Paste over currently selected text without yanking it" }, -- this causes pasting in select mode (when using snippets)
 	["<"] = { "<gv", "Indent left" },
 	[">"] = { ">gv", "Indent right" },
-	["<C-_>"] = {
-		function()
-			local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
-			vim.api.nvim_feedkeys(esc, "nx", false)
-			comment_api.toggle.linewise(vim.fn.visualmode())
-		end,
-		"Comment/uncomment selected lines",
-	},
 	["<C-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 }, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })

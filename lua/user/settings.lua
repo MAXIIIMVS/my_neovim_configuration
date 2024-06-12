@@ -35,6 +35,10 @@ end
 
 -- Auto commands and functions {{{
 vim.cmd([[
+nmap <C-_> gcc
+xmap <C-_> gc
+imap <C-_> <ESC>gcc
+
 " dadbod completion with cmp
 " autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
 au FileType * set fo-=c fo-=r fo-=o
@@ -107,6 +111,7 @@ autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 " let g:netrw_list_hide= netrw_gitignore#Hide()
 " let s:treedepthstring     = "│ "
 " let g:netrw_hide = 1
+" let g:netrw_altv=1
 autocmd FileType netrw silent! nnoremap <buffer> <nowait> q :silent call ToggleNetrw()<CR><silent>
 autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;q :silent call ToggleNetrw()<CR><silent>
 autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;; :silent call ToggleNetrw()<CR><silent>

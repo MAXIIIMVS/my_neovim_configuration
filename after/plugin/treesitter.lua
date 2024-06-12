@@ -1,12 +1,4 @@
 require("nvim-treesitter.configs").setup({
-	context_commentstring = {
-		enable = true,
-		enable_autocmd = false,
-		-- commentary_integration = {
-		-- 	Commentary = "<c-_>",
-		-- 	CommentaryLine = "<c-_>",
-		-- },
-	},
 	ignore_install = {},
 	modules = {},
 	auto_install = true,
