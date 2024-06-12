@@ -19,7 +19,6 @@ local flavors = {
 }
 
 local lualine = require("lualine")
-local bufferlineUi = require("bufferline.ui")
 local telescope_builtins = require("telescope.builtin")
 local telescope_themes = require("telescope.themes")
 local lspsaga_diagnostics = require("lspsaga.diagnostic")
@@ -651,12 +650,13 @@ wk.register({
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
 		D = { term_debug, "Debug with GDB" },
 		d = { "<cmd>silent Dashboard<CR>", "dashboard" },
-		f = {
+		F = {
 			function()
 				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 			end,
 			"List workspace folders",
 		},
+		f = { "<cmd>silent Telescope filetypes<CR>", "Set filetype" },
 		H = { "<cmd>silent Telescope keymaps<CR>", "Keymaps" },
 		h = { "<cmd>WhichKey<CR>", "Which Key" },
 		m = { "<cmd>messages<CR>", "Messages" },
@@ -767,7 +767,7 @@ wk.register({
 						end
 					end
 				end
-				bufferlineUi.refresh()
+				require("bufferline.ui").refresh()
 			end,
 			"Close empty buffers (not current one)",
 		},

@@ -60,7 +60,7 @@ return require("lazy").setup({
 				diagnostics = "nvim_lsp",
 			},
 		},
-		event = "VeryLazy",
+		event = "UIEnter",
 	},
 	{
 		"akinsho/toggleterm.nvim",

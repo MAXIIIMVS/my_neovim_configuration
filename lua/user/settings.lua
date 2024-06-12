@@ -39,6 +39,8 @@ nmap <C-_> gcc
 xmap <C-_> gc
 imap <C-_> <ESC>gcc
 
+autocmd FileType template set filetype=html
+
 " dadbod completion with cmp
 " autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
 au FileType * set fo-=c fo-=r fo-=o
