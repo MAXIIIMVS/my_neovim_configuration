@@ -747,6 +747,12 @@ wk.register({
 
 wk.register({
 	name = "Groups",
+	["<space>"] = {
+		function()
+			vim.cmd("ToggleTerm size=160 direction=float dir=%:p:h")
+		end,
+		"Floating Terminal",
+	},
 	b = {
 		name = "Buffer",
 		a = { "<cmd>bufdo bd<CR>", "Close all buffers" },

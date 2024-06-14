@@ -5,24 +5,21 @@ if not present then
 end
 
 -- uncomment only if you're using random headers or quotes
-math.randomseed(os.time())
+-- math.randomseed(os.time())
 
 ---@diagnostic disable-next-line: unused-local, unused-function
-local function getRandomElement(t)
-	return t[math.random(1, #t)]
-end
+-- local function getRandomElement(t)
+-- 	return t[math.random(1, #t)]
+-- end
 
 ---@diagnostic disable-next-line: unused-local
 local quotes = {
 	"RTFM",
 	"If you don't walk today, you'll have to run run tomorrow",
-	"Programming Is Learned by Writing Programs",
 	"In Order to Be Irreplaceable, One Must Always Be Different",
 	"The Best Way to Predict the Future Is to Invent It",
 	"You Can't Learn Anything From the Things You Already Know",
 	"Stop thinking of life as something that happens to you",
-	"You know when you're out of the zone because you are thinking and making decisions",
-	"A joyful life is an individual creation that cannot be copied from a recipe",
 	"If you're interested in something, you'll focus on it",
 	"Self-respect is the fruit of discipline",
 	"Focused, Hard Work Is the Real Key to Success",
@@ -161,7 +158,7 @@ db.setup({
 			},
 		},
 		footer = {
-			"👑 " .. "Destiny is a Decision" .. " 👑",
+			"👑 " .. "Destiny Is A Decision" .. " 👑",
 		},
 	},
 })

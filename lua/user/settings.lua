@@ -186,24 +186,18 @@ vim.o.title = true
 vim.o.autoindent = true
 vim.o.hlsearch = true
 vim.o.incsearch = true
-vim.o.smartcase = true
 vim.o.showcmd = true
 vim.o.cmdheight = 0
 vim.o.laststatus = 3
 vim.o.scrolloff = 4
 vim.o.timeoutlen = 300
--- vim.o.completeopt = "menuone,noselect"
-
--- incremental substitution (neovim)
-if vim.fn.has("nvim") == 1 then
-	vim.o.inccommand = "split"
-end
-
+vim.o.inccommand = "split"
 vim.o.ruler = false
 vim.o.showmatch = true
 vim.o.matchtime = 2
 vim.o.lazyredraw = false
-vim.o.ignorecase = true
+vim.o.ignorecase = true -- ignore case when searching
+vim.o.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
 vim.o.backspace = "start,eol,indent"
 vim.o.path = vim.o.path .. "**" -- or vim.wo.path, IDK
 vim.o.wildignore = vim.o.wildignore .. "*/node_modules/*"
