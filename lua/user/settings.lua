@@ -1,5 +1,4 @@
 local home = os.getenv("HOME")
-local utils = require("utils")
 
 local signs = {
 	Error = " ",
@@ -200,7 +199,7 @@ vim.o.ignorecase = true -- ignore case when searching
 vim.o.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
 vim.o.backspace = "start,eol,indent"
 vim.o.path = vim.o.path .. "**" -- or vim.wo.path, IDK
-vim.o.wildignore = vim.o.wildignore .. "*/node_modules/*"
+vim.o.wildignore = vim.o.wildignore .. "*/node_modules/*,tags"
 
 -- Syntax theme "{{{
 -----------------------------------------------------------------------
@@ -264,14 +263,6 @@ vim.o.breakindent = true
 vim.o.nrformats = "bin,octal,hex"
 
 vim.o.fillchars = "eob: "
--- }}}
-
--- Highlights {{{
------------------------------------------------------------------------
-utils.create_augroup({
-	{ "WinEnter", "*", "set", "cul" },
-	{ "WinLeave", "*", "set", "nocul" },
-}, "BgHighlight")
 -- }}}
 
 -- Netrw {{{

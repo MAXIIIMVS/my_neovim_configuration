@@ -459,11 +459,6 @@ return require("lazy").setup({
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "nvim-telescope/telescope.nvim", cmd = { "Telescope" } },
 	{
-		"nvim-telescope/telescope-file-browser.nvim",
-		cmd = { "Telescope file_browser" },
-		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-	},
-	{
 		"nvim-telescope/telescope-fzf-native.nvim",
 		build = "make",
 		cond = function()
@@ -471,17 +466,6 @@ return require("lazy").setup({
 		end,
 	},
 	{ "nvim-tree/nvim-web-devicons", config = true, lazy = true },
-	{
-		"nvim-tree/nvim-tree.lua",
-		lazy = true,
-		dependencies = "nvim-tree/nvim-web-devicons",
-		init = function()
-			vim.cmd([[
-        autocmd FileType NvimTree nnoremap <buffer> <nowait> ;q <cmd>NvimTreeToggle<CR>
-        autocmd FileType NvimTree nnoremap <buffer> <nowait> ;; <cmd>NvimTreeToggle<CR>
-    ]])
-		end,
-	},
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", event = { "BufReadPost", "BufNewFile" } },
 	{ "nvimtools/none-ls.nvim", event = "VeryLazy" },
 	{
