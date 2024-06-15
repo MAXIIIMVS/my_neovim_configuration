@@ -482,7 +482,6 @@ return require("lazy").setup({
 	{
 		"NvChad/nvim-colorizer.lua",
 		opts = {
-			filetypes = { "html", "css", "sass", "javascriptreact", "typescriptreact", "scss" },
 			user_default_options = {
 				AARRGGBB = true,
 				RRGGBBAA = true,

@@ -537,7 +537,6 @@ wk.register({
 		["7"] = { "<cmd>BufferLineGoToBuffer 7<CR>", "Go to 7th buffer" },
 		["8"] = { "<cmd>BufferLineGoToBuffer 8<CR>", "Go to 8th buffer" },
 		["9"] = { "<cmd>BufferLineGoToBuffer 9<CR>", "Go to 9th buffer" },
-		-- b = { "<cmd>Telescope buffers previewer=false<CR>", "List open buffers" },
 		b = {
 			function()
 				telescope_builtins.buffers(telescope_themes.get_dropdown({
@@ -644,13 +643,8 @@ wk.register({
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
 		D = { term_debug, "Debug with GDB" },
 		d = { "<cmd>silent Dashboard<CR>", "dashboard" },
-		F = {
-			function()
-				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-			end,
-			"List workspace folders",
-		},
-		f = { "<cmd>silent Telescope filetypes<CR>", "Set filetype" },
+		F = { "<cmd>silent Telescope filetypes<CR>", "Set filetype" },
+		f = { ":find ", "find a file", silent = false },
 		H = { "<cmd>silent Telescope keymaps<CR>", "Keymaps" },
 		h = { "<cmd>WhichKey<CR>", "Which Key" },
 		m = { "<cmd>messages<CR>", "Messages" },

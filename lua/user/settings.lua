@@ -116,8 +116,9 @@ autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 autocmd FileType netrw silent! nnoremap <buffer> <nowait> q :silent call ToggleNetrw()<CR><silent>
 autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;q :silent call ToggleNetrw()<CR><silent>
 autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;; :silent call ToggleNetrw()<CR><silent>
-autocmd FileType netrw setl bufhidden=wipe
 autocmd FileType netrw nnoremap <buffer> <Backspace> <Plug>NetrwBrowseUpDir
+autocmd FileType netrw setl bufhidden=wipe
+
 function! CloseNetrw() abort
   for bufn in range(1, bufnr('$'))
     if bufexists(bufn) && getbufvar(bufn, '&filetype') ==# 'netrw'
@@ -132,6 +133,7 @@ function! CloseNetrw() abort
     endif
   endfor
 endfunction
+
 augroup closeOnOpen
   autocmd!
   autocmd BufWinEnter * if getbufvar(winbufnr(winnr()), "&filetype") != "netrw"|call CloseNetrw()|endif
