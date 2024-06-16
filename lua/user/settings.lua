@@ -104,10 +104,6 @@ endfunction
 
 autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 
-" hi CursorLine cterm=NONE ctermbg=232
-" autocmd InsertEnter * highlight  CursorLine ctermbg=17 ctermfg=None
-" autocmd InsertLeave * highlight  CursorLine ctermbg=232
-
 " netrw settings and functions
 " let g:netrw_list_hide= netrw_gitignore#Hide()
 " let s:treedepthstring     = "│ "

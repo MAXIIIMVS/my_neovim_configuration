@@ -30,21 +30,6 @@ local dap_go = require("dap-go")
 local dap = require("dap")
 local todo_comments = require("todo-comments")
 
-local function close_buffer(buffer_name)
-	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-		local name = vim.api.nvim_buf_get_name(buf)
-		if name ~= "" and vim.fn.bufexists(buf) == 1 and vim.fn.bufname(buf) == buffer_name then
-			local is_modified = vim.api.nvim_buf_get_option(buf, "modified")
-			if is_modified then
-				vim.api.nvim_command("confirm bd")
-			else
-				vim.api.nvim_buf_delete(buf, { force = true })
-			end
-			return
-		end
-	end
-end
-
 local function term_debug()
 	-- specific to my system
 	local gdbfake_file = os.getenv("HOME") .. "/.gdbfake"
@@ -73,48 +58,6 @@ local function term_debug()
 	-- vim.api.nvim_feedkeys("file " .. current_dir .. "/", "n", true)
 	vim.api.nvim_feedkeys("file ", "n", true)
 end
-
-local function make(target)
-	if target == nil then
-		target = ""
-	end
-	local term_name = " Make Terminal"
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		local win_buffer = vim.api.nvim_win_get_buf(win)
-		local win_buffer_name = vim.fn.bufname(win_buffer)
-
-		if win_buffer_name == term_name then
-			vim.api.nvim_set_current_win(win)
-			vim.api.nvim_feedkeys("make " .. target .. "\n", "n", true)
-			return
-		end
-	end
-	local buffer_exists = vim.fn.bufexists(term_name)
-	if buffer_exists ~= 0 then
-		vim.cmd("buffer " .. term_name .. " | startinsert")
-		if vim.bo.buftype ~= "terminal" then
-			vim.cmd("bd! | startinsert | term")
-			vim.cmd("file " .. term_name)
-		end
-	else
-		vim.cmd("split | resize 13 | startinsert | term")
-		vim.cmd("file " .. term_name)
-	end
-	vim.api.nvim_feedkeys("make " .. target .. "\n", "n", true)
-end
-
--- vim.api.nvim_create_autocmd({ "TermClose" }, {
--- 	group = vim.api.nvim_create_augroup("toggle_terminal_close", { clear = true }),
--- 	callback = function()
--- 		if vim.bo.filetype ~= "termdebug" then
--- 			if #vim.api.nvim_list_wins() > 1 then
--- 				vim.cmd("quit!")
--- 			else
--- 				vim.cmd("bd!")
--- 			end
--- 		end
--- 	end,
--- })
 
 local function get_highlight(group)
 	local src = "redir @a | silent! hi " .. group .. " | redir END | let output = @a"
@@ -171,8 +114,6 @@ local function get_git_hash()
 end
 
 function sync_statusline_with_tmux()
-	vim.o.cursorline = not vim.g.is_transparent
-	vim.o.cursorlineopt = vim.g.is_transparent and "number" or "number,line"
 	local current_background = get_highlight("Normal")["guibg"]
 	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
@@ -282,18 +223,13 @@ wk.setup(options)
 wk.register({
 	["<F1>"] = {
 		function()
-			local term_name = " Make Terminal"
-			close_buffer(term_name)
-			local success, _ = pcall(vim.cmd, "silent make")
-			if success then
-				vim.notify("Build successful!", "info", { title = "Build" })
-			end
+			vim.cmd("TermExec cmd=make")
 		end,
 		"Build",
 	},
 	["<F2>"] = {
 		function()
-			make("valgrind")
+			vim.cmd('TermExec cmd="make valgrind"')
 		end,
 		"Valgrind",
 	},
@@ -313,7 +249,7 @@ wk.register({
 	},
 	["<C-F5>"] = {
 		function()
-			vim.cmd("silent make run")
+			vim.cmd('TermExec cmd="make run"')
 		end,
 		"Start without debugging",
 	},
@@ -1120,73 +1056,73 @@ wk.register({
 		name = "Make",
 		a = {
 			function()
-				make("all")
+				vim.cmd('TermExec cmd="make all"')
 			end,
 			"All",
 		},
 		B = {
 			function()
-				make("clean-build")
+				vim.cmd('TermExec cmd="make clean-build"')
 			end,
 			"Clean build",
 		},
 		b = {
 			function()
-				make("build")
+				vim.cmd('TermExec cmd="make build"')
 			end,
 			"Build",
 		},
 		c = {
 			function()
-				make("clean")
+				vim.cmd('TermExec cmd="make clean"')
 			end,
 			"Clean",
 		},
 		d = {
 			function()
-				make("debug")
+				vim.cmd('TermExec cmd="make debug"')
 			end,
 			"Debug",
 		},
 		g = {
 			function()
-				make("generate")
+				vim.cmd('TermExec cmd="make generate"')
 			end,
-			"Generate",
+			"Debug",
 		},
 		h = {
 			function()
-				make("help")
+				vim.cmd('TermExec cmd="make help"')
 			end,
 			"Help",
 		},
 		i = {
 			function()
-				make("install")
+				vim.cmd('TermExec cmd="make install"')
 			end,
 			"Install",
 		},
 		r = {
 			function()
-				make("run")
+				vim.cmd('TermExec cmd="make run"')
 			end,
 			"Run",
 		},
 		t = {
 			function()
-				make("test")
+				vim.cmd('TermExec cmd="make test"')
 			end,
 			"Test",
 		},
 		v = {
 			function()
-				make("valgrind")
+				vim.cmd('TermExec cmd="make valgrind"')
 			end,
 			"valgrind",
 		},
 		w = {
 			function()
-				make("watch")
+				vim.cmd('TermExec cmd="make watch"')
 			end,
 			"Watch",
 		},
@@ -1354,18 +1290,13 @@ wk.register({
 wk.register({
 	["<F1>"] = {
 		function()
-			local term_name = " Make Terminal"
-			close_buffer(term_name)
-			local success, _ = pcall(vim.cmd, "silent make")
-			if success then
-				vim.notify("Build successful!", "info", { title = "Build" })
-			end
+			vim.cmd("TermExec cmd=make")
 		end,
 		"Build",
 	},
 	["<F2>"] = {
 		function()
-			make("valgrind")
+			vim.cmd('TermExec cmd="make valgrind"')
 		end,
 		"Valgrind",
 	},
@@ -1385,7 +1316,7 @@ wk.register({
 	},
 	["<C-F5>"] = {
 		function()
-			vim.cmd("silent make run")
+			vim.cmd('TermExec cmd="make run"')
 		end,
 		"Start without debugging",
 	},
@@ -1564,18 +1495,13 @@ wk.register({
 	[";f"] = { "<C-\\><C-n>:f ", "Set filename", silent = false },
 	["<F1>"] = {
 		function()
-			local term_name = " Make Terminal"
-			close_buffer(term_name)
-			local success, _ = pcall(vim.cmd, "silent make")
-			if success then
-				vim.notify("Build successful!", "info", { title = "Build" })
-			end
+			vim.cmd("TermExec cmd=make")
 		end,
 		"Build",
 	},
 	["<F2>"] = {
 		function()
-			make("valgrind")
+			vim.cmd('TermExec cmd="make valgrind"')
 		end,
 		"Valgrind",
 	},
@@ -1595,7 +1521,7 @@ wk.register({
 	},
 	["<C-F5>"] = {
 		function()
-			vim.cmd("silent make run")
+			vim.cmd('TermExec cmd="make run"')
 		end,
 		"Start without debugging",
 	},

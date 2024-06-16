@@ -85,6 +85,7 @@ return require("lazy").setup({
 			"ToggleTermSendCurrentLine",
 			"ToggleTermSendVisualLines",
 			"ToggleTermSendVisualSelection",
+			"TermExec",
 		},
 	},
 	{
