@@ -7,6 +7,8 @@ end
 local flavors = {
 	"catppuccin-mocha",
 	"duskfox",
+	"tokyonight",
+	"solarized-osaka",
 	"catppuccin-macchiato",
 	"catppuccin-frappe",
 	"nightfox",
@@ -625,6 +627,8 @@ wk.register({
 			},
 		},
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
+		-- NOTE: you have to change the ;x keymap for netrw, if you change the next
+		-- line
 		x = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
 		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
 		Z = { "<C-w>|<C-w>_", "Maximize the window" },
@@ -1275,14 +1279,19 @@ wk.register({
 		},
 		t = {
 			function()
-				-- if not vim.g.is_transparent and vim.o.background == "light" then
-				-- 	return
-				-- end
 				vim.g.is_transparent = not vim.g.is_transparent
-				-- local tokyonight_options = require("tokyonight.config").options
-				-- tokyonight_options.transparent = vim.g.is_transparent
-				-- local osaka_options = require("solarized-osaka.config").options
-				-- osaka_options.transparent = vim.g.is_transparent
+				local tokyonight_options = require("tokyonight.config").options
+				tokyonight_options.transparent = vim.g.is_transparent
+				tokyonight_options.styles = {
+					floats = vim.g.is_transparent and "transparent" or "normal",
+					sidebars = vim.g.is_transparent and "transparent" or "normal",
+				}
+				local osaka_options = require("solarized-osaka.config").options
+				osaka_options.styles = {
+					floats = vim.g.is_transparent and "transparent" or "normal",
+					sidebars = vim.g.is_transparent and "transparent" or "normal",
+				}
+				osaka_options.transparent = vim.g.is_transparent
 				local catppuccin = require("catppuccin")
 				catppuccin.options.transparent_background = vim.g.is_transparent
 				local nightfox = require("nightfox.config")

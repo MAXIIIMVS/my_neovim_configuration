@@ -113,22 +113,27 @@ autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 " let s:treedepthstring     = "│ "
 " let g:netrw_hide = 1
 " let g:netrw_altv=1
-autocmd FileType netrw silent! nnoremap <buffer> <nowait> q :silent call ToggleNetrw()<CR><silent>
-autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;q :silent call ToggleNetrw()<CR><silent>
-autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;; :silent call ToggleNetrw()<CR><silent>
-autocmd FileType netrw nnoremap <buffer> <Backspace> <Plug>NetrwBrowseUpDir
+autocmd FileType netrw silent! nnoremap <buffer> <nowait> q :silent q<CR><silent>
+autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;q :silent q<CR><silent>
+autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;; :silent q<CR><silent>
+autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;x :silent q<CR><silent>
 autocmd FileType netrw setl bufhidden=wipe
+
+augroup NetrwSettings
+  autocmd!
+  autocmd WinClosed * if &filetype == 'netrw' | let g:NetrwIsOpen = 0 | endif
+augroup END
+
+let g:NetrwIsOpen=0
 
 function! CloseNetrw() abort
   for bufn in range(1, bufnr('$'))
     if bufexists(bufn) && getbufvar(bufn, '&filetype') ==# 'netrw'
-      " silent! execute 'bwipeout ' . bufn
-      " NOTE: I replaced the previous line with next one; This lets the
-      " ToggleNetrw to take care of wiping out the buffer (netrw in this case)
-      silent! execute ':call ToggleNetrw()<CR>'
+      silent! execute 'bwipeout ' . bufn
       if getline(2) =~# '^" Netrw '
         silent! bwipeout
       endif
+      let g:NetrwIsOpen=0
       return
     endif
   endfor
@@ -138,8 +143,6 @@ augroup closeOnOpen
   autocmd!
   autocmd BufWinEnter * if getbufvar(winbufnr(winnr()), "&filetype") != "netrw"|call CloseNetrw()|endif
 aug END
-
-let g:NetrwIsOpen=0
 
 function! ToggleNetrw()
     let g:netrw_winsize = -40
@@ -154,7 +157,6 @@ function! ToggleNetrw()
         let g:NetrwIsOpen=0
     else
         let g:NetrwIsOpen=1
-        " silent Lexplore
         silent Lexplore %:p:h
     endif
 endfunction

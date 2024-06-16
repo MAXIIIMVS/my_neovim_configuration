@@ -171,6 +171,17 @@ return require("lazy").setup({
 		},
 	},
 	{
+		"craftzdog/solarized-osaka.nvim",
+		lazy = true,
+		opts = {
+			transparent = vim.g.is_transparent,
+			styles = {
+				floats = vim.g.is_transparent and "transparent" or "normal",
+				sidebars = vim.g.is_transparent and "transparent" or "normal",
+			},
+		},
+	},
+	{
 		"echasnovski/mini.bracketed",
 		-- version = false,
 		opts = {
@@ -195,7 +206,7 @@ return require("lazy").setup({
 				" \ | :lua require('mini.bracketed').setup()
 		      ]])
 		end,
-		event = "VeryLazy",
+		event = "InsertEnter",
 	},
 	{
 		"echasnovski/mini.jump2d",
@@ -278,8 +289,19 @@ return require("lazy").setup({
 		},
 	},
 	{
+		"folke/tokyonight.nvim",
+		lazy = true,
+		opts = {
+			transparent = vim.g.is_transparent,
+			styles = {
+				floats = vim.g.is_transparent and "transparent" or "normal",
+				sidebars = vim.g.is_transparent and "transparent" or "normal",
+			},
+		},
+	},
+	{
 		"folke/ts-comments.nvim",
-		event = "VeryLazy",
+		event = "InsertEnter",
 		opts = {},
 		enabled = vim.fn.has("nvim-0.10.0") == 1,
 	},
@@ -411,6 +433,7 @@ return require("lazy").setup({
 				filetypes = { "help", "dashboard", "NvimTree", "mason", "fugitive", "git", "cmake" },
 			},
 		},
+		event = "UIEnter",
 	},
 	{ "LunarVim/bigfile.nvim", event = "BufReadPre", opts = {} },
 	{
