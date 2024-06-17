@@ -184,7 +184,7 @@ return require("lazy").setup({
 	},
 	{
 		"echasnovski/mini.bracketed",
-		-- version = false,
+		version = false,
 		opts = {
 			conflict = { suffix = "", options = {} },
 			diagnostic = { suffix = "", options = {} },
@@ -209,8 +209,10 @@ return require("lazy").setup({
 		end,
 		event = "InsertEnter",
 	},
+	{ "echasnovski/mini.bufremove", version = false, opts = { silent = true }, lazy = true },
 	{
 		"echasnovski/mini.jump2d",
+		version = false,
 		opts = {
 			mappings = {
 				start_jumping = ";j",
@@ -225,6 +227,7 @@ return require("lazy").setup({
 	},
 	{
 		"echasnovski/mini.move",
+		version = false,
 		opts = {
 			mappings = {
 				left = "<C-h>",
@@ -245,6 +248,7 @@ return require("lazy").setup({
 	},
 	{
 		"echasnovski/mini.splitjoin",
+		version = false,
 		opts = { mappings = { toggle = "gs", split = "", join = "" } },
 		keys = { "gs", { "gs", mode = "v" } },
 	},
@@ -265,7 +269,6 @@ return require("lazy").setup({
 			})
 		end,
 	},
-	{ "famiu/bufdelete.nvim", cmd = { "Bdelete", "Bwipeout" } },
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },

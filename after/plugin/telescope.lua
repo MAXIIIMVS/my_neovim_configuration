@@ -73,22 +73,9 @@ local options = {
 				vim.api.nvim_put({ glyph.value }, "c", false, true)
 			end,
 		},
-		zoxide = {
-			prompt_title = "Projects",
-			mappings = {
-				["<C-b>"] = {
-					action = function(selection)
-						vim.cmd("Telescope file_browser path=" .. selection.path .. " select_buffer=true")
-					end,
-					after_action = function(selection)
-						vim.notify("Directory changed to " .. selection.path)
-					end,
-				},
-			},
-		},
+		zoxide = { prompt_title = "Projects" },
 	},
-
-	extensions_list = { "fzf", "file_browser", "emoji", "glyph", "zoxide" },
+	extensions_list = { "fzf", "emoji", "glyph", "zoxide" },
 }
 
 telescope.setup(options)
