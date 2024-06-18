@@ -60,13 +60,6 @@ local options = {
 		}, -- mappings
 	},
 	extensions = {
-		emoji = {
-			action = function(emoji)
-				vim.fn.setreg("*", emoji.value) -- copy to * register, paste it with p or "*p
-				-- insert emoji when picked
-				vim.api.nvim_put({ emoji.value }, "c", false, true)
-			end,
-		},
 		glyph = {
 			action = function(glyph)
 				vim.fn.setreg("*", glyph.value)
@@ -75,7 +68,7 @@ local options = {
 		},
 		zoxide = { prompt_title = "Projects" },
 	},
-	extensions_list = { "fzf", "emoji", "glyph", "zoxide" },
+	extensions_list = { "fzf", "glyph", "zoxide" },
 }
 
 telescope.setup(options)

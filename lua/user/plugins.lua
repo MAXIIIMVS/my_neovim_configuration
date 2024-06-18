@@ -357,7 +357,26 @@ return require("lazy").setup({
 	},
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{ "jvgrootveld/telescope-zoxide", cmd = { "Telescope zoxide list" } },
-	{ "KabbAmine/vCoolor.vim", event = "VeryLazy" },
+	{
+		"KabbAmine/vCoolor.vim",
+		cmd = {
+			"VCoolor",
+			"VCoolIns",
+			"Rgb2Hex",
+			"Rgb2RgbPerc",
+			"Rgb2Hsl",
+			"RgbPerc2Hex",
+			"RgbPerc2Rgb",
+			"Hex2Lit",
+			"Hex2Rgb",
+			"Hex2RgbPerc",
+			"Hex2Hsl",
+			"Hsl2Rgb",
+			"Hsl2Hex",
+			"VCase",
+		},
+		keys = { "<M-v>", "<M-r>", "<M-c>", "<M-w>" },
+	},
 	{
 		"kristijanhusak/vim-dadbod-ui",
 		dependencies = {
@@ -509,6 +528,7 @@ return require("lazy").setup({
 	{
 		"NvChad/nvim-colorizer.lua",
 		opts = {
+			filetypes = { "*", "!vimwiki" },
 			user_default_options = {
 				AARRGGBB = true,
 				RRGGBBAA = true,
@@ -521,7 +541,7 @@ return require("lazy").setup({
 				sass = { enable = true, parsers = { "css" } },
 			},
 		},
-		event = "VeryLazy",
+		event = "BufReadPre",
 	},
 	{ "onsails/lspkind.nvim", dependencies = { "hrsh7th/nvim-cmp" }, event = "InsertEnter" },
 	{ "rafamadriz/friendly-snippets" },
@@ -646,7 +666,7 @@ return require("lazy").setup({
 	},
 	{ "tpope/vim-rhubarb", event = "VeryLazy" },
 	{ "tpope/vim-rsi", event = "InsertEnter" },
-	{ "tpope/vim-sleuth", event = "BufEnter" },
+	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
 	{ "tpope/vim-obsession", cmd = { "Obsession" } },
 	{ "tpope/vim-speeddating", keys = { "<c-a>", "<c-x>" } },
 	{
@@ -664,11 +684,6 @@ return require("lazy").setup({
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "windwp/nvim-ts-autotag", event = "InsertEnter" },
 	{ "windwp/nvim-autopairs", opts = { check_ts = true }, event = "InsertEnter" },
-	{
-		"xiyaowong/telescope-emoji.nvim",
-		cmd = { "Telescope emoji" },
-		dependencies = { "nvim-telescope/telescope.nvim" },
-	},
 }, {
 	ui = {
 		border = "rounded",

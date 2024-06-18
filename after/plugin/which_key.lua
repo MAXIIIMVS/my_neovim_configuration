@@ -919,11 +919,6 @@ wk.register({
 			"Watch the word under cursor",
 		},
 	},
-	e = {
-		name = "Emojis & Icons",
-		e = { "<cmd>silent Telescope emoji<CR>", "Emojis" },
-		i = { "<cmd>silent Telescope glyph<CR>", "Glyphs" },
-	},
 	g = {
 		name = "Git",
 		["["] = {
