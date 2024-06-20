@@ -489,7 +489,7 @@ wk.register({
 					previewer = false,
 				}))
 			end,
-			"Lists available color schemes",
+			"List available color schemes",
 		},
 		D = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show line diagnostics" },
 		d = { "<cmd>silent Telescope diagnostics<CR>", "List diagnostics" },
@@ -1210,6 +1210,16 @@ wk.register({
 		},
 		t = {
 			function()
+				local found = false
+				for _, f in ipairs(flavors) do
+					if vim.g.colors_name == f then
+						found = true
+						break
+					end
+				end
+				if not found then
+					return
+				end
 				vim.g.is_transparent = not vim.g.is_transparent
 				local tokyonight_options = require("tokyonight.config").options
 				tokyonight_options.transparent = vim.g.is_transparent

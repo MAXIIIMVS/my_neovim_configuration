@@ -114,13 +114,6 @@ db.setup({
 		header = headers[2],
 		center = {
 			{
-				icon = "🗄 ",
-				desc = "Find Files                                        ",
-				-- action = "Telescope find_files find_command=rg,--hidden,--files",
-				action = "Telescope find_files",
-				key = "f",
-			},
-			{
 				icon = "🗓 ",
 				desc = "Calendar",
 				action = "Calendar",
@@ -133,22 +126,22 @@ db.setup({
 				key = "w",
 			},
 			{
-				icon = "📂 ",
-				desc = "Other Places",
-				action = "Telescope zoxide list",
-				key = "p",
+				icon = "💻 ",
+				desc = "Terminal",
+				action = "ToggleTerm",
+				key = "t",
+			},
+			{
+				icon = "🚀 ",
+				desc = "Manage LSP/Formatters/...                    ",
+				action = "Mason",
+				key = "m",
 			},
 			{
 				icon = "🔌 ",
 				desc = "Extensions",
 				action = "Lazy",
 				key = "x",
-			},
-			{
-				icon = "🚀 ",
-				desc = "Manage LSP/Formatters/...",
-				action = "Mason",
-				key = "m",
 			},
 			{
 				icon = "🚪 ",
