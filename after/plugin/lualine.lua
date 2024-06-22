@@ -149,7 +149,7 @@ ins_left({
 	"filename",
 	cond = conditions.is_not_terminal,
 	color = { fg = colors.magenta, gui = "bold" },
-	path = 1,
+	path = 4,
 })
 
 ins_left({
@@ -256,6 +256,21 @@ ins_right({
 	cond = function()
 		return conditions.buffer_not_empty() and conditions.hide_in_width()
 	end,
+})
+
+ins_right({
+	"o:encoding", -- option component same as &encoding in viml
+	fmt = string.upper, -- I'm not sure why it's upper case either ;)
+	cond = conditions.hide_in_width,
+	color = { fg = colors.green, gui = "bold" },
+})
+
+ins_right({
+	"fileformat",
+	fmt = string.upper,
+	icons_enabled = false,
+	color = { fg = colors.green, gui = "bold" },
+	cond = conditions.hide_in_width,
 })
 
 ins_right({ "progress", color = { fg = colors.cyan, gui = "bold" } })

@@ -15,6 +15,8 @@ local flavors = {
 	"nordfox",
 	"carbonfox",
 	"terafox",
+	"tokyonight-day",
+	"solarized-osaka-day",
 	"dayfox",
 	"dawnfox",
 	"catppuccin-latte",
@@ -566,6 +568,7 @@ wk.register({
 		-- NOTE: you have to change the ;x keymap for netrw, if you change the next
 		-- line
 		x = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
+		y = { "<cmd>silent lua require('tfm').open()<CR>", "Yazi" },
 		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
 		Z = { "<C-w>|<C-w>_", "Maximize the window" },
 	},
@@ -1497,7 +1500,6 @@ wk.register({
 -- terminal mode {{{
 wk.register({
 	["<Esc>"] = { "<C-\\><C-n>", "Quit insert mode" },
-	[";f"] = { "<C-\\><C-n>:f ", "Set filename", silent = false },
 	["<F1>"] = {
 		function()
 			vim.cmd("TermExec cmd=make")

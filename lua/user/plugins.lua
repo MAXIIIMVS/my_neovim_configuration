@@ -184,6 +184,7 @@ return require("lazy").setup({
 	},
 	{
 		"echasnovski/mini.bracketed",
+		event = "BufRead",
 		version = false,
 		opts = {
 			conflict = { suffix = "", options = {} },
@@ -207,7 +208,6 @@ return require("lazy").setup({
 				" \ | :lua require('mini.bracketed').setup()
 		      ]])
 		end,
-		event = "InsertEnter",
 	},
 	{ "echasnovski/mini.bufremove", version = false, opts = { silent = true }, lazy = true },
 	{
@@ -615,6 +615,19 @@ return require("lazy").setup({
 			vim.g.clever_f_mark_char_color = 0
 		end,
 	},
+	{
+		"rolv-apneseth/tfm.nvim",
+		lazy = true,
+		opts = {
+			enable_cmds = true,
+			keybindings = {
+				["<ESC>"] = "q",
+				["<C-v>"] = "<C-\\><C-o> <cmd>lua require('tfm').set_next_open_mode(require('tfm').OPEN_MODE.vsplit)<CR>|<CR>",
+				["<C-s>"] = "<C-\\><C-o> <cmd>lua require('tfm').set_next_open_mode(require('tfm').OPEN_MODE.split)<CR>|<CR>",
+				["<C-t>"] = "<C-\\><C-o> <cmd>lua require('tfm').set_next_open_mode(require('tfm').OPEN_MODE.tabedit)<CR>|<CR>",
+			},
+		},
+	},
 	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
 	{
 		"stevearc/oil.nvim",
@@ -632,7 +645,7 @@ return require("lazy").setup({
 		cmd = "Oil",
 	},
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
-	{ "tpope/vim-abolish", event = "VeryLazy" },
+	{ "tpope/vim-abolish", event = "BufRead" },
 	{ "tpope/vim-dadbod", lazy = true },
 	{
 		"tpope/vim-fugitive",
