@@ -71,7 +71,7 @@ return require("lazy").setup({
 			persist_mode = false,
 			size = 13,
 			open_mapping = [[<M-t>]],
-			direction = "horizontal",
+			direction = "tab",
 			float_opts = {
 				border = "rounded",
 				winblend = 0,
@@ -205,7 +205,6 @@ return require("lazy").setup({
 				    \ | nnoremap <silent> ]C :lua require('mini.bracketed').comment('last', nil)<CR>
 				    \ | endif
 				augroup END
-				" \ | :lua require('mini.bracketed').setup()
 		      ]])
 		end,
 	},
@@ -309,7 +308,7 @@ return require("lazy").setup({
 		opts = {},
 		enabled = vim.fn.has("nvim-0.10.0") == 1,
 	},
-	{ "folke/which-key.nvim", event = "VeryLazy" },
+	{ "folke/which-key.nvim", event = "VimEnter" },
 	{
 		"folke/zen-mode.nvim",
 		opts = { window = { width = 100 } },
@@ -500,6 +499,46 @@ return require("lazy").setup({
 			"nvim-tree/nvim-web-devicons",
 			"nvim-treesitter/nvim-treesitter",
 		},
+		config = function()
+			require("lspsaga").setup({
+				hover = {
+					max_width = 0.7,
+				},
+				preview = {
+					lines_above = 0,
+					lines_below = 0,
+				},
+				scroll_preview = {
+					scroll_down = "<C-d>",
+					scroll_up = "<C-u>",
+				},
+				ui = {
+					theme = "round",
+					border = "rounded",
+					winblend = 0,
+					colors = require("catppuccin.groups.integrations.lsp_saga").custom_colors(),
+					kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+				},
+				lightbulb = {
+					enable = false,
+					virtual_text = false,
+					-- debounce = 0,
+				},
+				outline = {
+					win_width = 40,
+				},
+				symbol_in_winbar = {
+					enable = true, -- don't toggle
+					hide_keyword = false,
+					folder_level = 3,
+					color_mode = true,
+					delay = 0,
+				},
+				beacon = {
+					enable = false,
+				},
+			})
+		end,
 	},
 	{ "nvim-lualine/lualine.nvim", event = "UIEnter" },
 	{ "nvim-lua/plenary.nvim", lazy = true },

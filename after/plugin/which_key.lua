@@ -22,16 +22,6 @@ local flavors = {
 	"catppuccin-latte",
 }
 
-local lualine = require("lualine")
-local telescope_builtins = require("telescope.builtin")
-local telescope_themes = require("telescope.themes")
-local lspsaga_diagnostics = require("lspsaga.diagnostic")
-local dapui = require("dapui")
-local dap_ui_widgets = require("dap.ui.widgets")
-local dap_go = require("dap-go")
-local dap = require("dap")
-local todo_comments = require("todo-comments")
-
 local function term_debug()
 	-- specific to my system
 	local gdbfake_file = os.getenv("HOME") .. "/.gdbfake"
@@ -242,7 +232,7 @@ wk.register({
 				vim.cmd("Break")
 				vim.cmd("call TermDebugSendCommand('c')")
 			else
-				dap.clear_breakpoints()
+				require("dap").clear_breakpoints()
 				vim.cmd.DapToggleBreakpoint()
 				vim.cmd.DapContinue()
 			end
@@ -270,7 +260,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('start')")
 			else
-				dap.restart()
+				require("dap").restart()
 			end
 		end,
 		"Restart",
@@ -280,7 +270,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("Evaluate")
 			else
-				dapui.eval(nil, { enter = true })
+				require("dapui").eval(nil, { enter = true })
 			end
 		end,
 		"Evaluate",
@@ -300,7 +290,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('delete')")
 			else
-				dap.clear_breakpoints()
+				require("dap").clear_breakpoints()
 			end
 		end,
 		"Delete all breakpoints",
@@ -320,7 +310,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("Until")
 			else
-				dap.run_to_cursor()
+				require("dap").run_to_cursor()
 			end
 		end,
 		"Run to cursor",
@@ -424,24 +414,24 @@ wk.register({
 	["[h"] = { "<cmd>silent Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
 	["[E"] = {
 		function()
-			lspsaga_diagnostics:goto_prev({ severity = vim.diagnostic.severity.ERROR })
+			require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
 		end,
 		"Jump to the previous error",
 	},
 	["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to the previous diagnostic" },
 	["]E"] = {
 		function()
-			lspsaga_diagnostics:goto_next({ severity = vim.diagnostic.severity.ERROR })
+			require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
 		end,
 		"Jump to the next error",
 	},
 	["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to the next diagnostic" },
 	["[n"] = {
-		todo_comments.jump_prev,
+		require("todo-comments").jump_prev,
 		"Previous todo comment",
 	},
 	["]n"] = {
-		todo_comments.jump_next,
+		require("todo-comments").jump_next,
 		"Next todo comment",
 	},
 	["[p"] = { "<cmd>pu!<CR>", "Paste above current line" },
@@ -479,7 +469,7 @@ wk.register({
 		["9"] = { "<cmd>BufferLineGoToBuffer 9<CR>", "Go to 9th buffer" },
 		b = {
 			function()
-				telescope_builtins.buffers(telescope_themes.get_dropdown({
+				require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({
 					previewer = false,
 				}))
 			end,
@@ -487,7 +477,7 @@ wk.register({
 		},
 		c = {
 			function()
-				telescope_builtins.colorscheme(telescope_themes.get_dropdown({
+				require("telescope.builtin").colorscheme(require("telescope.themes").get_dropdown({
 					previewer = false,
 				}))
 			end,
@@ -502,7 +492,7 @@ wk.register({
 		H = { ":Man ", "Show man pages", silent = false },
 		h = {
 			function()
-				telescope_builtins.help_tags(telescope_themes.get_dropdown({
+				require("telescope.builtin").help_tags(require("telescope.themes").get_dropdown({
 					previewer = false,
 				}))
 			end,
@@ -519,7 +509,7 @@ wk.register({
 		-- r = { "<cmd>Telescope oldfiles previewer=false<CR>", "Show recently opened files" },
 		r = {
 			function()
-				telescope_builtins.oldfiles(telescope_themes.get_dropdown({
+				require("telescope.builtin").oldfiles(require("telescope.themes").get_dropdown({
 					previewer = false,
 				}))
 			end,
@@ -737,7 +727,7 @@ wk.register({
 				if vim.g.termdebug_running then
 					vim.cmd("call TermDebugSendCommand('delete')")
 				else
-					dap.clear_breakpoints()
+					require("dap").clear_breakpoints()
 				end
 			end,
 			"Delete all breakpoints",
@@ -757,7 +747,7 @@ wk.register({
 				if vim.g.termdebug_running then
 					vim.cmd("Until")
 				else
-					dap.run_to_cursor()
+					require("dap").run_to_cursor()
 				end
 			end,
 			"Run to cursor",
@@ -777,7 +767,7 @@ wk.register({
 				if vim.g.termdebug_running then
 					vim.cmd("call TermDebugSendCommand('down 1')")
 				else
-					dap.down()
+					require("dap").down()
 				end
 			end,
 			"Go down in current stacktrace without stepping",
@@ -787,7 +777,7 @@ wk.register({
 				if vim.g.termdebug_running then
 					vim.cmd("Evaluate")
 				else
-					dapui.eval(nil, { enter = true })
+					require("dapui").eval(nil, { enter = true })
 				end
 			end,
 			"Evaluate expression",
@@ -806,13 +796,13 @@ wk.register({
 			name = "Go programming language",
 			t = {
 				function()
-					dap_go.debug_test()
+					require("dap-go").debug_test()
 				end,
 				"Debug go test",
 			},
 			l = {
 				function()
-					dap_go.debug_last()
+					require("dap-go").debug_last()
 				end,
 				"Debug last go test",
 			},
@@ -824,7 +814,7 @@ wk.register({
 			"Hover",
 		},
 		j = {
-			dap.goto_,
+			require("dap").goto_,
 			"Jump to a specific line or line under cursor",
 		},
 		l = {
@@ -832,7 +822,7 @@ wk.register({
 				if vim.g.termdebug_running then
 					vim.cmd("call TermDebugSendCommand('info locals')")
 				else
-					dap_ui_widgets.sidebar(dap_ui_widgets.scopes).open()
+					require("dap.ui.widgets").sidebar(require("dap.ui.widgets").scopes).open()
 				end
 			end,
 			"Locals",
@@ -842,7 +832,7 @@ wk.register({
 				if vim.g.termdebug_running then
 					vim.cmd("call TermDebugSendCommand('reverse-step')")
 				else
-					dap.step_back()
+					require("dap").step_back()
 				end
 			end,
 			"Step back",
@@ -858,7 +848,7 @@ wk.register({
 			"Step over",
 		},
 		p = {
-			dap.pause,
+			require("dap").pause,
 			"Pause the thread",
 		},
 		R = {
@@ -879,7 +869,7 @@ wk.register({
 				if vim.g.termdebug_running then
 					vim.cmd("call TermDebugSendCommand('start')")
 				else
-					dap.restart()
+					require("dap").restart()
 				end
 			end,
 			"Restart",
@@ -910,14 +900,14 @@ wk.register({
 				if vim.g.termdebug_running then
 					vim.cmd("call TermDebugSendCommand('up 1')")
 				else
-					dap.up()
+					require("dap").up()
 				end
 			end,
 			"Go up in current stacktrace without stepping",
 		},
 		w = {
 			function()
-				dapui.elements.watches.add(nil)
+				require("dapui").elements.watches.add(nil)
 			end,
 			"Watch the word under cursor",
 		},
@@ -1201,11 +1191,9 @@ wk.register({
 		s = {
 			function()
 				if vim.o.statusline == "" then
-					---@diagnostic disable-next-line: missing-fields
-					lualine.hide({ unhide = true })
+					require("lualine").hide({ unhide = true })
 				else
-					---@diagnostic disable-next-line: missing-fields
-					lualine.hide({ unhide = false })
+					require("lualine").hide({ unhide = false })
 					vim.o.statusline = "" -- "" is same as "%t %m"
 				end
 			end,
@@ -1315,7 +1303,7 @@ wk.register({
 				vim.cmd("Break")
 				vim.cmd("call TermDebugSendCommand('c')")
 			else
-				dap.clear_breakpoints()
+				require("dap").clear_breakpoints()
 				vim.cmd.DapToggleBreakpoint()
 				vim.cmd.DapContinue()
 			end
@@ -1343,7 +1331,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('start')")
 			else
-				dap.restart()
+				require("dap").restart()
 			end
 		end,
 		"Restart",
@@ -1353,7 +1341,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("Evaluate")
 			else
-				dapui.eval(nil, { enter = true })
+				require("dapui").eval(nil, { enter = true })
 			end
 		end,
 		"Evaluate",
@@ -1373,7 +1361,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('delete')")
 			else
-				dap.clear_breakpoints()
+				require("dap").clear_breakpoints()
 			end
 		end,
 		"Delete all breakpoints",
@@ -1393,7 +1381,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("Until")
 			else
-				dap.run_to_cursor()
+				require("dap").run_to_cursor()
 			end
 		end,
 		"Run to cursor",
@@ -1519,7 +1507,7 @@ wk.register({
 				vim.cmd("Break")
 				vim.cmd("call TermDebugSendCommand('c')")
 			else
-				dap.clear_breakpoints()
+				require("dap").clear_breakpoints()
 				vim.cmd.DapToggleBreakpoint()
 				vim.cmd.DapContinue()
 			end
@@ -1547,7 +1535,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('start')")
 			else
-				dap.restart()
+				require("dap").restart()
 			end
 		end,
 		"Restart",
@@ -1557,7 +1545,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("Evaluate")
 			else
-				dapui.eval(nil, { enter = true })
+				require("dapui").eval(nil, { enter = true })
 			end
 		end,
 		"Evaluate",
@@ -1577,7 +1565,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('delete')")
 			else
-				dap.clear_breakpoints()
+				require("dap").clear_breakpoints()
 			end
 		end,
 		"Delete all breakpoints",
@@ -1597,7 +1585,7 @@ wk.register({
 			if vim.g.termdebug_running then
 				vim.cmd("Until")
 			else
-				dap.run_to_cursor()
+				require("dap").run_to_cursor()
 			end
 		end,
 		"Run to cursor",
