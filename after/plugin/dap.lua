@@ -82,11 +82,7 @@ require("dap").adapters.go = {
 }
 -- use dap-go, or you can provide your own configurations
 
--- Load nvim-dap configuration for Python
-require("dap-python").setup(os.getenv("HOME") .. "/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
-
--- TODO: configure rust and lua
-
+-- TODO: copy configs from lazy vim site.
 require("dap").adapters["pwa-node"] = {
 	type = "server",
 	host = "localhost",

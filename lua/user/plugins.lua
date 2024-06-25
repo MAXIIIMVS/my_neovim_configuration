@@ -21,7 +21,7 @@ return require("lazy").setup({
 			vim.g.rooter_cd_cmd = "lcd"
 			vim.g.rooter_change_directory_for_non_project_files = "current"
 		end,
-		event = "VeryLazy",
+		event = "VimEnter",
 	},
 	{
 		"akinsho/bufferline.nvim",
@@ -419,7 +419,7 @@ return require("lazy").setup({
 		event = "InsertEnter",
 		version = "v2.*",
 	},
-	{ "leoluz/nvim-dap-go", config = true, event = "VeryLazy", ft = "go" },
+	{ "leoluz/nvim-dap-go", config = true, ft = "go" },
 	{
 		"lervag/vimtex",
 		ft = "tex",
@@ -446,13 +446,13 @@ return require("lazy").setup({
 			},
 			current_line_blame_formatter = "<author> <author_mail>: <summary>",
 		},
-		event = "BufEnter",
+		event = "BufReadPost",
 	},
 	{
 		-- NOTE: install universal-ctags using apt (the snap version wasn't
 		-- compatible)
 		"ludovicchabant/vim-gutentags",
-		event = "VeryLazy",
+		event = "BufReadPost",
 		init = function()
 			vim.g.gutentags_generate_on_new = true
 			vim.g.gutentags_generate_on_missing = true
@@ -488,7 +488,15 @@ return require("lazy").setup({
 		},
 	},
 	{ "mfussenegger/nvim-dap", event = "VeryLazy" },
-	{ "mfussenegger/nvim-dap-python", ft = "python", event = "VeryLazy" },
+	{
+		"mfussenegger/nvim-dap-python",
+		ft = "python",
+		config = function()
+			require("dap-python").setup(
+				os.getenv("HOME") .. "/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+			)
+		end,
+	},
 	{
 		"mg979/vim-visual-multi",
 		event = "VeryLazy",
@@ -508,7 +516,82 @@ return require("lazy").setup({
 		},
 		event = { "BufReadPost", "BufNewFile" },
 	},
-	{ "nvimdev/dashboard-nvim", event = "VimEnter", dependencies = { "nvim-tree/nvim-web-devicons" } },
+	{
+		"nvimdev/dashboard-nvim",
+		event = "VimEnter",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			theme = "doom", -- hyper
+			config = {
+				header = {
+					[[                                     ]],
+					[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⢹⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
+					[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠀⢻⡾⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
+					[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⢸⣼⠁⠀⠀⠄⠹⣿⣆⠀⠀⡰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
+					[[⠀⠀⠀⠀⠀⠀⠀⠐⡀⠀⠀⠸⡄⢠⡿⠀⠀⣺⣿⢾⠀⠘⣿⣧⣼⠀⠀⠀⡰⠀⠀⠀⠀⠀⠀⠀⠀]],
+					[[⠀⠀⠀⠀⠐⢄⠀⠀⠀⢳⡀⣦⣹⣥⠆⠀⠀⠀⠈⠈⢀⠀⠈⣿⣷⡎⣰⠇⠀⠀⠀⠔⠀⠀⠀⠀⠀]],
+					[[⠀⠀⢀⠀⠀⠀⠈⠳⣄⢳⣼⣿⣿⠁⢀⣠⣲⣾⣿⣿⣾⣷⣦⡀⢿⣿⣴⢋⣤⠋⠀⠀⠀⢀⠀⠀⠀]],
+					[[⠀⠀⠀⠀⠉⠲⣤⡙⣶⣿⣿⡿⠀⠀⠀⠀⠀⢀⡀⢠⡠⠄⠀⠀⠀⢹⣿⣿⡞⣡⣴⠚⠁⠀⠀⠀⠀]],
+					[[⠀⠈⠒⠦⣤⣈⣻⣿⣿⣿⠏⠀⢀⢴⣾⣿⣿⡿⠿⠿⠿⣿⣽⣿⠦⠀⠹⣿⣿⣾⣋⣠⡤⠖⠂⠁⠀]],
+					[[⡀⠀⠀⡀⠒⠶⣾⣿⣿⠃⢀⣤⠟⠉⠀⠀⣠⣤⠀⠀⠀⠀⠀⠀⠀⠑⠀⠘⣿⢿⡶⠖⢀⠀⠀⠀⡀]],
+					[[⠀⠀⠀⠤⠤⣤⣿⡿⠀⠐⠀⢠⣶⡄⡀⣆⠸⠿⠀⠀⠀⢰⣸⡇⣾⣆⠀⠀⠀⣿⣷⣤⠤⠄⠀⠀⠀]],
+					[[⠒⠂⠉⠉⢹⣿⡟⢀⠤⠀⣼⣿⣿⣿⣆⠻⣯⣶⡶⠶⣿⡽⢋⣾⣿⡿⢀⣴⠇⠀⠿⢿⡉⠉⠉⠐⠂]],
+					[[⠀⠀⣀⣴⣿⠏⠀⠀⢤⣛⣶⣤⣍⣿⣿⣿⣿⣶⣶⣶⣾⣿⣿⣷⣿⣋⣴⣨⣖⡀⠀⠀⠸⣄⡀⠀⠀]],
+					[[⠀⢀⣾⢿⠃⠀⠀⠀⠼⡿⣷⣼⣧⣾⣦⢿⣿⣭⣭⣭⡴⠖⣻⣿⠶⢟⣉⣭⣶⠢⠄⠀⠀⠈⣦⠀⠀]],
+					[[⣠⠿⠟⠀⠀⠀⠀⠀⠀⢀⣀⣀⣠⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⡀⣷⠀]],
+					[[⠀⠀⠈⠈⢈⠜⠉⠉⠉⣸⠋⣼⢡⡟⣿⣿⢿⣿⣿⣿⣿⡿⡟⣿⠹⡌⢻⡀⠁⠀⠙⢄⠀⠀⠀⠀⠀]],
+					[[⠀⠀⠀⠀⠀⠀⠀⢀⠊⠀⠀⢠⠏⠰⠀⡿⢸⠀⡇⢸⠈⣇⠸⠀⢷⠀⠀⠈⢦⠀⠀⠀⠀⠀⠀⠀⠀]],
+					[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠃⠀⠀⢰⠀⠀⠀⡇⠀⠀⢸⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
+					[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠂⠀⠀⠀⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
+					[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀ ⠀⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
+					[[             MEMENTO MORI            ]],
+					[[            MEMENTO VIVERE           ]],
+					[[                                     ]],
+				},
+				center = {
+					{
+						icon = "🗓 ",
+						desc = "Calendar",
+						action = "Calendar",
+						key = "c",
+					},
+					{
+						icon = "📓 ",
+						desc = "Open Wiki",
+						action = "VimwikiIndex",
+						key = "w",
+					},
+					{
+						icon = "💻 ",
+						desc = "Terminal",
+						action = "ToggleTerm",
+						key = "t",
+					},
+					{
+						icon = "🚀 ",
+						desc = "Manage LSP/Formatters/...                    ",
+						action = "Mason",
+						key = "m",
+					},
+					{
+						icon = "🔌 ",
+						desc = "Extensions",
+						action = "Lazy",
+						key = "x",
+					},
+					{
+						icon = "🚪 ",
+						desc = "Quit",
+						action = "q",
+						key = "q",
+					},
+				},
+				footer = {
+					"👑 " .. "Destiny Is A Decision" .. " 👑",
+				},
+			},
+		},
+	},
 	{
 		"nvimdev/lspsaga.nvim",
 		lazy = true,
