@@ -1,5 +1,3 @@
-local home = os.getenv("HOME")
-
 local signs = {
 	Error = " ",
 	Warn = " ",
@@ -229,7 +227,7 @@ vim.o.autoread = true
 vim.bo.swapfile = false
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = home .. "/.config/undodir"
+vim.opt.undodir = os.getenv("HOME") .. "/.config/undodir"
 vim.opt.undofile = true
 vim.o.showmode = true
 vim.bo.textwidth = 80

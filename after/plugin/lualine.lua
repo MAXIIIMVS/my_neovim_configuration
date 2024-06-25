@@ -1,4 +1,3 @@
-local lualine = require("lualine")
 local custom_auto = require("lualine.themes.auto")
 custom_auto.normal.c.bg = "NONE"
 custom_auto.insert.c.bg = "NONE"
@@ -287,4 +286,4 @@ ins_right({
 	padding = { left = 1 },
 })
 
-lualine.setup(config)
+require("lualine").setup(config)

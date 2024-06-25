@@ -1,15 +1,9 @@
-local lspconfig = require("lspconfig")
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
-local lspinstaller = require("mason")
-local mason_lspconfig = require("mason-lspconfig")
-
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
-local lsp_defaults = lspconfig.util.default_config
-lsp_defaults.capabilities = vim.tbl_deep_extend(
+require("lspconfig").util.default_config.capabilities = vim.tbl_deep_extend(
 	"force",
-	lsp_defaults.capabilities,
-	cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+	require("lspconfig").util.default_config.capabilities,
+	require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 )
 
 local on_attach = function(client, bufnr)
@@ -48,28 +42,29 @@ local mason_default_settings = {
 	max_concurrent_installers = 1,
 }
 
-lspinstaller.setup(mason_default_settings)
+require("mason").setup(mason_default_settings)
 
-mason_lspconfig.setup()
-mason_lspconfig.setup_handlers({
+require("mason-lspconfig").setup()
+require("mason-lspconfig").setup_handlers({
 	function(server_name) -- default handler (optional)
 		require("lspconfig")[server_name].setup({
 			on_attach = on_attach,
-			capabilities = lsp_defaults.capabilities,
+			capabilities = require("lspconfig").util.default_config.capabilities,
 		})
 	end,
 	-- Next, you can provide targeted overrides for specific servers.
 	["cssls"] = function()
-		lsp_defaults.capabilities.textDocument.completion.completionItem.snippetSupport = true
-		lspconfig.cssls.setup({
+		require("lspconfig").util.default_config.capabilities.textDocument.completion.completionItem.snippetSupport =
+			true
+		require("lspconfig").cssls.setup({
 			on_attach = on_attach,
-			capabilities = lsp_defaults.capabilities,
+			capabilities = require("lspconfig").util.default_config.capabilities,
 		})
 	end,
 	["emmet_ls"] = function()
-		lspconfig.emmet_ls.setup({
+		require("lspconfig").emmet_ls.setup({
 			on_attach = on_attach,
-			capabilities = lsp_defaults.capabilities,
+			capabilities = require("lspconfig").util.default_config.capabilities,
 			filetypes = {
 				"html",
 				"css",
@@ -89,10 +84,11 @@ mason_lspconfig.setup_handlers({
 		})
 	end,
 	["html"] = function()
-		lsp_defaults.capabilities.textDocument.completion.completionItem.snippetSupport = true
-		lspconfig.html.setup({
+		require("lspconfig").util.default_config.capabilities.textDocument.completion.completionItem.snippetSupport =
+			true
+		require("lspconfig").html.setup({
 			on_attach = on_attach,
-			capabilities = lsp_defaults.capabilities,
+			capabilities = require("lspconfig").util.default_config.capabilities,
 			filetypes = {
 				"html",
 				"handlebars",
@@ -105,16 +101,17 @@ mason_lspconfig.setup_handlers({
 		})
 	end,
 	["jsonls"] = function()
-		lsp_defaults.capabilities.textDocument.completion.completionItem.snippetSupport = true
-		lspconfig.jsonls.setup({
+		require("lspconfig").util.default_config.capabilities.textDocument.completion.completionItem.snippetSupport =
+			true
+		require("lspconfig").jsonls.setup({
 			on_attach = on_attach,
-			capabilities = lsp_defaults.capabilities,
+			capabilities = require("lspconfig").util.default_config.capabilities,
 		})
 	end,
 	["tsserver"] = function()
-		lspconfig.tsserver.setup({
+		require("lspconfig").tsserver.setup({
 			on_attach = on_attach,
-			capabilities = lsp_defaults.capabilities,
+			capabilities = require("lspconfig").util.default_config.capabilities,
 			filetypes = {
 				"javascript",
 				"typescript",
@@ -126,9 +123,9 @@ mason_lspconfig.setup_handlers({
 		})
 	end,
 	["rust_analyzer"] = function()
-		lspconfig.rust_analyzer.setup({
+		require("lspconfig").rust_analyzer.setup({
 			on_attach = on_attach,
-			capabilities = lsp_defaults.capabilities,
+			capabilities = require("lspconfig").util.default_config.capabilities,
 			settings = {
 				["rust-analyzer"] = {
 					assist = {
@@ -150,9 +147,9 @@ mason_lspconfig.setup_handlers({
 		-- require("rust-tools").setup {}
 	end,
 	["pyright"] = function()
-		lspconfig.pyright.setup({
+		require("lspconfig").pyright.setup({
 			on_attach = on_attach,
-			capabilities = lsp_defaults.capabilities,
+			capabilities = require("lspconfig").util.default_config.capabilities,
 			settings = {
 				python = {
 					analysis = {
@@ -165,12 +162,12 @@ mason_lspconfig.setup_handlers({
 		})
 	end,
 	["gopls"] = function()
-		lspconfig.gopls.setup({
+		require("lspconfig").gopls.setup({
 			on_attach = on_attach,
-			capabilities = lsp_defaults.capabilities,
+			capabilities = require("lspconfig").util.default_config.capabilities,
 			cmd = { "gopls", "serve" },
 			filetypes = { "go", "gomod", "gowork", "gotmpl" },
-			root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+			root_dir = require("lspconfig").util.root_pattern("go.work", "go.mod", ".git"),
 			settings = {
 				gopls = {
 					templateExtensions = { "tpl", "yaml", "tmpl", "tmpl.html" },

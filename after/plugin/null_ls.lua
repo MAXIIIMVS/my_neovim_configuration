@@ -1,4 +1,3 @@
-local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local lsp_formatting = function(bufnr)
@@ -10,19 +9,19 @@ local lsp_formatting = function(bufnr)
 	})
 end
 
-null_ls.setup({
+require("null-ls").setup({
 	sources = {
-		null_ls.builtins.formatting.asmfmt,
-		-- null_ls.builtins.formatting.clang_format.with({
+		require("null-ls").builtins.formatting.asmfmt,
+		-- require("null-ls").builtins.formatting.clang_format.with({
 		-- 	filetypes = { "asm" },
 		-- 	args = { "-style=llvm" },
 		-- }),
-		null_ls.builtins.formatting.stylua,
-		null_ls.builtins.formatting.black,
-		null_ls.builtins.formatting.djhtml,
-		-- null_ls.builtins.formatting.djlint,
-		null_ls.builtins.formatting.gofmt,
-		null_ls.builtins.formatting.prettierd.with({
+		require("null-ls").builtins.formatting.stylua,
+		require("null-ls").builtins.formatting.black,
+		require("null-ls").builtins.formatting.djhtml,
+		-- require("null-ls").builtins.formatting.djlint,
+		require("null-ls").builtins.formatting.gofmt,
+		require("null-ls").builtins.formatting.prettierd.with({
 			filetypes = {
 				"javascript",
 				"javascriptreact",

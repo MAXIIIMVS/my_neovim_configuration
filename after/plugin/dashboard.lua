@@ -1,9 +1,3 @@
-local present, db = pcall(require, "dashboard")
-
-if not present then
-	return
-end
-
 -- uncomment only if you're using random headers or quotes
 -- math.randomseed(os.time())
 
@@ -108,7 +102,7 @@ local headers = {
 	},
 }
 
-db.setup({
+require("dashboard").setup({
 	theme = "doom", -- hyper
 	config = {
 		header = headers[2],

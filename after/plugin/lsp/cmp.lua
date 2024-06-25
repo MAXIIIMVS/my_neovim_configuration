@@ -1,16 +1,9 @@
-local present, cmp = pcall(require, "cmp")
+require("cmp").event:on(
+	"confirm_done",
+	require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } })
+)
 
-if not present then
-	return
-end
-
-local lspkind = require("lspkind")
-local context = require("cmp.config.context")
-local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
-
-local luasnip = require("luasnip")
-luasnip.filetype_extend("vimwiki", { "markdown" })
+require("luasnip").filetype_extend("vimwiki", { "markdown" })
 
 local has_words_before = function()
 	unpack = unpack or table.unpack
@@ -31,11 +24,8 @@ local function border(hl_name)
 	}
 end
 
-local cmp_window = require("cmp.utils.window")
----@diagnostic disable-next-line: inject-field
-cmp_window.info_ = cmp_window.info
----@diagnostic disable-next-line: duplicate-set-field
-cmp_window.info = function(self)
+require("cmp.utils.window").info_ = require("cmp.utils.window").info
+require("cmp.utils.window").info = function(self)
 	local info = self:info_()
 	info.scrollable = false
 	return info
@@ -46,11 +36,11 @@ local options = {
 	-- 	autocomplete = false, -- manual control
 	-- },
 	formatting = {
-		format = lspkind.cmp_format({
+		format = require("lspkind").cmp_format({
 			mode = "symbol_text", -- 'text', 'text_symbol', 'symbol_text', 'symbol'
 		}),
 	},
-	preselect = cmp.PreselectMode.None,
+	preselect = require("cmp").PreselectMode.None,
 	window = {
 		completion = {
 			border = border("CmpBorder"),
@@ -68,32 +58,32 @@ local options = {
 	},
 	snippet = {
 		expand = function(args)
-			luasnip.lsp_expand(args.body)
+			require("luasnip").lsp_expand(args.body)
 		end,
 	},
-	mapping = cmp.mapping.preset.insert({
-		["<C-u>"] = cmp.mapping.scroll_docs(-4),
-		["<C-d>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete({}),
-		["<C-c>"] = cmp.mapping.abort(),
-		["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+	mapping = require("cmp").mapping.preset.insert({
+		["<C-u>"] = require("cmp").mapping.scroll_docs(-4),
+		["<C-d>"] = require("cmp").mapping.scroll_docs(4),
+		["<C-Space>"] = require("cmp").mapping.complete({}),
+		["<C-c>"] = require("cmp").mapping.abort(),
+		["<CR>"] = require("cmp").mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 		-- ["<C-y>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
+		["<Tab>"] = require("cmp").mapping(function(fallback)
+			if require("cmp").visible() then
+				require("cmp").select_next_item()
+			elseif require("luasnip").expand_or_jumpable() then
+				require("luasnip").expand_or_jump()
 			elseif has_words_before() then
-				cmp.complete()
+				require("cmp").complete()
 			else
 				fallback()
 			end
 		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
+		["<S-Tab>"] = require("cmp").mapping(function(fallback)
+			if require("cmp").visible() then
+				require("cmp").select_prev_item()
+			elseif require("luasnip").jumpable(-1) then
+				require("luasnip").jump(-1)
 			else
 				fallback()
 			end
@@ -106,7 +96,8 @@ local options = {
 		{
 			name = "luasnip",
 			entry_filter = function()
-				return not context.in_treesitter_capture("string") and not context.in_syntax_group("String")
+				return not require("cmp.config.context").in_treesitter_capture("string")
+					and not require("cmp.config.context").in_syntax_group("String")
 			end,
 		},
 		{ name = "buffer" },
@@ -118,7 +109,7 @@ local options = {
 }
 
 -- Set configuration for specific filetype.
--- cmp.setup.filetype("gitcommit", {
+-- require("cmp").setup.filetype("gitcommit", {
 -- 	sources = cmp.config.sources({
 -- 		{ name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
 -- 	}, {
@@ -128,8 +119,8 @@ local options = {
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 ---@diagnostic disable-next-line: missing-fields
-cmp.setup.cmdline("/", {
-	mapping = cmp.mapping.preset.cmdline(),
+require("cmp").setup.cmdline("/", {
+	mapping = require("cmp").mapping.preset.cmdline(),
 	sources = {
 		{ name = "buffer" },
 	},
@@ -137,14 +128,14 @@ cmp.setup.cmdline("/", {
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 ---@diagnostic disable-next-line: missing-fields
-cmp.setup.cmdline(":", {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
+require("cmp").setup.cmdline(":", {
+	mapping = require("cmp").mapping.preset.cmdline(),
+	sources = require("cmp").config.sources({
 		{ name = "path" },
 	}, {
 		{ name = "cmdline" },
 	}),
 })
 
-cmp.setup(options)
+require("cmp").setup(options)
 require("luasnip.loaders.from_vscode").lazy_load()

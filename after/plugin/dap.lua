@@ -1,16 +1,13 @@
-local dap = require("dap")
-local dapui = require("dapui")
-
-dap.listeners.after.event_initialized["dapui_config"] = function()
-	dapui.open()
+require("dap").listeners.after.event_initialized["dapui_config"] = function()
+	require("dapui").open()
 end
 
-dap.listeners.before.event_terminated["dapui_config"] = function()
-	dapui.close()
+require("dap").listeners.before.event_terminated["dapui_config"] = function()
+	require("dapui").close()
 end
 
-dap.listeners.before.event_exited["dapui_config"] = function()
-	dapui.close()
+require("dap").listeners.before.event_exited["dapui_config"] = function()
+	require("dapui").close()
 end
 
 local sign = vim.fn.sign_define
@@ -29,7 +26,7 @@ require("nvim-dap-virtual-text").setup({
 })
 
 -- Setup nvim-dap virtual text
-dap.listeners.after["event_initialized"]["dap-virtual-text"] = function()
+require("dap").listeners.after["event_initialized"]["dap-virtual-text"] = function()
 	vim.fn.sign_define(
 		"DapVirtualTextError",
 		{ text = " ", texthl = "DiagnosticVirtualTextError", linehl = "", numhl = "" }
@@ -41,13 +38,13 @@ dap.listeners.after["event_initialized"]["dap-virtual-text"] = function()
 end
 
 -- Load nvim-dap configuration for C/C++
-dap.adapters.lldb = {
+require("dap").adapters.lldb = {
 	type = "executable",
 	command = "/usr/bin/lldb-vscode-14", -- adjust as needed, must be absolute path
 	name = "lldb",
 }
 
-dap.configurations.cpp = {
+require("dap").configurations.cpp = {
 	{
 		name = "Launch",
 		type = "lldb",
@@ -75,10 +72,10 @@ dap.configurations.cpp = {
 		args = {},
 	},
 }
-dap.configurations.c = dap.configurations.cpp
+require("dap").configurations.c = require("dap").configurations.cpp
 
 -- Load nvim-dap configuration for Go
-dap.adapters.go = {
+require("dap").adapters.go = {
 	type = "executable",
 	command = "node",
 	args = { os.getenv("HOME") .. "/go/bin/dlv" },
@@ -90,7 +87,7 @@ require("dap-python").setup(os.getenv("HOME") .. "/.local/share/nvim/mason/packa
 
 -- TODO: configure rust and lua
 
-dap.adapters["pwa-node"] = {
+require("dap").adapters["pwa-node"] = {
 	type = "server",
 	host = "localhost",
 	port = "${port}",
@@ -111,7 +108,7 @@ local exts = {
 }
 
 for _, ext in ipairs(exts) do
-	dap.configurations[ext] = {
+	require("dap").configurations[ext] = {
 		{
 			type = "pwa-node",
 			request = "launch",

@@ -1,11 +1,3 @@
-local present, telescope = pcall(require, "telescope")
-
-if not present then
-	return
-end
-
-local actions = require("telescope.actions")
-
 local options = {
 	defaults = {
 		vimgrep_arguments = {
@@ -48,14 +40,14 @@ local options = {
 		set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
 		mappings = {
 			n = {
-				["q"] = actions.close,
-				["<C-c>"] = actions.close,
+				["q"] = require("telescope.actions").close,
+				["<C-c>"] = require("telescope.actions").close,
 				["<M-h>"] = "which_key",
-				["<C-r>"] = actions.delete_buffer + actions.move_to_top,
+				["<C-r>"] = require("telescope.actions").delete_buffer + require("telescope.actions").move_to_top,
 			}, -- n
 			i = {
 				["<M-h>"] = "which_key",
-				["<C-r>"] = actions.delete_buffer + actions.move_to_top,
+				["<C-r>"] = require("telescope.actions").delete_buffer + require("telescope.actions").move_to_top,
 			}, -- i
 		}, -- mappings
 	},
@@ -71,10 +63,10 @@ local options = {
 	extensions_list = { "fzf", "glyph", "zoxide" },
 }
 
-telescope.setup(options)
+require("telescope").setup(options)
 
 pcall(function()
 	for _, ext in ipairs(options.extensions_list) do
-		telescope.load_extension(ext)
+		require("telescope").load_extension(ext)
 	end
 end)
