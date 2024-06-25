@@ -10,6 +10,195 @@ for type, icon in pairs(signs) do
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
+flavors = {
+	"catppuccin-mocha",
+	"duskfox",
+	"tokyonight",
+	"solarized-osaka",
+	"catppuccin-macchiato",
+	"catppuccin-frappe",
+	"nightfox",
+	"nordfox",
+	"carbonfox",
+	"terafox",
+	"tokyonight-day",
+	"solarized-osaka-day",
+	"dayfox",
+	"dawnfox",
+	"catppuccin-latte",
+}
+
+function term_debug()
+	-- specific to my system
+	local gdbfake_file = os.getenv("HOME") .. "/.gdbfake"
+	local gdbinit_file = os.getenv("HOME") .. "/.gdbinit"
+	local has_gdbfake = vim.fn.filereadable(gdbfake_file) == 1
+	if has_gdbfake then
+		os.rename(gdbfake_file, gdbinit_file)
+	end
+	-- until here
+	vim.g.termdebug_wide = vim.fn.winwidth(0) > 85
+	-- local current_dir = vim.fn.expand("%:p:h")
+	vim.cmd("packadd termdebug | startinsert | Termdebug")
+	if vim.g.termdebug_wide then
+		vim.cmd("wincmd k | wincmd J | resize 10 | wincmd k | wincmd l | wincmd L")
+		vim.api.nvim_feedkeys(
+			"dashboard -layout variables stack breakpoints  expressions memory registers\n",
+			"n",
+			true
+		)
+	else
+		vim.api.nvim_feedkeys("dashboard -layout variables\n", "n", true)
+	end
+	vim.g.termdebug_running = true
+	-- vim.api.nvim_feedkeys("layout asm\nlayout regs\n", "n", true)
+	-- vim.api.nvim_feedkeys("cd " .. current_dir .. "\n", "n", true)
+	-- vim.api.nvim_feedkeys("file " .. current_dir .. "/", "n", true)
+	vim.api.nvim_feedkeys("file ", "n", true)
+end
+
+function get_highlight(group)
+	local src = "redir @a | silent! hi " .. group .. " | redir END | let output = @a"
+	vim.api.nvim_exec2(src, { output = true })
+	local output = vim.fn.getreg("a")
+	local list = vim.split(output, "%s+")
+	local dict = {}
+	for _, item in ipairs(list) do
+		if string.find(item, "=") then
+			local splited = vim.split(item, "=")
+			dict[splited[1]] = splited[2]
+		end
+	end
+	return dict
+end
+
+function is_tmux_running()
+	local tmux_env = vim.env.TMUX
+	return tmux_env ~= nil and tmux_env ~= ""
+end
+
+function set_tmux_status_color(color)
+	if is_tmux_running() then
+		local command = string.format(
+			"tmux show-option -gq status-style | grep -q 'bg=%s' && tmux set-option -gq status-style bg=%s || tmux set-option -gq status-style bg=%s; tmux refresh-client -S",
+			color,
+			color,
+			color
+		)
+		local handle = io.popen(command)
+		if handle then
+			handle:close()
+		else
+			print("Failed to execute the command.")
+		end
+	else
+		print("Tmux is not running. Skipping statusline color change.")
+	end
+end
+
+function get_git_hash()
+	local handle = io.popen("git describe --always")
+	if handle then
+		local result = handle:read("*a")
+		handle:close()
+		if result then
+			vim.api.nvim_command("let @g = '" .. result .. "'")
+		else
+			print("Error: Command did not return a result")
+		end
+	else
+		print("Error: Failed to run command")
+	end
+end
+
+function sync_statusline_with_tmux()
+	local current_background = get_highlight("Normal")["guibg"]
+	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
+	set_tmux_status_color(current_background == nil and "default" or current_background)
+	-- vim.o.fillchars = "eob: "
+end
+
+function git_next()
+	local handle = io.popen(
+		[[
+      # Check if we're in a git repository
+      if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+          echo "Not in a git repository"
+          return 1
+      fi
+
+      # Check if there are any commits in the current branch
+      if ! git rev-parse HEAD > /dev/null 2>&1; then
+          echo "No commits in the current branch"
+          return 1
+      fi
+
+      # Try to get the name of the remote branch that the HEAD points to
+      branch=""
+      if git rev-parse refs/remotes/origin/HEAD > /dev/null 2>&1; then
+          branch=$(git branch -r --points-at refs/remotes/origin/HEAD | grep '\->' | cut -d' ' -f5 | cut -d/ -f2)
+      fi
+
+      if [ -z "$branch" ]; then
+          # Fallback: Extract branch name in another way
+          branch=$(basename $(git rev-parse --show-toplevel)/.git/refs/heads/*)
+      fi
+
+      # If there's still no branch or an error, perform another fallback action
+      if [ -z "$branch" ]; then
+          fallback_branch=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+          next_commit=$(git rev-list --topo-order HEAD..$fallback_branch | tail -1)
+          git checkout $next_commit 2>&1
+          return
+      fi
+
+      # Get the hash of the next commit
+      next_commit=""
+      next_commit=$(git log --reverse --pretty=%H $branch | grep -A 1 $(git rev-parse HEAD) | tail -n1)
+
+      # If there's no next commit, we're already at the last commit
+      if [ -z "$next_commit" ]; then
+          echo "Already at the last commit"
+          return 1
+      fi
+
+      # Try to checkout the next commit, and use the fallback command in case of an error
+      git checkout $next_commit 2>&1
+    ]],
+		"r"
+	)
+	if handle ~= nil then
+		local result = handle:read("*a")
+		print(result)
+		handle:close()
+	else
+		print("Failed to execute command")
+	end
+end
+
+function git_previous()
+	local handle = io.popen([[
+    if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+        echo "Not in a git repository"
+        return 1
+    fi
+
+    # Check if there are any commits in the current branch
+    if ! git rev-parse HEAD > /dev/null 2>&1; then
+        echo "No commits in the current branch"
+        return 1
+    fi
+    git checkout HEAD^ 2>&1
+  ]])
+	if handle ~= nil then
+		local result = handle:read("*a")
+		print(result)
+		handle:close()
+	else
+		print("Failed to execute command")
+	end
+end
+
 local DiagnosticsConfig = vim.diagnostic.config()
 local DiagnosticsEnabled = true
 function ToggleDiagnostics()

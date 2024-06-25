@@ -1,350 +1,7 @@
-local present, wk = pcall(require, "which-key")
-
-if not present then
-	return
-end
-
-local flavors = {
-	"catppuccin-mocha",
-	"duskfox",
-	"tokyonight",
-	"solarized-osaka",
-	"catppuccin-macchiato",
-	"catppuccin-frappe",
-	"nightfox",
-	"nordfox",
-	"carbonfox",
-	"terafox",
-	"tokyonight-day",
-	"solarized-osaka-day",
-	"dayfox",
-	"dawnfox",
-	"catppuccin-latte",
-}
-
-local function term_debug()
-	-- specific to my system
-	local gdbfake_file = os.getenv("HOME") .. "/.gdbfake"
-	local gdbinit_file = os.getenv("HOME") .. "/.gdbinit"
-	local has_gdbfake = vim.fn.filereadable(gdbfake_file) == 1
-	if has_gdbfake then
-		os.rename(gdbfake_file, gdbinit_file)
-	end
-	-- until here
-	vim.g.termdebug_wide = vim.fn.winwidth(0) > 85
-	-- local current_dir = vim.fn.expand("%:p:h")
-	vim.cmd("packadd termdebug | startinsert | Termdebug")
-	if vim.g.termdebug_wide then
-		vim.cmd("wincmd k | wincmd J | resize 10 | wincmd k | wincmd l | wincmd L")
-		vim.api.nvim_feedkeys(
-			"dashboard -layout variables stack breakpoints  expressions memory registers\n",
-			"n",
-			true
-		)
-	else
-		vim.api.nvim_feedkeys("dashboard -layout variables\n", "n", true)
-	end
-	vim.g.termdebug_running = true
-	-- vim.api.nvim_feedkeys("layout asm\nlayout regs\n", "n", true)
-	-- vim.api.nvim_feedkeys("cd " .. current_dir .. "\n", "n", true)
-	-- vim.api.nvim_feedkeys("file " .. current_dir .. "/", "n", true)
-	vim.api.nvim_feedkeys("file ", "n", true)
-end
-
-local function get_highlight(group)
-	local src = "redir @a | silent! hi " .. group .. " | redir END | let output = @a"
-	vim.api.nvim_exec2(src, { output = true })
-	local output = vim.fn.getreg("a")
-	local list = vim.split(output, "%s+")
-	local dict = {}
-	for _, item in ipairs(list) do
-		if string.find(item, "=") then
-			local splited = vim.split(item, "=")
-			dict[splited[1]] = splited[2]
-		end
-	end
-	return dict
-end
-
-local function is_tmux_running()
-	local tmux_env = vim.env.TMUX
-	return tmux_env ~= nil and tmux_env ~= ""
-end
-
-local function set_tmux_status_color(color)
-	if is_tmux_running() then
-		local command = string.format(
-			"tmux show-option -gq status-style | grep -q 'bg=%s' && tmux set-option -gq status-style bg=%s || tmux set-option -gq status-style bg=%s; tmux refresh-client -S",
-			color,
-			color,
-			color
-		)
-		local handle = io.popen(command)
-		if handle then
-			handle:close()
-		else
-			print("Failed to execute the command.")
-		end
-	else
-		print("Tmux is not running. Skipping statusline color change.")
-	end
-end
-
-local function get_git_hash()
-	local handle = io.popen("git describe --always")
-	if handle then
-		local result = handle:read("*a")
-		handle:close()
-		if result then
-			vim.api.nvim_command("let @g = '" .. result .. "'")
-		else
-			print("Error: Command did not return a result")
-		end
-	else
-		print("Error: Failed to run command")
-	end
-end
-
-function sync_statusline_with_tmux()
-	local current_background = get_highlight("Normal")["guibg"]
-	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
-	set_tmux_status_color(current_background == nil and "default" or current_background)
-	-- vim.o.fillchars = "eob: "
-end
-
-local function git_next()
-	local handle = io.popen(
-		[[
-      # Check if we're in a git repository
-      if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-          echo "Not in a git repository"
-          return 1
-      fi
-
-      # Check if there are any commits in the current branch
-      if ! git rev-parse HEAD > /dev/null 2>&1; then
-          echo "No commits in the current branch"
-          return 1
-      fi
-
-      # Try to get the name of the remote branch that the HEAD points to
-      branch=""
-      if git rev-parse refs/remotes/origin/HEAD > /dev/null 2>&1; then
-          branch=$(git branch -r --points-at refs/remotes/origin/HEAD | grep '\->' | cut -d' ' -f5 | cut -d/ -f2)
-      fi
-
-      if [ -z "$branch" ]; then
-          # Fallback: Extract branch name in another way
-          branch=$(basename $(git rev-parse --show-toplevel)/.git/refs/heads/*)
-      fi
-
-      # If there's still no branch or an error, perform another fallback action
-      if [ -z "$branch" ]; then
-          fallback_branch=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
-          next_commit=$(git rev-list --topo-order HEAD..$fallback_branch | tail -1)
-          git checkout $next_commit 2>&1
-          return
-      fi
-
-      # Get the hash of the next commit
-      next_commit=""
-      next_commit=$(git log --reverse --pretty=%H $branch | grep -A 1 $(git rev-parse HEAD) | tail -n1)
-
-      # If there's no next commit, we're already at the last commit
-      if [ -z "$next_commit" ]; then
-          echo "Already at the last commit"
-          return 1
-      fi
-
-      # Try to checkout the next commit, and use the fallback command in case of an error
-      git checkout $next_commit 2>&1
-    ]],
-		"r"
-	)
-	if handle ~= nil then
-		local result = handle:read("*a")
-		print(result)
-		handle:close()
-	else
-		print("Failed to execute command")
-	end
-end
-
-local function git_previous()
-	local handle = io.popen([[
-    if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-        echo "Not in a git repository"
-        return 1
-    fi
-
-    # Check if there are any commits in the current branch
-    if ! git rev-parse HEAD > /dev/null 2>&1; then
-        echo "No commits in the current branch"
-        return 1
-    fi
-    git checkout HEAD^ 2>&1
-  ]])
-	if handle ~= nil then
-		local result = handle:read("*a")
-		print(result)
-		handle:close()
-	else
-		print("Failed to execute command")
-	end
-end
-
-local options = {
-	window = {
-		border = "rounded", -- none, single, double, shadow
-		position = "bottom", -- bottom, top
-		margin = { 0, 0, 0, 0 },
-		winblend = 0,
-	},
-	layout = {
-		height = { max = 9 },
-	},
-	popup_mappings = {
-		scroll_down = "<C-d>", -- binding to scroll down inside the popup
-		scroll_up = "<C-u>", -- binding to scroll up inside the popup
-	},
-}
-
-wk.setup(options)
+local wk = require("which-key")
 
 -- Normal mode {{{
 wk.register({
-	["<F1>"] = {
-		function()
-			vim.cmd("TermExec cmd=make")
-		end,
-		"Build",
-	},
-	["<F2>"] = {
-		function()
-			vim.cmd('TermExec cmd="make valgrind"')
-		end,
-		"Valgrind",
-	},
-	["<F4>"] = { term_debug, "Start GDB" },
-	["<F5>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Break")
-				vim.cmd("call TermDebugSendCommand('c')")
-			else
-				require("dap").clear_breakpoints()
-				vim.cmd.DapToggleBreakpoint()
-				vim.cmd.DapContinue()
-			end
-		end,
-		"Break and Continue/Start DAP",
-	},
-	["<C-F5>"] = {
-		function()
-			vim.cmd('TermExec cmd="make run"')
-		end,
-		"Start without debugging",
-	},
-	["<S-F5>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('quit')")
-			else
-				vim.cmd.DapTerminate()
-			end
-		end,
-		"Stop/Terminate",
-	},
-	["<C-S-F5>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('start')")
-			else
-				require("dap").restart()
-			end
-		end,
-		"Restart",
-	},
-	["<F8>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Evaluate")
-			else
-				require("dapui").eval(nil, { enter = true })
-			end
-		end,
-		"Evaluate",
-	},
-	["<F9>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Break")
-			else
-				vim.cmd.DapToggleBreakpoint()
-			end
-		end,
-		"Break",
-	},
-	["<C-F9>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('delete')")
-			else
-				require("dap").clear_breakpoints()
-			end
-		end,
-		"Delete all breakpoints",
-	},
-	["<F10>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Over")
-			else
-				vim.cmd.DapStepOver()
-			end
-		end,
-		"Step over",
-	},
-	["<C-F10>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Until")
-			else
-				require("dap").run_to_cursor()
-			end
-		end,
-		"Run to cursor",
-	},
-	["<F11>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Step")
-			else
-				vim.cmd.DapStepInto()
-			end
-		end,
-		"Step into",
-	},
-	["<S-F11>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Finish")
-			else
-				vim.cmd.DapStepOut()
-			end
-		end,
-		"Step out",
-	},
-	["<F12>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('c')")
-			else
-				vim.cmd.DapContinue()
-			end
-		end,
-		"Continue/Start DAP",
-	},
 	["<Nop>"] = { "<Plug>VimwikiRemoveHeaderLevel", "disabled" },
 	["-"] = { "<cmd>silent Oil<CR>", "Current directory" },
 	["_"] = {
@@ -499,14 +156,13 @@ wk.register({
 			"Show help tags",
 		},
 		l = { "<cmd>Telescope lsp_document_symbols<CR>", "Show LSP document symbols" },
-		m = { make, "Make" },
+		m = { vim.cmd.make, "Make" },
 		n = { "<cmd>TodoTelescope<CR>", "See notes/todos..." },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open %:p:h<CR>", "Open the current directory" },
 		p = { "<cmd>silent Telescope zoxide list<CR>", "Projects" },
 		q = { vim.cmd.q, "Close current window" },
 		Q = { vim.cmd.qall, "Close all windows" },
-		-- r = { "<cmd>Telescope oldfiles previewer=false<CR>", "Show recently opened files" },
 		r = {
 			function()
 				require("telescope.builtin").oldfiles(require("telescope.themes").get_dropdown({
@@ -564,6 +220,12 @@ wk.register({
 	},
 	[","] = {
 		name = "Miscellaneous",
+		[","] = {
+			function()
+				vim.cmd("ToggleTerm size=160 direction=float dir=%:p:h")
+			end,
+			"Floating Terminal",
+		},
 		["1"] = { "1<C-w>w", "Go to 1st window" },
 		["2"] = { "2<C-w>w", "Go to 2nd window" },
 		["3"] = { "3<C-w>w", "Go to 3rd window" },
@@ -576,8 +238,8 @@ wk.register({
 		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
 		D = { term_debug, "Debug with GDB" },
 		d = { "<cmd>silent Dashboard<CR>", "dashboard" },
-		F = { "<cmd>silent Telescope filetypes<CR>", "Set filetype" },
-		f = { ":find ", "find a file", silent = false },
+		F = { ":find ", "find a file", silent = false },
+		f = { "<cmd>silent Telescope filetypes<CR>", "Set filetype" },
 		H = { "<cmd>silent Telescope keymaps<CR>", "Keymaps" },
 		h = { "<cmd>WhichKey<CR>", "Which Key" },
 		m = { "<cmd>messages<CR>", "Messages" },
@@ -668,12 +330,6 @@ wk.register({
 
 wk.register({
 	name = "Groups",
-	["<space>"] = {
-		function()
-			vim.cmd("ToggleTerm size=160 direction=float dir=%:p:h")
-		end,
-		"Floating Terminal",
-	},
 	b = {
 		name = "Buffer",
 		a = { "<cmd>bufdo bd<CR>", "Close all buffers" },
@@ -1250,11 +906,6 @@ wk.register({
 		name = "Window",
 		d = { "<cmd>windo diffthis<CR>", "Show the difference between 2 windows" },
 		D = { "<cmd>windo diffoff<CR>", "Hide the difference between 2 windows" },
-		h = { "<C-w>h", "Move the right window" },
-		j = { "<C-w>j", "Move the window below" },
-		k = { "<C-w>k", "Move the window above" },
-		l = { "<C-w>l", "Move the left window" },
-		o = { "<cmd>only<CR>", "close all other windows" },
 		s = { "<cmd>windo set scrollbind<CR>", "Set scrollbind" },
 		S = { "<cmd>windo set scrollbind!<CR>", "Unset scrollbind" },
 	},
@@ -1284,138 +935,6 @@ wk.register({
 
 -- Insert mode {{{
 wk.register({
-	["<F1>"] = {
-		function()
-			vim.cmd("TermExec cmd=make")
-		end,
-		"Build",
-	},
-	["<F2>"] = {
-		function()
-			vim.cmd('TermExec cmd="make valgrind"')
-		end,
-		"Valgrind",
-	},
-	["<F4>"] = { term_debug, "Start GDB" },
-	["<F5>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Break")
-				vim.cmd("call TermDebugSendCommand('c')")
-			else
-				require("dap").clear_breakpoints()
-				vim.cmd.DapToggleBreakpoint()
-				vim.cmd.DapContinue()
-			end
-		end,
-		"Break and Continue/Start DAP",
-	},
-	["<C-F5>"] = {
-		function()
-			vim.cmd('TermExec cmd="make run"')
-		end,
-		"Start without debugging",
-	},
-	["<S-F5>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('quit')")
-			else
-				vim.cmd.DapTerminate()
-			end
-		end,
-		"Stop/Terminate",
-	},
-	["<C-S-F5>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('start')")
-			else
-				require("dap").restart()
-			end
-		end,
-		"Restart",
-	},
-	["<F8>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Evaluate")
-			else
-				require("dapui").eval(nil, { enter = true })
-			end
-		end,
-		"Evaluate",
-	},
-	["<F9>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Break")
-			else
-				vim.cmd.DapToggleBreakpoint()
-			end
-		end,
-		"Break",
-	},
-	["<C-F9>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('delete')")
-			else
-				require("dap").clear_breakpoints()
-			end
-		end,
-		"Delete all breakpoints",
-	},
-	["<F10>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Over")
-			else
-				vim.cmd.DapStepOver()
-			end
-		end,
-		"Step over",
-	},
-	["<C-F10>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Until")
-			else
-				require("dap").run_to_cursor()
-			end
-		end,
-		"Run to cursor",
-	},
-	["<F11>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Step")
-			else
-				vim.cmd.StepInto()
-			end
-		end,
-		"Step into",
-	},
-	["<S-F11>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Finish")
-			else
-				vim.cmd.DapStepOut()
-			end
-		end,
-		"Step out",
-	},
-	["<F12>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('c')")
-			else
-				vim.cmd.DapContinue()
-			end
-		end,
-		"Continue/Start DAP",
-	},
 	["<C-s>"] = { "<ESC><ESC><cmd>silent update<CR>", "Save buffer" },
 	["<C-x>"] = {
 		name = "Insert expand",
@@ -1488,6 +1007,18 @@ wk.register({
 -- terminal mode {{{
 wk.register({
 	["<Esc>"] = { "<C-\\><C-n>", "Quit insert mode" },
+	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
+	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
+	["<M-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
+	["<M-j>"] = { "<CMD>silent NavigatorDown<CR>", "Go to the down window" },
+	["<M-Left>"] = { "<cmd>vertical resize +2<CR>", "Increase window width" },
+	["<M-Right>"] = { "<cmd>vertical resize -1<CR>", "Decrease window width" },
+	["<M-Down>"] = { "<cmd>resize -1<CR>", "Increase window height" },
+	["<M-Up>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
+}, { prefix = "", mode = "t", noremap = true, silent = true, nowait = true })
+-- }}}
+
+wk.register({
 	["<F1>"] = {
 		function()
 			vim.cmd("TermExec cmd=make")
@@ -1620,13 +1151,4 @@ wk.register({
 		end,
 		"Continue/Start DAP",
 	},
-	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
-	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
-	["<M-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
-	["<M-j>"] = { "<CMD>silent NavigatorDown<CR>", "Go to the down window" },
-	["<M-Left>"] = { "<cmd>vertical resize +2<CR>", "Increase window width" },
-	["<M-Right>"] = { "<cmd>vertical resize -1<CR>", "Decrease window width" },
-	["<M-Down>"] = { "<cmd>resize -1<CR>", "Increase window height" },
-	["<M-Up>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
-}, { prefix = "", mode = "t", noremap = true, silent = true, nowait = true })
--- }}}
+}, { prefix = "", mode = { "n", "v", "t", "i" }, noremap = true, silent = true, nowait = true })

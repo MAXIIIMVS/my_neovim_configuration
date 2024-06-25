@@ -308,7 +308,25 @@ return require("lazy").setup({
 		opts = {},
 		enabled = vim.fn.has("nvim-0.10.0") == 1,
 	},
-	{ "folke/which-key.nvim", event = "VimEnter" },
+	{
+		"folke/which-key.nvim",
+		event = "VimEnter",
+		opts = {
+			window = {
+				border = "rounded", -- none, single, double, shadow
+				position = "bottom", -- bottom, top
+				margin = { 0, 0, 0, 0 },
+				winblend = 0,
+			},
+			layout = {
+				height = { max = 9 },
+			},
+			popup_mappings = {
+				scroll_down = "<C-d>", -- binding to scroll down inside the popup
+				scroll_up = "<C-u>", -- binding to scroll up inside the popup
+			},
+		},
+	},
 	{
 		"folke/zen-mode.nvim",
 		opts = { window = { width = 100 } },
@@ -452,7 +470,7 @@ return require("lazy").setup({
 			},
 			exclude = {
 				buftypes = { "terminal", "nofile" },
-				filetypes = { "help", "dashboard", "NvimTree", "mason", "fugitive", "git", "cmake" },
+				filetypes = { "help", "dashboard", "NvimTree", "mason", "fugitive", "git", "cmake", "dbout" },
 			},
 		},
 		event = "UIEnter",
