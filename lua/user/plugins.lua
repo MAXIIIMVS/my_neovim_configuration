@@ -824,7 +824,21 @@ return require("lazy").setup({
 	{ "tpope/vim-speeddating", keys = { "<c-a>", "<c-x>" } },
 	{
 		"vimwiki/vimwiki",
-		event = "VeryLazy",
+		cmd = {
+			"VimwikiIndex",
+			"VimwikiVar",
+			"VimwikiTabIndex",
+			"VimwikiUISelect",
+			"VimwikiDiaryIndex",
+			"VimwikiShowVersion",
+			"VimwikiMakeDiaryNote",
+			"VimwikiTabMakeDiaryNote",
+			"VimwikiDiaryGenerateLinks",
+			"VimwikiMakeTomorrowDiaryNote",
+			"VimwikiMakeYesterdayDiaryNote",
+		},
+		keys = { "<leader>w" },
+		ft = { "vimwiki", "vimwiki_markdown_custom" },
 		init = function()
 			vim.g.vimwiki_listsyms = "    x"
 			vim.g.vimwiki_markdown_link_ext = 1
