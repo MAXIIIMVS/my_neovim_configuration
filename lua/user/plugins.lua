@@ -71,7 +71,7 @@ return require("lazy").setup({
 			persist_mode = false,
 			size = 13,
 			open_mapping = [[<M-t>]],
-			direction = "tab",
+			direction = "horizontal",
 			float_opts = {
 				border = "rounded",
 				winblend = 0,
