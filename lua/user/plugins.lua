@@ -190,6 +190,7 @@ return require("lazy").setup({
 			conflict = { suffix = "", options = {} },
 			diagnostic = { suffix = "", options = {} },
 			quickfix = { suffix = "", options = {} },
+			treesitter = { suffix = "n", options = {} },
 		},
 		init = function()
 			vim.cmd([[

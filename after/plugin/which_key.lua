@@ -83,11 +83,11 @@ wk.register({
 		"Jump to the next error",
 	},
 	["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to the next diagnostic" },
-	["[n"] = {
+	["[t"] = {
 		require("todo-comments").jump_prev,
 		"Previous todo comment",
 	},
-	["]n"] = {
+	["]t"] = {
 		require("todo-comments").jump_next,
 		"Next todo comment",
 	},
@@ -157,7 +157,6 @@ wk.register({
 		},
 		l = { "<cmd>Telescope lsp_document_symbols<CR>", "Show LSP document symbols" },
 		m = { vim.cmd.make, "Make" },
-		n = { "<cmd>TodoTelescope<CR>", "See notes/todos..." },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open %:p:h<CR>", "Open the current directory" },
 		p = { "<cmd>silent Telescope zoxide list<CR>", "Projects" },
@@ -183,33 +182,7 @@ wk.register({
 			silent = false,
 		},
 		T = { "<cmd>Telescope tags<CR>", "tags" },
-		t = {
-			name = "Terminal",
-			f = {
-				function()
-					vim.cmd("ToggleTerm size=160 direction=float dir=%:p:h")
-				end,
-				"Float",
-			},
-			h = {
-				function()
-					vim.cmd("ToggleTerm direction=horizontal dir=%:p:h")
-				end,
-				"Horizontal",
-			},
-			v = {
-				function()
-					vim.cmd("ToggleTerm size=80 direction=vertical dir=%:p:h")
-				end,
-				"Vertical",
-			},
-			t = {
-				function()
-					vim.cmd("ToggleTerm direction=tab dir=%:p:h")
-				end,
-				"Tab",
-			},
-		},
+		t = { "<cmd>TodoTelescope<CR>", "See notes/todos..." },
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
 		-- NOTE: you have to change the ;x keymap for netrw, if you change the next
 		-- line
@@ -323,13 +296,18 @@ wk.register({
 		S = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature" },
 		y = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Go to type definition" },
 	},
-	j = { "gj", "Down" },
 	K = { "<cmd>Lspsaga hover_doc<CR>", "Hover info" },
 	k = { "gk", "Up" },
 }, { prefix = "", noremap = true, silent = true, nowait = true })
 
 wk.register({
 	name = "Groups",
+	["<space>"] = {
+		function()
+			vim.cmd("ToggleTerm direction=tab dir=%:p:h")
+		end,
+		"Tab",
+	},
 	b = {
 		name = "Buffer",
 		a = { "<cmd>bufdo bd<CR>", "Close all buffers" },
