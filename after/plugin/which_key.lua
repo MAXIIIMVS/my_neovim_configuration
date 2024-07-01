@@ -142,10 +142,10 @@ wk.register({
 		},
 		D = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show line diagnostics" },
 		d = { "<cmd>silent Telescope diagnostics<CR>", "List diagnostics" },
-		f = { "<cmd>Telescope find_files<CR>", "Find files" },
 		F = { "<cmd>Telescope git_files<CR>", "Fuzzy search for files tracked by Git" },
-		g = { "<cmd>Telescope live_grep<CR>", "Live grep" },
+		f = { "<cmd>Telescope find_files<CR>", "Find files" },
 		G = { "<cmd>Telescope grep_string<CR>", "Grep string under the cursor" },
+		g = { "<cmd>Telescope live_grep<CR>", "Live grep" },
 		H = { ":Man ", "Show man pages", silent = false },
 		h = {
 			function()
@@ -157,6 +157,9 @@ wk.register({
 		},
 		l = { "<cmd>Telescope lsp_document_symbols<CR>", "Show LSP document symbols" },
 		m = { vim.cmd.make, "Make" },
+		-- NOTE: you have to change the ;n keymap for netrw in settings file, if
+		-- you change the next line
+		n = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
 		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
 		O = { "<cmd>silent !xdg-open %:p:h<CR>", "Open the current directory" },
 		p = { "<cmd>silent Telescope zoxide list<CR>", "Projects" },
@@ -184,9 +187,7 @@ wk.register({
 		T = { "<cmd>Telescope tags<CR>", "tags" },
 		t = { "<cmd>TodoTelescope<CR>", "See notes/todos..." },
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
-		-- NOTE: you have to change the ;x keymap for netrw, if you change the next
-		-- line
-		x = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
+		x = { "<cmd>silent ToggleTermSendCurrentLine<CR>", "Execute the current line in terminal" },
 		y = { "<cmd>silent lua require('tfm').open()<CR>", "Yazi" },
 		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
 		Z = { "<C-w>|<C-w>_", "Maximize the window" },
@@ -900,7 +901,6 @@ wk.register({
 	},
 	n = { "<cmd>silent noa w<CR>", "Save with no actions" },
 	s = { "<cmd>silent so %<CR>", "Source the file" },
-	t = { "<cmd>silent ToggleTermSendCurrentLine<CR>", "Send current line to terminal" },
 	w = {
 		name = "VimWiki",
 		l = { "<cmd>VimwikiTOC<CR>", "Create or update the Table of Contents for the current wiki file" },
@@ -947,8 +947,8 @@ wk.register({
 
 -- Visual mode {{{
 wk.register({
-	["<leader>T"] = { "<cmd>ToggleTermSendVisualSelection<CR>", "Send selection to terminal" },
-	["<leader>t"] = { "<cmd>ToggleTermSendVisualLines<CR>", "Send lines to terminal" },
+	[";X"] = { "<cmd>ToggleTermSendVisualSelection<CR>", "Execute the selection in terminal" },
+	[";x"] = { "<cmd>ToggleTermSendVisualLines<CR>", "Execute the visual lines in terminal" },
 	[";"] = {
 		name = "Quick",
 		S = { 'y:%S/<C-r>"/<C-r>"/g<LEFT><LEFT>', "Change the selection in whole document", silent = false },

@@ -299,7 +299,7 @@ autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 autocmd FileType netrw silent! nnoremap <buffer> <nowait> q :silent q<CR><silent>
 autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;q :silent q<CR><silent>
 autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;; :silent q<CR><silent>
-autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;x :silent q<CR><silent>
+autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;n :silent q<CR><silent>
 autocmd FileType netrw setl bufhidden=wipe
 
 augroup NetrwSettings
@@ -358,6 +358,8 @@ ab :degrees: °
 -- }}}
 
 -- Fundamental {{{
+vim.o.cursorline = true
+vim.o.cursorlineopt = "number"
 vim.o.list = true
 vim.o.listchars = "trail:,nbsp:.,precedes:❮,extends:❯,tab:  "
 vim.g.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal" -- removed blank
