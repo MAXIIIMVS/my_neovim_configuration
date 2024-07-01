@@ -900,6 +900,7 @@ wk.register({
 	},
 	n = { "<cmd>silent noa w<CR>", "Save with no actions" },
 	s = { "<cmd>silent so %<CR>", "Source the file" },
+	t = { "<cmd>silent ToggleTermSendCurrentLine<CR>", "Send current line to terminal" },
 	w = {
 		name = "VimWiki",
 		l = { "<cmd>VimwikiTOC<CR>", "Create or update the Table of Contents for the current wiki file" },
@@ -946,6 +947,8 @@ wk.register({
 
 -- Visual mode {{{
 wk.register({
+	["<leader>T"] = { "<cmd>ToggleTermSendVisualSelection<CR>", "Send selection to terminal" },
+	["<leader>t"] = { "<cmd>ToggleTermSendVisualLines<CR>", "Send lines to terminal" },
 	[";"] = {
 		name = "Quick",
 		S = { 'y:%S/<C-r>"/<C-r>"/g<LEFT><LEFT>', "Change the selection in whole document", silent = false },

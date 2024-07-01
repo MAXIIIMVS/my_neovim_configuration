@@ -91,8 +91,8 @@ function set_tmux_status_color(color)
 		else
 			print("Failed to execute the command.")
 		end
-	else
-		print("Tmux is not running. Skipping statusline color change.")
+		-- else
+		-- 	print("Tmux is not running. Skipping statusline color change.")
 	end
 end
 
