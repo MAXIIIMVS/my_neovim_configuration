@@ -789,8 +789,8 @@ wk.register({
 		},
 		l = {
 			function()
-				vim.o.cursorline = not vim.o.cursorline
-				if vim.o.cursorline then
+				vim.g.show_cursorline = not vim.g.show_cursorline
+				if not vim.g.show_cursorline then
 					vim.o.cursorlineopt = "number,line"
 				else
 					vim.o.cursorlineopt = "number"
