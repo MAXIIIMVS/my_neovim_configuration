@@ -187,6 +187,7 @@ wk.register({
 		T = { "<cmd>Telescope tags<CR>", "tags" },
 		t = { "<cmd>TodoTelescope<CR>", "See notes/todos..." },
 		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
+		U = { "<cmd>e!<CR>", "Toggle Undotree" },
 		x = { "<cmd>silent ToggleTermSendCurrentLine<CR>", "Execute the current line in terminal" },
 		y = { "<cmd>silent lua require('tfm').open()<CR>", "Yazi" },
 		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
@@ -980,7 +981,6 @@ wk.register({
 	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
 	["<C-a>"] = { "<ESC>I", "Go to the beginning of line" },
 	["<C-e>"] = { "<ESC>A", "Go to the end of line" },
-	["<C-l>"] = { "<Plug>CapsLockEnable", "Toggle capslock" },
 	["<C-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
 }, { prefix = "", mode = "s", noremap = true, silent = true, nowait = true })
 -- }}}
