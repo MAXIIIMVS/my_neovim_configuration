@@ -295,7 +295,7 @@ wk.register({
 		p = { "<cmd>Lspsaga peek_definition<CR>", "Show the definition" },
 		R = { "<cmd>Lspsaga rename<CR>", "Rename the symbol" },
 		r = { "<cmd>lua vim.lsp.buf.references()<CR>", "Show references" },
-		S = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature" },
+		s = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature" },
 		y = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Go to type definition" },
 	},
 	K = { "<cmd>Lspsaga hover_doc<CR>", "Hover info" },
@@ -848,12 +848,6 @@ wk.register({
 					return
 				end
 				vim.g.is_transparent = not vim.g.is_transparent
-				local tokyonight_options = require("tokyonight.config").options
-				tokyonight_options.transparent = vim.g.is_transparent
-				tokyonight_options.styles = {
-					floats = vim.g.is_transparent and "transparent" or "normal",
-					sidebars = vim.g.is_transparent and "transparent" or "normal",
-				}
 				local osaka_options = require("solarized-osaka.config").options
 				osaka_options.styles = {
 					floats = vim.g.is_transparent and "transparent" or "normal",

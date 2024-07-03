@@ -3,8 +3,6 @@ require("cmp").event:on(
 	require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } })
 )
 
-require("luasnip").filetype_extend("vimwiki", { "markdown" })
-
 local has_words_before = function()
 	unpack = unpack or table.unpack
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -119,7 +117,7 @@ local options = {
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 ---@diagnostic disable-next-line: missing-fields
-require("cmp").setup.cmdline("/", {
+require("cmp").setup.cmdline({ "/", "?" }, {
 	mapping = require("cmp").mapping.preset.cmdline(),
 	sources = {
 		{ name = "buffer" },
@@ -138,4 +136,3 @@ require("cmp").setup.cmdline(":", {
 })
 
 require("cmp").setup(options)
-require("luasnip.loaders.from_vscode").lazy_load()

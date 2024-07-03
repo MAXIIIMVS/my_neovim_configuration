@@ -14,6 +14,14 @@ local on_attach = function(client, bufnr)
 	-- 	vim.lsp.inlay_hint.enable(true)
 	-- end
 
+	require("lsp_signature").on_attach({
+		hint_enable = false,
+		bind = true,
+		handler_opts = {
+			border = "rounded",
+		},
+	}, bufnr)
+
 	if
 		client.name == "clangd"
 		or client.name == "prismals"

@@ -249,8 +249,8 @@ return require("lazy").setup({
 	{
 		"echasnovski/mini.splitjoin",
 		version = false,
-		opts = { mappings = { toggle = "gs", split = "", join = "" } },
-		keys = { "gs", { "gs", mode = "v" } },
+		opts = { mappings = { toggle = "gJ", split = "", join = "" } },
+		keys = { "gJ", { "gJ", mode = "v" } },
 	},
 	{
 		"EdenEast/nightfox.nvim",
@@ -289,17 +289,6 @@ return require("lazy").setup({
 				HACK = { color = "#F0FD00" },
 				WARN = { color = "#FBBF24", alt = { "WARNING", "XXX" } },
 				TEST = { icon = "", color = "#FF004E", alt = { "TESTING", "PASSED", "FAILED" } },
-			},
-		},
-	},
-	{
-		"folke/tokyonight.nvim",
-		lazy = true,
-		opts = {
-			transparent = vim.g.is_transparent,
-			styles = {
-				floats = vim.g.is_transparent and "transparent" or "normal",
-				sidebars = vim.g.is_transparent and "transparent" or "normal",
 			},
 		},
 	},
@@ -419,6 +408,11 @@ return require("lazy").setup({
 		dependencies = { "rafamadriz/friendly-snippets" },
 		event = "InsertEnter",
 		version = "v2.*",
+		build = "make install_jsregexp",
+		config = function()
+			require("luasnip.loaders.from_vscode").lazy_load()
+			require("luasnip").filetype_extend("vimwiki", { "markdown" })
+		end,
 	},
 	{ "leoluz/nvim-dap-go", config = true, ft = "go" },
 	{
@@ -686,11 +680,7 @@ return require("lazy").setup({
 	},
 	{ "onsails/lspkind.nvim", dependencies = { "hrsh7th/nvim-cmp" }, event = "InsertEnter" },
 	{ "rafamadriz/friendly-snippets" },
-	{
-		"ray-x/lsp_signature.nvim",
-		opts = { hint_enable = false, toggle_key = "<M-x>" },
-		event = "VeryLazy",
-	},
+	{ "ray-x/lsp_signature.nvim", event = "LspAttach" },
 	{
 		"rcarriga/nvim-dap-ui",
 		opts = {

@@ -13,7 +13,6 @@ end
 flavors = {
 	"catppuccin-mocha",
 	"duskfox",
-	"tokyonight",
 	"solarized-osaka",
 	"catppuccin-macchiato",
 	"catppuccin-frappe",
@@ -21,7 +20,6 @@ flavors = {
 	"nordfox",
 	"carbonfox",
 	"terafox",
-	"tokyonight-day",
 	"solarized-osaka-day",
 	"dayfox",
 	"dawnfox",
