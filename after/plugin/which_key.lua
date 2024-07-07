@@ -111,6 +111,7 @@ wk.register({
 		end,
 		"horizontal terminal",
 	},
+	["<M-S-T>"] = { "<cmd>ToggleTermToggleAll<CR>", "Toggle All terminals" },
 	[";"] = {
 		name = "Quick",
 		[";"] = { "<cmd>lua require('mini.bufremove').delete()<CR>", "Delete current buffer" },
@@ -293,8 +294,8 @@ wk.register({
 		i = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation" },
 		P = { "<cmd>Lspsaga peek_type_definition<CR>", "Peek type definition" },
 		p = { "<cmd>Lspsaga peek_definition<CR>", "Show the definition" },
-		R = { "<cmd>Lspsaga rename<CR>", "Rename the symbol" },
-		r = { "<cmd>lua vim.lsp.buf.references()<CR>", "Show references" },
+		R = { "<cmd>lua vim.lsp.buf.references()<CR>", "Show references" },
+		r = { "<cmd>Lspsaga rename<CR>", "Rename the symbol" },
 		s = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature" },
 		y = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Go to type definition" },
 	},
