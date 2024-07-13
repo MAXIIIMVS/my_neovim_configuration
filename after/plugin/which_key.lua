@@ -1163,6 +1163,7 @@ require("which-key").add({
 		mode = { "s" },
 		{ "<C-a>", "<ESC>I", desc = "Go to the beginning of line", nowait = true, remap = false },
 		{ "<C-e>", "<ESC>A", desc = "Go to the end of line", nowait = true, remap = false },
+		{ "<C-d>", "<Delete>i", desc = "delete selection", nowait = true, remap = false },
 		{ "<C-s>", "<ESC><cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false },
 		{ "<M-b>", "<ESC>bi", desc = "Move back", nowait = true, remap = false },
 		{ "<M-d>", "<ESC>dei", desc = "Delete the next word", nowait = true, remap = false },

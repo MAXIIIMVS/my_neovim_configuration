@@ -298,18 +298,7 @@ return require("lazy").setup({
 		opts = {},
 		enabled = vim.fn.has("nvim-0.10.0") == 1,
 	},
-	{
-		"folke/which-key.nvim",
-		event = "UIEnter",
-		opts = {
-			preset = "modern",
-			win = {
-				wo = {
-					winblend = 0,
-				},
-			},
-		},
-	},
+	{ "folke/which-key.nvim", event = "UIEnter", opts = { preset = "modern" } },
 	{
 		"folke/zen-mode.nvim",
 		opts = { window = { width = 100 } },
