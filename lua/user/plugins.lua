@@ -300,20 +300,13 @@ return require("lazy").setup({
 	},
 	{
 		"folke/which-key.nvim",
-		event = "VimEnter",
+		event = "UIEnter",
 		opts = {
-			window = {
-				border = "rounded", -- none, single, double, shadow
-				position = "bottom", -- bottom, top
-				margin = { 0, 0, 0, 0 },
-				winblend = 0,
-			},
-			layout = {
-				height = { max = 9 },
-			},
-			popup_mappings = {
-				scroll_down = "<C-d>", -- binding to scroll down inside the popup
-				scroll_up = "<C-u>", -- binding to scroll up inside the popup
+			preset = "modern",
+			win = {
+				wo = {
+					winblend = 0,
+				},
 			},
 		},
 	},
@@ -401,7 +394,6 @@ return require("lazy").setup({
 			vim.g.db_ui_use_nerd_fonts = 1
 		end,
 	},
-	{ "kristijanhusak/vim-dadbod-completion", lazy = true },
 	{ "kylechui/nvim-surround", config = true, event = "BufEnter" },
 	{
 		"L3MON4D3/LuaSnip",

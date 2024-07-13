@@ -1,35 +1,304 @@
-local wk = require("which-key")
-
--- Normal mode {{{
-wk.register({
-	["<Nop>"] = { "<Plug>VimwikiRemoveHeaderLevel", "disabled" },
-	["-"] = { "<cmd>silent Oil<CR>", "Current directory" },
-	["_"] = {
+require("which-key").add({
+	{ ",", group = "Miscellaneous", nowait = true, remap = false },
+	{
+		",,",
 		function()
-			vim.cmd("ToggleTerm direction=horizontal")
+			vim.cmd("ToggleTerm size=160 direction=float dir=%:p:h")
 		end,
-		"Horizontal",
+		desc = "Floating Terminal",
+		nowait = true,
+		remap = false,
 	},
-	["|"] = {
+	{ ",1", "1<C-w>w", desc = "Go to 1st window", nowait = true, remap = false },
+	{ ",2", "2<C-w>w", desc = "Go to 2nd window", nowait = true, remap = false },
+	{ ",3", "3<C-w>w", desc = "Go to 3rd window", nowait = true, remap = false },
+	{ ",4", "4<C-w>w", desc = "Go to 4th window", nowait = true, remap = false },
+	{ ",5", "5<C-w>w", desc = "Go to 5th window", nowait = true, remap = false },
+	{ ",6", "6<C-w>w", desc = "Go to 6th window", nowait = true, remap = false },
+	{ ",7", "7<C-w>w", desc = "Go to 7th window", nowait = true, remap = false },
+	{ ",8", "8<C-w>w", desc = "Go to 8th window", nowait = true, remap = false },
+	{ ",9", "9<C-w>w", desc = "Go to 9th window", nowait = true, remap = false },
+	{ ",D", term_debug, desc = "Debug with GDB", nowait = true, remap = false },
+	{ ",F", ":find ", desc = "find a file", nowait = true, remap = false, silent = false },
+	{ ",H", "<cmd>silent Telescope keymaps<CR>", desc = "Keymaps", nowait = true, remap = false },
+	{
+		",S",
+		":%s/<c-r><C-w>/<C-r><C-w>/gi<left><left><left>",
+		desc = "Substitute the word in the whole file (ignore case)",
+		nowait = true,
+		remap = false,
+		silent = false,
+	},
+	{ ",T", "<cmd>tabnew<CR>", desc = "Create an empty tab", nowait = true, remap = false },
+	{
+		",a",
+		"<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>",
+		desc = "Add a folder to workspace",
+		nowait = true,
+		remap = false,
+	},
+	{ ",d", "<cmd>silent Dashboard<CR>", desc = "dashboard", nowait = true, remap = false },
+	{ ",f", "<cmd>silent Telescope filetypes<CR>", desc = "Set filetype", nowait = true, remap = false },
+	{ ",h", "<cmd>WhichKey<CR>", desc = "Which Key", nowait = true, remap = false },
+	{ ",m", "<cmd>messages<CR>", desc = "Messages", nowait = true, remap = false },
+	{ ",q", "<cmd>tabclose<CR>", desc = "Close tab", nowait = true, remap = false },
+	{
+		",r",
+		"<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>",
+		desc = "Remove a folder from workspace",
+		nowait = true,
+		remap = false,
+	},
+	{
+		",s",
+		":s/<C-r><C-w>/<C-r><C-w>/gi<left><left><left>",
+		desc = "Substitute the word in this line (ignore case)",
+		nowait = true,
+		remap = false,
+		silent = false,
+	},
+	{ ",t", group = "tmux", nowait = true, remap = false },
+	{
+		",tF",
 		function()
-			vim.cmd("ToggleTerm size=80 direction=vertical")
+			local p = vim.fn.expand("%:p:h")
+			local s = vim.fn.escape(
+				[[ silent !tmux display-popup -w 90% -h 85% -d ]] .. p .. [[ -E "tmux new-session -A -s bash "]],
+				"%"
+			)
+			vim.cmd(s)
 		end,
-		"Vertical",
+		desc = "Floating Bash (tmux)",
+		nowait = true,
+		remap = false,
 	},
-	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
-	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
-	["<M-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
-	["<M-j>"] = { "<CMD>silent NavigatorDown<CR>", "Go to the down window" },
-	["<M-p>"] = { "<CMD>silent NavigatorPrevious<CR>", "Go to the down window" },
-	["]<space>"] = { "o<ESC>k", "Insert a blank line below" },
-	["[<space>"] = { "O<ESC>j", "Insert a blank line above" },
-	["[A"] = {
+	{
+		",tH",
+		function()
+			local filepath = vim.fn.expand("%:p:h")
+			vim.cmd("silent !tmux split-window -c " .. filepath)
+		end,
+		desc = "Horizontal split normal",
+		nowait = true,
+		remap = false,
+	},
+	{ ",tc", "<cmd>silent !tmux clock-mode<CR>", desc = "Clock", nowait = true, remap = false },
+	{
+		",tf",
+		function()
+			local p = vim.fn.expand("%:p:h")
+			local s = vim.fn.escape("silent !tmux display-popup -w 90% -h 85%  -E -d " .. p, "%")
+			vim.cmd(s)
+		end,
+		desc = "Floating Bash (terminal)",
+		nowait = true,
+		remap = false,
+	},
+	{ ",tg", "<cmd>silent !tmux new-window 'lazygit'<CR>", desc = "LazyGit", nowait = true, remap = false },
+	{
+		",th",
+		function()
+			local filepath = vim.fn.expand("%:p:h")
+			vim.cmd("silent !tmux split-window -c " .. filepath)
+		end,
+		desc = "Horizontal split",
+		nowait = true,
+		remap = false,
+	},
+	{
+		",tt",
+		function()
+			local filepath = vim.fn.expand("%:p:h")
+			vim.cmd("silent !tmux new-window -c " .. filepath)
+		end,
+		desc = "Window",
+		nowait = true,
+		remap = false,
+	},
+	{
+		",tv",
+		function()
+			local filepath = vim.fn.expand("%:p:h")
+			vim.cmd("silent !tmux split-window -h -c " .. filepath)
+		end,
+		desc = "Vertical split",
+		nowait = true,
+		remap = false,
+	},
+	{ ",x", "<cmd>BufferLinePickClose<CR>", desc = "Pick a buffer to close", nowait = true, remap = false },
+	{ "-", "<cmd>silent Oil<CR>", desc = "Current directory", nowait = true, remap = false },
+	{ ";", group = "Quick", nowait = true, remap = false },
+	{ ";1", "<cmd>BufferLineGoToBuffer 1<CR>", desc = "Go to 1st buffer", nowait = true, remap = false },
+	{ ";2", "<cmd>BufferLineGoToBuffer 2<CR>", desc = "Go to 2nd buffer", nowait = true, remap = false },
+	{ ";3", "<cmd>BufferLineGoToBuffer 3<CR>", desc = "Go to 3rd buffer", nowait = true, remap = false },
+	{ ";4", "<cmd>BufferLineGoToBuffer 4<CR>", desc = "Go to 4th buffer", nowait = true, remap = false },
+	{ ";5", "<cmd>BufferLineGoToBuffer 5<CR>", desc = "Go to 5th buffer", nowait = true, remap = false },
+	{ ";6", "<cmd>BufferLineGoToBuffer 6<CR>", desc = "Go to 6th buffer", nowait = true, remap = false },
+	{ ";7", "<cmd>BufferLineGoToBuffer 7<CR>", desc = "Go to 7th buffer", nowait = true, remap = false },
+	{ ";8", "<cmd>BufferLineGoToBuffer 8<CR>", desc = "Go to 8th buffer", nowait = true, remap = false },
+	{ ";9", "<cmd>BufferLineGoToBuffer 9<CR>", desc = "Go to 9th buffer", nowait = true, remap = false },
+	{
+		";;",
+		"<cmd>lua require('mini.bufremove').delete()<CR>",
+		desc = "Delete current buffer",
+		nowait = true,
+		remap = false,
+	},
+	{ ";<space>", "<cmd>Telescope<CR>", desc = "Telescope", nowait = true, remap = false },
+	{ ";D", "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Show line diagnostics", nowait = true, remap = false },
+	{
+		";F",
+		"<cmd>Telescope git_files<CR>",
+		desc = "Fuzzy search for files tracked by Git",
+		nowait = true,
+		remap = false,
+	},
+	{ ";G", "<cmd>Telescope grep_string<CR>", desc = "Grep string under the cursor", nowait = true, remap = false },
+	{ ";H", ":Man ", desc = "Show man pages", nowait = true, remap = false, silent = false },
+	{ ";O", "<cmd>silent !xdg-open %:p:h<CR>", desc = "Open the current directory", nowait = true, remap = false },
+	{ ";Q", vim.cmd.qall, desc = "Close all windows", nowait = true, remap = false },
+	{
+		";S",
+		":%S/<C-r><C-w>/<C-r><C-w>/g<Left><left>",
+		desc = "Change the word under the cursor in the whole file",
+		nowait = true,
+		remap = false,
+		silent = false,
+	},
+	{ ";T", "<cmd>Telescope tags<CR>", desc = "tags", nowait = true, remap = false },
+	{ ";U", "<cmd>e!<CR>", desc = "Toggle Undotree", nowait = true, remap = false },
+	{ ";Z", "<C-w>|<C-w>_", desc = "Maximize the window", nowait = true, remap = false },
+	{
+		";b",
+		function()
+			require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({
+				previewer = false,
+			}))
+		end,
+		desc = "List open buffers",
+		nowait = true,
+		remap = false,
+	},
+	{
+		";c",
+		function()
+			require("telescope.builtin").colorscheme(require("telescope.themes").get_dropdown({
+				previewer = false,
+			}))
+		end,
+		desc = "List available color schemes",
+		nowait = true,
+		remap = false,
+	},
+	{ ";d", "<cmd>silent Telescope diagnostics<CR>", desc = "List diagnostics", nowait = true, remap = false },
+	{ ";f", "<cmd>Telescope find_files<CR>", desc = "Find files", nowait = true, remap = false },
+	{ ";g", "<cmd>Telescope live_grep<CR>", desc = "Live grep", nowait = true, remap = false },
+	{
+		";h",
+		function()
+			require("telescope.builtin").help_tags(require("telescope.themes").get_dropdown({
+				previewer = false,
+			}))
+		end,
+		desc = "Show help tags",
+		nowait = true,
+		remap = false,
+	},
+	{
+		";l",
+		"<cmd>Telescope lsp_document_symbols<CR>",
+		desc = "Show LSP document symbols",
+		nowait = true,
+		remap = false,
+	},
+	{
+		";m",
+		function()
+			vim.cmd('TermExec cmd="make"')
+		end,
+		desc = "Make",
+		nowait = true,
+		remap = false,
+	},
+	{ ";n", "<cmd>silent call ToggleNetrw()<CR>", desc = "Netrw", nowait = true, remap = false },
+	{ ";o", "<cmd>silent !xdg-open %<CR>", desc = "Open the current file", nowait = true, remap = false },
+	{ ";p", "<cmd>silent Telescope zoxide list<CR>", desc = "Projects", nowait = true, remap = false },
+	{ ";q", vim.cmd.q, desc = "Close current window", nowait = true, remap = false },
+	{
+		";r",
+		function()
+			require("telescope.builtin").oldfiles(require("telescope.themes").get_dropdown({
+				previewer = false,
+			}))
+		end,
+		desc = "Show recently opened files",
+		nowait = true,
+		remap = false,
+	},
+	{
+		";s",
+		":S/<C-r><C-w>/<C-r><C-w>/g<Left><left>",
+		desc = "Change the word under the cursor in the line",
+		nowait = true,
+		remap = false,
+		silent = false,
+	},
+	{ ";t", "<cmd>TodoTelescope<CR>", desc = "See notes/todos...", nowait = true, remap = false },
+	{ ";u", vim.cmd.UndotreeToggle, desc = "Toggle Undotree", nowait = true, remap = false },
+	{
+		";x",
+		"<cmd>silent ToggleTermSendCurrentLine<CR>",
+		desc = "Execute the current line in terminal",
+		nowait = true,
+		remap = false,
+	},
+	{ ";y", "<cmd>silent lua require('tfm').open()<CR>", desc = "Yazi", nowait = true, remap = false },
+	{ ";z", "<cmd>ZenMode<CR>", desc = "Toggle Zen Mode", nowait = true, remap = false },
+	{ "<C-s>", "<cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false },
+	{ "<M-Down>", "<cmd>resize +1<CR>", desc = "Decrease window height", nowait = true, remap = false },
+	{ "<M-Left>", "<cmd>vertical resize -1<CR>", desc = "Increase window width", nowait = true, remap = false },
+	{ "<M-Right>", "<cmd>vertical resize +1<CR>", desc = "Decrease window width", nowait = true, remap = false },
+	{ "<M-S-T>", "<cmd>ToggleTermToggleAll<CR>", desc = "Toggle All terminals", nowait = true, remap = false },
+	{ "<M-Up>", "<cmd>resize -1<CR>", desc = "Increase window height", nowait = true, remap = false },
+	{ "<M-h>", "<CMD>silent NavigatorLeft<CR>", desc = "Go to the left window", nowait = true, remap = false },
+	{ "<M-j>", "<CMD>silent NavigatorDown<CR>", desc = "Go to the down window", nowait = true, remap = false },
+	{ "<M-k>", "<CMD>silent NavigatorUp<CR>", desc = "Go to the up window", nowait = true, remap = false },
+	{ "<M-l>", "<CMD>silent NavigatorRight<CR>", desc = "Go to the right window", nowait = true, remap = false },
+	{ "<M-p>", "<CMD>silent NavigatorPrevious<CR>", desc = "Go to the down window", nowait = true, remap = false },
+	{ "<M-s>", "<cmd>wall<CR>", desc = "Save all buffers", nowait = true, remap = false },
+	{
+		"<M-t>",
+		function()
+			vim.cmd("ToggleTerm")
+		end,
+		desc = "horizontal terminal",
+		nowait = true,
+		remap = false,
+	},
+	{ "<Nop>", "<Plug>VimwikiRemoveHeaderLevel", desc = "disabled", nowait = true, remap = false },
+	{ "K", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover info", nowait = true, remap = false },
+	{ "[<space>", "O<ESC>j", desc = "Insert a blank line above", nowait = true, remap = false },
+	{
+		"[A",
 		function()
 			vim.cmd.colorscheme(flavors[1])
 		end,
-		"First dark theme",
+		desc = "First dark theme",
+		nowait = true,
+		remap = false,
 	},
-	["[a"] = {
+	{
+		"[E",
+		function()
+			require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+		end,
+		desc = "Jump to the previous error",
+		nowait = true,
+		remap = false,
+	},
+	{ "[Q", "<cmd>silent cfirst<CR>", desc = "See the first item in QuickFix", nowait = true, remap = false },
+	{
+		"[a",
 		function()
 			local index = #flavors
 			for i, f in ipairs(flavors) do
@@ -43,15 +312,44 @@ wk.register({
 			end
 			vim.cmd.colorscheme(flavors[index])
 		end,
-		"Previous flavor",
+		desc = "Previous flavor",
+		nowait = true,
+		remap = false,
 	},
-	["]A"] = {
+	{
+		"[e",
+		"<cmd>Lspsaga diagnostic_jump_prev<CR>",
+		desc = "Jump to the previous diagnostic",
+		nowait = true,
+		remap = false,
+	},
+	{ "[h", "<cmd>silent Gitsigns prev_hunk<CR>", desc = "Jump to the previous hunk", nowait = true, remap = false },
+	{ "[p", "<cmd>pu!<CR>", desc = "Paste above current line", nowait = true, remap = false },
+	{ "[q", "<cmd>silent cprev<CR>", desc = "Show the previous item in QuickFix", nowait = true, remap = false },
+	{ "[t", require("todo-comments").jump_prev, desc = "Previous todo comment", nowait = true, remap = false },
+	{ "[x", "<cmd>BufferLineCloseLeft<CR>", desc = "Close all the buffers to the left", nowait = true, remap = false },
+	{ "]<space>", "o<ESC>k", desc = "Insert a blank line below", nowait = true, remap = false },
+	{
+		"]A",
 		function()
 			vim.cmd.colorscheme(flavors[#flavors])
 		end,
-		"Last light theme",
+		desc = "Last light theme",
+		nowait = true,
+		remap = false,
 	},
-	["]a"] = {
+	{
+		"]E",
+		function()
+			require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+		end,
+		desc = "Jump to the next error",
+		nowait = true,
+		remap = false,
+	},
+	{ "]Q", "<cmd>silent clast<CR>", desc = "See the last item in QuickFix", nowait = true, remap = false },
+	{
+		"]a",
 		function()
 			local index = 1
 			for i, f in ipairs(flavors) do
@@ -65,1009 +363,155 @@ wk.register({
 			end
 			vim.cmd.colorscheme(flavors[index])
 		end,
-		"Next flavor",
+		desc = "Next flavor",
+		nowait = true,
+		remap = false,
 	},
-	["]h"] = { "<cmd>silent Gitsigns next_hunk<CR>", "Jump to the next hunk" },
-	["[h"] = { "<cmd>silent Gitsigns prev_hunk<CR>", "Jump to the previous hunk" },
-	["[E"] = {
+	{
+		"]e",
+		"<cmd>Lspsaga diagnostic_jump_next<CR>",
+		desc = "Jump to the next diagnostic",
+		nowait = true,
+		remap = false,
+	},
+	{ "]h", "<cmd>silent Gitsigns next_hunk<CR>", desc = "Jump to the next hunk", nowait = true, remap = false },
+	{ "]p", "<cmd>pu<CR>", desc = "Paste below current line", nowait = true, remap = false },
+	{ "]q", "<cmd>silent cnext<CR>", desc = "Show the next item in QuickFix", nowait = true, remap = false },
+	{ "]t", require("todo-comments").jump_next, desc = "Next todo comment", nowait = true, remap = false },
+	{
+		"]x",
+		"<cmd>BufferLineCloseRight<CR>",
+		desc = "Close all the buffers to the right",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"_",
 		function()
-			require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+			vim.cmd("ToggleTerm direction=horizontal")
 		end,
-		"Jump to the previous error",
+		desc = "Horizontal",
+		nowait = true,
+		remap = false,
 	},
-	["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Jump to the previous diagnostic" },
-	["]E"] = {
+	{ "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Go to declaration", nowait = true, remap = false },
+	{ "gP", "<cmd>Lspsaga peek_type_definition<CR>", desc = "Peek type definition", nowait = true, remap = false },
+	{ "gR", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "Show references", nowait = true, remap = false },
+	{ "ga", "<cmd>Lspsaga code_action<CR>", desc = "Code actions", nowait = true, remap = false },
+	{ "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "Go to definition", nowait = true, remap = false },
+	{
+		"gh",
+		"<cmd>Lspsaga finder def+ref+imp<CR>",
+		desc = "Show the definition, reference, implementation...",
+		nowait = true,
+		remap = false,
+	},
+	{ "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "Go to implementation", nowait = true, remap = false },
+	{ "gp", "<cmd>Lspsaga peek_definition<CR>", desc = "Show the definition", nowait = true, remap = false },
+	{ "gr", "<cmd>Lspsaga rename<CR>", desc = "Rename the symbol", nowait = true, remap = false },
+	{ "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc = "Show signature", nowait = true, remap = false },
+	{
+		"gy",
+		"<cmd>lua vim.lsp.buf.type_definition()<CR>",
+		desc = "Go to type definition",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"|",
 		function()
-			require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+			vim.cmd("ToggleTerm size=80 direction=vertical")
 		end,
-		"Jump to the next error",
+		desc = "Vertical",
+		nowait = true,
+		remap = false,
 	},
-	["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Jump to the next diagnostic" },
-	["[t"] = {
-		require("todo-comments").jump_prev,
-		"Previous todo comment",
-	},
-	["]t"] = {
-		require("todo-comments").jump_next,
-		"Next todo comment",
-	},
-	["[p"] = { "<cmd>pu!<CR>", "Paste above current line" },
-	["]p"] = { "<cmd>pu<CR>", "Paste below current line" },
-	["[q"] = { "<cmd>silent cprev<CR>", "Show the previous item in QuickFix" },
-	["]q"] = { "<cmd>silent cnext<CR>", "Show the next item in QuickFix" },
-	["[Q"] = { "<cmd>silent cfirst<CR>", "See the first item in QuickFix" },
-	["]Q"] = { "<cmd>silent clast<CR>", "See the last item in QuickFix" },
-	["]x"] = { "<cmd>BufferLineCloseRight<CR>", "Close all the buffers to the right" },
-	["[x"] = { "<cmd>BufferLineCloseLeft<CR>", "Close all the buffers to the left" },
-	["<M-Left>"] = { "<cmd>vertical resize -1<CR>", "Increase window width" },
-	["<M-Right>"] = { "<cmd>vertical resize +1<CR>", "Decrease window width" },
-	["<M-Up>"] = { "<cmd>resize -1<CR>", "Increase window height" },
-	["<M-Down>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
-	["<C-s>"] = { "<cmd>silent update<CR>", "Save buffer" },
-	["<M-s>"] = { "<cmd>wall<CR>", "Save all buffers" },
-	["<M-t>"] = {
-		function()
-			vim.cmd("ToggleTerm")
-		end,
-		"horizontal terminal",
-	},
-	["<M-S-T>"] = { "<cmd>ToggleTermToggleAll<CR>", "Toggle All terminals" },
-	[";"] = {
-		name = "Quick",
-		[";"] = { "<cmd>lua require('mini.bufremove').delete()<CR>", "Delete current buffer" },
-		["<space>"] = { "<cmd>Telescope<CR>", "Telescope" },
-		["1"] = { "<cmd>BufferLineGoToBuffer 1<CR>", "Go to 1st buffer" },
-		["2"] = { "<cmd>BufferLineGoToBuffer 2<CR>", "Go to 2nd buffer" },
-		["3"] = { "<cmd>BufferLineGoToBuffer 3<CR>", "Go to 3rd buffer" },
-		["4"] = { "<cmd>BufferLineGoToBuffer 4<CR>", "Go to 4th buffer" },
-		["5"] = { "<cmd>BufferLineGoToBuffer 5<CR>", "Go to 5th buffer" },
-		["6"] = { "<cmd>BufferLineGoToBuffer 6<CR>", "Go to 6th buffer" },
-		["7"] = { "<cmd>BufferLineGoToBuffer 7<CR>", "Go to 7th buffer" },
-		["8"] = { "<cmd>BufferLineGoToBuffer 8<CR>", "Go to 8th buffer" },
-		["9"] = { "<cmd>BufferLineGoToBuffer 9<CR>", "Go to 9th buffer" },
-		b = {
-			function()
-				require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({
-					previewer = false,
-				}))
-			end,
-			"List open buffers",
-		},
-		c = {
-			function()
-				require("telescope.builtin").colorscheme(require("telescope.themes").get_dropdown({
-					previewer = false,
-				}))
-			end,
-			"List available color schemes",
-		},
-		D = { "<cmd>Lspsaga show_line_diagnostics<CR>", "Show line diagnostics" },
-		d = { "<cmd>silent Telescope diagnostics<CR>", "List diagnostics" },
-		F = { "<cmd>Telescope git_files<CR>", "Fuzzy search for files tracked by Git" },
-		f = { "<cmd>Telescope find_files<CR>", "Find files" },
-		G = { "<cmd>Telescope grep_string<CR>", "Grep string under the cursor" },
-		g = { "<cmd>Telescope live_grep<CR>", "Live grep" },
-		H = { ":Man ", "Show man pages", silent = false },
-		h = {
-			function()
-				require("telescope.builtin").help_tags(require("telescope.themes").get_dropdown({
-					previewer = false,
-				}))
-			end,
-			"Show help tags",
-		},
-		l = { "<cmd>Telescope lsp_document_symbols<CR>", "Show LSP document symbols" },
-		m = { vim.cmd.make, "Make" },
-		-- NOTE: you have to change the ;n keymap for netrw in settings file, if
-		-- you change the next line
-		n = { "<cmd>silent call ToggleNetrw()<CR>", "Netrw" },
-		o = { "<cmd>silent !xdg-open %<CR>", "Open the current file" },
-		O = { "<cmd>silent !xdg-open %:p:h<CR>", "Open the current directory" },
-		p = { "<cmd>silent Telescope zoxide list<CR>", "Projects" },
-		q = { vim.cmd.q, "Close current window" },
-		Q = { vim.cmd.qall, "Close all windows" },
-		r = {
-			function()
-				require("telescope.builtin").oldfiles(require("telescope.themes").get_dropdown({
-					previewer = false,
-				}))
-			end,
-			"Show recently opened files",
-		},
-		-- NOTE: the next two substitution commands depend on vim-abolish
-		s = {
-			[[:S/<C-r><C-w>/<C-r><C-w>/g<Left><left>]],
-			"Change the word under the cursor in the line",
-			silent = false,
-		},
-		S = {
-			[[:%S/<C-r><C-w>/<C-r><C-w>/g<Left><left>]],
-			"Change the word under the cursor in the whole file",
-			silent = false,
-		},
-		T = { "<cmd>Telescope tags<CR>", "tags" },
-		t = { "<cmd>TodoTelescope<CR>", "See notes/todos..." },
-		u = { vim.cmd.UndotreeToggle, "Toggle Undotree" },
-		U = { "<cmd>e!<CR>", "Toggle Undotree" },
-		x = { "<cmd>silent ToggleTermSendCurrentLine<CR>", "Execute the current line in terminal" },
-		y = { "<cmd>silent lua require('tfm').open()<CR>", "Yazi" },
-		z = { "<cmd>ZenMode<CR>", "Toggle Zen Mode" },
-		Z = { "<C-w>|<C-w>_", "Maximize the window" },
-	},
-	[","] = {
-		name = "Miscellaneous",
-		[","] = {
-			function()
-				vim.cmd("ToggleTerm size=160 direction=float dir=%:p:h")
-			end,
-			"Floating Terminal",
-		},
-		["1"] = { "1<C-w>w", "Go to 1st window" },
-		["2"] = { "2<C-w>w", "Go to 2nd window" },
-		["3"] = { "3<C-w>w", "Go to 3rd window" },
-		["4"] = { "4<C-w>w", "Go to 4th window" },
-		["5"] = { "5<C-w>w", "Go to 5th window" },
-		["6"] = { "6<C-w>w", "Go to 6th window" },
-		["7"] = { "7<C-w>w", "Go to 7th window" },
-		["8"] = { "8<C-w>w", "Go to 8th window" },
-		["9"] = { "9<C-w>w", "Go to 9th window" },
-		a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", "Add a folder to workspace" },
-		D = { term_debug, "Debug with GDB" },
-		d = { "<cmd>silent Dashboard<CR>", "dashboard" },
-		F = { ":find ", "find a file", silent = false },
-		f = { "<cmd>silent Telescope filetypes<CR>", "Set filetype" },
-		H = { "<cmd>silent Telescope keymaps<CR>", "Keymaps" },
-		h = { "<cmd>WhichKey<CR>", "Which Key" },
-		m = { "<cmd>messages<CR>", "Messages" },
-		q = { "<cmd>tabclose<CR>", "Close tab" },
-		r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", "Remove a folder from workspace" },
-		S = {
-			[[:%s/<c-r><C-w>/<C-r><C-w>/gi<left><left><left>]],
-			"Substitute the word in the whole file (ignore case)",
-			silent = false,
-		},
-		s = {
-			[[:s/<C-r><C-w>/<C-r><C-w>/gi<left><left><left>]],
-			"Substitute the word in this line (ignore case)",
-			silent = false,
-		},
-		T = { "<cmd>tabnew<CR>", "Create an empty tab" },
-		t = {
-			name = "tmux",
-			c = { "<cmd>silent !tmux clock-mode<CR>", "Clock" },
-			F = {
-				function()
-					local p = vim.fn.expand("%:p:h")
-					local s = vim.fn.escape(
-						[[ silent !tmux display-popup -w 90% -h 85% -d ]] .. p .. [[ -E "tmux new-session -A -s bash "]],
-						"%"
-					)
-					vim.cmd(s)
-				end,
-				"Floating Bash (tmux)",
-			},
-			f = {
-				function()
-					local p = vim.fn.expand("%:p:h")
-					local s = vim.fn.escape("silent !tmux display-popup -w 90% -h 85%  -E -d " .. p, "%")
-					vim.cmd(s)
-				end,
-				"Floating Bash (terminal)",
-			},
-			g = { "<cmd>silent !tmux new-window 'lazygit'<CR>", "LazyGit" },
-			H = {
-				function()
-					local filepath = vim.fn.expand("%:p:h")
-					vim.cmd("silent !tmux split-window -c " .. filepath)
-				end,
-				"Horizontal split normal",
-			},
-			h = {
-				function()
-					local filepath = vim.fn.expand("%:p:h")
-					vim.cmd("silent !tmux split-window -l 12 -c " .. filepath)
-				end,
-				"Horizontal split",
-			},
-			t = {
-				function()
-					local filepath = vim.fn.expand("%:p:h")
-					vim.cmd("silent !tmux new-window -c " .. filepath)
-				end,
-				"Window",
-			},
-			v = {
-				function()
-					local filepath = vim.fn.expand("%:p:h")
-					vim.cmd("silent !tmux split-window -h -c " .. filepath)
-				end,
-				"Vertical split",
-			},
-		},
-		x = { "<cmd>BufferLinePickClose<CR>", "Pick a buffer to close" },
-	},
-	g = {
-		a = { "<cmd>Lspsaga code_action<CR>", "Code actions" },
-		D = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration" },
-		d = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to definition" },
-		h = { "<cmd>Lspsaga finder def+ref+imp<CR>", "Show the definition, reference, implementation..." },
-		i = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation" },
-		P = { "<cmd>Lspsaga peek_type_definition<CR>", "Peek type definition" },
-		p = { "<cmd>Lspsaga peek_definition<CR>", "Show the definition" },
-		R = { "<cmd>lua vim.lsp.buf.references()<CR>", "Show references" },
-		r = { "<cmd>Lspsaga rename<CR>", "Rename the symbol" },
-		s = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature" },
-		y = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Go to type definition" },
-	},
-	K = { "<cmd>Lspsaga hover_doc<CR>", "Hover info" },
-	k = { "gk", "Up" },
-}, { prefix = "", noremap = true, silent = true, nowait = true })
-
-wk.register({
-	name = "Groups",
-	["<space>"] = {
+	{ "<space>", group = "Groups", nowait = true, remap = false },
+	{
+		"<space><space>",
 		function()
 			vim.cmd("ToggleTerm direction=tab dir=%:p:h")
 		end,
-		"Tab",
+		desc = "Terminal in Tab",
+		nowait = true,
+		remap = false,
 	},
-	b = {
-		name = "Buffer",
-		a = { "<cmd>bufdo bd<CR>", "Close all buffers" },
-		d = { "<cmd>silent bd<CR>", "Close this buffer" },
-		e = {
-			function()
-				local current_buffer = vim.api.nvim_get_current_buf()
-				local buffers = vim.api.nvim_list_bufs()
+	{ "<space>b", group = "Buffer", nowait = true, remap = false },
+	{ "<space>bO", "<cmd>silent %bd|e#|bd#<CR>|'\"", desc = "Close other buffers", nowait = true, remap = false },
+	{ "<space>bP", "<cmd>BufferLineTogglePin<CR>", desc = "Pin buffer", nowait = true, remap = false },
+	{ "<space>ba", "<cmd>bufdo bd<CR>", desc = "Close all buffers", nowait = true, remap = false },
+	{ "<space>bd", "<cmd>silent bd<CR>", desc = "Close this buffer", nowait = true, remap = false },
+	{
+		"<space>be",
+		function()
+			local current_buffer = vim.api.nvim_get_current_buf()
+			local buffers = vim.api.nvim_list_bufs()
 
-				for _, buf in ipairs(buffers) do
-					if buf ~= current_buffer and vim.api.nvim_buf_is_valid(buf) then
-						local buf_name = vim.api.nvim_buf_get_name(buf)
-						local buf_loaded = vim.api.nvim_buf_is_loaded(buf)
-						local buf_empty = buf_loaded and vim.api.nvim_buf_line_count(buf) <= 1
+			for _, buf in ipairs(buffers) do
+				if buf ~= current_buffer and vim.api.nvim_buf_is_valid(buf) then
+					local buf_name = vim.api.nvim_buf_get_name(buf)
+					local buf_loaded = vim.api.nvim_buf_is_loaded(buf)
+					local buf_empty = buf_loaded and vim.api.nvim_buf_line_count(buf) <= 1
 
-						if buf_empty and buf_name == "" then
-							vim.api.nvim_buf_delete(buf, { force = true })
-						end
+					if buf_empty and buf_name == "" then
+						vim.api.nvim_buf_delete(buf, { force = true })
 					end
 				end
-				require("bufferline.ui").refresh()
-			end,
-			"Close empty buffers (not current one)",
-		},
-		O = { "<cmd>silent %bd|e#|bd#<CR>|'\"", "Close other buffers" },
-		o = { "<cmd>BufferLineCloseOthers<CR>|'\"", "Close other buffers" },
-		h = { "<cmd>BufferLineMovePrev<CR>", "Move the buffer to the previous position" },
-		l = { "<cmd>BufferLineMoveNext<CR>", "Move the buffer to the next position" },
-		P = { "<cmd>BufferLineTogglePin<CR>", "Pin buffer" },
-		p = { "<cmd>BufferLinePick<CR>", "Pick a Buffer" },
-	},
-	c = {
-		name = "Calendar",
-		c = { "<cmd>Calendar<CR>", "Main Calendar (view month)" },
-		y = { "<cmd>Calendar -view=year<CR>", "View Year" },
-		w = { "<cmd>Calendar -view=week<CR>", "View Week" },
-		d = { "<cmd>Calendar -view=day<CR>", "View Day" },
-		D = { "<cmd>Calendar -view=days<CR>", "View Days" },
-		t = { "<cmd>Calendar -view=clock<CR>", "View Clock" },
-		O = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r/tasks<CR>", "Open Google Tasks" },
-		o = { "<cmd>silent !open https://calendar.google.com/calendar/u/0/r<CR>", "Open Google Calendar" },
-		g = { ":Calendar ", "Go to date (mm dd yyyy)", silent = false },
-	},
-	d = {
-		name = "Debugger",
-		A = { "<cmd>call TermDebugSendCommand('layout regs asm')<CR>", "GDB: disassembly and registers" },
-		a = { "<cmd>silent Asm<CR>", "GDB: Disassembly" },
-		-- B = { "<cmd>silent Clear<CR>", "GDB: remove breakpoint" },
-		B = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('delete')")
-				else
-					require("dap").clear_breakpoints()
-				end
-			end,
-			"Delete all breakpoints",
-		},
-		b = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("Break")
-				else
-					vim.cmd.DapToggleBreakpoint()
-				end
-			end,
-			"Break",
-		},
-		C = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("Until")
-				else
-					require("dap").run_to_cursor()
-				end
-			end,
-			"Run to cursor",
-		},
-		c = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('c')")
-				else
-					vim.cmd.DapContinue()
-				end
-			end,
-			"Continue",
-		},
-		d = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('down 1')")
-				else
-					require("dap").down()
-				end
-			end,
-			"Go down in current stacktrace without stepping",
-		},
-		e = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("Evaluate")
-				else
-					require("dapui").eval(nil, { enter = true })
-				end
-			end,
-			"Evaluate expression",
-		},
-		f = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("Finish")
-				else
-					vim.cmd.DapStepOut()
-				end
-			end,
-			"Step out (finish)",
-		},
-		g = {
-			name = "Go programming language",
-			t = {
-				function()
-					require("dap-go").debug_test()
-				end,
-				"Debug go test",
-			},
-			l = {
-				function()
-					require("dap-go").debug_last()
-				end,
-				"Debug last go test",
-			},
-		},
-		h = {
-			function()
-				require("dap.ui.widgets").hover()
-			end,
-			"Hover",
-		},
-		j = {
-			require("dap").goto_,
-			"Jump to a specific line or line under cursor",
-		},
-		l = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('info locals')")
-				else
-					require("dap.ui.widgets").sidebar(require("dap.ui.widgets").scopes).open()
-				end
-			end,
-			"Locals",
-		},
-		N = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('reverse-step')")
-				else
-					require("dap").step_back()
-				end
-			end,
-			"Step back",
-		},
-		n = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("Over")
-				else
-					vim.cmd.DapStepOver()
-				end
-			end,
-			"Step over",
-		},
-		p = {
-			require("dap").pause,
-			"Pause the thread",
-		},
-		R = {
-			vim.cmd.DapToggleRepl,
-			"Toggle repl",
-		},
-		-- R = {
-		-- 	name = "GDB: Reverse",
-		-- 	c = { "<cmd>call TermDebugSendCommand('reverse-continue')<CR>", "Continue" },
-		-- 	n = { "<cmd>call TermDebugSendCommand('reverse-next')<CR>", "Next" },
-		-- 	R = { "<cmd>call TermDebugSendCommand('record stop')<CR>", "Stop" },
-		-- 	r = { "<cmd>call TermDebugSendCommand('record')<CR>", "Record" },
-		-- 	-- S = { "<cmd>call TermDebugSendCommand('reverse-search')<CR>", "Record" },
-		-- 	s = { "<cmd>call TermDebugSendCommand('reverse-step')<CR>", "Step" },
-		-- },
-		r = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('start')")
-				else
-					require("dap").restart()
-				end
-			end,
-			"Restart",
-		},
-		q = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('quit')")
-				else
-					vim.cmd.DapTerminate()
-				end
-			end,
-			"Stop/Terminate",
-		},
-		s = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("Step")
-				else
-					vim.cmd.DapStepInto()
-				end
-			end,
-			"Step into",
-		},
-		t = { "<cmd>call TermDebugSendCommand('bt')<CR>", "GDB: Bracktrace" },
-		u = {
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('up 1')")
-				else
-					require("dap").up()
-				end
-			end,
-			"Go up in current stacktrace without stepping",
-		},
-		w = {
-			function()
-				require("dapui").elements.watches.add(nil)
-			end,
-			"Watch the word under cursor",
-		},
-	},
-	g = {
-		name = "Git",
-		["["] = {
-			function()
-				git_previous()
-				vim.cmd("G log -1 --stat")
-			end,
-			"Checkout previous commit",
-		},
-		["]"] = {
-			function()
-				git_next()
-				vim.cmd("G log -1 --stat")
-			end,
-			"checkout next commit",
-		},
-		A = { "<cmd>silent G restore --staged %<CR>", "Unstage the file" },
-		a = { "<cmd>silent G add %<CR>", "Stage the file" },
-		B = { "<cmd>Gitsigns blame_line<CR>", "Blame on the current line" },
-		b = { "<cmd>silent G blame<CR>", "Blame on the current file" },
-		C = { ":silent G checkout ", "Checkout", silent = false },
-		c = {
-			function()
-				if vim.fn.winwidth(0) > 85 then
-					vim.cmd("silent vertical G commit")
-				else
-					vim.cmd("silent G commit")
-				end
-			end,
-			"Commit",
-		},
-		D = {
-			function()
-				if vim.fn.winwidth(0) > 85 then
-					vim.cmd("silent Gvdiffsplit! HEAD~")
-				else
-					vim.cmd("silent Gdiffsplit! HEAD~")
-				end
-			end,
-			"Diff with previous commit",
-		},
-		d = {
-			function()
-				if vim.fn.winwidth(0) > 85 then
-					vim.cmd("silent Gvdiffsplit!")
-				else
-					vim.cmd("silent Gdiffsplit!")
-				end
-			end,
-			"Diff with previous commit",
-		},
-		E = {
-			function()
-				if vim.fn.winwidth(0) > 85 then
-					vim.cmd("silent vertical G commit --amend")
-				else
-					vim.cmd("silent G commit --amend")
-				end
-			end,
-			"Amend (edit) commit with staged changes",
-		},
-		f = { "<cmd>silent G fetch<CR>", "Fetch" },
-		g = { ":Ggrep! -q ", "Grep", silent = false },
-		h = { get_git_hash, "copy current git hash to g register" },
-		L = {
-			function()
-				if vim.fn.winwidth(0) > 85 then
-					vim.cmd("silent vertical G log --stat")
-				else
-					vim.cmd("silent G log --stat")
-				end
-			end,
-			"Log with stats",
-		},
-		l = {
-			function()
-				if vim.fn.winwidth(0) > 85 then
-					vim.cmd("silent vertical G log --decorate")
-				else
-					vim.cmd("silent G log --decorate")
-				end
-			end,
-			"Log",
-		},
-		n = { "<cmd>silent G! difftool HEAD~1 | cfirst <CR>", "changed files since last commit" },
-		o = { "<cmd>silent GBrowse<CR>", "Open in the browser" },
-		P = { "<cmd>silent G push<CR>", "Push" },
-		p = { "<cmd>silent G pull<CR>", "Pull" },
-		R = { "<cmd>silent G checkout HEAD -- %<CR>", "Reset the file" },
-		r = {
-			"<cmd>Gitsigns reset_hunk<CR>",
-			"Reset the lines of the hunk at the cursor position, or all lines in the given range.",
-		},
-		s = {
-			function()
-				if vim.fn.winwidth(0) > 85 then
-					vim.cmd("silent vertical Git")
-				else
-					vim.cmd("silent Git")
-				end
-			end,
-			"Status",
-		},
-		S = { ":silent G switch ", "Switch", silent = false },
-		T = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle current line blame" },
-		t = { "<cmd>GitTimeLaps<CR>", "Show time lapse of the file" },
-		w = {
-			name = "worktree",
-			a = { ":G worktree add ", "add", silent = false },
-			L = { ":G worktree lock ", "Lock", silent = false },
-			l = { "<cmd>G worktree list<CR>", "List" },
-			m = { ":G worktree move ", "Move", silent = false },
-			p = { "<cmd>G worktree prune<CR>", "prune" },
-			R = { ":G worktree repair ", "Repair", silent = false },
-			r = { ":G worktree remove ", "remove", silent = false },
-			u = { ":G worktree unlock ", "Unlock", silent = false },
-		},
-	},
-	l = {
-		name = "LSP",
-		I = { ":LspInstall ", "Install", silent = false },
-		i = { "<cmd>LspInfo<CR>", "Info" },
-		L = { "<cmd>LspLog<CR>", "Log" },
-		r = { ":LspRestart ", "Restart", silent = false },
-		S = { ":LspStart ", "Start", silent = false },
-		s = { ":LspStop ", "Stop", silent = false },
-		u = { ":LspUninstall ", "Uninstall", silent = false },
-	},
-	m = {
-		name = "Make",
-		a = {
-			function()
-				vim.cmd('TermExec cmd="make all"')
-			end,
-			"All",
-		},
-		B = {
-			function()
-				vim.cmd('TermExec cmd="make clean-build"')
-			end,
-			"Clean build",
-		},
-		b = {
-			function()
-				vim.cmd('TermExec cmd="make build"')
-			end,
-			"Build",
-		},
-		c = {
-			function()
-				vim.cmd('TermExec cmd="make clean"')
-			end,
-			"Clean",
-		},
-		d = {
-			function()
-				vim.cmd('TermExec cmd="make debug"')
-			end,
-			"Debug",
-		},
-		g = {
-			function()
-				vim.cmd('TermExec cmd="make generate"')
-			end,
-			"Debug",
-		},
-		h = {
-			function()
-				vim.cmd('TermExec cmd="make help"')
-			end,
-			"Help",
-		},
-		i = {
-			function()
-				vim.cmd('TermExec cmd="make install"')
-			end,
-			"Install",
-		},
-		r = {
-			function()
-				vim.cmd('TermExec cmd="make run"')
-			end,
-			"Run",
-		},
-		t = {
-			function()
-				vim.cmd('TermExec cmd="make test"')
-			end,
-			"Test",
-		},
-		v = {
-			function()
-				vim.cmd('TermExec cmd="make valgrind"')
-			end,
-			"valgrind",
-		},
-		w = {
-			function()
-				vim.cmd('TermExec cmd="make watch"')
-			end,
-			"Watch",
-		},
-	},
-	s = {
-		name = "Session",
-		m = { "<cmd>Obsession<CR>", "Make a session" },
-		d = { "<cmd>Obsession!<CR>", "Delete the session" },
-	},
-	t = {
-		name = "Toggle",
-		b = {
-			function()
-				vim.o.background = vim.o.background == "dark" and "light" or "dark"
-			end,
-			"Background color (Light/dark) ",
-		},
-		C = {
-			"<cmd>ColorizerToggle<CR>",
-			"Colorizer",
-		},
-		c = {
-			function()
-				vim.wo.colorcolumn = vim.wo.colorcolumn == "" and "79" or ""
-			end,
-			"Color column",
-		},
-		D = { "<cmd>silent DBUIToggle<CR>", "DB UI" },
-		d = { "<cmd>silent lua ToggleDiagnostics()<CR>", "diagnostics" },
-		g = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "git line blame" },
-		h = {
-			"<cmd>TSToggle highlight<CR>",
-			"Treesitter highlight",
-		},
-		i = {
-			function()
-				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-			end,
-			"Inlay Hints",
-		},
-		l = {
-			function()
-				vim.g.show_cursorline = not vim.g.show_cursorline
-				if not vim.g.show_cursorline then
-					vim.o.cursorlineopt = "number,line"
-				else
-					vim.o.cursorlineopt = "number"
-				end
-			end,
-			"Cursor line",
-		},
-		o = { "<cmd>Lspsaga outline<CR>", "Outline" },
-		q = {
-			function()
-				local qf_exists = false
-				for _, win in pairs(vim.fn.getwininfo()) do
-					if win["quickfix"] == 1 then
-						qf_exists = true
-					end
-				end
-				if qf_exists == true then
-					vim.cmd("cclose")
-					return
-				end
-				if not vim.tbl_isempty(vim.fn.getqflist()) then
-					vim.cmd("copen")
-				end
-			end,
-			"Quick fix",
-		},
-		r = {
-			function()
-				vim.wo.relativenumber = not vim.wo.relativenumber
-			end,
-			"Relative number",
-		},
-		S = { "<cmd>silent Sleuth<CR>", "sleuth" },
-		s = {
-			function()
-				if vim.o.statusline == "" then
-					require("lualine").hide({ unhide = true })
-				else
-					require("lualine").hide({ unhide = false })
-					vim.o.statusline = "" -- "" is same as "%t %m"
-				end
-			end,
-			"Statusline/lualine",
-		},
-		t = {
-			function()
-				local found = false
-				for _, f in ipairs(flavors) do
-					if vim.g.colors_name == f then
-						found = true
-						break
-					end
-				end
-				if not found then
-					return
-				end
-				vim.g.is_transparent = not vim.g.is_transparent
-				local osaka_options = require("solarized-osaka.config").options
-				osaka_options.styles = {
-					floats = vim.g.is_transparent and "transparent" or "normal",
-					sidebars = vim.g.is_transparent and "transparent" or "normal",
-				}
-				osaka_options.transparent = vim.g.is_transparent
-				local catppuccin = require("catppuccin")
-				catppuccin.options.transparent_background = vim.g.is_transparent
-				local nightfox = require("nightfox.config")
-				nightfox.options.transparent = vim.g.is_transparent
-				catppuccin.compile()
-				vim.cmd("NightfoxCompile")
-				vim.cmd.colorscheme(vim.g.colors_name)
-			end,
-			"Transparency",
-		},
-		u = { vim.cmd.UndotreeToggle, "Undotree" },
-		-- w = {
-		--  function()
-		--    vim.wo.winbar = vim.wo.winbar == "" and require("lspsaga.symbolwinbar"):get_winbar() or ""
-		--  end,
-		--  "winbar",
-		-- },
-		z = {
-			"<cmd>ZenMode<CR>",
-			"Zen mode",
-		},
-	},
-	w = {
-		name = "Window",
-		d = { "<cmd>windo diffthis<CR>", "Show the difference between 2 windows" },
-		D = { "<cmd>windo diffoff<CR>", "Hide the difference between 2 windows" },
-		s = { "<cmd>windo set scrollbind<CR>", "Set scrollbind" },
-		S = { "<cmd>windo set scrollbind!<CR>", "Unset scrollbind" },
-	},
-}, { prefix = "<space>", noremap = true, silent = true, nowait = true })
-
-wk.register({
-	c = { "<cmd>silent CatppuccinCompile<CR>", "Recompile Catppuccin" },
-	d = { "<cmd>silent Dashboard<CR>", "Dashboard" },
-	f = {
-		function()
-			vim.lsp.buf.format({ async = true })
-		end,
-		"Format buffer",
-	},
-	n = { "<cmd>silent noa w<CR>", "Save with no actions" },
-	s = { "<cmd>silent so %<CR>", "Source the file" },
-	w = {
-		name = "VimWiki",
-		l = { "<cmd>VimwikiTOC<CR>", "Create or update the Table of Contents for the current wiki file" },
-	},
-	x = {
-		"<cmd>silent !chmod u+x %<CR>",
-		"Make the file executable for the (u)ser , don't change (g)roup and (o)ther permissions",
-	},
-}, { prefix = "<leader>", noremap = true, silent = true, nowait = true })
--- }}}
-
--- Insert mode {{{
-wk.register({
-	["<C-s>"] = { "<ESC><ESC><cmd>silent update<CR>", "Save buffer" },
-	["<C-x>"] = {
-		name = "Insert expand",
-		["<C-D>"] = "Complete defined identifiers",
-		["<C-E>"] = "Scroll up",
-		["<C-F>"] = "Complete file names",
-		["<C-I>"] = "Complete identifiers",
-		["<C-K>"] = "Complete identifiers from dictionary",
-		["<C-L>"] = "Complete whole lines",
-		["<C-N>"] = "Next completion",
-		["<C-O>"] = "Omni completion",
-		["<C-P>"] = "Previous completion",
-		["<C-S>"] = "Spelling suggestions",
-		["<C-T>"] = "Complete identifiers from thesaurus",
-		["<C-Y>"] = "Scroll down",
-		["<C-U>"] = "Complete with 'completefunc'",
-		["<C-V>"] = "Complete like in : command line",
-		["<C-Z>"] = "Stop completion, keeping the text as-is",
-		["<C-]>"] = "Complete tags",
-		["s"] = "Spelling suggestions",
-	},
-	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
-	["<M-l>"] = { "<ESC><CMD>silent NavigatorRight<CR>", "Go to the right window" },
-	["<M-h>"] = { "<ESC><CMD>silent NavigatorLeft<CR>", "Go to the left window" },
-	["<M-k>"] = { "<ESC><CMD>silent NavigatorUp<CR>", "Go to the up window" },
-	["<M-j>"] = { "<ESC><CMD>silent NavigatorDown<CR>", "Go to the down window" },
-	["<C-k>"] = { "<C-o>C", "Delete to the end of the line" },
-	-- ["<C-r>"] = { "<cmd>Telescope registers<CR>", "show registers" },
-}, { prefix = "", mode = "i", noremap = true, silent = true, nowait = true })
--- }}}
-
--- Visual mode {{{
-wk.register({
-	[";X"] = { "<cmd>ToggleTermSendVisualSelection<CR>", "Execute the selection in terminal" },
-	[";x"] = { "<cmd>ToggleTermSendVisualLines<CR>", "Execute the visual lines in terminal" },
-	[";"] = {
-		name = "Quick",
-		S = { 'y:%S/<C-r>"/<C-r>"/g<LEFT><LEFT>', "Change the selection in whole document", silent = false },
-		s = { 'y:S/<C-r>"/<C-r>"/g<LEFT><LEFT>', "Change the selection in this line", silent = false },
-		q = { "<cmd>q<CR>", "quit" },
-	},
-	-- ["."] = { ":normal.<CR>", "Repeat previous action" },
-	-- ["p"] = { '"_dP', "Paste over currently selected text without yanking it" }, -- this causes pasting in select mode (when using snippets)
-	["<"] = { "<gv", "Indent left" },
-	[">"] = { ">gv", "Indent right" },
-	["<C-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
-	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
-}, { prefix = "", mode = "v", noremap = true, silent = true, nowait = true })
-
-wk.register({
-	g = {
-		name = "Git",
-		w = { "<cmd>Gitsigns stage_hunk<CR>", "Stage hunk" },
-		W = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo stage hunk" },
-	},
-}, { prefix = "<space>", mode = "v", noremap = true, silent = true, nowait = true })
--- }}}
-
--- Select mode {{{
-wk.register({
-	["<M-d>"] = { "<ESC>dei", "Delete the next word" },
-	["<M-b>"] = { "<ESC>bi", "Move back" },
-	["<M-f>"] = { "<ESC>ei", "Move forward" },
-	["<M-s>"] = { "<ESC><cmd>wall<CR>", "Save all buffers" },
-	["<C-a>"] = { "<ESC>I", "Go to the beginning of line" },
-	["<C-e>"] = { "<ESC>A", "Go to the end of line" },
-	["<C-s>"] = { "<ESC><cmd>silent update<CR>", "Save buffer" },
-}, { prefix = "", mode = "s", noremap = true, silent = true, nowait = true })
--- }}}
-
--- terminal mode {{{
-wk.register({
-	["<Esc>"] = { "<C-\\><C-n>", "Quit insert mode" },
-	["<M-l>"] = { "<CMD>silent NavigatorRight<CR>", "Go to the right window" },
-	["<M-h>"] = { "<CMD>silent NavigatorLeft<CR>", "Go to the left window" },
-	["<M-k>"] = { "<CMD>silent NavigatorUp<CR>", "Go to the up window" },
-	["<M-j>"] = { "<CMD>silent NavigatorDown<CR>", "Go to the down window" },
-	["<M-Left>"] = { "<cmd>vertical resize +2<CR>", "Increase window width" },
-	["<M-Right>"] = { "<cmd>vertical resize -1<CR>", "Decrease window width" },
-	["<M-Down>"] = { "<cmd>resize -1<CR>", "Increase window height" },
-	["<M-Up>"] = { "<cmd>resize +1<CR>", "Decrease window height" },
-}, { prefix = "", mode = "t", noremap = true, silent = true, nowait = true })
--- }}}
-
-wk.register({
-	["<F1>"] = {
-		function()
-			vim.cmd("TermExec cmd=make")
-		end,
-		"Build",
-	},
-	["<F2>"] = {
-		function()
-			vim.cmd('TermExec cmd="make valgrind"')
-		end,
-		"Valgrind",
-	},
-	["<F4>"] = { term_debug, "Start GDB" },
-	["<F5>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Break")
-				vim.cmd("call TermDebugSendCommand('c')")
-			else
-				require("dap").clear_breakpoints()
-				vim.cmd.DapToggleBreakpoint()
-				vim.cmd.DapContinue()
 			end
+			require("bufferline.ui").refresh()
 		end,
-		"Break and Continue/Start DAP",
+		desc = "Close empty buffers (not current one)",
+		nowait = true,
+		remap = false,
 	},
-	["<C-F5>"] = {
-		function()
-			vim.cmd('TermExec cmd="make run"')
-		end,
-		"Start without debugging",
+	{
+		"<space>bh",
+		"<cmd>BufferLineMovePrev<CR>",
+		desc = "Move the buffer to the previous position",
+		nowait = true,
+		remap = false,
 	},
-	["<S-F5>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('quit')")
-			else
-				vim.cmd.DapTerminate()
-			end
-		end,
-		"Stop/Terminate",
+	{
+		"<space>bl",
+		"<cmd>BufferLineMoveNext<CR>",
+		desc = "Move the buffer to the next position",
+		nowait = true,
+		remap = false,
 	},
-	["<C-S-F5>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('start')")
-			else
-				require("dap").restart()
-			end
-		end,
-		"Restart",
+	{ "<space>bo", "<cmd>BufferLineCloseOthers<CR>|'\"", desc = "Close other buffers", nowait = true, remap = false },
+	{ "<space>bp", "<cmd>BufferLinePick<CR>", desc = "Pick a Buffer", nowait = true, remap = false },
+	{ "<space>c", group = "Calendar", nowait = true, remap = false },
+	{ "<space>cD", "<cmd>Calendar -view=days<CR>", desc = "View Days", nowait = true, remap = false },
+	{
+		"<space>cO",
+		"<cmd>silent !open https://calendar.google.com/calendar/u/0/r/tasks<CR>",
+		desc = "Open Google Tasks",
+		nowait = true,
+		remap = false,
 	},
-	["<F8>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Evaluate")
-			else
-				require("dapui").eval(nil, { enter = true })
-			end
-		end,
-		"Evaluate",
+	{ "<space>cc", "<cmd>Calendar<CR>", desc = "Main Calendar (view month)", nowait = true, remap = false },
+	{ "<space>cd", "<cmd>Calendar -view=day<CR>", desc = "View Day", nowait = true, remap = false },
+	{ "<space>cg", ":Calendar ", desc = "Go to date (mm dd yyyy)", nowait = true, remap = false, silent = false },
+	{
+		"<space>co",
+		"<cmd>silent !open https://calendar.google.com/calendar/u/0/r<CR>",
+		desc = "Open Google Calendar",
+		nowait = true,
+		remap = false,
 	},
-	["<F9>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Break")
-			else
-				vim.cmd.DapToggleBreakpoint()
-			end
-		end,
-		"Break",
+	{ "<space>ct", "<cmd>Calendar -view=clock<CR>", desc = "View Clock", nowait = true, remap = false },
+	{ "<space>cw", "<cmd>Calendar -view=week<CR>", desc = "View Week", nowait = true, remap = false },
+	{ "<space>cy", "<cmd>Calendar -view=year<CR>", desc = "View Year", nowait = true, remap = false },
+	{ "<space>d", group = "Debugger", nowait = true, remap = false },
+	{
+		"<space>dA",
+		"<cmd>call TermDebugSendCommand('layout regs asm')<CR>",
+		desc = "GDB: disassembly and registers",
+		nowait = true,
+		remap = false,
 	},
-	["<C-F9>"] = {
+	{
+		"<space>dB",
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('delete')")
@@ -1075,19 +519,12 @@ wk.register({
 				require("dap").clear_breakpoints()
 			end
 		end,
-		"Delete all breakpoints",
+		desc = "Delete all breakpoints",
+		nowait = true,
+		remap = false,
 	},
-	["<F10>"] = {
-		function()
-			if vim.g.termdebug_running then
-				vim.cmd("Over")
-			else
-				vim.cmd.DapStepOver()
-			end
-		end,
-		"Step over",
-	},
-	["<C-F10>"] = {
+	{
+		"<space>dC",
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("Until")
@@ -1095,29 +532,40 @@ wk.register({
 				require("dap").run_to_cursor()
 			end
 		end,
-		"Run to cursor",
+		desc = "Run to cursor",
+		nowait = true,
+		remap = false,
 	},
-	["<F11>"] = {
+	{
+		"<space>dN",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Step")
+				vim.cmd("call TermDebugSendCommand('reverse-step')")
 			else
-				vim.cmd.StepInto()
+				require("dap").step_back()
 			end
 		end,
-		"Step into",
+		desc = "Step back",
+		nowait = true,
+		remap = false,
 	},
-	["<S-F11>"] = {
+	{ "<space>dR", vim.cmd.DapToggleRepl, desc = "Toggle repl", nowait = true, remap = false },
+	{ "<space>da", "<cmd>silent Asm<CR>", desc = "GDB: Disassembly", nowait = true, remap = false },
+	{
+		"<space>db",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Finish")
+				vim.cmd("Break")
 			else
-				vim.cmd.DapStepOut()
+				vim.cmd.DapToggleBreakpoint()
 			end
 		end,
-		"Step out",
+		desc = "Break",
+		nowait = true,
+		remap = false,
 	},
-	["<F12>"] = {
+	{
+		"<space>dc",
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('c')")
@@ -1125,6 +573,789 @@ wk.register({
 				vim.cmd.DapContinue()
 			end
 		end,
-		"Continue/Start DAP",
+		desc = "Continue",
+		nowait = true,
+		remap = false,
 	},
-}, { prefix = "", mode = { "n", "v", "t", "i" }, noremap = true, silent = true, nowait = true })
+	{
+		"<space>dd",
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("call TermDebugSendCommand('down 1')")
+			else
+				require("dap").down()
+			end
+		end,
+		desc = "Go down in current stacktrace without stepping",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>de",
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("Evaluate")
+			else
+				require("dapui").eval(nil, { enter = true })
+			end
+		end,
+		desc = "Evaluate expression",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>df",
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("Finish")
+			else
+				vim.cmd.DapStepOut()
+			end
+		end,
+		desc = "Step out (finish)",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>dg", group = "Go programming language", nowait = true, remap = false },
+	{
+		"<space>dgl",
+		function()
+			require("dap-go").debug_last()
+		end,
+		desc = "Debug last go test",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>dgt",
+		function()
+			require("dap-go").debug_test()
+		end,
+		desc = "Debug go test",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>dh",
+		function()
+			require("dap.ui.widgets").hover()
+		end,
+		desc = "Hover",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>dj",
+		require("dap").goto_,
+		desc = "Jump to a specific line or line under cursor",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>dl",
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("call TermDebugSendCommand('info locals')")
+			else
+				require("dap.ui.widgets").sidebar(require("dap.ui.widgets").scopes).open()
+			end
+		end,
+		desc = "Locals",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>dn",
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("Over")
+			else
+				vim.cmd.DapStepOver()
+			end
+		end,
+		desc = "Step over",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>dp", require("dap").pause, desc = "Pause the thread", nowait = true, remap = false },
+	{
+		"<space>dq",
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("call TermDebugSendCommand('quit')")
+			else
+				vim.cmd.DapTerminate()
+			end
+		end,
+		desc = "Stop/Terminate",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>dr",
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("call TermDebugSendCommand('start')")
+			else
+				require("dap").restart()
+			end
+		end,
+		desc = "Restart",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>ds",
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("Step")
+			else
+				vim.cmd.DapStepInto()
+			end
+		end,
+		desc = "Step into",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>dt", "<cmd>call TermDebugSendCommand('bt')<CR>", desc = "GDB: Bracktrace", nowait = true, remap = false },
+	{
+		"<space>du",
+		function()
+			if vim.g.termdebug_running then
+				vim.cmd("call TermDebugSendCommand('up 1')")
+			else
+				require("dap").up()
+			end
+		end,
+		desc = "Go up in current stacktrace without stepping",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>dw",
+		function()
+			require("dapui").elements.watches.add(nil)
+		end,
+		desc = "Watch the word under cursor",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>g", group = "Git", nowait = true, remap = false },
+	{ "<space>gA", "<cmd>silent G restore --staged %<CR>", desc = "Unstage the file", nowait = true, remap = false },
+	{ "<space>gB", "<cmd>Gitsigns blame_line<CR>", desc = "Blame on the current line", nowait = true, remap = false },
+	{ "<space>gC", ":silent G checkout ", desc = "Checkout", nowait = true, remap = false, silent = false },
+	{
+		"<space>gD",
+		function()
+			if vim.fn.winwidth(0) > 85 then
+				vim.cmd("silent Gvdiffsplit! HEAD~")
+			else
+				vim.cmd("silent Gdiffsplit! HEAD~")
+			end
+		end,
+		desc = "Diff with previous commit",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>gE",
+		function()
+			if vim.fn.winwidth(0) > 85 then
+				vim.cmd("silent vertical G commit --amend")
+			else
+				vim.cmd("silent G commit --amend")
+			end
+		end,
+		desc = "Amend (edit) commit with staged changes",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>gL",
+		function()
+			if vim.fn.winwidth(0) > 85 then
+				vim.cmd("silent vertical G log --stat")
+			else
+				vim.cmd("silent G log --stat")
+			end
+		end,
+		desc = "Log with stats",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>gP", "<cmd>silent G push<CR>", desc = "Push", nowait = true, remap = false },
+	{ "<space>gR", "<cmd>silent G checkout HEAD -- %<CR>", desc = "Reset the file", nowait = true, remap = false },
+	{ "<space>gS", ":silent G switch ", desc = "Switch", nowait = true, remap = false, silent = false },
+	{
+		"<space>gT",
+		"<cmd>Gitsigns toggle_current_line_blame<CR>",
+		desc = "Toggle current line blame",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>g[",
+		function()
+			git_previous()
+			vim.cmd("G log -1 --stat")
+		end,
+		desc = "Checkout previous commit",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>g]",
+		function()
+			git_next()
+			vim.cmd("G log -1 --stat")
+		end,
+		desc = "checkout next commit",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>ga", "<cmd>silent G add %<CR>", desc = "Stage the file", nowait = true, remap = false },
+	{ "<space>gb", "<cmd>silent G blame<CR>", desc = "Blame on the current file", nowait = true, remap = false },
+	{
+		"<space>gc",
+		function()
+			if vim.fn.winwidth(0) > 85 then
+				vim.cmd("silent vertical G commit")
+			else
+				vim.cmd("silent G commit")
+			end
+		end,
+		desc = "Commit",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>gd",
+		function()
+			if vim.fn.winwidth(0) > 85 then
+				vim.cmd("silent Gvdiffsplit!")
+			else
+				vim.cmd("silent Gdiffsplit!")
+			end
+		end,
+		desc = "Diff with previous commit",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>gf", "<cmd>silent G fetch<CR>", desc = "Fetch", nowait = true, remap = false },
+	{ "<space>gg", ":Ggrep! -q ", desc = "Grep", nowait = true, remap = false, silent = false },
+	{ "<space>gh", get_git_hash, desc = "copy current git hash to g register", nowait = true, remap = false },
+	{
+		"<space>gl",
+		function()
+			if vim.fn.winwidth(0) > 85 then
+				vim.cmd("silent vertical G log --decorate")
+			else
+				vim.cmd("silent G log --decorate")
+			end
+		end,
+		desc = "Log",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>gn",
+		"<cmd>silent G! difftool HEAD~1 | cfirst <CR>",
+		desc = "changed files since last commit",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>go", "<cmd>silent GBrowse<CR>", desc = "Open in the browser", nowait = true, remap = false },
+	{ "<space>gp", "<cmd>silent G pull<CR>", desc = "Pull", nowait = true, remap = false },
+	{
+		"<space>gr",
+		"<cmd>Gitsigns reset_hunk<CR>",
+		desc = "Reset the lines of the hunk at the cursor position, or all lines in the given range.",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>gs",
+		function()
+			if vim.fn.winwidth(0) > 85 then
+				vim.cmd("silent vertical Git")
+			else
+				vim.cmd("silent Git")
+			end
+		end,
+		desc = "Status",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>gt", "<cmd>GitTimeLaps<CR>", desc = "Show time lapse of the file", nowait = true, remap = false },
+	{ "<space>gw", group = "worktree", nowait = true, remap = false },
+	{ "<space>gwL", ":G worktree lock ", desc = "Lock", nowait = true, remap = false, silent = false },
+	{ "<space>gwR", ":G worktree repair ", desc = "Repair", nowait = true, remap = false, silent = false },
+	{ "<space>gwa", ":G worktree add ", desc = "add", nowait = true, remap = false, silent = false },
+	{ "<space>gwl", "<cmd>G worktree list<CR>", desc = "List", nowait = true, remap = false },
+	{ "<space>gwm", ":G worktree move ", desc = "Move", nowait = true, remap = false, silent = false },
+	{ "<space>gwp", "<cmd>G worktree prune<CR>", desc = "prune", nowait = true, remap = false },
+	{ "<space>gwr", ":G worktree remove ", desc = "remove", nowait = true, remap = false, silent = false },
+	{ "<space>gwu", ":G worktree unlock ", desc = "Unlock", nowait = true, remap = false, silent = false },
+	{ "<space>l", group = "LSP", nowait = true, remap = false },
+	{ "<space>lI", ":LspInstall ", desc = "Install", nowait = true, remap = false, silent = false },
+	{ "<space>lL", "<cmd>LspLog<CR>", desc = "Log", nowait = true, remap = false },
+	{ "<space>lS", ":LspStart ", desc = "Start", nowait = true, remap = false, silent = false },
+	{ "<space>li", "<cmd>LspInfo<CR>", desc = "Info", nowait = true, remap = false },
+	{ "<space>lr", ":LspRestart ", desc = "Restart", nowait = true, remap = false, silent = false },
+	{ "<space>ls", ":LspStop ", desc = "Stop", nowait = true, remap = false, silent = false },
+	{ "<space>lu", ":LspUninstall ", desc = "Uninstall", nowait = true, remap = false, silent = false },
+	{ "<space>s", group = "Session", nowait = true, remap = false },
+	{ "<space>sd", "<cmd>Obsession!<CR>", desc = "Delete the session", nowait = true, remap = false },
+	{ "<space>sm", "<cmd>Obsession<CR>", desc = "Make a session", nowait = true, remap = false },
+	{ "<space>t", group = "Toggle", nowait = true, remap = false },
+	{ "<space>tC", "<cmd>ColorizerToggle<CR>", desc = "Colorizer", nowait = true, remap = false },
+	{ "<space>tD", "<cmd>silent DBUIToggle<CR>", desc = "DB UI", nowait = true, remap = false },
+	{ "<space>tS", "<cmd>silent Sleuth<CR>", desc = "sleuth", nowait = true, remap = false },
+	{
+		"<space>tb",
+		function()
+			vim.o.background = vim.o.background == "dark" and "light" or "dark"
+		end,
+		desc = "Background color (Light/dark)",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>tc",
+		function()
+			vim.wo.colorcolumn = vim.wo.colorcolumn == "" and "79" or ""
+		end,
+		desc = "Color column",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>td", "<cmd>silent lua ToggleDiagnostics()<CR>", desc = "diagnostics", nowait = true, remap = false },
+	{
+		"<space>tg",
+		"<cmd>Gitsigns toggle_current_line_blame<CR>",
+		desc = "git line blame",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>th", "<cmd>TSToggle highlight<CR>", desc = "Treesitter highlight", nowait = true, remap = false },
+	{
+		"<space>ti",
+		function()
+			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+		end,
+		desc = "Inlay Hints",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>tl",
+		function()
+			vim.g.show_cursorline = not vim.g.show_cursorline
+			if not vim.g.show_cursorline then
+				vim.o.cursorlineopt = "number,line"
+			else
+				vim.o.cursorlineopt = "number"
+			end
+		end,
+		desc = "Cursor line",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>to", "<cmd>Lspsaga outline<CR>", desc = "Outline", nowait = true, remap = false },
+	{
+		"<space>tq",
+		function()
+			local qf_exists = false
+			for _, win in pairs(vim.fn.getwininfo()) do
+				if win["quickfix"] == 1 then
+					qf_exists = true
+				end
+			end
+			if qf_exists == true then
+				vim.cmd("cclose")
+				return
+			end
+			if not vim.tbl_isempty(vim.fn.getqflist()) then
+				vim.cmd("copen")
+			end
+		end,
+		desc = "Quick fix",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>tr",
+		function()
+			vim.wo.relativenumber = not vim.wo.relativenumber
+		end,
+		desc = "Relative number",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>ts",
+		function()
+			if vim.o.statusline == "" then
+				require("lualine").hide({ unhide = true })
+			else
+				require("lualine").hide({ unhide = false })
+				vim.o.statusline = "" -- "" is same as "%t %m"
+			end
+		end,
+		desc = "Statusline/lualine",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>tt",
+		function()
+			local found = false
+			for _, f in ipairs(flavors) do
+				if vim.g.colors_name == f then
+					found = true
+					break
+				end
+			end
+			if not found then
+				return
+			end
+			vim.g.is_transparent = not vim.g.is_transparent
+			local osaka_options = require("solarized-osaka.config").options
+			osaka_options.styles = {
+				floats = vim.g.is_transparent and "transparent" or "normal",
+				sidebars = vim.g.is_transparent and "transparent" or "normal",
+			}
+			osaka_options.transparent = vim.g.is_transparent
+			local catppuccin = require("catppuccin")
+			catppuccin.options.transparent_background = vim.g.is_transparent
+			local nightfox = require("nightfox.config")
+			nightfox.options.transparent = vim.g.is_transparent
+			catppuccin.compile()
+			vim.cmd("NightfoxCompile")
+			vim.cmd.colorscheme(vim.g.colors_name)
+		end,
+		desc = "Transparency",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>w", group = "Window", nowait = true, remap = false },
+	{
+		"<space>wD",
+		"<cmd>windo diffoff<CR>",
+		desc = "Hide the difference between 2 windows",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>wS", "<cmd>windo set scrollbind!<CR>", desc = "Unset scrollbind", nowait = true, remap = false },
+	{
+		"<space>wd",
+		"<cmd>windo diffthis<CR>",
+		desc = "Show the difference between 2 windows",
+		nowait = true,
+		remap = false,
+	},
+	{ "<space>ws", "<cmd>windo set scrollbind<CR>", desc = "Set scrollbind", nowait = true, remap = false },
+	{ "<leader>c", "<cmd>silent CatppuccinCompile<CR>", desc = "Recompile Catppuccin", nowait = true, remap = false },
+	{ "<leader>d", "<cmd>silent Dashboard<CR>", desc = "Dashboard", nowait = true, remap = false },
+	{
+		"<leader>f",
+		function()
+			vim.lsp.buf.format({ async = true })
+		end,
+		desc = "Format buffer",
+		nowait = true,
+		remap = false,
+	},
+	{ "<leader>n", "<cmd>silent noa w<CR>", desc = "Save with no actions", nowait = true, remap = false },
+	{ "<leader>s", "<cmd>silent so %<CR>", desc = "Source the file", nowait = true, remap = false },
+	{ "<leader>w", group = "VimWiki", nowait = true, remap = false },
+	{
+		"<leader>wl",
+		"<cmd>VimwikiTOC<CR>",
+		desc = "Create or update the Table of Contents for the current wiki file",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<leader>x",
+		"<cmd>silent !chmod u+x %<CR>",
+		desc = "Make the file executable for the (u)ser , don't change (g)roup and (o)ther permissions",
+		nowait = true,
+		remap = false,
+	},
+	{
+		mode = { "i" },
+		{ "<C-k>", "<C-o>C", desc = "Delete to the end of the line", nowait = true, remap = false },
+		{ "<C-s>", "<ESC><ESC><cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false },
+		{ "<C-x>", group = "Insert expand", nowait = true, remap = false },
+		{ "<C-x><C-D>", desc = "Complete defined identifiers", nowait = true, remap = false },
+		{ "<C-x><C-E>", desc = "Scroll up", nowait = true, remap = false },
+		{ "<C-x><C-F>", desc = "Complete file names", nowait = true, remap = false },
+		{ "<C-x><C-I>", desc = "Complete identifiers", nowait = true, remap = false },
+		{ "<C-x><C-K>", desc = "Complete identifiers from dictionary", nowait = true, remap = false },
+		{ "<C-x><C-L>", desc = "Complete whole lines", nowait = true, remap = false },
+		{ "<C-x><C-N>", desc = "Next completion", nowait = true, remap = false },
+		{ "<C-x><C-O>", desc = "Omni completion", nowait = true, remap = false },
+		{ "<C-x><C-P>", desc = "Previous completion", nowait = true, remap = false },
+		{ "<C-x><C-S>", desc = "Spelling suggestions", nowait = true, remap = false },
+		{ "<C-x><C-T>", desc = "Complete identifiers from thesaurus", nowait = true, remap = false },
+		{ "<C-x><C-U>", desc = "Complete with 'completefunc'", nowait = true, remap = false },
+		{ "<C-x><C-V>", desc = "Complete like in : command line", nowait = true, remap = false },
+		{ "<C-x><C-Y>", desc = "Scroll down", nowait = true, remap = false },
+		{ "<C-x><C-Z>", desc = "Stop completion, keeping the text as-is", nowait = true, remap = false },
+		{ "<C-x><C-]>", desc = "Complete tags", nowait = true, remap = false },
+		{ "<C-x>s", desc = "Spelling suggestions", nowait = true, remap = false },
+		{ "<M-h>", "<ESC><CMD>silent NavigatorLeft<CR>", desc = "Go to the left window", nowait = true, remap = false },
+		{ "<M-j>", "<ESC><CMD>silent NavigatorDown<CR>", desc = "Go to the down window", nowait = true, remap = false },
+		{ "<M-k>", "<ESC><CMD>silent NavigatorUp<CR>", desc = "Go to the up window", nowait = true, remap = false },
+		{
+			"<M-l>",
+			"<ESC><CMD>silent NavigatorRight<CR>",
+			desc = "Go to the right window",
+			nowait = true,
+			remap = false,
+		},
+		{ "<M-s>", "<ESC><cmd>wall<CR>", desc = "Save all buffers", nowait = true, remap = false },
+	},
+	{
+		mode = { "v" },
+		{ ";", group = "Quick", nowait = true, remap = false },
+		{
+			";S",
+			'y:%S/<C-r>"/<C-r>"/g<LEFT><LEFT>',
+			desc = "Change the selection in whole document",
+			nowait = true,
+			remap = false,
+			silent = false,
+		},
+		{
+			";X",
+			"<cmd>ToggleTermSendVisualSelection<CR>",
+			desc = "Execute the selection in terminal",
+			nowait = true,
+			remap = false,
+		},
+		{ ";q", "<cmd>q<CR>", desc = "quit", nowait = true, remap = false },
+		{
+			";s",
+			'y:S/<C-r>"/<C-r>"/g<LEFT><LEFT>',
+			desc = "Change the selection in this line",
+			nowait = true,
+			remap = false,
+			silent = false,
+		},
+		{
+			";x",
+			"<cmd>ToggleTermSendVisualLines<CR>",
+			desc = "Execute the visual lines in terminal",
+			nowait = true,
+			remap = false,
+		},
+		{ "<", "<gv", desc = "Indent left", nowait = true, remap = false },
+		{ "<C-s>", "<ESC><cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false },
+		{ "<M-s>", "<ESC><cmd>wall<CR>", desc = "Save all buffers", nowait = true, remap = false },
+		{ ">", ">gv", desc = "Indent right", nowait = true, remap = false },
+		{ "<space>g", group = "Git", nowait = true, remap = false },
+		{ "<space>gW", "<cmd>Gitsigns undo_stage_hunk<CR>", desc = "Undo stage hunk", nowait = true, remap = false },
+		{ "<space>gw", "<cmd>Gitsigns stage_hunk<CR>", desc = "Stage hunk", nowait = true, remap = false },
+	},
+	{
+		mode = { "s" },
+		{ "<C-a>", "<ESC>I", desc = "Go to the beginning of line", nowait = true, remap = false },
+		{ "<C-e>", "<ESC>A", desc = "Go to the end of line", nowait = true, remap = false },
+		{ "<C-s>", "<ESC><cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false },
+		{ "<M-b>", "<ESC>bi", desc = "Move back", nowait = true, remap = false },
+		{ "<M-d>", "<ESC>dei", desc = "Delete the next word", nowait = true, remap = false },
+		{ "<M-f>", "<ESC>ei", desc = "Move forward", nowait = true, remap = false },
+		{ "<M-s>", "<ESC><cmd>wall<CR>", desc = "Save all buffers", nowait = true, remap = false },
+	},
+	{
+		mode = { "t" },
+		{ "<Esc>", "<C-\\><C-n>", desc = "Quit insert mode", nowait = true, remap = false },
+		{ "<M-Down>", "<cmd>resize -1<CR>", desc = "Increase window height", nowait = true, remap = false },
+		{ "<M-Left>", "<cmd>vertical resize +2<CR>", desc = "Increase window width", nowait = true, remap = false },
+		{ "<M-Right>", "<cmd>vertical resize -1<CR>", desc = "Decrease window width", nowait = true, remap = false },
+		{ "<M-Up>", "<cmd>resize +1<CR>", desc = "Decrease window height", nowait = true, remap = false },
+		{ "<M-h>", "<CMD>silent NavigatorLeft<CR>", desc = "Go to the left window", nowait = true, remap = false },
+		{ "<M-j>", "<CMD>silent NavigatorDown<CR>", desc = "Go to the down window", nowait = true, remap = false },
+		{ "<M-k>", "<CMD>silent NavigatorUp<CR>", desc = "Go to the up window", nowait = true, remap = false },
+		{ "<M-l>", "<CMD>silent NavigatorRight<CR>", desc = "Go to the right window", nowait = true, remap = false },
+	},
+	{
+		mode = { "i", "n", "t", "v" },
+		{
+			"<C-F10>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Until")
+				else
+					require("dap").run_to_cursor()
+				end
+			end,
+			desc = "Run to cursor",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<C-F5>",
+			function()
+				vim.cmd('TermExec cmd="make run"')
+			end,
+			desc = "Start without debugging",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<C-F9>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('delete')")
+				else
+					require("dap").clear_breakpoints()
+				end
+			end,
+			desc = "Delete all breakpoints",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<C-S-F5>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('start')")
+				else
+					require("dap").restart()
+				end
+			end,
+			desc = "Restart",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F10>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Over")
+				else
+					vim.cmd.DapStepOver()
+				end
+			end,
+			desc = "Step over",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F11>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Step")
+				else
+					vim.cmd.StepInto()
+				end
+			end,
+			desc = "Step into",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F12>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('c')")
+				else
+					vim.cmd.DapContinue()
+				end
+			end,
+			desc = "Continue/Start DAP",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F1>",
+			function()
+				vim.cmd("TermExec cmd=make")
+			end,
+			desc = "Build",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F2>",
+			function()
+				vim.cmd('TermExec cmd="make valgrind"')
+			end,
+			desc = "Valgrind",
+			nowait = true,
+			remap = false,
+		},
+		{ "<F4>", term_debug, desc = "Start GDB", nowait = true, remap = false },
+		{
+			"<F5>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Break")
+					vim.cmd("call TermDebugSendCommand('c')")
+				else
+					require("dap").clear_breakpoints()
+					vim.cmd.DapToggleBreakpoint()
+					vim.cmd.DapContinue()
+				end
+			end,
+			desc = "Break and Continue/Start DAP",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F8>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Evaluate")
+				else
+					require("dapui").eval(nil, { enter = true })
+				end
+			end,
+			desc = "Evaluate",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F9>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Break")
+				else
+					vim.cmd.DapToggleBreakpoint()
+				end
+			end,
+			desc = "Break",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<S-F11>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Finish")
+				else
+					vim.cmd.DapStepOut()
+				end
+			end,
+			desc = "Step out",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<S-F5>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('quit')")
+				else
+					vim.cmd.DapTerminate()
+				end
+			end,
+			desc = "Stop/Terminate",
+			nowait = true,
+			remap = false,
+		},
+	},
+})

@@ -42,6 +42,7 @@ require("nvim-treesitter.configs").setup({
 		"make",
 		"markdown",
 		"markdown_inline",
+		"mermaid",
 		"ninja",
 		"php",
 		"prisma",

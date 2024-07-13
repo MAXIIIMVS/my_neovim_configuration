@@ -89,8 +89,9 @@ local options = {
 	}),
 	sources = {
 		{ name = "calc" },
-		{ name = "emoji", option = { insert = false } },
 		{ name = "nvim_lsp" },
+		{ name = "vim-dadbod-completion" },
+		{ name = "emoji", option = { insert = false } },
 		{
 			name = "luasnip",
 			entry_filter = function()
@@ -100,7 +101,6 @@ local options = {
 		},
 		{ name = "buffer" },
 		{ name = "path" },
-		{ name = "vim-dadbod-completion" },
 		-- { name = "nvim_lsp_signature_help" },
 		-- { name = "nvim_lua" },
 	},
