@@ -296,10 +296,8 @@ function! CloseTabAndBuffers()
   for w in range(1, tabpagewinnr(tabpagenr(), '$'))
     call add(l:tab_buffers, winbufnr(w))
   endfor
-
   " Close the tab
   tabclose
-
   " Close all buffers that were in the tab
   for buf in l:tab_buffers
     if bufexists(buf) && buflisted(buf)
