@@ -289,6 +289,30 @@ endfunction
 
 autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 
+
+function! CloseTabAndBuffers()
+  " Get the list of buffers in the current tab
+  let l:tab_buffers = []
+  for w in range(1, tabpagewinnr(tabpagenr(), '$'))
+    call add(l:tab_buffers, winbufnr(w))
+  endfor
+
+  " Close the tab
+  tabclose
+
+  " Close all buffers that were in the tab
+  for buf in l:tab_buffers
+    if bufexists(buf) && buflisted(buf)
+      " Make buffer modifiable if it isn't
+      if !getbufvar(buf, '&modifiable')
+        call setbufvar(buf, '&modifiable', 1)
+      endif
+      " Delete the buffer
+      execute 'bdelete' buf
+    endif
+  endfor
+endfunction
+
 " netrw settings and functions
 " let g:netrw_list_hide= netrw_gitignore#Hide()
 " let s:treedepthstring     = "│ "
@@ -410,7 +434,9 @@ vim.o.belloff = "all"
 vim.o.confirm = true
 vim.opt.guifont = "FiraCode Nerd Font Mono Medium"
 vim.g.scrollopt = "ver,hor,jump"
-vim.o.clipboard = "unnamedplus"
+vim.schedule(function()
+	vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
+end)
 vim.o.mouse = "a"
 vim.o.autoread = true
 vim.bo.swapfile = false

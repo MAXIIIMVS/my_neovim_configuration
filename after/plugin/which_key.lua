@@ -29,7 +29,6 @@ require("which-key").add({
 		remap = false,
 		silent = false,
 	},
-	{ ",T", "<cmd>tabnew<CR>", desc = "Create an empty tab", nowait = true, remap = false },
 	{
 		",a",
 		"<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>",
@@ -326,7 +325,15 @@ require("which-key").add({
 	{ "[h", "<cmd>silent Gitsigns prev_hunk<CR>", desc = "Jump to the previous hunk", nowait = true, remap = false },
 	{ "[p", "<cmd>pu!<CR>", desc = "Paste above current line", nowait = true, remap = false },
 	{ "[q", "<cmd>silent cprev<CR>", desc = "Show the previous item in QuickFix", nowait = true, remap = false },
-	{ "[t", require("todo-comments").jump_prev, desc = "Previous todo comment", nowait = true, remap = false },
+	{
+		"[t",
+		function()
+			require("todo-comments").jump_prev()
+		end,
+		desc = "Previous todo comment",
+		nowait = true,
+		remap = false,
+	},
 	{ "[x", "<cmd>BufferLineCloseLeft<CR>", desc = "Close all the buffers to the left", nowait = true, remap = false },
 	{ "]<space>", "o<ESC>k", desc = "Insert a blank line below", nowait = true, remap = false },
 	{
@@ -377,7 +384,15 @@ require("which-key").add({
 	{ "]h", "<cmd>silent Gitsigns next_hunk<CR>", desc = "Jump to the next hunk", nowait = true, remap = false },
 	{ "]p", "<cmd>pu<CR>", desc = "Paste below current line", nowait = true, remap = false },
 	{ "]q", "<cmd>silent cnext<CR>", desc = "Show the next item in QuickFix", nowait = true, remap = false },
-	{ "]t", require("todo-comments").jump_next, desc = "Next todo comment", nowait = true, remap = false },
+	{
+		"]t",
+		function()
+			require("todo-comments").jump_next()
+		end,
+		desc = "Next todo comment",
+		nowait = true,
+		remap = false,
+	},
 	{
 		"]x",
 		"<cmd>BufferLineCloseRight<CR>",
@@ -869,7 +884,7 @@ require("which-key").add({
 	{
 		"<space>gr",
 		"<cmd>Gitsigns reset_hunk<CR>",
-		desc = "Reset the lines of the hunk at the cursor position, or all lines in the given range.",
+		desc = "Reset the hunk",
 		nowait = true,
 		remap = false,
 	},
@@ -1056,7 +1071,6 @@ require("which-key").add({
 	},
 	{ "<space>ws", "<cmd>windo set scrollbind<CR>", desc = "Set scrollbind", nowait = true, remap = false },
 	{ "<leader>c", "<cmd>silent CatppuccinCompile<CR>", desc = "Recompile Catppuccin", nowait = true, remap = false },
-	{ "<leader>d", "<cmd>silent Dashboard<CR>", desc = "Dashboard", nowait = true, remap = false },
 	{
 		"<leader>f",
 		function()
@@ -1067,7 +1081,15 @@ require("which-key").add({
 		remap = false,
 	},
 	{ "<leader>n", "<cmd>silent noa w<CR>", desc = "Save with no actions", nowait = true, remap = false },
+	{
+		"<leader>q",
+		"<cmd>silent call CloseTabAndBuffers()<CR>",
+		desc = "Close tab and buffers",
+		nowait = true,
+		remap = false,
+	},
 	{ "<leader>s", "<cmd>silent so %<CR>", desc = "Source the file", nowait = true, remap = false },
+	{ "<leader>t", "<cmd>tabnew<CR>", desc = "Create an empty tab", nowait = true, remap = false },
 	{ "<leader>w", group = "VimWiki", nowait = true, remap = false },
 	{
 		"<leader>wl",

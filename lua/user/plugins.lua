@@ -298,7 +298,14 @@ return require("lazy").setup({
 		opts = {},
 		enabled = vim.fn.has("nvim-0.10.0") == 1,
 	},
-	{ "folke/which-key.nvim", event = "UIEnter", opts = { preset = "modern" } },
+	{
+		"folke/which-key.nvim",
+		event = "UIEnter",
+		opts = {
+			preset = "classic",
+			win = { border = "rounded" },
+		},
+	},
 	{
 		"folke/zen-mode.nvim",
 		opts = { window = { width = 100 } },
