@@ -1108,6 +1108,7 @@ require("which-key").add({
 	{
 		mode = { "i" },
 		{ "<C-k>", "<C-o>C", desc = "Delete to the end of the line", nowait = true, remap = false },
+		{ "<C-l>", "<ESC>Xpa", desc = "Swap with previous letter", nowait = true, remap = false },
 		{ "<C-s>", "<ESC><ESC><cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false },
 		{ "<C-x>", group = "Insert expand", nowait = true, remap = false },
 		{ "<C-x><C-D>", desc = "Complete defined identifiers", nowait = true, remap = false },

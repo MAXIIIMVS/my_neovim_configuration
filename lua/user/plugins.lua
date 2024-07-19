@@ -21,7 +21,7 @@ return require("lazy").setup({
 			vim.g.rooter_cd_cmd = "lcd"
 			vim.g.rooter_change_directory_for_non_project_files = "current"
 		end,
-		event = "VimEnter",
+		event = "UIEnter",
 	},
 	{
 		"akinsho/bufferline.nvim",
@@ -501,7 +501,7 @@ return require("lazy").setup({
 	},
 	{
 		"nvimdev/dashboard-nvim",
-		event = "VimEnter",
+		event = "UIEnter",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			theme = "doom", -- hyper
@@ -634,7 +634,7 @@ return require("lazy").setup({
 			return vim.fn.executable("make") == 1
 		end,
 	},
-	{ "nvim-tree/nvim-web-devicons", config = true, lazy = true },
+	{ "nvim-tree/nvim-web-devicons", config = true, event = "UIEnter" },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
