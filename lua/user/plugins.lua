@@ -707,7 +707,6 @@ return require("lazy").setup({
 					"vue",
 					"xml",
 					"yaml",
-					-- "comment",
 					-- "latex",
 				},
 				sync_install = false,
@@ -757,6 +756,14 @@ return require("lazy").setup({
 	{ "onsails/lspkind.nvim", dependencies = { "hrsh7th/nvim-cmp" }, event = "InsertEnter" },
 	{ "rafamadriz/friendly-snippets" },
 	{ "ray-x/lsp_signature.nvim", event = "LspAttach" },
+	{
+		"rbong/vim-flog",
+		lazy = true,
+		cmd = { "Flog", "Flogsplit", "Floggit" },
+		dependencies = {
+			"tpope/vim-fugitive",
+		},
+	},
 	{
 		"rcarriga/nvim-dap-ui",
 		opts = {
@@ -914,8 +921,8 @@ return require("lazy").setup({
 			vim.g.vimwiki_ext2syntax = { [".md"] = "markdown", [".mkd"] = "markdown", [".wiki"] = "media" }
 		end,
 	},
-	{ "williamboman/mason.nvim", build = ":MasonUpdate", lazy = true },
-	{ "williamboman/mason-lspconfig.nvim" },
+	{ "williamboman/mason.nvim", build = ":MasonUpdate", event = "UIEnter" },
+	{ "williamboman/mason-lspconfig.nvim", event = "UIEnter" },
 	{ "windwp/nvim-ts-autotag", event = "InsertEnter" },
 	{ "windwp/nvim-autopairs", opts = { check_ts = true }, event = "InsertEnter" },
 }, {

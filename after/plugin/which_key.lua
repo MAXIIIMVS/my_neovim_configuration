@@ -18,17 +18,6 @@ require("which-key").add({
 	{ ",7", "7<C-w>w", desc = "Go to 7th window", nowait = true, remap = false },
 	{ ",8", "8<C-w>w", desc = "Go to 8th window", nowait = true, remap = false },
 	{ ",9", "9<C-w>w", desc = "Go to 9th window", nowait = true, remap = false },
-	{ ",D", term_debug, desc = "Debug with GDB", nowait = true, remap = false },
-	{ ",F", ":find ", desc = "find a file", nowait = true, remap = false, silent = false },
-	{ ",H", "<cmd>silent Telescope keymaps<CR>", desc = "Keymaps", nowait = true, remap = false },
-	{
-		",S",
-		":%s/<c-r><C-w>/<C-r><C-w>/gi<left><left><left>",
-		desc = "Substitute the word in the whole file (ignore case)",
-		nowait = true,
-		remap = false,
-		silent = false,
-	},
 	{
 		",a",
 		"<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>",
@@ -36,8 +25,19 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{ ",D", term_debug, desc = "Debug with GDB", nowait = true, remap = false },
 	{ ",d", "<cmd>silent Dashboard<CR>", desc = "dashboard", nowait = true, remap = false },
+	{ ",F", ":find ", desc = "find a file", nowait = true, remap = false, silent = false },
 	{ ",f", "<cmd>silent Telescope filetypes<CR>", desc = "Set filetype", nowait = true, remap = false },
+	{
+		",g",
+		"<cmd>call OpenLazyGit()<CR>",
+		desc = "LazyGit",
+		remap = false,
+		silent = true,
+		nowait = true,
+	},
+	{ ",H", "<cmd>silent Telescope keymaps<CR>", desc = "Keymaps", nowait = true, remap = false },
 	{ ",h", "<cmd>WhichKey<CR>", desc = "Which Key", nowait = true, remap = false },
 	{ ",m", "<cmd>messages<CR>", desc = "Messages", nowait = true, remap = false },
 	{ ",q", "<cmd>tabclose<CR>", desc = "Close tab", nowait = true, remap = false },
@@ -47,6 +47,14 @@ require("which-key").add({
 		desc = "Remove a folder from workspace",
 		nowait = true,
 		remap = false,
+	},
+	{
+		",S",
+		":%s/<c-r><C-w>/<C-r><C-w>/gi<left><left><left>",
+		desc = "Substitute the word in the whole file (ignore case)",
+		nowait = true,
+		remap = false,
+		silent = false,
 	},
 	{
 		",s",
@@ -144,29 +152,6 @@ require("which-key").add({
 		remap = false,
 	},
 	{ ";<space>", "<cmd>Telescope<CR>", desc = "Telescope", nowait = true, remap = false },
-	{ ";D", "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Show line diagnostics", nowait = true, remap = false },
-	{
-		";F",
-		"<cmd>Telescope git_files<CR>",
-		desc = "Fuzzy search for files tracked by Git",
-		nowait = true,
-		remap = false,
-	},
-	{ ";G", "<cmd>Telescope grep_string<CR>", desc = "Grep string under the cursor", nowait = true, remap = false },
-	{ ";H", ":Man ", desc = "Show man pages", nowait = true, remap = false, silent = false },
-	{ ";O", "<cmd>silent !xdg-open %:p:h<CR>", desc = "Open the current directory", nowait = true, remap = false },
-	{ ";Q", vim.cmd.qall, desc = "Close all windows", nowait = true, remap = false },
-	{
-		";S",
-		":%S/<C-r><C-w>/<C-r><C-w>/g<Left><left>",
-		desc = "Change the word under the cursor in the whole file",
-		nowait = true,
-		remap = false,
-		silent = false,
-	},
-	{ ";T", "<cmd>Telescope tags<CR>", desc = "tags", nowait = true, remap = false },
-	{ ";U", "<cmd>e!<CR>", desc = "Toggle Undotree", nowait = true, remap = false },
-	{ ";Z", "<C-w>|<C-w>_", desc = "Maximize the window", nowait = true, remap = false },
 	{
 		";b",
 		function()
@@ -189,9 +174,19 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{ ";D", "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Show line diagnostics", nowait = true, remap = false },
 	{ ";d", "<cmd>silent Telescope diagnostics<CR>", desc = "List diagnostics", nowait = true, remap = false },
+	{
+		";F",
+		"<cmd>Telescope git_files<CR>",
+		desc = "Fuzzy search for files tracked by Git",
+		nowait = true,
+		remap = false,
+	},
 	{ ";f", "<cmd>Telescope find_files<CR>", desc = "Find files", nowait = true, remap = false },
+	{ ";G", "<cmd>Telescope grep_string<CR>", desc = "Grep string under the cursor", nowait = true, remap = false },
 	{ ";g", "<cmd>Telescope live_grep<CR>", desc = "Live grep", nowait = true, remap = false },
+	{ ";H", ":Man ", desc = "Show man pages", nowait = true, remap = false, silent = false },
 	{
 		";h",
 		function()
@@ -220,6 +215,7 @@ require("which-key").add({
 		remap = false,
 	},
 	{ ";n", "<cmd>silent call ToggleNetrw()<CR>", desc = "Netrw", nowait = true, remap = false },
+	{ ";O", "<cmd>silent !xdg-open %:p:h<CR>", desc = "Open the current directory", nowait = true, remap = false },
 	{ ";o", "<cmd>silent !xdg-open %<CR>", desc = "Open the current file", nowait = true, remap = false },
 	{ ";p", "<cmd>silent Telescope zoxide list<CR>", desc = "Projects", nowait = true, remap = false },
 	{ ";q", vim.cmd.q, desc = "Close current window", nowait = true, remap = false },
@@ -235,6 +231,14 @@ require("which-key").add({
 		remap = false,
 	},
 	{
+		";S",
+		":%S/<C-r><C-w>/<C-r><C-w>/g<Left><left>",
+		desc = "Change the word under the cursor in the whole file",
+		nowait = true,
+		remap = false,
+		silent = false,
+	},
+	{
 		";s",
 		":S/<C-r><C-w>/<C-r><C-w>/g<Left><left>",
 		desc = "Change the word under the cursor in the line",
@@ -242,7 +246,9 @@ require("which-key").add({
 		remap = false,
 		silent = false,
 	},
+	{ ";T", "<cmd>Telescope tags<CR>", desc = "tags", nowait = true, remap = false },
 	{ ";t", "<cmd>TodoTelescope<CR>", desc = "See notes/todos...", nowait = true, remap = false },
+	{ ";U", "<cmd>e!<CR>", desc = "Toggle Undotree", nowait = true, remap = false },
 	{ ";u", vim.cmd.UndotreeToggle, desc = "Toggle Undotree", nowait = true, remap = false },
 	{
 		";x",
@@ -253,6 +259,7 @@ require("which-key").add({
 	},
 	{ ";y", "<cmd>silent lua require('tfm').open()<CR>", desc = "Yazi", nowait = true, remap = false },
 	{ ";z", "<cmd>ZenMode<CR>", desc = "Toggle Zen Mode", nowait = true, remap = false },
+	{ ";Z", "<C-w>|<C-w>_", desc = "Maximize the window", nowait = true, remap = false },
 	{ "<C-s>", "<cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false },
 	{ "<M-Down>", "<cmd>resize +1<CR>", desc = "Decrease window height", nowait = true, remap = false },
 	{ "<M-Left>", "<cmd>vertical resize -1<CR>", desc = "Increase window width", nowait = true, remap = false },
@@ -276,66 +283,8 @@ require("which-key").add({
 	},
 	{ "<Nop>", "<Plug>VimwikiRemoveHeaderLevel", desc = "disabled", nowait = true, remap = false },
 	{ "K", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover info", nowait = true, remap = false },
-	{ "[<space>", "O<ESC>j", desc = "Insert a blank line above", nowait = true, remap = false },
-	{
-		"[A",
-		function()
-			vim.cmd.colorscheme(flavors[1])
-		end,
-		desc = "First dark theme",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"[E",
-		function()
-			require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-		end,
-		desc = "Jump to the previous error",
-		nowait = true,
-		remap = false,
-	},
-	{ "[Q", "<cmd>silent cfirst<CR>", desc = "See the first item in QuickFix", nowait = true, remap = false },
-	{
-		"[a",
-		function()
-			local index = #flavors
-			for i, f in ipairs(flavors) do
-				if vim.g.colors_name == f then
-					index = i - 1
-					break
-				end
-			end
-			if index < 1 then
-				index = #flavors
-			end
-			vim.cmd.colorscheme(flavors[index])
-		end,
-		desc = "Previous flavor",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"[e",
-		"<cmd>Lspsaga diagnostic_jump_prev<CR>",
-		desc = "Jump to the previous diagnostic",
-		nowait = true,
-		remap = false,
-	},
-	{ "[h", "<cmd>silent Gitsigns prev_hunk<CR>", desc = "Jump to the previous hunk", nowait = true, remap = false },
-	{ "[p", "<cmd>pu!<CR>", desc = "Paste above current line", nowait = true, remap = false },
-	{ "[q", "<cmd>silent cprev<CR>", desc = "Show the previous item in QuickFix", nowait = true, remap = false },
-	{
-		"[t",
-		function()
-			require("todo-comments").jump_prev()
-		end,
-		desc = "Previous todo comment",
-		nowait = true,
-		remap = false,
-	},
-	{ "[x", "<cmd>BufferLineCloseLeft<CR>", desc = "Close all the buffers to the left", nowait = true, remap = false },
 	{ "]<space>", "o<ESC>k", desc = "Insert a blank line below", nowait = true, remap = false },
+	{ "[<space>", "O<ESC>j", desc = "Insert a blank line above", nowait = true, remap = false },
 	{
 		"]A",
 		function()
@@ -345,16 +294,6 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{
-		"]E",
-		function()
-			require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
-		end,
-		desc = "Jump to the next error",
-		nowait = true,
-		remap = false,
-	},
-	{ "]Q", "<cmd>silent clast<CR>", desc = "See the last item in QuickFix", nowait = true, remap = false },
 	{
 		"]a",
 		function()
@@ -375,15 +314,73 @@ require("which-key").add({
 		remap = false,
 	},
 	{
+		"[A",
+		function()
+			vim.cmd.colorscheme(flavors[1])
+		end,
+		desc = "First dark theme",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"[a",
+		function()
+			local index = #flavors
+			for i, f in ipairs(flavors) do
+				if vim.g.colors_name == f then
+					index = i - 1
+					break
+				end
+			end
+			if index < 1 then
+				index = #flavors
+			end
+			vim.cmd.colorscheme(flavors[index])
+		end,
+		desc = "Previous flavor",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"]E",
+		function()
+			require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+		end,
+		desc = "Jump to the next error",
+		nowait = true,
+		remap = false,
+	},
+	{
 		"]e",
 		"<cmd>Lspsaga diagnostic_jump_next<CR>",
 		desc = "Jump to the next diagnostic",
 		nowait = true,
 		remap = false,
 	},
+	{
+		"[E",
+		function()
+			require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+		end,
+		desc = "Jump to the previous error",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"[e",
+		"<cmd>Lspsaga diagnostic_jump_prev<CR>",
+		desc = "Jump to the previous diagnostic",
+		nowait = true,
+		remap = false,
+	},
 	{ "]h", "<cmd>silent Gitsigns next_hunk<CR>", desc = "Jump to the next hunk", nowait = true, remap = false },
+	{ "[h", "<cmd>silent Gitsigns prev_hunk<CR>", desc = "Jump to the previous hunk", nowait = true, remap = false },
 	{ "]p", "<cmd>pu<CR>", desc = "Paste below current line", nowait = true, remap = false },
+	{ "[p", "<cmd>pu!<CR>", desc = "Paste above current line", nowait = true, remap = false },
+	{ "]Q", "<cmd>silent clast<CR>", desc = "See the last item in QuickFix", nowait = true, remap = false },
 	{ "]q", "<cmd>silent cnext<CR>", desc = "Show the next item in QuickFix", nowait = true, remap = false },
+	{ "[Q", "<cmd>silent cfirst<CR>", desc = "See the first item in QuickFix", nowait = true, remap = false },
+	{ "[q", "<cmd>silent cprev<CR>", desc = "Show the previous item in QuickFix", nowait = true, remap = false },
 	{
 		"]t",
 		function()
@@ -394,12 +391,22 @@ require("which-key").add({
 		remap = false,
 	},
 	{
+		"[t",
+		function()
+			require("todo-comments").jump_prev()
+		end,
+		desc = "Previous todo comment",
+		nowait = true,
+		remap = false,
+	},
+	{
 		"]x",
 		"<cmd>BufferLineCloseRight<CR>",
 		desc = "Close all the buffers to the right",
 		nowait = true,
 		remap = false,
 	},
+	{ "[x", "<cmd>BufferLineCloseLeft<CR>", desc = "Close all the buffers to the left", nowait = true, remap = false },
 	{
 		"_",
 		function()
@@ -409,10 +416,8 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Go to declaration", nowait = true, remap = false },
-	{ "gP", "<cmd>Lspsaga peek_type_definition<CR>", desc = "Peek type definition", nowait = true, remap = false },
-	{ "gR", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "Show references", nowait = true, remap = false },
 	{ "ga", "<cmd>Lspsaga code_action<CR>", desc = "Code actions", nowait = true, remap = false },
+	{ "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Go to declaration", nowait = true, remap = false },
 	{ "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "Go to definition", nowait = true, remap = false },
 	{
 		"gh",
@@ -422,7 +427,9 @@ require("which-key").add({
 		remap = false,
 	},
 	{ "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "Go to implementation", nowait = true, remap = false },
+	{ "gP", "<cmd>Lspsaga peek_type_definition<CR>", desc = "Peek type definition", nowait = true, remap = false },
 	{ "gp", "<cmd>Lspsaga peek_definition<CR>", desc = "Show the definition", nowait = true, remap = false },
+	{ "gR", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "Show references", nowait = true, remap = false },
 	{ "gr", "<cmd>Lspsaga rename<CR>", desc = "Rename the symbol", nowait = true, remap = false },
 	{ "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc = "Show signature", nowait = true, remap = false },
 	{
@@ -789,12 +796,21 @@ require("which-key").add({
 		"<space>gL",
 		function()
 			if vim.fn.winwidth(0) > 85 then
-				vim.cmd("silent vertical G log --stat")
+				vim.cmd("silent vertical G log --decorate")
 			else
-				vim.cmd("silent G log --stat")
+				vim.cmd("silent G log --decorate")
 			end
 		end,
-		desc = "Log with stats",
+		desc = "Log",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>gl",
+		function()
+			vim.cmd("silent Flog")
+		end,
+		desc = "Log",
 		nowait = true,
 		remap = false,
 	},
@@ -860,19 +876,6 @@ require("which-key").add({
 	{ "<space>gg", ":Ggrep! -q ", desc = "Grep", nowait = true, remap = false, silent = false },
 	{ "<space>gh", get_git_hash, desc = "copy current git hash to g register", nowait = true, remap = false },
 	{
-		"<space>gl",
-		function()
-			if vim.fn.winwidth(0) > 85 then
-				vim.cmd("silent vertical G log --decorate")
-			else
-				vim.cmd("silent G log --decorate")
-			end
-		end,
-		desc = "Log",
-		nowait = true,
-		remap = false,
-	},
-	{
 		"<space>gn",
 		"<cmd>silent G! difftool HEAD~1 | cfirst <CR>",
 		desc = "changed files since last commit",
@@ -923,9 +926,6 @@ require("which-key").add({
 	{ "<space>sd", "<cmd>Obsession!<CR>", desc = "Delete the session", nowait = true, remap = false },
 	{ "<space>sm", "<cmd>Obsession<CR>", desc = "Make a session", nowait = true, remap = false },
 	{ "<space>t", group = "Toggle", nowait = true, remap = false },
-	{ "<space>tC", "<cmd>ColorizerToggle<CR>", desc = "Colorizer", nowait = true, remap = false },
-	{ "<space>tD", "<cmd>silent DBUIToggle<CR>", desc = "DB UI", nowait = true, remap = false },
-	{ "<space>tS", "<cmd>silent Sleuth<CR>", desc = "sleuth", nowait = true, remap = false },
 	{
 		"<space>tb",
 		function()
@@ -935,6 +935,7 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{ "<space>tC", "<cmd>ColorizerToggle<CR>", desc = "Colorizer", nowait = true, remap = false },
 	{
 		"<space>tc",
 		function()
@@ -944,7 +945,7 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "<space>td", "<cmd>silent lua ToggleDiagnostics()<CR>", desc = "diagnostics", nowait = true, remap = false },
+	{ "<space>td", "<cmd>silent DBUIToggle<CR>", desc = "DB UI", nowait = true, remap = false },
 	{
 		"<space>tg",
 		"<cmd>Gitsigns toggle_current_line_blame<CR>",
@@ -1007,6 +1008,7 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{ "<space>tS", "<cmd>silent Sleuth<CR>", desc = "sleuth", nowait = true, remap = false },
 	{
 		"<space>ts",
 		function()
@@ -1053,6 +1055,8 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{ "<space>tV", "<cmd>DapVirtualTextToggle<CR>", desc = "Dap virtual text", nowait = true, remap = false },
+	{ "<space>tv", "<cmd>silent lua ToggleDiagnostics()<CR>", desc = "Virtual Text", nowait = true, remap = false },
 	{ "<space>w", group = "Window", nowait = true, remap = false },
 	{
 		"<space>wD",
@@ -1061,7 +1065,6 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "<space>wS", "<cmd>windo set scrollbind!<CR>", desc = "Unset scrollbind", nowait = true, remap = false },
 	{
 		"<space>wd",
 		"<cmd>windo diffthis<CR>",
@@ -1069,6 +1072,7 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{ "<space>wS", "<cmd>windo set scrollbind!<CR>", desc = "Unset scrollbind", nowait = true, remap = false },
 	{ "<space>ws", "<cmd>windo set scrollbind<CR>", desc = "Set scrollbind", nowait = true, remap = false },
 	{ "<leader>c", "<cmd>silent CatppuccinCompile<CR>", desc = "Recompile Catppuccin", nowait = true, remap = false },
 	{
@@ -1158,6 +1162,7 @@ require("which-key").add({
 			nowait = true,
 			remap = false,
 		},
+		{ ";Q", vim.cmd.qall, desc = "Close all windows", nowait = true, remap = false },
 		{ ";q", "<cmd>q<CR>", desc = "quit", nowait = true, remap = false },
 		{
 			";s",
@@ -1207,93 +1212,6 @@ require("which-key").add({
 	},
 	{
 		mode = { "i", "n", "t", "v" },
-		{
-			"<C-F10>",
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("Until")
-				else
-					require("dap").run_to_cursor()
-				end
-			end,
-			desc = "Run to cursor",
-			nowait = true,
-			remap = false,
-		},
-		{
-			"<C-F5>",
-			function()
-				vim.cmd('TermExec cmd="make run"')
-			end,
-			desc = "Start without debugging",
-			nowait = true,
-			remap = false,
-		},
-		{
-			"<C-F9>",
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('delete')")
-				else
-					require("dap").clear_breakpoints()
-				end
-			end,
-			desc = "Delete all breakpoints",
-			nowait = true,
-			remap = false,
-		},
-		{
-			"<C-S-F5>",
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('start')")
-				else
-					require("dap").restart()
-				end
-			end,
-			desc = "Restart",
-			nowait = true,
-			remap = false,
-		},
-		{
-			"<F10>",
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("Over")
-				else
-					vim.cmd.DapStepOver()
-				end
-			end,
-			desc = "Step over",
-			nowait = true,
-			remap = false,
-		},
-		{
-			"<F11>",
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("Step")
-				else
-					vim.cmd.StepInto()
-				end
-			end,
-			desc = "Step into",
-			nowait = true,
-			remap = false,
-		},
-		{
-			"<F12>",
-			function()
-				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('c')")
-				else
-					vim.cmd.DapContinue()
-				end
-			end,
-			desc = "Continue/Start DAP",
-			nowait = true,
-			remap = false,
-		},
 		{
 			"<F1>",
 			function()
@@ -1356,15 +1274,41 @@ require("which-key").add({
 			remap = false,
 		},
 		{
-			"<S-F11>",
+			"<F10>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("Finish")
+					vim.cmd("Over")
 				else
-					vim.cmd.DapStepOut()
+					vim.cmd.DapStepOver()
 				end
 			end,
-			desc = "Step out",
+			desc = "Step over",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F11>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Step")
+				else
+					vim.cmd.DapStepInto()
+				end
+			end,
+			desc = "Step into",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F12>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('c')")
+				else
+					vim.cmd.DapContinue()
+				end
+			end,
+			desc = "Continue/Start DAP",
 			nowait = true,
 			remap = false,
 		},
@@ -1378,6 +1322,141 @@ require("which-key").add({
 				end
 			end,
 			desc = "Stop/Terminate",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F17>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('quit')")
+				else
+					vim.cmd.DapTerminate()
+				end
+			end,
+			desc = "Stop/Terminate",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<S-F11>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Finish")
+				else
+					vim.cmd.DapStepOut()
+				end
+			end,
+			desc = "Step out",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F23>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Finish")
+				else
+					vim.cmd.DapStepOut()
+				end
+			end,
+			desc = "Step out",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<C-F5>",
+			function()
+				vim.cmd('TermExec cmd="make run"')
+			end,
+			desc = "Start without debugging",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F29>",
+			function()
+				vim.cmd('TermExec cmd="make run"')
+			end,
+			desc = "Start without debugging",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<C-F9>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('delete')")
+				else
+					require("dap").clear_breakpoints()
+				end
+			end,
+			desc = "Delete all breakpoints",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F33>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('delete')")
+				else
+					require("dap").clear_breakpoints()
+				end
+			end,
+			desc = "Delete all breakpoints",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<C-F10>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Until")
+				else
+					require("dap").run_to_cursor()
+				end
+			end,
+			desc = "Run to cursor",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F34>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("Until")
+				else
+					require("dap").run_to_cursor()
+				end
+			end,
+			desc = "Run to cursor",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<C-S-F5>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('start')")
+				else
+					require("dap").restart()
+				end
+			end,
+			desc = "Restart",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F41>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('start')")
+				else
+					require("dap").restart()
+				end
+			end,
+			desc = "Restart",
 			nowait = true,
 			remap = false,
 		},

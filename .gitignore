@@ -7,3 +7,4 @@ indent.log
 .luarc.json
 tags
 .gdb_history
+startup.log

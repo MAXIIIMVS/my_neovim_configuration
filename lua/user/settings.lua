@@ -289,6 +289,12 @@ endfunction
 
 autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 
+function! OpenLazyGit()
+  set notermguicolors
+  terminal lazygit
+  startinsert
+  autocmd TermClose * set termguicolors
+endfunction
 
 function! CloseTabAndBuffers()
   " Get the list of buffers in the current tab
