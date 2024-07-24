@@ -319,18 +319,136 @@ return require("lazy").setup({
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-calc",
-			"hrsh7th/cmp-cmdline",
-			"hrsh7th/cmp-emoji",
-			"L3MON4D3/LuaSnip",
-			"saadparwaiz1/cmp_luasnip",
-			"rafamadriz/friendly-snippets",
-		},
+		config = function()
+			local has_words_before = function()
+				unpack = unpack or table.unpack
+				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+				return col ~= 0
+					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+			end
+
+			local function border(hl_name)
+				return {
+					{ "╭", hl_name },
+					{ "─", hl_name },
+					{ "╮", hl_name },
+					{ "│", hl_name },
+					{ "╯", hl_name },
+					{ "─", hl_name },
+					{ "╰", hl_name },
+					{ "│", hl_name },
+				}
+			end
+
+			require("cmp.utils.window").info_ = require("cmp.utils.window").info
+			require("cmp.utils.window").info = function(self)
+				local info = self:info_()
+				info.scrollable = false
+				return info
+			end
+
+			require("cmp").setup.cmdline({ "/", "?" }, {
+				mapping = require("cmp").mapping.preset.cmdline(),
+				sources = {
+					{ name = "buffer" },
+				},
+			})
+
+			-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+			---@diagnostic disable-next-line: missing-fields
+			require("cmp").setup.cmdline(":", {
+				mapping = require("cmp").mapping.preset.cmdline(),
+				sources = require("cmp").config.sources({
+					{ name = "path" },
+				}, {
+					{ name = "cmdline" },
+				}),
+			})
+
+			require("cmp").setup({
+				-- completion = {
+				-- 	autocomplete = false, -- manual control
+				-- },
+				formatting = {
+					format = require("lspkind").cmp_format({
+						mode = "symbol_text", -- 'text', 'text_symbol', 'symbol_text', 'symbol'
+					}),
+				},
+				preselect = require("cmp").PreselectMode.None,
+				window = {
+					completion = {
+						border = border("CmpBorder"),
+						winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
+						scrolloff = 0,
+						side_padding = 0,
+						col_offset = 0,
+					},
+					documentation = {
+						border = border("CmpDocBorder"),
+						scrolloff = 0,
+						side_padding = 0,
+						col_offset = 0,
+					},
+				},
+				snippet = {
+					expand = function(args)
+						require("luasnip").lsp_expand(args.body)
+					end,
+				},
+				mapping = require("cmp").mapping.preset.insert({
+					["<C-u>"] = require("cmp").mapping.scroll_docs(-4),
+					["<C-d>"] = require("cmp").mapping.scroll_docs(4),
+					["<C-Space>"] = require("cmp").mapping.complete({}),
+					["<C-c>"] = require("cmp").mapping.abort(),
+					["<CR>"] = require("cmp").mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+					-- ["<C-y>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+					["<Tab>"] = require("cmp").mapping(function(fallback)
+						if require("cmp").visible() then
+							require("cmp").select_next_item()
+						elseif require("luasnip").expand_or_jumpable() then
+							require("luasnip").expand_or_jump()
+						elseif has_words_before() then
+							require("cmp").complete()
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+					["<S-Tab>"] = require("cmp").mapping(function(fallback)
+						if require("cmp").visible() then
+							require("cmp").select_prev_item()
+						elseif require("luasnip").jumpable(-1) then
+							require("luasnip").jump(-1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+				}),
+				sources = {
+					{ name = "calc" },
+					{ name = "nvim_lsp" },
+					{ name = "vim-dadbod-completion" },
+					{ name = "emoji", option = { insert = false } },
+					{
+						name = "luasnip",
+						entry_filter = function()
+							return not require("cmp.config.context").in_treesitter_capture("string")
+								and not require("cmp.config.context").in_syntax_group("String")
+						end,
+					},
+					{ name = "buffer" },
+					{ name = "path" },
+					-- { name = "nvim_lsp_signature_help" },
+					-- { name = "nvim_lua" },
+				},
+			})
+		end,
 	},
+	{ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-path", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-calc", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-emoji", after = "nvim-cmp" },
 	{
 		"itchyny/calendar.vim",
 		cmd = { "Calendar" },
@@ -393,7 +511,6 @@ return require("lazy").setup({
 	{ "kylechui/nvim-surround", config = true, event = "BufEnter" },
 	{
 		"L3MON4D3/LuaSnip",
-		dependencies = { "rafamadriz/friendly-snippets" },
 		event = "InsertEnter",
 		version = "v2.*",
 		build = "make install_jsregexp",
@@ -493,11 +610,15 @@ return require("lazy").setup({
 	},
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = {
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-		},
-		event = { "BufReadPost", "BufNewFile" },
+		after = "mason-lspconfig.nvim",
+		config = function()
+			require("lspconfig.ui.windows").default_options.border = "rounded"
+			require("lspconfig").util.default_config.capabilities = vim.tbl_deep_extend(
+				"force",
+				require("lspconfig").util.default_config.capabilities,
+				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			)
+		end,
 	},
 	{
 		"nvimdev/dashboard-nvim",
@@ -570,7 +691,7 @@ return require("lazy").setup({
 					},
 				},
 				footer = {
-					"👑 " .. "Destiny Is A Decision" .. " 👑",
+					"👑 " .. "Control Of Consciousness Determines The Quality Of Life" .. " 👑",
 				},
 			},
 		},
@@ -624,7 +745,298 @@ return require("lazy").setup({
 			})
 		end,
 	},
-	{ "nvim-lualine/lualine.nvim", event = "UIEnter" },
+	{
+		"nvim-lualine/lualine.nvim",
+		event = "UIEnter",
+		config = function()
+			local custom_auto = require("lualine.themes.auto")
+			custom_auto.normal.c.bg = "NONE"
+			-- custom_auto.insert.c.bg = "NONE"
+			-- custom_auto.terminal.c.bg = "NONE"
+			-- custom_auto.visual.c.bg = "NONE"
+			-- custom_auto.command.c.bg = "NONE"
+			-- custom_auto.replace.c.bg = "NONE"
+			-- stylua: ignore
+			local colors = {
+				bg       = '#202328',
+				fg       = '#bbc2cf',
+				yellow   = '#ECBE7B',
+				cyan     = '#008080',
+				darkblue = '#081633',
+				green    = '#98be65',
+				orange   = '#FF8800',
+				violet   = '#a9a1e1',
+				magenta  = '#c678dd',
+				blue     = '#51afef',
+				red      = '#ec5f67',
+				tmux     = '#E9AD0C',
+			}
+			local mode_color = {
+				n = colors.tmux,
+				i = colors.green,
+				v = colors.blue,
+				[""] = colors.blue,
+				V = colors.blue,
+				c = colors.magenta,
+				no = colors.red,
+				s = colors.orange,
+				S = colors.orange,
+				[""] = colors.orange,
+				ic = colors.yellow,
+				R = colors.violet,
+				Rv = colors.violet,
+				cv = colors.red,
+				ce = colors.red,
+				r = colors.cyan,
+				rm = colors.cyan,
+				["r?"] = colors.cyan,
+				["!"] = colors.red,
+				t = colors.red,
+			}
+
+			local function show_macro_recording()
+				local recording_register = vim.fn.reg_recording()
+				if recording_register == "" then
+					return ""
+				else
+					return "Recording @" .. recording_register
+				end
+			end
+
+			local conditions = {
+				buffer_not_empty = function()
+					return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
+				end,
+				hide_in_width = function()
+					return vim.fn.winwidth(0) > 85
+				end,
+				check_git_workspace = function()
+					local filepath = vim.fn.expand("%:p:h")
+					local gitdir = vim.fn.finddir(".git", filepath .. ";")
+					return gitdir and #gitdir > 0 and #gitdir < #filepath
+				end,
+				search_available = function()
+					local search_count = vim.fn.searchcount()
+					return (search_count and search_count.total or 0) > 0
+				end,
+				is_not_terminal = function()
+					return vim.bo.buftype ~= "terminal"
+				end,
+			}
+
+			local config = {
+				options = {
+					-- Disable sections and component separators
+					component_separators = "",
+					section_separators = "",
+					-- theme = "catppuccin",
+					-- theme = "auto", -- remove custom_auto
+					theme = custom_auto,
+					-- theme = {
+					-- 	normal = { c = { fg = colors.fg, bg = colors.bg } },
+					-- 	inactive = { c = { fg = colors.fg, bg = colors.bg } },
+					-- },
+				},
+				sections = {
+					-- these are to remove the defaults
+					lualine_a = {},
+					lualine_b = {},
+					lualine_y = {},
+					lualine_z = {},
+					-- These will be filled later
+					lualine_c = {},
+					lualine_x = {},
+				},
+				inactive_sections = {
+					-- these are to remove the defaults
+					lualine_a = {},
+					lualine_b = {},
+					lualine_y = {},
+					lualine_z = {},
+					lualine_c = {},
+					lualine_x = {},
+				},
+			}
+
+			-- Inserts a component in lualine_c at left section
+			local function ins_left(component)
+				table.insert(config.sections.lualine_c, component)
+			end
+
+			-- Inserts a component in lualine_x or right section
+			local function ins_right(component)
+				table.insert(config.sections.lualine_x, component)
+			end
+
+			ins_left({
+				function()
+					return "▊"
+				end,
+				color = function()
+					return { fg = mode_color[vim.fn.mode()] }
+				end,
+				padding = { left = 0, right = 1 }, -- We don't need space before this
+			})
+
+			ins_left({
+				"mode",
+				color = function()
+					return { fg = mode_color[vim.fn.mode()] }
+				end,
+				padding = { right = 1 },
+			})
+
+			ins_left({
+				"filetype",
+				icon_only = true,
+				-- icon = { align = "left" },
+				cond = conditions.is_not_terminal,
+			})
+
+			ins_left({
+				"filename",
+				cond = conditions.is_not_terminal,
+				color = { fg = colors.magenta, gui = "bold" },
+				path = 4,
+			})
+
+			ins_left({
+				"branch",
+				icon = "",
+				color = { fg = colors.violet, gui = "bold" },
+			})
+
+			ins_left({
+				"diff",
+				symbols = { added = " ", modified = "柳", removed = " " },
+				diff_color = {
+					added = { fg = colors.green },
+					modified = { fg = colors.orange },
+					removed = { fg = colors.red },
+				},
+				cond = conditions.hide_in_width,
+			})
+
+			-- Insert mid section. You can make any number of sections in neovim :)
+			-- for lualine it's any number greater then 2
+			-- ins_left({
+			-- 	function()
+			-- 		return "%="
+			-- 	end,
+			-- })
+
+			ins_right({
+				"selectioncount",
+				color = { fg = colors.orange },
+			})
+
+			ins_right({
+				"searchcount",
+				cond = conditions.search_available,
+				color = { fg = colors.orange },
+			})
+
+			ins_right({
+				function()
+					if vim.o.cmdheight == 0 then
+						return show_macro_recording()
+					else
+						return ""
+					end
+				end,
+				color = { fg = colors.orange },
+			})
+
+			-- ins_right({
+			-- 	function()
+			-- 		if #vim.api.nvim_list_wins() > 1 then
+			-- 			return "[" .. vim.api.nvim_win_get_number(0) .. "]"
+			-- 		else
+			-- 			return ""
+			-- 		end
+			-- 	end,
+			-- 	color = { fg = colors.orange },
+			-- })
+
+			ins_right({
+				"diagnostics",
+				sources = { "nvim_diagnostic" },
+				symbols = { error = " ", warn = " ", info = " " },
+				diagnostics_color = {
+					color_error = { fg = colors.red },
+					color_warn = { fg = colors.yellow },
+					color_info = { fg = colors.cyan },
+				},
+			})
+
+			ins_right({
+				function()
+					local msg = ""
+					local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+					local clients = vim.lsp.get_active_clients()
+					if next(clients) == nil then
+						return msg
+					end
+
+					local uniqueNames = {}
+					for _, client in ipairs(clients) do
+						local filetypes = client.config.filetypes
+						if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+							if not uniqueNames[client.name] then
+								uniqueNames[client.name] = true
+								if msg ~= "" then
+									msg = msg .. ", "
+								end
+								msg = msg .. client.name
+							end
+						end
+					end
+
+					return msg
+				end,
+				color = { fg = colors.violet, gui = "bold" },
+				cond = conditions.hide_in_width,
+			})
+
+			ins_right({
+				"filesize",
+				fmt = string.upper,
+				cond = function()
+					return conditions.buffer_not_empty() and conditions.hide_in_width()
+				end,
+			})
+
+			ins_right({
+				"o:encoding", -- option component same as &encoding in viml
+				fmt = string.upper, -- I'm not sure why it's upper case either ;)
+				cond = conditions.hide_in_width,
+				color = { fg = colors.green, gui = "bold" },
+			})
+
+			ins_right({
+				"fileformat",
+				fmt = string.upper,
+				icons_enabled = false,
+				color = { fg = colors.green, gui = "bold" },
+				cond = conditions.hide_in_width,
+			})
+
+			ins_right({ "progress", color = { fg = colors.cyan, gui = "bold" } })
+
+			ins_right({ "location", color = { fg = colors.cyan, gui = "bold" } })
+
+			ins_right({
+				function()
+					return "▊"
+				end,
+				color = function()
+					return { fg = mode_color[vim.fn.mode()] }
+				end,
+				padding = { left = 1 },
+			})
+			require("lualine").setup(config)
+		end,
+	},
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "nvim-telescope/telescope.nvim", cmd = { "Telescope" } },
 	{
@@ -754,7 +1166,7 @@ return require("lazy").setup({
 		event = "BufReadPre",
 	},
 	{ "onsails/lspkind.nvim", dependencies = { "hrsh7th/nvim-cmp" }, event = "InsertEnter" },
-	{ "rafamadriz/friendly-snippets" },
+	{ "rafamadriz/friendly-snippets", event = "InsertEnter" },
 	{ "ray-x/lsp_signature.nvim", event = "LspAttach" },
 	{
 		"rbong/vim-flog",
@@ -842,7 +1254,7 @@ return require("lazy").setup({
 			},
 		},
 	},
-	{ "saadparwaiz1/cmp_luasnip", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
+	{ "saadparwaiz1/cmp_luasnip", after = { "nvim-cmp", "LuaSnip" } },
 	{
 		"stevearc/oil.nvim",
 		opts = {
@@ -921,10 +1333,227 @@ return require("lazy").setup({
 			vim.g.vimwiki_ext2syntax = { [".md"] = "markdown", [".mkd"] = "markdown", [".wiki"] = "media" }
 		end,
 	},
-	{ "williamboman/mason.nvim", build = ":MasonUpdate", event = "UIEnter" },
-	{ "williamboman/mason-lspconfig.nvim", event = "UIEnter" },
+	{
+		"williamboman/mason.nvim",
+		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate", "MasonUninstallAll" },
+		config = function()
+			require("mason").setup({
+				ui = {
+					border = "rounded",
+					icons = {
+						package_installed = "✓",
+						package_pending = "➜",
+						package_uninstalled = "✗",
+					},
+					check_outdated_packages_on_open = true,
+				},
+				max_concurrent_installers = 1,
+			})
+		end,
+	},
+	{
+		"williamboman/mason-lspconfig.nvim",
+		after = "mason.nvim",
+		config = function()
+			local on_attach = function(client, bufnr)
+				-- Enable completion triggered by <c-x><c-o>
+				-- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+				-- if vim.lsp.inlay_hint then
+				-- 	vim.lsp.inlay_hint.enable(true)
+				-- end
+
+				require("lsp_signature").on_attach({
+					hint_enable = false,
+					bind = true,
+					handler_opts = {
+						border = "rounded",
+					},
+				}, bufnr)
+
+				if
+					client.name == "clangd"
+					or client.name == "prismals"
+					or client.name == "neocmake"
+					or client.name == "rust_analyzer"
+					or client.name == "eslint_d"
+					or client.name == "texlab" -- doesn't work
+				then
+					vim.api.nvim_command([[augroup Format]])
+					vim.api.nvim_command([[autocmd! * <buffer>]])
+					vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
+					vim.api.nvim_command([[augroup END]])
+				end
+			end
+
+			require("mason-lspconfig").setup_handlers({
+				function(server_name) -- default handler (optional)
+					require("lspconfig")[server_name].setup({
+						on_attach = on_attach,
+						capabilities = require("lspconfig").util.default_config.capabilities,
+					})
+				end,
+				-- Next, you can provide targeted overrides for specific servers.
+				["cssls"] = function()
+					require("lspconfig").util.default_config.capabilities.textDocument.completion.completionItem.snippetSupport =
+						true
+					require("lspconfig").cssls.setup({
+						on_attach = on_attach,
+						capabilities = require("lspconfig").util.default_config.capabilities,
+					})
+				end,
+				["emmet_ls"] = function()
+					require("lspconfig").emmet_ls.setup({
+						on_attach = on_attach,
+						capabilities = require("lspconfig").util.default_config.capabilities,
+						filetypes = {
+							"html",
+							"css",
+							"sass",
+							"scss",
+							"less",
+							"vue",
+							"javascriptreact",
+							"typescriptreact",
+							"jsx",
+							"tsx",
+							"htmldjango", -- doesn't work
+							"gohtml",
+							"tmpl.html",
+							"template",
+						},
+					})
+				end,
+				["html"] = function()
+					require("lspconfig").util.default_config.capabilities.textDocument.completion.completionItem.snippetSupport =
+						true
+					require("lspconfig").html.setup({
+						on_attach = on_attach,
+						capabilities = require("lspconfig").util.default_config.capabilities,
+						filetypes = {
+							"html",
+							"handlebars",
+							"htmldjango",
+							"blade",
+							"gohtml",
+							"tmpl.html",
+							"template",
+						},
+					})
+				end,
+				["jsonls"] = function()
+					require("lspconfig").util.default_config.capabilities.textDocument.completion.completionItem.snippetSupport =
+						true
+					require("lspconfig").jsonls.setup({
+						on_attach = on_attach,
+						capabilities = require("lspconfig").util.default_config.capabilities,
+					})
+				end,
+				["tsserver"] = function()
+					require("lspconfig").tsserver.setup({
+						on_attach = on_attach,
+						capabilities = require("lspconfig").util.default_config.capabilities,
+						filetypes = {
+							"javascript",
+							"typescript",
+							"javascriptreact",
+							"typescriptreact",
+							"jsx",
+							"tsx",
+						},
+					})
+				end,
+				["rust_analyzer"] = function()
+					require("lspconfig").rust_analyzer.setup({
+						on_attach = on_attach,
+						capabilities = require("lspconfig").util.default_config.capabilities,
+						settings = {
+							["rust-analyzer"] = {
+								assist = {
+									importGranularity = "module",
+									importPrefix = "self",
+								},
+								cargo = {
+									loadOutDirsFromCheck = true,
+								},
+								procMacro = {
+									enable = true,
+								},
+								checkOnSave = {
+									command = "clippy",
+								},
+							},
+						},
+					})
+					-- require("rust-tools").setup {}
+				end,
+				["pyright"] = function()
+					require("lspconfig").pyright.setup({
+						on_attach = on_attach,
+						capabilities = require("lspconfig").util.default_config.capabilities,
+						settings = {
+							python = {
+								analysis = {
+									autoSearchPaths = true,
+									diagnosticMode = "workspace",
+									useLibraryCodeForTypes = true,
+								},
+							},
+						},
+					})
+				end,
+				["gopls"] = function()
+					require("lspconfig").gopls.setup({
+						on_attach = on_attach,
+						capabilities = require("lspconfig").util.default_config.capabilities,
+						cmd = { "gopls", "serve" },
+						filetypes = { "go", "gomod", "gowork", "gotmpl" },
+						root_dir = require("lspconfig").util.root_pattern("go.work", "go.mod", ".git"),
+						settings = {
+							gopls = {
+								templateExtensions = { "tpl", "yaml", "tmpl", "tmpl.html" },
+								experimentalPostfixCompletions = true,
+								gofumpt = true,
+								usePlaceholders = true,
+								analyses = {
+									shadow = true,
+									nilness = true,
+									unusedresult = true,
+									unusedparams = true,
+									unusedwrite = true,
+									useany = true,
+									unreachable = true,
+								},
+								hints = {
+									assignVariableTypes = true,
+									compositeLiteralFields = true,
+									compositeLiteralTypes = true,
+									constantValues = true,
+									functionTypeParameters = true,
+									parameterNames = true,
+									rangeVariableTypes = true,
+								},
+								staticcheck = true,
+							},
+						},
+					})
+				end,
+			})
+			require("mason-lspconfig").setup()
+		end,
+	},
 	{ "windwp/nvim-ts-autotag", event = "InsertEnter" },
-	{ "windwp/nvim-autopairs", opts = { check_ts = true }, event = "InsertEnter" },
+	{
+		"windwp/nvim-autopairs",
+		opts = { check_ts = true },
+		config = function()
+			require("cmp").event:on(
+				"confirm_done",
+				require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } })
+			)
+		end,
+		event = "InsertEnter",
+	},
 }, {
 	ui = {
 		border = "rounded",
