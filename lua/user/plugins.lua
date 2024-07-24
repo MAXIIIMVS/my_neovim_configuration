@@ -511,6 +511,7 @@ return require("lazy").setup({
 	{ "kylechui/nvim-surround", config = true, event = "BufEnter" },
 	{
 		"L3MON4D3/LuaSnip",
+		dependencies = { "rafamadriz/friendly-snippets" },
 		event = "InsertEnter",
 		version = "v2.*",
 		build = "make install_jsregexp",
@@ -1551,6 +1552,7 @@ return require("lazy").setup({
 				"confirm_done",
 				require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } })
 			)
+			require("nvim-autopairs").setup()
 		end,
 		event = "InsertEnter",
 	},
