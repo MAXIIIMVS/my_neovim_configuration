@@ -25,7 +25,6 @@ return require("lazy").setup({
 	},
 	{
 		"akinsho/bufferline.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			options = {
 				offsets = {
@@ -272,7 +271,9 @@ return require("lazy").setup({
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		event = "VeryLazy",
+		lazy = true,
+		event = "BufReadPost",
+		cmd = { "TodoTelescope" },
 		opts = {
 			signs = true,
 			highlight = {
@@ -315,6 +316,9 @@ return require("lazy").setup({
 		"ghassan0/telescope-glyph.nvim",
 		dependencies = { "nvim-telescope/telescope.nvim" },
 		cmd = { "Telescope glyph" },
+		config = function()
+			require("telescope").load_extension("glyph")
+		end,
 	},
 	{
 		"hrsh7th/nvim-cmp",
@@ -366,9 +370,6 @@ return require("lazy").setup({
 			})
 
 			require("cmp").setup({
-				-- completion = {
-				-- 	autocomplete = false, -- manual control
-				-- },
 				formatting = {
 					format = require("lspkind").cmp_format({
 						mode = "symbol_text", -- 'text', 'text_symbol', 'symbol_text', 'symbol'
@@ -400,8 +401,8 @@ return require("lazy").setup({
 					["<C-d>"] = require("cmp").mapping.scroll_docs(4),
 					["<C-Space>"] = require("cmp").mapping.complete({}),
 					["<C-c>"] = require("cmp").mapping.abort(),
-					["<CR>"] = require("cmp").mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-					-- ["<C-y>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+					["<CR>"] = require("cmp").mapping.confirm({ select = true }),
+					-- ["<C-y>"] = cmp.mapping.confirm({ select = true }),
 					["<Tab>"] = require("cmp").mapping(function(fallback)
 						if require("cmp").visible() then
 							require("cmp").select_next_item()
@@ -443,12 +444,12 @@ return require("lazy").setup({
 			})
 		end,
 	},
-	{ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
 	{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-path", after = "nvim-cmp" },
 	{ "hrsh7th/cmp-calc", after = "nvim-cmp" },
 	{ "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
 	{ "hrsh7th/cmp-emoji", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-path", after = "nvim-cmp" },
 	{
 		"itchyny/calendar.vim",
 		cmd = { "Calendar" },
@@ -470,7 +471,14 @@ return require("lazy").setup({
 		end,
 	},
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
-	{ "jvgrootveld/telescope-zoxide", cmd = { "Telescope zoxide list" } },
+	{
+		"jvgrootveld/telescope-zoxide",
+		cmd = { "Telescope zoxide list" },
+		dependencies = { "nvim-telescope/telescope.nvim" },
+		config = function()
+			require("telescope").load_extension("zoxide")
+		end,
+	},
 	{
 		"KabbAmine/vCoolor.vim",
 		cmd = {
@@ -574,7 +582,7 @@ return require("lazy").setup({
 				filetypes = { "help", "dashboard", "NvimTree", "mason", "fugitive", "git", "cmake", "dbout" },
 			},
 		},
-		event = "UIEnter",
+		event = { "BufReadPost", "BufNewFile" },
 	},
 	{ "LunarVim/bigfile.nvim", event = "BufReadPre", opts = {} },
 	{
@@ -600,7 +608,16 @@ return require("lazy").setup({
 	},
 	{
 		"mg979/vim-visual-multi",
-		event = "VeryLazy",
+		lazy = true,
+		keys = {
+			"<C-n>",
+			"<C-p>",
+			"<M-n>",
+			"<M-p>",
+			"<S-RIGHT>",
+			"<S-LEFT>",
+			{ "<C-n>", "<C-p>", "<S-RIGHT>", "<S-LEFT>", mode = { "n", "v" } },
+		},
 		init = function()
 			vim.g.VM_mouse_mappings = true
 			vim.g.VM_maps = {
@@ -624,7 +641,7 @@ return require("lazy").setup({
 	{
 		"nvimdev/dashboard-nvim",
 		event = "UIEnter",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		-- dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			theme = "doom", -- hyper
 			config = {
@@ -702,7 +719,7 @@ return require("lazy").setup({
 		lazy = true,
 		event = "LspAttach",
 		dependencies = {
-			"nvim-tree/nvim-web-devicons",
+			-- "nvim-tree/nvim-web-devicons",
 			"nvim-treesitter/nvim-treesitter",
 		},
 		config = function()
@@ -1039,12 +1056,89 @@ return require("lazy").setup({
 		end,
 	},
 	{ "nvim-lua/plenary.nvim", lazy = true },
-	{ "nvim-telescope/telescope.nvim", cmd = { "Telescope" } },
+	{
+		"nvim-telescope/telescope.nvim",
+		cmd = { "Telescope" },
+		config = function()
+			require("telescope").setup({
+				defaults = {
+					vimgrep_arguments = {
+						"rg",
+						"-L",
+						"--color=never",
+						"--no-heading",
+						"--with-filename",
+						"--line-number",
+						"--column",
+						"--smart-case",
+					},
+					layout_config = {
+						horizontal = {
+							prompt_position = "top",
+							preview_width = 0.55,
+						},
+						vertical = {
+							prompt_position = "top",
+							mirror = true,
+						},
+						flex = {
+							flip_columns = 120,
+						},
+						width = 0.90,
+						height = 0.85,
+						preview_cutoff = 0,
+					},
+					prompt_prefix = "   ",
+					selection_caret = " ",
+					entry_prefix = "  ",
+					sorting_strategy = "ascending",
+					layout_strategy = "flex",
+					file_sorter = require("telescope.sorters").get_fuzzy_file,
+					file_ignore_patterns = { "node_modules", "tags" },
+					generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
+					path_display = { truncate = 3 },
+					-- path_display = { "filename_first" },
+					winblend = 0,
+					set_env = { ["COLORTERM"] = "truecolor" },
+					mappings = {
+						n = {
+							["q"] = require("telescope.actions").close,
+							["<C-c>"] = require("telescope.actions").close,
+							["<M-h>"] = "which_key",
+							["<C-r>"] = require("telescope.actions").delete_buffer
+								+ require("telescope.actions").move_to_top,
+						}, -- n
+						i = {
+							["<M-h>"] = "which_key",
+							["<C-r>"] = require("telescope.actions").delete_buffer
+								+ require("telescope.actions").move_to_top,
+						}, -- i
+					}, -- mappings
+				},
+				extensions = {
+					glyph = {
+						action = function(glyph)
+							vim.fn.setreg("*", glyph.value)
+							vim.api.nvim_put({ glyph.value }, "c", false, true)
+						end,
+					},
+					zoxide = { prompt_title = "Projects" },
+				},
+				extensions_list = { "fzf", "glyph", "zoxide" },
+			})
+		end,
+	},
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
 		build = "make",
+		lazy = true,
+		dependencies = { "nvim-telescope/telescope.nvim" },
+		ft = "telescope",
 		cond = function()
 			return vim.fn.executable("make") == 1
+		end,
+		config = function()
+			require("telescope").load_extension("fzf")
 		end,
 	},
 	{ "nvim-tree/nvim-web-devicons", config = true, event = "UIEnter" },
@@ -1136,7 +1230,79 @@ return require("lazy").setup({
 			})
 		end,
 	},
-	{ "nvimtools/none-ls.nvim", event = "VeryLazy" },
+	{
+		"nvimtools/none-ls.nvim",
+		event = "VeryLazy",
+		config = function()
+			local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+			local lsp_formatting = function(bufnr)
+				vim.lsp.buf.format({
+					filter = function(client)
+						return client.name == "null-ls"
+					end,
+					bufnr = bufnr,
+				})
+			end
+
+			require("null-ls").setup({
+				sources = {
+					require("null-ls").builtins.formatting.asmfmt,
+					-- require("null-ls").builtins.formatting.clang_format.with({
+					-- 	filetypes = { "asm" },
+					-- 	args = { "-style=llvm" },
+					-- }),
+					require("null-ls").builtins.formatting.stylua,
+					require("null-ls").builtins.formatting.black,
+					require("null-ls").builtins.formatting.djhtml,
+					-- require("null-ls").builtins.formatting.djlint,
+					require("null-ls").builtins.formatting.gofmt,
+					require("null-ls").builtins.formatting.prettierd.with({
+						filetypes = {
+							"javascript",
+							"javascriptreact",
+							"typescript",
+							"typescriptreact",
+							"vue",
+							"css",
+							"scss",
+							"less",
+							"html",
+							"json",
+							"jsonc",
+							"yaml",
+							"markdown",
+							"markdown.mdx",
+							"vimwiki",
+							"graphql",
+							"template",
+							"handlebars",
+							"xml",
+						},
+						extra_args = function(params)
+							if params.ft == "xml" then
+								return { "--parser", "xml" }
+							end
+						end,
+						condition = function()
+							return vim.fn.executable("prettierd") > 0
+						end,
+					}),
+				},
+				on_attach = function(client, bufnr)
+					if client.supports_method("textDocument/formatting") then
+						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							group = augroup,
+							buffer = bufnr,
+							callback = function()
+								lsp_formatting(bufnr)
+							end,
+						})
+					end
+				end,
+			})
+		end,
+	},
 	{
 		"numToStr/Navigator.nvim",
 		opts = {},
@@ -1166,7 +1332,12 @@ return require("lazy").setup({
 		},
 		event = "BufReadPre",
 	},
-	{ "onsails/lspkind.nvim", dependencies = { "hrsh7th/nvim-cmp" }, event = "InsertEnter" },
+	{
+		"onsails/lspkind.nvim",
+		lazy = true,
+		event = "LspAttach",
+		-- dependencies = { "hrsh7th/nvim-cmp" },
+	},
 	{ "rafamadriz/friendly-snippets", event = "InsertEnter" },
 	{ "ray-x/lsp_signature.nvim", event = "LspAttach" },
 	{
@@ -1268,7 +1439,7 @@ return require("lazy").setup({
 				show_hidden = true,
 			},
 		},
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		-- dependencies = { "nvim-tree/nvim-web-devicons" },
 		cmd = "Oil",
 	},
 	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
