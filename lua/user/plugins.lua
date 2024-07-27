@@ -516,7 +516,7 @@ return require("lazy").setup({
 			vim.g.db_ui_use_nerd_fonts = 1
 		end,
 	},
-	{ "kylechui/nvim-surround", config = true, event = "BufEnter" },
+	{ "kylechui/nvim-surround", config = true, event = "BufRead" },
 	{
 		"L3MON4D3/LuaSnip",
 		dependencies = { "rafamadriz/friendly-snippets" },
