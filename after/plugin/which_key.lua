@@ -925,6 +925,241 @@ require("which-key").add({
 	{ "<space>s", group = "Session", nowait = true, remap = false },
 	{ "<space>sd", "<cmd>Obsession!<CR>", desc = "Delete the session", nowait = true, remap = false },
 	{ "<space>sm", "<cmd>Obsession<CR>", desc = "Make a session", nowait = true, remap = false },
+	{ "<space>r", group = "Run command in the register", nowait = true, remap = false },
+	{
+		"<space>ra",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("a") .. '"')
+		end,
+		desc = "a",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rb",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("b") .. '"')
+		end,
+		desc = "b",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rc",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("c") .. '"')
+		end,
+		desc = "c",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rd",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("d") .. '"')
+		end,
+		desc = "d",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>re",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("e") .. '"')
+		end,
+		desc = "e",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rf",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("f") .. '"')
+		end,
+		desc = "f",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rg",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("g") .. '"')
+		end,
+		desc = "g",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rh",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("h") .. '"')
+		end,
+		desc = "h",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>ri",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("i") .. '"')
+		end,
+		desc = "i",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rj",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("j") .. '"')
+		end,
+		desc = "j",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rk",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("k") .. '"')
+		end,
+		desc = "k",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rl",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("l") .. '"')
+		end,
+		desc = "l",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rm",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("m") .. '"')
+		end,
+		desc = "m",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rn",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("n") .. '"')
+		end,
+		desc = "n",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>ro",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("o") .. '"')
+		end,
+		desc = "o",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rp",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("p") .. '"')
+		end,
+		desc = "p",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rq",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("q") .. '"')
+		end,
+		desc = "q",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rr",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("r") .. '"')
+		end,
+		desc = "r",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rs",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("s") .. '"')
+		end,
+		desc = "s",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rt",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("t") .. '"')
+		end,
+		desc = "t",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>ru",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("u") .. '"')
+		end,
+		desc = "u",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rv",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("v") .. '"')
+		end,
+		desc = "v",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rw",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("w") .. '"')
+		end,
+		desc = "w",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rx",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("x") .. '"')
+		end,
+		desc = "x",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>ry",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("y") .. '"')
+		end,
+		desc = "y",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>rz",
+		function()
+			vim.cmd.TermExec('cmd="' .. vim.fn.getreg("z") .. '"')
+		end,
+		desc = "z",
+		nowait = true,
+		remap = false,
+	},
 	{ "<space>t", group = "Toggle", nowait = true, remap = false },
 	{
 		"<space>tb",
@@ -1156,15 +1391,6 @@ require("which-key").add({
 			silent = false,
 		},
 		{
-			";X",
-			"<cmd>ToggleTermSendVisualSelection<CR>",
-			desc = "Execute the selection in terminal",
-			nowait = true,
-			remap = false,
-		},
-		{ ";Q", vim.cmd.qall, desc = "Close all windows", nowait = true, remap = false },
-		{ ";q", "<cmd>q<CR>", desc = "quit", nowait = true, remap = false },
-		{
 			";s",
 			'y:S/<C-r>"/<C-r>"/g<LEFT><LEFT>',
 			desc = "Change the selection in this line",
@@ -1173,6 +1399,22 @@ require("which-key").add({
 			silent = false,
 		},
 		{
+			",s",
+			"<cmd>silent sort<CR>",
+			desc = "Sort selected lines",
+			nowait = true,
+			remap = false,
+			silent = false,
+		},
+		{
+			";X",
+			"<cmd>ToggleTermSendVisualSelection<CR>",
+			desc = "Execute the selection in terminal",
+			nowait = true,
+			remap = false,
+		},
+		{ ";q", "<cmd>q<CR>", desc = "quit", nowait = true, remap = false },
+		{
 			";x",
 			"<cmd>ToggleTermSendVisualLines<CR>",
 			desc = "Execute the visual lines in terminal",
@@ -1180,9 +1422,9 @@ require("which-key").add({
 			remap = false,
 		},
 		{ "<", "<gv", desc = "Indent left", nowait = true, remap = false },
+		{ ">", ">gv", desc = "Indent right", nowait = true, remap = false },
 		{ "<C-s>", "<ESC><cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false },
 		{ "<M-s>", "<ESC><cmd>wall<CR>", desc = "Save all buffers", nowait = true, remap = false },
-		{ ">", ">gv", desc = "Indent right", nowait = true, remap = false },
 		{ "<space>g", group = "Git", nowait = true, remap = false },
 		{ "<space>gW", "<cmd>Gitsigns undo_stage_hunk<CR>", desc = "Undo stage hunk", nowait = true, remap = false },
 		{ "<space>gw", "<cmd>Gitsigns stage_hunk<CR>", desc = "Stage hunk", nowait = true, remap = false },
@@ -1212,24 +1454,6 @@ require("which-key").add({
 	},
 	{
 		mode = { "i", "n", "t", "v" },
-		{
-			"<F1>",
-			function()
-				vim.cmd("TermExec cmd=make")
-			end,
-			desc = "Build",
-			nowait = true,
-			remap = false,
-		},
-		{
-			"<F2>",
-			function()
-				vim.cmd('TermExec cmd="make valgrind"')
-			end,
-			desc = "Valgrind",
-			nowait = true,
-			remap = false,
-		},
 		{ "<F4>", term_debug, desc = "Start GDB", nowait = true, remap = false },
 		{
 			"<F5>",
@@ -1367,7 +1591,7 @@ require("which-key").add({
 		{
 			"<C-F5>",
 			function()
-				vim.cmd('TermExec cmd="make run"')
+				vim.cmd('TermExec cmd="' .. vim.fn.getreg("r") .. '"')
 			end,
 			desc = "Start without debugging",
 			nowait = true,
@@ -1376,7 +1600,7 @@ require("which-key").add({
 		{
 			"<F29>",
 			function()
-				vim.cmd('TermExec cmd="make run"')
+				vim.cmd('TermExec cmd="' .. vim.fn.getreg("r") .. '"')
 			end,
 			desc = "Start without debugging",
 			nowait = true,

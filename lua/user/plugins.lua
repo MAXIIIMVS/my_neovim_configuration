@@ -1094,7 +1094,7 @@ return require("lazy").setup({
 					sorting_strategy = "ascending",
 					layout_strategy = "flex",
 					file_sorter = require("telescope.sorters").get_fuzzy_file,
-					file_ignore_patterns = { "node_modules", "tags" },
+					file_ignore_patterns = { "node_modules" },
 					generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
 					path_display = { truncate = 3 },
 					-- path_display = { "filename_first" },

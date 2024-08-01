@@ -1,0 +1,7 @@
+let @b='make build'
+let @c='make build-clean'
+let @f='make build-clean-first'
+let @g='make generate'
+let @h='make help'
+let @r='make run'
+let @t='make test'
