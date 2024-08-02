@@ -1133,7 +1133,7 @@ return require("lazy").setup({
 		build = "make",
 		lazy = true,
 		dependencies = { "nvim-telescope/telescope.nvim" },
-		ft = "telescope",
+		ft = "TelescopePrompt",
 		cond = function()
 			return vim.fn.executable("make") == 1
 		end,
