@@ -55,6 +55,20 @@ function term_debug()
 	vim.api.nvim_feedkeys("file ", "n", true)
 end
 
+-- get a character from user and return it. returns "" if there's an error or
+-- <C-c>  or <ESC> is pressed.
+function get_char(prompt)
+	print(prompt)
+	local ok, char = pcall(vim.fn.getchar)
+	if not ok then
+		return ""
+	end
+	if char == 3 or char == 27 then
+		return ""
+	end
+	return vim.fn.nr2char(char)
+end
+
 function get_highlight(group)
 	local src = "redir @a | silent! hi " .. group .. " | redir END | let output = @a"
 	vim.api.nvim_exec2(src, { output = true })

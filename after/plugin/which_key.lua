@@ -928,14 +928,8 @@ require("which-key").add({
 	{
 		"<space>r",
 		function()
-			-- local reg = vim.fn.input("Enter the register name: ")
-			print("Enter the register name: ")
-			local ok, char = pcall(vim.fn.getchar)
-			if not ok then
-				return
-			end
-			local reg = vim.fn.nr2char(char)
-			if char == 3 or char == 27 then -- 3 is Ctrl-C, 27 is Esc
+			local reg = get_char("Enter the register name: ")
+			if reg == "" then
 				return
 			end
 			vim.cmd.TermExec('cmd="' .. vim.fn.getreg(reg) .. '"')
@@ -1236,6 +1230,37 @@ require("which-key").add({
 		{ "<M-j>", "<CMD>silent NavigatorDown<CR>", desc = "Go to the down window", nowait = true, remap = false },
 		{ "<M-k>", "<CMD>silent NavigatorUp<CR>", desc = "Go to the up window", nowait = true, remap = false },
 		{ "<M-l>", "<CMD>silent NavigatorRight<CR>", desc = "Go to the right window", nowait = true, remap = false },
+	},
+	{
+		mode = { "n", "v" },
+		{
+			",c",
+			function()
+				local box_position = get_char("Enter the position of the box [(L)eft, (C)enter, (R)ight]: ")
+				if box_position == "" then
+					return
+				end
+				local text_justification = get_char("Enter text justification [(L)eft, (C)enter, (R)ight, (A)dapter]: ")
+				if text_justification == "" then
+					return
+				end
+				local box_or_line = get_char("(B)ox or (L)ine: ")
+				if box_or_line == "" then
+					return
+				end
+				if box_or_line == "l" then
+					box_or_line = "line"
+				else
+					box_or_line = "box"
+				end
+				require("comment-box")
+				vim.cmd("CB" .. box_position .. text_justification .. box_or_line)
+			end,
+			desc = "Comment Box",
+			silent = false,
+			nowait = true,
+			remap = false,
+		},
 	},
 	{
 		mode = { "i", "n", "t", "v" },
