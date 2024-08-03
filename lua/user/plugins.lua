@@ -557,6 +557,7 @@ return require("lazy").setup({
 		},
 		event = "BufReadPost",
 	},
+	{ "LudoPinelli/comment-box.nvim", lazy = true, cmd = "CB" },
 	{
 		-- NOTE: install universal-ctags using apt (the snap version wasn't
 		-- compatible)
