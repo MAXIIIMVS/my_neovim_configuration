@@ -669,7 +669,9 @@ require("which-key").add({
 	},
 	{
 		"<space>dj",
-		require("dap").goto_,
+		function()
+			require("dap").goto_()
+		end,
 		desc = "Jump to a specific line or line under cursor",
 		nowait = true,
 		remap = false,
@@ -700,7 +702,15 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "<space>dp", require("dap").pause, desc = "Pause the thread", nowait = true, remap = false },
+	{
+		"<space>dp",
+		function()
+			require("dap").pause()
+		end,
+		desc = "Pause the thread",
+		nowait = true,
+		remap = false,
+	},
 	{
 		"<space>dq",
 		function()
@@ -754,6 +764,7 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{ "<space>dv", "<cmd>DapVirtualTextToggle<CR>", desc = "Dap virtual text", nowait = true, remap = false },
 	{
 		"<space>dw",
 		function()
@@ -1070,7 +1081,6 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "<space>tV", "<cmd>DapVirtualTextToggle<CR>", desc = "Dap virtual text", nowait = true, remap = false },
 	{ "<space>tv", "<cmd>silent lua ToggleDiagnostics()<CR>", desc = "Virtual Text", nowait = true, remap = false },
 	{ "<space>w", group = "Window", nowait = true, remap = false },
 	{

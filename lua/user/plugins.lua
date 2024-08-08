@@ -424,12 +424,12 @@ return require("lazy").setup({
 			})
 		end,
 	},
-	{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-calc", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-emoji", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-path", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-buffer", event = "InsertEnter", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-calc", event = "InsertEnter", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-cmdline", event = "InsertEnter", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-emoji", event = "InsertEnter", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-nvim-lsp", event = "InsertEnter", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-path", event = "InsertEnter", after = "nvim-cmp" },
 	{
 		"itchyny/calendar.vim",
 		cmd = { "Calendar" },
@@ -577,7 +577,251 @@ return require("lazy").setup({
 			"UndotreePersistUndo",
 		},
 	},
-	{ "mfussenegger/nvim-dap", event = "VeryLazy" },
+	{
+		"mfussenegger/nvim-dap",
+		lazy = true,
+		cmd = { "Dap" },
+		keys = { "<space>d" },
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			"theHamsta/nvim-dap-virtual-text",
+		},
+		config = function()
+			require("dapui")
+			require("nvim-dap-virtual-text")
+			require("dap").listeners.after.event_initialized["dapui_config"] = function()
+				require("dapui").open()
+			end
+
+			require("dap").listeners.before.event_terminated["dapui_config"] = function()
+				require("dapui").close()
+			end
+
+			require("dap").listeners.before.event_exited["dapui_config"] = function()
+				require("dapui").close()
+			end
+
+			vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+			vim.fn.sign_define(
+				"DapBreakpointCondition",
+				{ text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" }
+			)
+			vim.fn.sign_define("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
+
+			-- Setup nvim-dap virtual text
+			require("dap").listeners.after["event_initialized"]["dap-virtual-text"] = function()
+				vim.fn.sign_define(
+					"DapVirtualTextError",
+					{ text = " ", texthl = "DiagnosticVirtualTextError", linehl = "", numhl = "" }
+				)
+				vim.fn.sign_define(
+					"DapVirtualTextWarning",
+					{ text = " ", texthl = "DiagnosticVirtualTextWarning", linehl = "", numhl = "" }
+				)
+			end
+
+			-- Load nvim-dap configuration for C/C++
+			require("dap").adapters.lldb = {
+				type = "executable",
+				command = "/usr/bin/lldb-vscode-14", -- adjust as needed, must be absolute path
+				name = "lldb",
+			}
+
+			require("dap").configurations.cpp = {
+				{
+					name = "Launch",
+					type = "lldb",
+					request = "launch",
+					console = "integratedTerminal",
+					program = function()
+						local p = vim.fn.expand("%:p:h")
+						---@diagnostic disable-next-line: redundant-parameter
+						-- return vim.fn.input("Path to executable: ", p .. "/", "file")
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+					end,
+					cwd = "${workspaceFolder}",
+					stopOnEntry = false,
+					args = {},
+				},
+				{
+					-- NOTE: If you get an "Operation not permitted" error using this, try disabling YAMA:
+					--  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+					--  set it to 1 after you finished
+					name = "Attach to process",
+					type = "lldb",
+					request = "attach",
+					console = "integratedTerminal",
+					pid = require("dap.utils").pick_process,
+					args = {},
+				},
+			}
+			require("dap").configurations.c = require("dap").configurations.cpp
+			require("dap").configurations.rust = require("dap").configurations.cpp
+
+			-- Load nvim-dap configuration for Go
+			require("dap").adapters.go = {
+				type = "executable",
+				command = "node",
+				args = { os.getenv("HOME") .. "/go/bin/dlv" },
+			}
+			-- use dap-go, or you can provide your own configurations
+
+			-- TODO: copy configs from lazy vim site.
+			require("dap").adapters["pwa-node"] = {
+				type = "server",
+				host = "localhost",
+				port = "${port}",
+				executable = {
+					command = "node",
+					args = {
+						os.getenv("HOME")
+							.. "/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+						"${port}",
+					},
+				},
+			}
+
+			local exts = {
+				"javascript",
+				"typescript",
+				"javascriptreact",
+				"typescriptreact",
+			}
+
+			for _, ext in ipairs(exts) do
+				require("dap").configurations[ext] = {
+					{
+						type = "pwa-node",
+						request = "launch",
+						name = "Launch file",
+						runtimeExecutable = "deno",
+						runtimeArgs = {
+							"run",
+							"--inspect-wait",
+							"--allow-all",
+						},
+						program = "${file}",
+						cwd = "${workspaceFolder}",
+						attachSimplePort = 9229,
+					},
+					{
+						type = "pwa-node",
+						request = "launch",
+						name = "Launch file",
+						program = "${file}",
+						cwd = "${workspaceFolder}",
+						runtimeExecutable = "node",
+					},
+					{
+						type = "pwa-node",
+						request = "launch",
+						name = "Launch Current File (pwa-node)",
+						cwd = vim.fn.getcwd(),
+						args = { "${file}" },
+						sourceMaps = true,
+						protocol = "inspector",
+					},
+					{
+						type = "pwa-node",
+						request = "launch",
+						name = "Launch Current File (pwa-node with ts-node)",
+						cwd = vim.fn.getcwd(),
+						runtimeArgs = { "--loader", "ts-node/esm" },
+						runtimeExecutable = "node",
+						args = { "${file}" },
+						sourceMaps = true,
+						protocol = "inspector",
+						skipFiles = { "<node_internals>/**", "node_modules/**" },
+						resolveSourceMapLocations = {
+							"${workspaceFolder}/**",
+							"!**/node_modules/**",
+						},
+					},
+					{
+						type = "pwa-node",
+						request = "launch",
+						name = "Launch Current File (pwa-node with deno)",
+						cwd = vim.fn.getcwd(),
+						runtimeArgs = { "run", "--inspect-brk", "--allow-all", "${file}" },
+						runtimeExecutable = "deno",
+						attachSimplePort = 9229,
+					},
+					{
+						type = "pwa-node",
+						request = "launch",
+						name = "Launch Test Current File (pwa-node with jest)",
+						cwd = vim.fn.getcwd(),
+						runtimeArgs = { "${workspaceFolder}/node_modules/.bin/jest" },
+						runtimeExecutable = "node",
+						args = { "${file}", "--coverage", "false" },
+						rootPath = "${workspaceFolder}",
+						sourceMaps = true,
+						console = "integratedTerminal",
+						internalConsoleOptions = "neverOpen",
+						skipFiles = { "<node_internals>/**", "node_modules/**" },
+					},
+					{
+						type = "pwa-node",
+						request = "launch",
+						name = "Launch Test Current File (pwa-node with vitest)",
+						cwd = vim.fn.getcwd(),
+						program = "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+						args = { "--inspect-brk", "--threads", "false", "run", "${file}" },
+						autoAttachChildProcesses = true,
+						smartStep = true,
+						console = "integratedTerminal",
+						skipFiles = { "<node_internals>/**", "node_modules/**" },
+					},
+					{
+						type = "pwa-node",
+						request = "launch",
+						name = "Launch Test Current File (pwa-node with deno)",
+						cwd = vim.fn.getcwd(),
+						runtimeArgs = { "test", "--inspect-brk", "--allow-all", "${file}" },
+						runtimeExecutable = "deno",
+						attachSimplePort = 9229,
+					},
+					{
+						type = "pwa-chrome",
+						request = "attach",
+						name = "Attach Program (pwa-chrome)",
+						program = "${file}",
+						cwd = vim.fn.getcwd(),
+						sourceMaps = true,
+						port = function()
+							return tonumber(vim.fn.input("PORT: "))
+						end,
+						webRoot = "${workspaceFolder}",
+					},
+					{
+						type = "node2",
+						request = "attach",
+						name = "Attach Program (Node2)",
+						processId = require("dap.utils").pick_process,
+					},
+					{
+						type = "node2",
+						request = "attach",
+						name = "Attach Program (Node2 with ts-node)",
+						cwd = vim.fn.getcwd(),
+						sourceMaps = true,
+						skipFiles = { "<node_internals>/**" },
+						port = 9229,
+					},
+					{
+						type = "pwa-node",
+						request = "attach",
+						name = "Attach Program (pwa-node)",
+						cwd = vim.fn.getcwd(),
+						-- cwd = "$workspaceFolder",
+						processId = require("dap.utils").pick_process,
+						skipFiles = { "<node_internals>/**" },
+						sourceMaps = true,
+					},
+				}
+			end
+		end,
+	},
 	{
 		"mfussenegger/nvim-dap-python",
 		ft = "python",
@@ -602,6 +846,7 @@ return require("lazy").setup({
 	{
 		"neovim/nvim-lspconfig",
 		after = "mason-lspconfig.nvim",
+		lazy = true,
 		config = function()
 			require("lspconfig.ui.windows").default_options.border = "rounded"
 			require("lspconfig").util.default_config.capabilities = vim.tbl_deep_extend(
@@ -1364,8 +1609,8 @@ return require("lazy").setup({
 				},
 			},
 		},
-		event = "VeryLazy",
-		dependencies = { "nvim-neotest/nvim-nio", "mfussenegger/nvim-dap" },
+		lazy = true,
+		dependencies = { "nvim-neotest/nvim-nio" },
 	},
 	{
 		"rhysd/clever-f.vim",
@@ -1394,7 +1639,7 @@ return require("lazy").setup({
 			},
 		},
 	},
-	{ "saadparwaiz1/cmp_luasnip", after = { "nvim-cmp", "LuaSnip" } },
+	{ "saadparwaiz1/cmp_luasnip", event = "InsertEnter", after = { "nvim-cmp", "LuaSnip" } },
 	{
 		"stevearc/oil.nvim",
 		opts = {
@@ -1410,7 +1655,19 @@ return require("lazy").setup({
 		-- dependencies = { "nvim-tree/nvim-web-devicons" },
 		cmd = "Oil",
 	},
-	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy", opts = {} },
+	{
+		"theHamsta/nvim-dap-virtual-text",
+		lazy = true,
+		config = function()
+			require("nvim-dap-virtual-text").setup({
+				highlight = "DiagnosticVirtualTextError",
+				prefix = " ",
+				spacing = 2,
+				severity_limit = "error",
+				virtual_text = true,
+			})
+		end,
+	},
 	{ "tpope/vim-abolish", event = "BufRead" },
 	{ "tpope/vim-dadbod", lazy = true },
 	{
@@ -1443,7 +1700,7 @@ return require("lazy").setup({
 			"GBrowse",
 		},
 	},
-	{ "tpope/vim-rhubarb", event = "VeryLazy" },
+	{ "tpope/vim-rhubarb", cmd = { "G", "GBrowse" }, keys = { "<space>g" } },
 	{ "tpope/vim-rsi", event = "InsertEnter" },
 	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
 	{ "tpope/vim-obsession", cmd = { "Obsession" } },
@@ -1493,7 +1750,8 @@ return require("lazy").setup({
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
-		after = "mason.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = { "williamboman/mason.nvim" },
 		config = function()
 			local on_attach = function(client, bufnr)
 				-- Enable completion triggered by <c-x><c-o>
