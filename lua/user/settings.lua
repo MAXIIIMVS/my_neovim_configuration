@@ -336,11 +336,6 @@ endfunction
 " let s:treedepthstring     = "│ "
 " let g:netrw_hide = 1
 " let g:netrw_altv=1
-autocmd FileType netrw silent! nnoremap <buffer> <nowait> q :silent q<CR><silent>
-autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;q :silent q<CR><silent>
-autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;; :silent q<CR><silent>
-autocmd FileType netrw silent! nnoremap <buffer> <nowait> ;n :silent q<CR><silent>
-autocmd FileType netrw setl bufhidden=wipe
 
 augroup NetrwSettings
   autocmd!

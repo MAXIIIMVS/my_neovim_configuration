@@ -73,6 +73,7 @@ require("dap").configurations.cpp = {
 	},
 }
 require("dap").configurations.c = require("dap").configurations.cpp
+require("dap").configurations.rust = require("dap").configurations.cpp
 
 -- Load nvim-dap configuration for Go
 require("dap").adapters.go = {
@@ -228,8 +229,10 @@ for _, ext in ipairs(exts) do
 			request = "attach",
 			name = "Attach Program (pwa-node)",
 			cwd = vim.fn.getcwd(),
+			-- cwd = "$workspaceFolder",
 			processId = require("dap.utils").pick_process,
 			skipFiles = { "<node_internals>/**" },
+			sourceMaps = true,
 		},
 	}
 end

@@ -218,6 +218,7 @@ require("which-key").add({
 	{ ";O", "<cmd>silent !xdg-open %:p:h<CR>", desc = "Open the current directory", nowait = true, remap = false },
 	{ ";o", "<cmd>silent !xdg-open %<CR>", desc = "Open the current file", nowait = true, remap = false },
 	{ ";p", "<cmd>silent Telescope zoxide list<CR>", desc = "Projects", nowait = true, remap = false },
+	{ ";Q", vim.cmd.qall, desc = "Close all windows", nowait = true, remap = false },
 	{ ";q", vim.cmd.q, desc = "Close current window", nowait = true, remap = false },
 	{
 		";r",
@@ -1173,14 +1174,6 @@ require("which-key").add({
 			";s",
 			'y:S/<C-r>"/<C-r>"/g<LEFT><LEFT>',
 			desc = "Change the selection in this line",
-			nowait = true,
-			remap = false,
-			silent = false,
-		},
-		{
-			",s",
-			"<cmd>silent sort<CR>",
-			desc = "Sort selected lines",
 			nowait = true,
 			remap = false,
 			silent = false,

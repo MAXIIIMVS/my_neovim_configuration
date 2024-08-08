@@ -101,28 +101,8 @@ return require("lazy").setup({
 			transparent_background = vim.g.is_transparent,
 			term_colors = true,
 			color_overrides = {
-				mocha = {
-					-- base = "#1A1A2F",
-					-- base = "#1D182E",
-					-- base = "#171421",
-					base = "#191724",
-				},
-			},
-			highlight_overrides = {
-				-- 	-- latte = telescopeBorderless("latte"),
-				-- 	-- frappe = telescopeBorderless("frappe"),
-				-- 	-- macchiato = telescopeBorderless("macchiato"),
-				-- 	-- mocha = telescopeBorderless("mocha"),
-				mocha = function()
-					return {
-						-- 	-- 	-- 	-- ["@text.todo"] = { fg = "#FF007A", bg = "#171421" },
-						-- 	-- 	-- 	["@text.todo"] = { fg = "#FF1C7B", bg = "#171421" },
-						-- 	-- 	-- 	["@text.note"] = { fg = "#0AF106", bg = "#171421" },
-						-- 	-- 	-- 	["@text.warning"] = { fg = "#F0FD00", bg = "#171421" },
-						["VertSplit"] = { fg = "#403d52" },
-						["FloatBorder"] = { fg = "#525D8E" },
-					}
-				end,
+				-- #1A1A2F #1D182E #171421, terminal background: #171421
+				mocha = { base = "#191724" },
 			},
 			integrations = {
 				cmp = true,
@@ -497,7 +477,7 @@ return require("lazy").setup({
 			"Hsl2Hex",
 			"VCase",
 		},
-		keys = { "<M-v>", "<M-r>", "<M-c>", "<M-w>" },
+		keys = { "<M-v>", "<M-r>", "<M-c>", "<M-w>", mode = { "n", "i" } },
 	},
 	{
 		"kristijanhusak/vim-dadbod-ui",
@@ -610,15 +590,7 @@ return require("lazy").setup({
 	{
 		"mg979/vim-visual-multi",
 		lazy = true,
-		keys = {
-			"<C-n>",
-			"<C-p>",
-			"<M-n>",
-			"<M-p>",
-			"<S-RIGHT>",
-			"<S-LEFT>",
-			{ "<C-n>", "<C-p>", "<S-RIGHT>", "<S-LEFT>", mode = { "n", "v" } },
-		},
+		keys = { "<M-n>", "<M-p>", "<S-RIGHT>", "<S-LEFT>", { "<C-n>", "<C-p>", mode = { "n", "v" } } },
 		init = function()
 			vim.g.VM_mouse_mappings = true
 			vim.g.VM_maps = {
@@ -770,11 +742,6 @@ return require("lazy").setup({
 		config = function()
 			local custom_auto = require("lualine.themes.auto")
 			custom_auto.normal.c.bg = "NONE"
-			-- custom_auto.insert.c.bg = "NONE"
-			-- custom_auto.terminal.c.bg = "NONE"
-			-- custom_auto.visual.c.bg = "NONE"
-			-- custom_auto.command.c.bg = "NONE"
-			-- custom_auto.replace.c.bg = "NONE"
 			-- stylua: ignore
 			local colors = {
 				bg       = '#202328',
@@ -1318,7 +1285,7 @@ return require("lazy").setup({
 	{
 		"NvChad/nvim-colorizer.lua",
 		opts = {
-			filetypes = { "*", "!vimwiki" },
+			filetypes = { "*", "!vimwiki", "!toggleterm" },
 			user_default_options = {
 				AARRGGBB = true,
 				RRGGBBAA = true,
@@ -1398,7 +1365,7 @@ return require("lazy").setup({
 			},
 		},
 		event = "VeryLazy",
-		dependencies = { "nvim-neotest/nvim-nio" },
+		dependencies = { "nvim-neotest/nvim-nio", "mfussenegger/nvim-dap" },
 	},
 	{
 		"rhysd/clever-f.vim",
@@ -1443,7 +1410,7 @@ return require("lazy").setup({
 		-- dependencies = { "nvim-tree/nvim-web-devicons" },
 		cmd = "Oil",
 	},
-	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy" },
+	{ "theHamsta/nvim-dap-virtual-text", event = "VeryLazy", opts = {} },
 	{ "tpope/vim-abolish", event = "BufRead" },
 	{ "tpope/vim-dadbod", lazy = true },
 	{
