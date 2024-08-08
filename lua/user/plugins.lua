@@ -983,7 +983,7 @@ return require("lazy").setup({
 	},
 	{
 		"nvim-lualine/lualine.nvim",
-		event = "UIEnter",
+		event = { "BufReadPost", "BufNewFile" },
 		config = function()
 			local custom_auto = require("lualine.themes.auto")
 			custom_auto.normal.c.bg = "NONE"
@@ -1354,7 +1354,7 @@ return require("lazy").setup({
 			require("telescope").load_extension("fzf")
 		end,
 	},
-	{ "nvim-tree/nvim-web-devicons", config = true, event = "UIEnter" },
+	{ "nvim-tree/nvim-web-devicons", lazy = true, opts = {} },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
@@ -1445,7 +1445,7 @@ return require("lazy").setup({
 	},
 	{
 		"nvimtools/none-ls.nvim",
-		event = "VeryLazy",
+		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
 		config = function()
 			local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 			local lsp_formatting = function(bufnr)
