@@ -1,0 +1,1 @@
+let @r='live-server'

@@ -233,6 +233,9 @@ end
 
 -- Auto commands and functions {{{
 vim.cmd([[
+" filetype plugin on
+" set omnifunc=syntaxcomplete#Complete
+
 nmap <C-_> gcc
 xmap <C-_> gc
 imap <C-_> <ESC>gcc
@@ -306,9 +309,28 @@ autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 function! OpenLazyGit()
   set notermguicolors
   terminal lazygit
+  redraw!
   startinsert
   autocmd TermClose * set termguicolors
 endfunction
+
+function! OpenAtac()
+  set notermguicolors
+  terminal atac
+  redraw!
+  silent! tunmap <ESC>
+  startinsert
+  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>"
+endfunction
+
+function! OpenHtop()
+  set notermguicolors
+  terminal htop
+  redraw!
+  startinsert
+  autocmd TermClose * set termguicolors
+endfunction
+
 
 function! CloseTabAndBuffers()
   " Get the list of buffers in the current tab
@@ -466,6 +488,7 @@ vim.o.hidden = true
 vim.o.wildmode = "full"
 vim.o.wildmenu = true
 vim.g.wildmenu = true
+-- vim.g.wildoptions = "pum"
 vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.updatetime = 200

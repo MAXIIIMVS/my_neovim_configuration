@@ -1,4 +1,18 @@
 require("which-key").add({
+	{
+		"<TAB>",
+		":bn<CR>",
+		desc = "Buffer forward",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<S-TAB>",
+		":bp<CR>",
+		desc = "Buffer backward",
+		nowait = true,
+		remap = false,
+	},
 	{ ",", group = "Miscellaneous", nowait = true, remap = false },
 	{
 		",,",
@@ -63,6 +77,14 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 		silent = false,
+	},
+	{
+		",T",
+		"<cmd>call OpenHtop()<CR>",
+		desc = "HTOP",
+		remap = false,
+		silent = true,
+		nowait = true,
 	},
 	{ ",t", group = "tmux", nowait = true, remap = false },
 	{
@@ -152,6 +174,14 @@ require("which-key").add({
 		remap = false,
 	},
 	{ ";<space>", "<cmd>Telescope<CR>", desc = "Telescope", nowait = true, remap = false },
+	{
+		";a",
+		"<cmd>call OpenAtac()<CR>",
+		desc = "ATAC",
+		remap = false,
+		silent = true,
+		nowait = true,
+	},
 	{
 		";b",
 		function()
@@ -1236,6 +1266,16 @@ require("which-key").add({
 	},
 	{
 		mode = { "n", "v" },
+		{
+			",C",
+			function()
+				require("comment-box").lcbox()
+			end,
+			desc = "Box comment the line",
+			nowait = true,
+			remap = false,
+			silent = true,
+		},
 		{
 			",c",
 			function()

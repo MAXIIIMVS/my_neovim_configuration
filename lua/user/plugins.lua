@@ -25,6 +25,7 @@ return require("lazy").setup({
 	},
 	{
 		"akinsho/bufferline.nvim",
+		event = "UIEnter",
 		opts = {
 			options = {
 				offsets = {
@@ -59,7 +60,6 @@ return require("lazy").setup({
 				diagnostics = "nvim_lsp",
 			},
 		},
-		event = "UIEnter",
 	},
 	{
 		"akinsho/toggleterm.nvim",
@@ -163,7 +163,10 @@ return require("lazy").setup({
 	},
 	{
 		"echasnovski/mini.bracketed",
-		event = "BufRead",
+		keys = {
+			{ "]", mode = { "n", "v" } },
+			{ "[", mode = { "n", "v" } },
+		},
 		version = false,
 		opts = {
 			conflict = { suffix = "", options = {} },
@@ -281,7 +284,7 @@ return require("lazy").setup({
 	},
 	{
 		"folke/which-key.nvim",
-		event = "UIEnter",
+		lazy = true,
 		opts = {
 			preset = "classic",
 			win = { border = "rounded" },
@@ -1700,7 +1703,7 @@ return require("lazy").setup({
 			"GBrowse",
 		},
 	},
-	{ "tpope/vim-rhubarb", cmd = { "G", "GBrowse" }, keys = { "<space>g" } },
+	{ "tpope/vim-rhubarb", event = "UIEnter" },
 	{ "tpope/vim-rsi", event = "InsertEnter" },
 	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
 	{ "tpope/vim-obsession", cmd = { "Obsession" } },
