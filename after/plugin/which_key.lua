@@ -1,18 +1,4 @@
 require("which-key").add({
-	{
-		"<TAB>",
-		":bn<CR>",
-		desc = "Buffer forward",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"<S-TAB>",
-		":bp<CR>",
-		desc = "Buffer backward",
-		nowait = true,
-		remap = false,
-	},
 	{ ",", group = "Miscellaneous", nowait = true, remap = false },
 	{
 		",,",

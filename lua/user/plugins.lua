@@ -305,7 +305,7 @@ return require("lazy").setup({
 	},
 	{
 		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
+		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
 		config = function()
 			local has_words_before = function()
 				unpack = unpack or table.unpack
@@ -427,12 +427,12 @@ return require("lazy").setup({
 			})
 		end,
 	},
-	{ "hrsh7th/cmp-buffer", event = "InsertEnter", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-calc", event = "InsertEnter", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-cmdline", event = "InsertEnter", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-emoji", event = "InsertEnter", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-nvim-lsp", event = "InsertEnter", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-path", event = "InsertEnter", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-buffer", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
+	{ "hrsh7th/cmp-calc", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
+	{ "hrsh7th/cmp-cmdline", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
+	{ "hrsh7th/cmp-emoji", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
+	{ "hrsh7th/cmp-nvim-lsp", event = "LspAttach", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-path", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
 	{
 		"itchyny/calendar.vim",
 		cmd = { "Calendar" },
@@ -499,11 +499,15 @@ return require("lazy").setup({
 			vim.g.db_ui_use_nerd_fonts = 1
 		end,
 	},
-	{ "kylechui/nvim-surround", config = true, event = "BufRead" },
+	{
+		"kylechui/nvim-surround",
+		config = true,
+		keys = { "<C-g>s", "<C-g>S", "ys", "yss", "yS", "ySS", "S", "gS", "ds", "cs", "cS" },
+	},
 	{
 		"L3MON4D3/LuaSnip",
 		dependencies = { "rafamadriz/friendly-snippets" },
-		event = "InsertEnter",
+		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
 		version = "v2.*",
 		build = "make install_jsregexp",
 		config = function()
@@ -1532,6 +1536,7 @@ return require("lazy").setup({
 	},
 	{
 		"NvChad/nvim-colorizer.lua",
+		ft = { "css", "html", "htmx", "scss", "javascriptreact", "typescriptreact" },
 		opts = {
 			filetypes = { "*", "!vimwiki", "!toggleterm" },
 			user_default_options = {
@@ -1546,7 +1551,6 @@ return require("lazy").setup({
 				sass = { enable = true, parsers = { "css" } },
 			},
 		},
-		event = "BufReadPre",
 	},
 	{
 		"onsails/lspkind.nvim",
@@ -1554,7 +1558,7 @@ return require("lazy").setup({
 		event = "LspAttach",
 		-- dependencies = { "hrsh7th/nvim-cmp" },
 	},
-	{ "rafamadriz/friendly-snippets", event = "InsertEnter" },
+	{ "rafamadriz/friendly-snippets", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
 	{ "ray-x/lsp_signature.nvim", event = "LspAttach" },
 	{
 		"rbong/vim-flog",
@@ -1642,7 +1646,11 @@ return require("lazy").setup({
 			},
 		},
 	},
-	{ "saadparwaiz1/cmp_luasnip", event = "InsertEnter", after = { "nvim-cmp", "LuaSnip" } },
+	{
+		"saadparwaiz1/cmp_luasnip",
+		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
+		after = { "nvim-cmp", "LuaSnip" },
+	},
 	{
 		"stevearc/oil.nvim",
 		opts = {
@@ -1671,7 +1679,7 @@ return require("lazy").setup({
 			})
 		end,
 	},
-	{ "tpope/vim-abolish", event = "BufRead" },
+	{ "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" } },
 	{ "tpope/vim-dadbod", lazy = true },
 	{
 		"tpope/vim-fugitive",
