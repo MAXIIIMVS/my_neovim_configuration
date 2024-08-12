@@ -206,7 +206,7 @@ return require("lazy").setup({
 			},
 			silent = true,
 		},
-		keys = { ";j", { ";j", mode = "v" } },
+		keys = { ";j", mode = { "n", "v" } },
 	},
 	{
 		"echasnovski/mini.move",
@@ -233,7 +233,7 @@ return require("lazy").setup({
 		"echasnovski/mini.splitjoin",
 		version = false,
 		opts = { mappings = { toggle = "gJ", split = "", join = "" } },
-		keys = { "gJ", { "gJ", mode = "v" } },
+		keys = { "gJ", mode = { "n", "v" } },
 	},
 	{
 		"EdenEast/nightfox.nvim",
@@ -481,7 +481,7 @@ return require("lazy").setup({
 			"Hsl2Hex",
 			"VCase",
 		},
-		keys = { "<M-v>", "<M-r>", "<M-c>", "<M-w>", mode = { "n", "i" } },
+		keys = { "<M-v>", "<M-r>", "<M-c>", "<M-w>", mode = { "n", "i", "x" } },
 	},
 	{
 		"kristijanhusak/vim-dadbod-ui",
@@ -503,7 +503,19 @@ return require("lazy").setup({
 	{
 		"kylechui/nvim-surround",
 		config = true,
-		keys = { "<C-g>s", "<C-g>S", "ys", "yss", "yS", "ySS", "S", "gS", "ds", "cs", "cS" },
+		keys = {
+			{ "<C-g>s", mode = { "n", "v" } },
+			{ "<C-g>S", mode = { "n", "v" } },
+			{ "ys", mode = { "n", "v" } },
+			{ "yss", mode = { "n", "v" } },
+			{ "yS", mode = { "n", "v" } },
+			{ "ySS", mode = { "n", "v" } },
+			{ "S", mode = { "n", "v" } },
+			{ "gS", mode = { "n", "v" } },
+			{ "ds", mode = { "n", "v" } },
+			{ "cs", mode = { "n", "v" } },
+			{ "cS", mode = { "n", "v" } },
+		},
 	},
 	{
 		"L3MON4D3/LuaSnip",
@@ -1666,10 +1678,6 @@ return require("lazy").setup({
 			view_options = {
 				show_hidden = true,
 			},
-			columns = {
-				"icon",
-				"size",
-			},
 		},
 	},
 	{
@@ -1722,7 +1730,7 @@ return require("lazy").setup({
 	{ "tpope/vim-rsi", event = "InsertEnter" },
 	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
 	{ "tpope/vim-obsession", cmd = { "Obsession" } },
-	{ "tpope/vim-speeddating", keys = { "<c-a>", "<c-x>" } },
+	{ "tpope/vim-speeddating", keys = { { "<c-a>", mode = { "n", "v" } }, { "<c-x>", mode = { "n", "v" } } } },
 	{
 		"vimwiki/vimwiki",
 		cmd = {
@@ -1969,7 +1977,7 @@ return require("lazy").setup({
 			)
 			require("nvim-autopairs").setup()
 		end,
-		event = "InsertEnter",
+		event = { "BufReadPre", "BufNewFile" },
 	},
 }, {
 	ui = {
