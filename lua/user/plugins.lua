@@ -26,6 +26,7 @@ return require("lazy").setup({
 	{
 		"akinsho/bufferline.nvim",
 		event = "UIEnter",
+		dependencies = "nvim-tree/nvim-web-devicons",
 		opts = {
 			options = {
 				offsets = {
@@ -866,7 +867,7 @@ return require("lazy").setup({
 	{
 		"nvimdev/dashboard-nvim",
 		event = "UIEnter",
-		-- dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			theme = "doom", -- hyper
 			config = {
@@ -944,7 +945,7 @@ return require("lazy").setup({
 		lazy = true,
 		event = "LspAttach",
 		dependencies = {
-			-- "nvim-tree/nvim-web-devicons",
+			"nvim-tree/nvim-web-devicons",
 			"nvim-treesitter/nvim-treesitter",
 		},
 		config = function()
@@ -991,6 +992,7 @@ return require("lazy").setup({
 	{
 		"nvim-lualine/lualine.nvim",
 		event = { "BufReadPost", "BufNewFile" },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			local custom_auto = require("lualine.themes.auto")
 			custom_auto.normal.c.bg = "NONE"
@@ -1278,6 +1280,7 @@ return require("lazy").setup({
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{
 		"nvim-telescope/telescope.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
 		cmd = { "Telescope" },
 		config = function()
 			require("telescope").setup({
@@ -1452,6 +1455,7 @@ return require("lazy").setup({
 	},
 	{
 		"nvimtools/none-ls.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
 		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
 		config = function()
 			local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -1564,12 +1568,11 @@ return require("lazy").setup({
 		"rbong/vim-flog",
 		lazy = true,
 		cmd = { "Flog", "Flogsplit", "Floggit" },
-		dependencies = {
-			"tpope/vim-fugitive",
-		},
+		dependencies = { "tpope/vim-fugitive" },
 	},
 	{
 		"rcarriga/nvim-dap-ui",
+		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
 		opts = {
 			layouts = {
 				{
@@ -1617,7 +1620,6 @@ return require("lazy").setup({
 			},
 		},
 		lazy = true,
-		dependencies = { "nvim-neotest/nvim-nio" },
 	},
 	{
 		"rhysd/clever-f.vim",
@@ -1653,6 +1655,8 @@ return require("lazy").setup({
 	},
 	{
 		"stevearc/oil.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		cmd = "Oil",
 		opts = {
 			default_file_explorer = false,
 			keymaps = {
@@ -1662,12 +1666,15 @@ return require("lazy").setup({
 			view_options = {
 				show_hidden = true,
 			},
+			columns = {
+				"icon",
+				"size",
+			},
 		},
-		-- dependencies = { "nvim-tree/nvim-web-devicons" },
-		cmd = "Oil",
 	},
 	{
 		"theHamsta/nvim-dap-virtual-text",
+		dependencies = { "mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter" },
 		lazy = true,
 		config = function()
 			require("nvim-dap-virtual-text").setup({
@@ -1762,7 +1769,7 @@ return require("lazy").setup({
 	{
 		"williamboman/mason-lspconfig.nvim",
 		event = { "BufReadPre", "BufNewFile" },
-		dependencies = { "williamboman/mason.nvim" },
+		dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
 		config = function()
 			local on_attach = function(client, bufnr)
 				-- Enable completion triggered by <c-x><c-o>
@@ -1951,7 +1958,7 @@ return require("lazy").setup({
 			require("mason-lspconfig").setup()
 		end,
 	},
-	{ "windwp/nvim-ts-autotag", event = "InsertEnter" },
+	{ "windwp/nvim-ts-autotag", event = { "BufReadPre", "BufNewFile" } },
 	{
 		"windwp/nvim-autopairs",
 		opts = { check_ts = true },

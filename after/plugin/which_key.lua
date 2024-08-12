@@ -1125,6 +1125,15 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{ "<leader>h", group = "Hex", nowait = true, remap = false },
+	{ "<leader>hr", "<cmd>%!xxd<CR> :set filetype=xxd<CR>", desc = "Show", nowait = true, remap = false },
+	{
+		"<leader>hw",
+		"<cmd>%!xxd -r<CR> :set binary<CR> :set filetype=<CR>",
+		desc = "Revert",
+		nowait = true,
+		remap = false,
+	},
 	{ "<leader>n", "<cmd>silent noa w<CR>", desc = "Save with no actions", nowait = true, remap = false },
 	{
 		"<leader>q",
