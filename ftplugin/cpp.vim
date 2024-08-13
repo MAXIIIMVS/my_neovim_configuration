@@ -1,5 +1,6 @@
 let @b='cmake --build ./build'
 let @c='cmake --build ./build -t clean'
+let @d='cd ./build/bin/ && gf2 ./prog && cd ../../ > /dev/null 2>&1'
 let @f='cmake --build ./build --clean-first'
 let @g='cmake -S . -B ./build -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
 let @i='cmake --install ./build'

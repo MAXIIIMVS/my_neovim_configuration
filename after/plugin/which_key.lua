@@ -40,6 +40,39 @@ require("which-key").add({
 	{ ",H", "<cmd>silent Telescope keymaps<CR>", desc = "Keymaps", nowait = true, remap = false },
 	{ ",h", "<cmd>WhichKey<CR>", desc = "Which Key", nowait = true, remap = false },
 	{ ",m", "<cmd>messages<CR>", desc = "Messages", nowait = true, remap = false },
+	{
+		",p",
+		function()
+			local command = get_char("<command> [(S)topwatch, (T)imer, (P)omodoro]: ")
+			if command ~= "s" and command ~= "t" and command ~= "p" then
+				print("invalid input")
+				return
+			end
+			if command == "s" then
+				vim.cmd('2TermExec  cmd="porsmo s"')
+			elseif command == "t" then
+				local time = vim.fn.input("Enter the time: ")
+				vim.cmd('3TermExec  cmd="porsmo t ' .. time .. '"')
+			elseif command == "p" then
+				local option = get_char("<duration> [(S)hort, (L)ong, (C)ustom]: ")
+				if option ~= "s" and option ~= "l" and option ~= "c" then
+					print("invalid input")
+					return
+				end
+				if option == "c" then
+					local time = vim.fn.input("Enter the time: ")
+					vim.cmd('4TermExec  cmd="porsmo p c ' .. time .. '"')
+				elseif option == "s" then
+					vim.cmd('5TermExec  cmd="porsmo p s"')
+				else
+					vim.cmd('6TermExec  cmd="porsmo p l"')
+				end
+			end
+		end,
+		desc = "Pomodoro",
+		nowait = true,
+		remap = false,
+	},
 	{ ",q", "<cmd>tabclose<CR>", desc = "Close tab", nowait = true, remap = false },
 	{
 		",r",
@@ -224,7 +257,7 @@ require("which-key").add({
 	{
 		";m",
 		function()
-			vim.cmd('TermExec cmd="make"')
+			vim.cmd('1TermExec cmd="make"')
 		end,
 		desc = "Make",
 		nowait = true,
@@ -281,7 +314,6 @@ require("which-key").add({
 	{ "<M-Down>", "<cmd>resize +1<CR>", desc = "Decrease window height", nowait = true, remap = false },
 	{ "<M-Left>", "<cmd>vertical resize -1<CR>", desc = "Increase window width", nowait = true, remap = false },
 	{ "<M-Right>", "<cmd>vertical resize +1<CR>", desc = "Decrease window width", nowait = true, remap = false },
-	{ "<M-S-T>", "<cmd>ToggleTermToggleAll<CR>", desc = "Toggle All terminals", nowait = true, remap = false },
 	{ "<M-Up>", "<cmd>resize -1<CR>", desc = "Increase window height", nowait = true, remap = false },
 	{ "<M-h>", "<CMD>silent NavigatorLeft<CR>", desc = "Go to the left window", nowait = true, remap = false },
 	{ "<M-j>", "<CMD>silent NavigatorDown<CR>", desc = "Go to the down window", nowait = true, remap = false },
@@ -960,7 +992,7 @@ require("which-key").add({
 			if reg == "" then
 				return
 			end
-			vim.cmd.TermExec('cmd="' .. vim.fn.getreg(reg) .. '"')
+			vim.cmd('1TermExec cmd="' .. vim.fn.getreg(reg) .. '"')
 		end,
 		desc = "Run the command in register",
 		silent = false,
@@ -1302,6 +1334,7 @@ require("which-key").add({
 	},
 	{
 		mode = { "i", "n", "t", "v" },
+		{ "<M-S-T>", "<cmd>ToggleTermToggleAll<CR>", desc = "Toggle All terminals", nowait = true, remap = false },
 		{ "<F4>", term_debug, desc = "Start GDB", nowait = true, remap = false },
 		{
 			"<F5>",
@@ -1439,7 +1472,7 @@ require("which-key").add({
 		{
 			"<C-F5>",
 			function()
-				vim.cmd('TermExec cmd="' .. vim.fn.getreg("r") .. '"')
+				vim.cmd('1TermExec cmd="' .. vim.fn.getreg("r") .. '"')
 			end,
 			desc = "Start without debugging",
 			nowait = true,
@@ -1448,7 +1481,7 @@ require("which-key").add({
 		{
 			"<F29>",
 			function()
-				vim.cmd('TermExec cmd="' .. vim.fn.getreg("r") .. '"')
+				vim.cmd('1TermExec cmd="' .. vim.fn.getreg("r") .. '"')
 			end,
 			desc = "Start without debugging",
 			nowait = true,
