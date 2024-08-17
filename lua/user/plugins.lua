@@ -206,7 +206,7 @@ return require("lazy").setup({
 			},
 			silent = true,
 		},
-		keys = { ";j", mode = { "n", "v" } },
+		keys = { ";j", { ";j", mode = "v" } },
 	},
 	{
 		"echasnovski/mini.move",
@@ -214,11 +214,11 @@ return require("lazy").setup({
 		opts = {
 			mappings = {
 				left = "<C-h>",
-				right = "", -- disabled
+				right = "<c-l>",
 				down = "<C-j>",
 				up = "<C-k>",
 				line_left = "<C-h>",
-				line_right = "",
+				line_right = "<c-l>",
 				line_down = "<C-j>",
 				line_up = "<C-k>",
 			},
@@ -227,6 +227,7 @@ return require("lazy").setup({
 			{ "<C-h>", mode = { "n", "v" } },
 			{ "<C-j>", mode = { "n", "v" } },
 			{ "<C-k>", mode = { "n", "v" } },
+			{ "<C-l>", mode = { "n", "v" } },
 		},
 	},
 	{
@@ -1660,6 +1661,7 @@ return require("lazy").setup({
 			},
 		},
 	},
+	{ "romainl/vim-cool", event = { "CmdlineEnter" } },
 	{
 		"saadparwaiz1/cmp_luasnip",
 		event = { "BufNewFile", "BufReadPost", "BufFilePost" },

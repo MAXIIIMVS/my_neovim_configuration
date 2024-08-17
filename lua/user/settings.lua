@@ -307,6 +307,7 @@ endfunction
 autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 
 function! OpenLazyGit()
+  tabnew
   set notermguicolors
   terminal lazygit
   redraw!
@@ -315,6 +316,7 @@ function! OpenLazyGit()
 endfunction
 
 function! OpenAtac()
+  tabnew
   set notermguicolors
   terminal atac
   redraw!

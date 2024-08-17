@@ -1,5 +1,6 @@
 let @a='make audit'
 let @b='make build'
+let @d='make debug'
 let @h='go help'
 let @r='make run'
 let @t='make test'
