@@ -856,9 +856,9 @@ require("which-key").add({
 		"<space>gL",
 		function()
 			if vim.fn.winwidth(0) > 85 then
-				vim.cmd("silent vertical G log --decorate")
+				vim.cmd("silent vertical G log --decorate --graph | set filetype=git")
 			else
-				vim.cmd("silent G log --decorate")
+				vim.cmd("silent G log --decorate --graph | set filetype=git")
 			end
 		end,
 		desc = "Log",

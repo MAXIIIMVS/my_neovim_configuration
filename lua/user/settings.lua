@@ -307,22 +307,30 @@ endfunction
 autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 
 function! OpenLazyGit()
-  tabnew
   set notermguicolors
   terminal lazygit
   redraw!
   startinsert
-  autocmd TermClose * set termguicolors
+  augroup LazyGit
+	  autocmd! * <buffer>
+	  autocmd TermClose <buffer> bd
+	  autocmd WinResized <buffer> redraw!
+	  autocmd TermClose * set termguicolors
+  augroup END
 endfunction
 
 function! OpenAtac()
-  tabnew
   set notermguicolors
   terminal atac
   redraw!
   silent! tunmap <ESC>
   startinsert
-  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>"
+  augroup ATAC
+	  autocmd! * <buffer>
+	  autocmd TermClose <buffer> bd
+	  autocmd WinResized <buffer> redraw
+	  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>"
+  augroup END
 endfunction
 
 function! OpenHtop()
@@ -330,7 +338,12 @@ function! OpenHtop()
   terminal htop
   redraw!
   startinsert
-  autocmd TermClose * set termguicolors
+  augroup HTOP
+	  autocmd! * <buffer>
+	  autocmd TermClose <buffer> bd
+	  autocmd WinResized <buffer> redraw
+	  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>"
+  augroup END
 endfunction
 
 

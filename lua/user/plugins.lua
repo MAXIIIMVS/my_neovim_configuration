@@ -1582,6 +1582,9 @@ return require("lazy").setup({
 		lazy = true,
 		cmd = { "Flog", "Flogsplit", "Floggit" },
 		dependencies = { "tpope/vim-fugitive" },
+		init = function()
+			vim.g.flog_default_opts = { ["max_count"] = 1000000 }
+		end,
 	},
 	{
 		"rcarriga/nvim-dap-ui",
