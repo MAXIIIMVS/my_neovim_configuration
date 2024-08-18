@@ -40,39 +40,6 @@ require("which-key").add({
 	{ ",H", "<cmd>silent Telescope keymaps<CR>", desc = "Keymaps", nowait = true, remap = false },
 	{ ",h", "<cmd>WhichKey<CR>", desc = "Which Key", nowait = true, remap = false },
 	{ ",m", "<cmd>messages<CR>", desc = "Messages", nowait = true, remap = false },
-	{
-		",p",
-		function()
-			local command = get_char("<command> [(S)topwatch, (T)imer, (P)omodoro]: ")
-			if command ~= "s" and command ~= "t" and command ~= "p" then
-				print("invalid input")
-				return
-			end
-			if command == "s" then
-				vim.cmd('2TermExec  cmd="porsmo s"')
-			elseif command == "t" then
-				local time = vim.fn.input("Enter the time: ")
-				vim.cmd('3TermExec  cmd="porsmo t ' .. time .. '"')
-			elseif command == "p" then
-				local option = get_char("<duration> [(S)hort, (L)ong, (C)ustom]: ")
-				if option ~= "s" and option ~= "l" and option ~= "c" then
-					print("invalid input")
-					return
-				end
-				if option == "c" then
-					local time = vim.fn.input("Enter the time: ")
-					vim.cmd('4TermExec  cmd="porsmo p c ' .. time .. '"')
-				elseif option == "s" then
-					vim.cmd('5TermExec  cmd="porsmo p s"')
-				else
-					vim.cmd('6TermExec  cmd="porsmo p l"')
-				end
-			end
-		end,
-		desc = "Pomodoro",
-		nowait = true,
-		remap = false,
-	},
 	{ ",q", "<cmd>tabclose<CR>", desc = "Close tab", nowait = true, remap = false },
 	{
 		",r",
@@ -300,6 +267,39 @@ require("which-key").add({
 	{ ";t", "<cmd>TodoTelescope<CR>", desc = "See notes/todos...", nowait = true, remap = false },
 	{ ";U", "<cmd>e!<CR>", desc = "Toggle Undotree", nowait = true, remap = false },
 	{ ";u", vim.cmd.UndotreeToggle, desc = "Toggle Undotree", nowait = true, remap = false },
+	{
+		";w",
+		function()
+			local command = get_char("<command> [(S)topwatch, (T)imer, (P)omodoro]: ")
+			if command ~= "s" and command ~= "t" and command ~= "p" then
+				print("invalid input")
+				return
+			end
+			if command == "s" then
+				vim.cmd('2TermExec  cmd="porsmo s"')
+			elseif command == "t" then
+				local time = vim.fn.input("Enter the time: ")
+				vim.cmd('3TermExec  cmd="porsmo t ' .. time .. '"')
+			elseif command == "p" then
+				local option = get_char("<duration> [(S)hort, (L)ong, (C)ustom]: ")
+				if option ~= "s" and option ~= "l" and option ~= "c" then
+					print("invalid input")
+					return
+				end
+				if option == "c" then
+					local time = vim.fn.input("Enter the time: ")
+					vim.cmd('4TermExec  cmd="porsmo p c ' .. time .. '"')
+				elseif option == "s" then
+					vim.cmd('5TermExec  cmd="porsmo p s"')
+				else
+					vim.cmd('6TermExec  cmd="porsmo p l"')
+				end
+			end
+		end,
+		desc = "Work (pomodoro, timer, stopwatch)",
+		nowait = true,
+		remap = false,
+	},
 	{
 		";x",
 		"<cmd>silent ToggleTermSendCurrentLine<CR>",
