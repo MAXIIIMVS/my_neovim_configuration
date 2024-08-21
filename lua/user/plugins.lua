@@ -512,10 +512,10 @@ return require("lazy").setup({
 			"ds",
 			"cs",
 			"cS",
-			"<C-g>s",
-			"<C-g>S",
 			{ "S", mode = { "n", "v" } },
 			{ "gS", mode = { "n", "v" } },
+			{ "<C-g>s", mode = { "i" } },
+			{ "<C-g>S", mode = { "i" } },
 		},
 	},
 	{
@@ -990,7 +990,7 @@ return require("lazy").setup({
 					win_width = 40,
 				},
 				symbol_in_winbar = {
-					enable = true, -- don't toggle
+					enable = false, -- don't toggle
 					hide_keyword = false,
 					folder_level = 3,
 					color_mode = true,
@@ -1683,7 +1683,7 @@ return require("lazy").setup({
 			},
 		},
 	},
-	{ "romainl/vim-cool", event = { "CmdlineEnter" } },
+	{ "romainl/vim-cool", event = { "CmdlineEnter" }, keys = { "#", "*" } },
 	{
 		"saadparwaiz1/cmp_luasnip",
 		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
@@ -1718,7 +1718,7 @@ return require("lazy").setup({
 			})
 		end,
 	},
-	{ "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" } },
+	{ "tpope/vim-abolish", cmd = { "Abolish", "Subvert", "S" }, keys = { "cr" } },
 	{ "tpope/vim-dadbod", lazy = true },
 	{
 		"tpope/vim-fugitive",

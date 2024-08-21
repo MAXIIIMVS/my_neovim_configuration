@@ -313,9 +313,8 @@ function! OpenLazyGit()
   startinsert
   augroup LazyGit
 	  autocmd! * <buffer>
-	  autocmd TermClose <buffer> bd
 	  autocmd WinResized <buffer> redraw!
-	  autocmd TermClose * set termguicolors
+	  autocmd TermClose * set termguicolors | bd
   augroup END
 endfunction
 
@@ -327,9 +326,8 @@ function! OpenAtac()
   startinsert
   augroup ATAC
 	  autocmd! * <buffer>
-	  autocmd TermClose <buffer> bd
 	  autocmd WinResized <buffer> redraw
-	  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>"
+	  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>" | bd
   augroup END
 endfunction
 
@@ -340,9 +338,8 @@ function! OpenHtop()
   startinsert
   augroup HTOP
 	  autocmd! * <buffer>
-	  autocmd TermClose <buffer> bd
 	  autocmd WinResized <buffer> redraw
-	  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>"
+	  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>" | bd
   augroup END
 endfunction
 
