@@ -312,9 +312,10 @@ function! OpenLazyGit()
   redraw!
   startinsert
   augroup LazyGit
-	  autocmd! * <buffer>
-	  autocmd WinResized <buffer> redraw!
-	  autocmd TermClose * set termguicolors | bd
+	autocmd! * <buffer>
+	autocmd WinResized <buffer> redraw
+	autocmd TermClose <buffer> :lua require("mini.bufremove").delete()
+	autocmd TermClose * set termguicolors
   augroup END
 endfunction
 
@@ -327,7 +328,8 @@ function! OpenAtac()
   augroup ATAC
 	  autocmd! * <buffer>
 	  autocmd WinResized <buffer> redraw
-	  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>" | bd
+	  autocmd TermClose <buffer> :lua require("mini.bufremove").delete()
+	  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>"
   augroup END
 endfunction
 
@@ -339,7 +341,8 @@ function! OpenHtop()
   augroup HTOP
 	  autocmd! * <buffer>
 	  autocmd WinResized <buffer> redraw
-	  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>" | bd
+	  autocmd TermClose <buffer> :lua require("mini.bufremove").delete()
+	  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>"
   augroup END
 endfunction
 

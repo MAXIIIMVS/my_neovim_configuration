@@ -389,9 +389,10 @@ return require("lazy").setup({
 					["<CR>"] = require("cmp").mapping.confirm({ select = true }),
 					-- ["<C-y>"] = cmp.mapping.confirm({ select = true }),
 					["<Tab>"] = require("cmp").mapping(function(fallback)
-						if require("cmp").visible() then
-							require("cmp").select_next_item()
-						elseif require("luasnip").expand_or_jumpable() then
+						-- if require("cmp").visible() then
+						-- 	require("cmp").select_next_item()
+						-- elseif require("luasnip").expand_or_jumpable() then
+						if require("luasnip").expand_or_jumpable() then
 							require("luasnip").expand_or_jump()
 						elseif has_words_before() then
 							require("cmp").complete()
