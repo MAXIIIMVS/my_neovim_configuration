@@ -338,6 +338,7 @@ require("which-key").add({
 		"]A",
 		function()
 			vim.cmd.colorscheme(flavors[#flavors])
+			vim.go.laststatus = 3
 		end,
 		desc = "Last light theme",
 		nowait = true,
@@ -357,6 +358,7 @@ require("which-key").add({
 				index = 1
 			end
 			vim.cmd.colorscheme(flavors[index])
+			vim.go.laststatus = 3
 		end,
 		desc = "Next flavor",
 		nowait = true,
@@ -366,6 +368,7 @@ require("which-key").add({
 		"[A",
 		function()
 			vim.cmd.colorscheme(flavors[1])
+			vim.go.laststatus = 3
 		end,
 		desc = "First dark theme",
 		nowait = true,
@@ -385,6 +388,7 @@ require("which-key").add({
 				index = #flavors
 			end
 			vim.cmd.colorscheme(flavors[index])
+			vim.go.laststatus = 3
 		end,
 		desc = "Previous flavor",
 		nowait = true,

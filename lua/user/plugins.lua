@@ -105,6 +105,13 @@ return require("lazy").setup({
 				-- #1A1A2F #1D182E #171421, terminal background: #171421
 				mocha = { base = "#191724" },
 			},
+			highlight_overrides = {
+				all = function(colors)
+					return {
+						WinSeparator = { fg = "#554D80" },
+					}
+				end,
+			},
 			integrations = {
 				cmp = true,
 				gitsigns = true,
