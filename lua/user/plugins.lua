@@ -408,9 +408,10 @@ return require("lazy").setup({
 						end
 					end, { "i", "s" }),
 					["<S-Tab>"] = require("cmp").mapping(function(fallback)
-						if require("cmp").visible() then
-							require("cmp").select_prev_item()
-						elseif require("luasnip").jumpable(-1) then
+						-- if require("cmp").visible() then
+						-- 	require("cmp").select_prev_item()
+						-- elseif require("luasnip").jumpable(-1) then
+						if require("luasnip").jumpable(-1) then
 							require("luasnip").jump(-1)
 						else
 							fallback()

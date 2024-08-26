@@ -451,7 +451,6 @@ vim.o.cmdheight = 0
 vim.o.laststatus = 3
 vim.g.laststatus = 3
 vim.go.laststatus = 3
-vim.opt.shada = "'100,<50,s10,h"
 vim.o.scrolloff = 4
 vim.o.timeoutlen = 300
 vim.o.inccommand = "split"
