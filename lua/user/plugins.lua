@@ -1999,7 +1999,7 @@ return require("lazy").setup({
 			require("mason-lspconfig").setup()
 		end,
 	},
-	{ "windwp/nvim-ts-autotag", event = { "BufReadPre", "BufNewFile" } },
+	{ "windwp/nvim-ts-autotag", event = { "InsertEnter" } },
 	{
 		"windwp/nvim-autopairs",
 		opts = { check_ts = true },
