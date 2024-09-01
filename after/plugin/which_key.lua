@@ -20,10 +20,11 @@ require("which-key").add({
 	{ ",9", "9<C-w>w", desc = "Go to 9th window", nowait = true, remap = false },
 	{
 		",a",
-		"<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>",
-		desc = "Add a folder to workspace",
-		nowait = true,
+		"<cmd>call OpenAtac()<CR>",
+		desc = "ATAC",
 		remap = false,
+		silent = true,
+		nowait = true,
 	},
 	{ ",D", term_debug, desc = "Debug with GDB", nowait = true, remap = false },
 	{ ",d", "<cmd>silent Dashboard<CR>", desc = "dashboard", nowait = true, remap = false },
@@ -160,14 +161,6 @@ require("which-key").add({
 		remap = false,
 	},
 	{ ";<space>", "<cmd>Telescope<CR>", desc = "Telescope", nowait = true, remap = false },
-	{
-		";a",
-		"<cmd>call OpenAtac()<CR>",
-		desc = "ATAC",
-		remap = false,
-		silent = true,
-		nowait = true,
-	},
 	{
 		";b",
 		function()
