@@ -1780,7 +1780,7 @@ return require("lazy").setup({
 			"VimwikiMakeYesterdayDiaryNote",
 		},
 		keys = { "<leader>w" },
-		ft = { "vimwiki", "vimwiki_markdown_custom" },
+		ft = { "vimwiki", "vimwiki_markdown_custom", "markdown" },
 		init = function()
 			vim.g.vimwiki_listsyms = "    x"
 			vim.g.vimwiki_markdown_link_ext = 1
