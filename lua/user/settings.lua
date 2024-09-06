@@ -128,6 +128,9 @@ function sync_statusline_with_tmux()
 	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
 	-- vim.o.fillchars = "eob: "
+	vim.o.laststatus = 3
+	vim.g.laststatus = 3
+	vim.go.laststatus = 3
 end
 
 function git_next()
@@ -235,6 +238,16 @@ end
 vim.cmd([[
 " filetype plugin on
 " set omnifunc=syntaxcomplete#Complete
+
+" Prefer rg > ag > ack
+if executable('rg')
+    let g:ackprg = 'rg -S --no-heading --vimgrep'
+    set grepprg=rg\ --vimgrep\ $*
+elseif executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+    set grepprg=ag\ --vimgrep\ $*
+endif
+set grepformat=%f:%l:%c:%m
 
 nmap <C-_> gcc
 xmap <C-_> gc
@@ -463,6 +476,7 @@ vim.o.smartcase = true -- if you include mixed case in your search, assumes you 
 vim.o.backspace = "start,eol,indent"
 vim.o.path = vim.o.path .. "**" -- or vim.wo.path, IDK
 vim.o.wildignore = vim.o.wildignore .. "*/node_modules/*,tags"
+vim.o.termbidi = true
 
 -- Syntax theme "{{{
 -----------------------------------------------------------------------

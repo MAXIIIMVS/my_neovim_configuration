@@ -28,7 +28,13 @@ require("which-key").add({
 	},
 	{ ",D", term_debug, desc = "Debug with GDB", nowait = true, remap = false },
 	{ ",d", "<cmd>silent Dashboard<CR>", desc = "dashboard", nowait = true, remap = false },
-	{ ",F", ":find ", desc = "find a file", nowait = true, remap = false, silent = false },
+	{
+		",F",
+		"<cmd>Telescope git_files<CR>",
+		desc = "Fuzzy search for files tracked by Git",
+		nowait = true,
+		remap = false,
+	},
 	{ ",f", "<cmd>silent Telescope filetypes<CR>", desc = "Set filetype", nowait = true, remap = false },
 	{
 		",g",
@@ -185,13 +191,7 @@ require("which-key").add({
 	},
 	{ ";D", "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Show line diagnostics", nowait = true, remap = false },
 	{ ";d", "<cmd>silent Telescope diagnostics<CR>", desc = "List diagnostics", nowait = true, remap = false },
-	{
-		";F",
-		"<cmd>Telescope git_files<CR>",
-		desc = "Fuzzy search for files tracked by Git",
-		nowait = true,
-		remap = false,
-	},
+	{ ";F", ":find ", desc = "find a file", nowait = true, remap = false, silent = false },
 	{ ";f", "<cmd>Telescope find_files<CR>", desc = "Find files", nowait = true, remap = false },
 	{ ";G", "<cmd>Telescope grep_string<CR>", desc = "Grep string under the cursor", nowait = true, remap = false },
 	{ ";g", "<cmd>Telescope live_grep<CR>", desc = "Live grep", nowait = true, remap = false },
@@ -331,7 +331,6 @@ require("which-key").add({
 		"]A",
 		function()
 			vim.cmd.colorscheme(flavors[#flavors])
-			vim.go.laststatus = 3
 		end,
 		desc = "Last light theme",
 		nowait = true,
@@ -351,7 +350,6 @@ require("which-key").add({
 				index = 1
 			end
 			vim.cmd.colorscheme(flavors[index])
-			vim.go.laststatus = 3
 		end,
 		desc = "Next flavor",
 		nowait = true,
@@ -361,7 +359,6 @@ require("which-key").add({
 		"[A",
 		function()
 			vim.cmd.colorscheme(flavors[1])
-			vim.go.laststatus = 3
 		end,
 		desc = "First dark theme",
 		nowait = true,
@@ -381,7 +378,6 @@ require("which-key").add({
 				index = #flavors
 			end
 			vim.cmd.colorscheme(flavors[index])
-			vim.go.laststatus = 3
 		end,
 		desc = "Previous flavor",
 		nowait = true,
@@ -1048,6 +1044,7 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{ "<space>tm", "<cmd>MarkdownPreviewToggle<CR>", desc = "Markdown Preview", nowait = true, remap = false },
 	{ "<space>to", "<cmd>Lspsaga outline<CR>", desc = "Outline", nowait = true, remap = false },
 	{
 		"<space>tq",

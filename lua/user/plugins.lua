@@ -132,6 +132,7 @@ return require("lazy").setup({
 				mason = false,
 				nvimtree = true,
 				lsp_saga = false,
+				markdown = true,
 				native_lsp = {
 					enabled = true,
 					virtual_text = {
@@ -444,6 +445,18 @@ return require("lazy").setup({
 	{ "hrsh7th/cmp-emoji", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
 	{ "hrsh7th/cmp-nvim-lsp", event = "LspAttach", after = "nvim-cmp" },
 	{ "hrsh7th/cmp-path", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+		-- NOTE: comment and comment first time to build
+		-- config = function()
+		-- 	vim.cmd("Lazy build markdown-preview.nvim")
+		-- end,
+	},
 	{
 		"itchyny/calendar.vim",
 		cmd = { "Calendar" },
@@ -1907,7 +1920,7 @@ return require("lazy").setup({
 					})
 				end,
 				["tsserver"] = function()
-					require("lspconfig").tsserver.setup({
+					require("lspconfig").ts_ls.setup({
 						on_attach = on_attach,
 						capabilities = require("lspconfig").util.default_config.capabilities,
 						filetypes = {
