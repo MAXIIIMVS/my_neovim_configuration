@@ -26,6 +26,17 @@ flavors = {
 	"catppuccin-latte",
 }
 
+function toggle_todo()
+	local line = vim.api.nvim_get_current_line()
+	local new_line = line
+	if string.match(line, "%- %[ %]") then
+		new_line = string.gsub(line, "%- %[ %]", "- [x]")
+	elseif string.match(line, "%- %[x%]") then
+		new_line = string.gsub(line, "%- %[x%]", "- [ ]")
+	end
+	vim.api.nvim_set_current_line(new_line)
+end
+
 function term_debug()
 	-- specific to my system
 	local gdbfake_file = os.getenv("HOME") .. "/.gdbfake"

@@ -621,6 +621,13 @@ return require("lazy").setup({
 		},
 	},
 	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		opts = {},
+		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+		ft = { "markdown", "vimwiki" },
+		cmd = { "RenderMarkdown" },
+	},
+	{
 		"mfussenegger/nvim-dap",
 		lazy = true,
 		cmd = { "Dap" },
@@ -1793,8 +1800,9 @@ return require("lazy").setup({
 			"VimwikiMakeYesterdayDiaryNote",
 		},
 		keys = { "<leader>w" },
-		ft = { "vimwiki", "vimwiki_markdown_custom", "markdown" },
+		ft = { "vimwiki", "vimwiki_markdown_custom" },
 		init = function()
+			vim.treesitter.language.register("markdown", "vimwiki")
 			vim.g.vimwiki_listsyms = "    x"
 			vim.g.vimwiki_markdown_link_ext = 1
 			vim.g.vimwiki_global_ext = 0

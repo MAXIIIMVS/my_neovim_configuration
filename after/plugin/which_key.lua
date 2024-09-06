@@ -1044,6 +1044,7 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{ "<space>tM", "<cmd>RenderMarkdown toggle<CR>", desc = "Render Markdown", nowait = true, remap = false },
 	{ "<space>tm", "<cmd>MarkdownPreviewToggle<CR>", desc = "Markdown Preview", nowait = true, remap = false },
 	{ "<space>to", "<cmd>Lspsaga outline<CR>", desc = "Outline", nowait = true, remap = false },
 	{
