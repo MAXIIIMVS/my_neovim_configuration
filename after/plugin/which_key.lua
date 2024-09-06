@@ -323,7 +323,6 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "<Nop>", "<Plug>VimwikiRemoveHeaderLevel", desc = "disabled", nowait = true, remap = false },
 	{ "K", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover info", nowait = true, remap = false },
 	{ "]<space>", "o<ESC>k", desc = "Insert a blank line below", nowait = true, remap = false },
 	{ "[<space>", "O<ESC>j", desc = "Insert a blank line above", nowait = true, remap = false },
@@ -1044,8 +1043,7 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "<space>tM", "<cmd>RenderMarkdown toggle<CR>", desc = "Render Markdown", nowait = true, remap = false },
-	{ "<space>tm", "<cmd>MarkdownPreviewToggle<CR>", desc = "Markdown Preview", nowait = true, remap = false },
+	{ "<space>tm", "<cmd>RenderMarkdown toggle<CR>", desc = "Render Markdown", nowait = true, remap = false },
 	{ "<space>to", "<cmd>Lspsaga outline<CR>", desc = "Outline", nowait = true, remap = false },
 	{
 		"<space>tq",
@@ -1171,14 +1169,6 @@ require("which-key").add({
 	},
 	{ "<leader>s", "<cmd>silent so %<CR>", desc = "Source the file", nowait = true, remap = false },
 	{ "<leader>t", "<cmd>tabnew<CR>", desc = "Create an empty tab", nowait = true, remap = false },
-	{ "<leader>w", group = "VimWiki", nowait = true, remap = false },
-	{
-		"<leader>wl",
-		"<cmd>VimwikiTOC<CR>",
-		desc = "Create or update the Table of Contents for the current wiki file",
-		nowait = true,
-		remap = false,
-	},
 	{
 		"<leader>x",
 		"<cmd>silent !chmod u+x %<CR>",

@@ -155,7 +155,6 @@ return require("lazy").setup({
 					enabled = true,
 					indentscope_color = "lavender",
 				},
-				vimwiki = true,
 			},
 		},
 	},
@@ -446,18 +445,6 @@ return require("lazy").setup({
 	{ "hrsh7th/cmp-nvim-lsp", event = "LspAttach", after = "nvim-cmp" },
 	{ "hrsh7th/cmp-path", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
 	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		ft = { "markdown" },
-		build = function()
-			vim.fn["mkdp#util#install"]()
-		end,
-		-- NOTE: comment and comment first time to build
-		-- config = function()
-		-- 	vim.cmd("Lazy build markdown-preview.nvim")
-		-- end,
-	},
-	{
 		"itchyny/calendar.vim",
 		cmd = { "Calendar" },
 		init = function()
@@ -477,6 +464,7 @@ return require("lazy").setup({
 			-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 		end,
 	},
+	{ "jghauser/follow-md-links.nvim", ft = { "markdown" } },
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{
 		"jvgrootveld/telescope-zoxide",
@@ -548,7 +536,6 @@ return require("lazy").setup({
 		build = "make install_jsregexp",
 		config = function()
 			require("luasnip.loaders.from_vscode").lazy_load()
-			require("luasnip").filetype_extend("vimwiki", { "markdown" })
 		end,
 	},
 	{ "leoluz/nvim-dap-go", config = true, ft = "go" },
@@ -624,7 +611,7 @@ return require("lazy").setup({
 		"MeanderingProgrammer/render-markdown.nvim",
 		opts = {},
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-		ft = { "markdown", "vimwiki" },
+		ft = { "markdown" },
 		cmd = { "RenderMarkdown" },
 	},
 	{
@@ -948,7 +935,7 @@ return require("lazy").setup({
 					{
 						icon = "📓 ",
 						desc = "Open Wiki",
-						action = "VimwikiIndex",
+						action = "e ~/notes/wiki/index.md",
 						key = "w",
 					},
 					{
@@ -1538,7 +1525,6 @@ return require("lazy").setup({
 							"yaml",
 							"markdown",
 							"markdown.mdx",
-							"vimwiki",
 							"graphql",
 							"template",
 							"handlebars",
@@ -1584,7 +1570,7 @@ return require("lazy").setup({
 		"NvChad/nvim-colorizer.lua",
 		ft = { "css", "html", "htmx", "scss", "javascriptreact", "typescriptreact" },
 		opts = {
-			filetypes = { "*", "!vimwiki", "!toggleterm" },
+			filetypes = { "*", "!toggleterm" },
 			user_default_options = {
 				AARRGGBB = true,
 				RRGGBBAA = true,
@@ -1784,32 +1770,6 @@ return require("lazy").setup({
 	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
 	{ "tpope/vim-obsession", cmd = { "Obsession" } },
 	{ "tpope/vim-speeddating", keys = { { "<c-a>", mode = { "n", "v" } }, { "<c-x>", mode = { "n", "v" } } } },
-	{
-		"vimwiki/vimwiki",
-		cmd = {
-			"VimwikiIndex",
-			"VimwikiVar",
-			"VimwikiTabIndex",
-			"VimwikiUISelect",
-			"VimwikiDiaryIndex",
-			"VimwikiShowVersion",
-			"VimwikiMakeDiaryNote",
-			"VimwikiTabMakeDiaryNote",
-			"VimwikiDiaryGenerateLinks",
-			"VimwikiMakeTomorrowDiaryNote",
-			"VimwikiMakeYesterdayDiaryNote",
-		},
-		keys = { "<leader>w" },
-		ft = { "vimwiki", "vimwiki_markdown_custom" },
-		init = function()
-			vim.treesitter.language.register("markdown", "vimwiki")
-			vim.g.vimwiki_listsyms = "    x"
-			vim.g.vimwiki_markdown_link_ext = 1
-			vim.g.vimwiki_global_ext = 0
-			vim.g.vimwiki_list = { { path = "~/notes/wiki/", syntax = "markdown", ext = ".md", auto_diary_index = 1 } }
-			vim.g.vimwiki_ext2syntax = { [".md"] = "markdown", [".mkd"] = "markdown", [".wiki"] = "media" }
-		end,
-	},
 	{
 		"williamboman/mason.nvim",
 		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate", "MasonUninstallAll" },

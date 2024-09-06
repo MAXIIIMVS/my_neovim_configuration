@@ -29,10 +29,16 @@ flavors = {
 function toggle_todo()
 	local line = vim.api.nvim_get_current_line()
 	local new_line = line
+	-- Pattern for unordered list (`- [ ]` or `- [x]`)
 	if string.match(line, "%- %[ %]") then
 		new_line = string.gsub(line, "%- %[ %]", "- [x]")
 	elseif string.match(line, "%- %[x%]") then
 		new_line = string.gsub(line, "%- %[x%]", "- [ ]")
+	-- Pattern for ordered list (`1. [ ]` or `1. [x]`)
+	elseif string.match(line, "^%s*%d+%. %[ %]") then
+		new_line = string.gsub(line, "(%d+%. )%[ %]", "%1[x]")
+	elseif string.match(line, "^%s*%d+%. %[x%]") then
+		new_line = string.gsub(line, "(%d+%. )%[x%]", "%1[ ]")
 	end
 	vim.api.nvim_set_current_line(new_line)
 end
