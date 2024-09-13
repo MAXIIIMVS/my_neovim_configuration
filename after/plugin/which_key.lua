@@ -934,6 +934,13 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{
+		"<space>gO",
+		"<cmd>silent !xdg-open https://github.com/exvimmer<CR>",
+		desc = "Open my github profile",
+		nowait = true,
+		remap = false,
+	},
 	{ "<space>go", "<cmd>silent GBrowse<CR>", desc = "Open in the browser", nowait = true, remap = false },
 	{ "<space>gp", "<cmd>silent G pull<CR>", desc = "Pull", nowait = true, remap = false },
 	{
