@@ -1123,6 +1123,7 @@ require("which-key").add({
 		remap = false,
 	},
 	{ "<space>tv", "<cmd>silent lua ToggleDiagnostics()<CR>", desc = "Virtual Text", nowait = true, remap = false },
+	{ "<space>tw", "<cmd>silent e ~/notes/wiki/index.md<CR>", desc = "Wiki", nowait = true, remap = false },
 	{ "<space>w", group = "Window", nowait = true, remap = false },
 	{
 		"<space>wD",

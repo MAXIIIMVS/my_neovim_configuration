@@ -964,7 +964,7 @@ return require("lazy").setup({
 					},
 				},
 				footer = {
-					"👑 " .. "Control Of Consciousness Determines The Quality Of Life" .. " 👑",
+					"👑 " .. "Today is the youngest you'll ever be." .. " 👑",
 				},
 			},
 		},
@@ -1887,7 +1887,7 @@ return require("lazy").setup({
 						capabilities = require("lspconfig").util.default_config.capabilities,
 					})
 				end,
-				["tsserver"] = function()
+				["ts_ls"] = function()
 					require("lspconfig").ts_ls.setup({
 						on_attach = on_attach,
 						capabilities = require("lspconfig").util.default_config.capabilities,
