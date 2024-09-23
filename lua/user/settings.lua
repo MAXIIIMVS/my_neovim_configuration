@@ -145,9 +145,6 @@ function sync_statusline_with_tmux()
 	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
 	-- vim.o.fillchars = "eob: "
-	vim.o.laststatus = 3
-	vim.g.laststatus = 3
-	vim.go.laststatus = 3
 end
 
 function git_next()
@@ -335,6 +332,8 @@ function! SyncTmuxOnColorSchemeChange()
 endfunction
 
 autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
+
+autocmd BufWinEnter * if &laststatus != 3 | set laststatus=3 | endif
 
 function! OpenLazyGit()
   set notermguicolors

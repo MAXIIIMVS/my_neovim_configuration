@@ -1349,12 +1349,12 @@ require("which-key").add({
 			"<F8>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("Evaluate")
+					vim.cmd("call TermDebugSendCommand('c')")
 				else
-					require("dapui").eval(nil, { enter = true })
+					vim.cmd.DapContinue()
 				end
 			end,
-			desc = "Evaluate",
+			desc = "Continue/Start DAP",
 			nowait = true,
 			remap = false,
 		},
@@ -1401,12 +1401,12 @@ require("which-key").add({
 			"<F12>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('c')")
+					vim.cmd("Evaluate")
 				else
-					vim.cmd.DapContinue()
+					require("dapui").eval(nil, { enter = true })
 				end
 			end,
-			desc = "Continue/Start DAP",
+			desc = "Evaluate",
 			nowait = true,
 			remap = false,
 		},
