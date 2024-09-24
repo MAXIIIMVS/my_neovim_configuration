@@ -641,7 +641,7 @@ require("which-key").add({
 		remap = false,
 	},
 	{
-		"<space>dd",
+		"<space>du",
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('down 1')")
@@ -649,7 +649,7 @@ require("which-key").add({
 				require("dap").down()
 			end
 		end,
-		desc = "Go down in current stacktrace without stepping",
+		desc = "Go up in current stacktrace without stepping",
 		nowait = true,
 		remap = false,
 	},
@@ -792,7 +792,7 @@ require("which-key").add({
 	},
 	{ "<space>dt", "<cmd>call TermDebugSendCommand('bt')<CR>", desc = "GDB: Bracktrace", nowait = true, remap = false },
 	{
-		"<space>du",
+		"<space>dd",
 		function()
 			if vim.g.termdebug_running then
 				vim.cmd("call TermDebugSendCommand('up 1')")
@@ -800,7 +800,7 @@ require("which-key").add({
 				require("dap").up()
 			end
 		end,
-		desc = "Go up in current stacktrace without stepping",
+		desc = "Go down in current stacktrace without stepping",
 		nowait = true,
 		remap = false,
 	},
@@ -1342,6 +1342,45 @@ require("which-key").add({
 				end
 			end,
 			desc = "Break and Continue/Start DAP",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F7>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('up 1')")
+				else
+					require("dap").up()
+				end
+			end,
+			desc = "Go down in current stacktrace without stepping",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<S-F7>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('down 1')")
+				else
+					require("dap").down()
+				end
+			end,
+			desc = "Go up in current stacktrace without stepping",
+			nowait = true,
+			remap = false,
+		},
+		{
+			"<F19>",
+			function()
+				if vim.g.termdebug_running then
+					vim.cmd("call TermDebugSendCommand('down 1')")
+				else
+					require("dap").down()
+				end
+			end,
+			desc = "Go up in current stacktrace without stepping",
 			nowait = true,
 			remap = false,
 		},
