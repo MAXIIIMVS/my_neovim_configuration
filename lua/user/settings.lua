@@ -145,6 +145,13 @@ function sync_statusline_with_tmux()
 	vim.api.nvim_set_hl(0, "StatusLine", { bg = current_background == nil and "NONE" or "bg" })
 	set_tmux_status_color(current_background == nil and "default" or current_background)
 	-- vim.o.fillchars = "eob: "
+	vim.g.show_cursorline = current_background == nil
+	if not vim.g.show_cursorline then
+		vim.o.cursorlineopt = "number,line"
+	else
+		vim.o.cursorlineopt = "number"
+	end
+	vim.wo.colorcolumn = current_background ~= nil and "80" or ""
 end
 
 function git_next()

@@ -1012,7 +1012,7 @@ require("which-key").add({
 	{
 		"<space>tc",
 		function()
-			vim.wo.colorcolumn = vim.wo.colorcolumn == "" and "79" or ""
+			vim.wo.colorcolumn = vim.wo.colorcolumn == "" and "80" or ""
 		end,
 		desc = "Color column",
 		nowait = true,
@@ -1149,15 +1149,6 @@ require("which-key").add({
 	{ "<space>wS", "<cmd>windo set scrollbind!<CR>", desc = "Unset scrollbind", nowait = true, remap = false },
 	{ "<space>ws", "<cmd>windo set scrollbind<CR>", desc = "Set scrollbind", nowait = true, remap = false },
 	{ "<leader>c", "<cmd>silent CatppuccinCompile<CR>", desc = "Recompile Catppuccin", nowait = true, remap = false },
-	{
-		"<leader>f",
-		function()
-			vim.lsp.buf.format({ async = true })
-		end,
-		desc = "Format buffer",
-		nowait = true,
-		remap = false,
-	},
 	{ "<leader>h", group = "Hex", nowait = true, remap = false },
 	{ "<leader>hr", "<cmd>%!xxd<CR> :set filetype=xxd<CR>", desc = "Show", nowait = true, remap = false },
 	{
@@ -1326,6 +1317,18 @@ require("which-key").add({
 		},
 	},
 	{
+		mode = { "n", "t", "v", "s" },
+		{
+			"<leader>f",
+			function()
+				vim.lsp.buf.format({ async = true })
+			end,
+			desc = "Format buffer/range",
+			nowait = true,
+			remap = false,
+		},
+	},
+	{
 		mode = { "i", "n", "t", "v" },
 		{ "<M-S-T>", "<cmd>ToggleTermToggleAll<CR>", desc = "Toggle All terminals", nowait = true, remap = false },
 		{ "<F4>", term_debug, desc = "Start GDB", nowait = true, remap = false },
@@ -1390,6 +1393,7 @@ require("which-key").add({
 				if vim.g.termdebug_running then
 					vim.cmd("call TermDebugSendCommand('c')")
 				else
+					require("dap")
 					vim.cmd.DapContinue()
 				end
 			end,
@@ -1403,6 +1407,7 @@ require("which-key").add({
 				if vim.g.termdebug_running then
 					vim.cmd("Break")
 				else
+					require("dap")
 					vim.cmd.DapToggleBreakpoint()
 				end
 			end,

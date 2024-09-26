@@ -1810,8 +1810,8 @@ return require("lazy").setup({
 				}, bufnr)
 
 				if
-					client.name == "clangd"
-					or client.name == "prismals"
+					-- client.name == "clangd"
+					client.name == "prismals"
 					or client.name == "neocmake"
 					or client.name == "rust_analyzer"
 					or client.name == "eslint_d"
