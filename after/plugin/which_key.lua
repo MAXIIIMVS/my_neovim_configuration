@@ -467,7 +467,7 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "Go to implementation", nowait = true, remap = false },
+	-- { "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "Go to implementation", nowait = true, remap = false },
 	{ "gP", "<cmd>Lspsaga peek_type_definition<CR>", desc = "Peek type definition", nowait = true, remap = false },
 	{ "gp", "<cmd>Lspsaga peek_definition<CR>", desc = "Show the definition", nowait = true, remap = false },
 	{ "gR", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "Show references", nowait = true, remap = false },
@@ -1280,7 +1280,7 @@ require("which-key").add({
 		{
 			",C",
 			function()
-				require("comment-box").lcbox()
+				vim.cmd("silent ! gnome-calculator &")
 			end,
 			desc = "Box comment the line",
 			nowait = true,
