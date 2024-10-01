@@ -198,14 +198,16 @@ require("which-key").add({
 	{ ";H", ":Man ", desc = "Show man pages", nowait = true, remap = false, silent = false },
 	{
 		";h",
-		function()
-			require("telescope.builtin").help_tags(require("telescope.themes").get_dropdown({
-				previewer = false,
-			}))
-		end,
-		desc = "Show help tags",
+		":h ",
+		-- function()
+		-- 	require("telescope.builtin").help_tags(require("telescope.themes").get_dropdown({
+		-- 		previewer = false,
+		-- 	}))
+		-- end,
+		desc = "Help",
 		nowait = true,
 		remap = false,
+		silent = false,
 	},
 	{
 		";l",
@@ -577,7 +579,7 @@ require("which-key").add({
 		"<space>dB",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('delete')")
+				vim.cmd("silent call TermDebugSendCommand('delete')")
 			else
 				require("dap").clear_breakpoints()
 			end
@@ -590,7 +592,7 @@ require("which-key").add({
 		"<space>dC",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Until")
+				vim.cmd("silent Until")
 			else
 				require("dap").run_to_cursor()
 			end
@@ -603,7 +605,7 @@ require("which-key").add({
 		"<space>dN",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('reverse-step')")
+				vim.cmd("silent call TermDebugSendCommand('reverse-step')")
 			else
 				require("dap").step_back()
 			end
@@ -618,7 +620,7 @@ require("which-key").add({
 		"<space>db",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Break")
+				vim.cmd("silent Break")
 			else
 				vim.cmd.DapToggleBreakpoint()
 			end
@@ -631,7 +633,7 @@ require("which-key").add({
 		"<space>dc",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('c')")
+				vim.cmd("silent call TermDebugSendCommand('c')")
 			else
 				vim.cmd.DapContinue()
 			end
@@ -644,7 +646,7 @@ require("which-key").add({
 		"<space>du",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('down 1')")
+				vim.cmd("silent call TermDebugSendCommand('down 1')")
 			else
 				require("dap").down()
 			end
@@ -657,7 +659,7 @@ require("which-key").add({
 		"<space>de",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Evaluate")
+				vim.cmd("silent Evaluate")
 			else
 				require("dapui").eval(nil, { enter = true })
 			end
@@ -670,7 +672,7 @@ require("which-key").add({
 		"<space>df",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Finish")
+				vim.cmd("silent Finish")
 			else
 				vim.cmd.DapStepOut()
 			end
@@ -720,7 +722,7 @@ require("which-key").add({
 		"<space>dl",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('info locals')")
+				vim.cmd("silent call TermDebugSendCommand('info locals')")
 			else
 				require("dap.ui.widgets").sidebar(require("dap.ui.widgets").scopes).open()
 			end
@@ -733,7 +735,7 @@ require("which-key").add({
 		"<space>dn",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Over")
+				vim.cmd("silent Over")
 			else
 				vim.cmd.DapStepOver()
 			end
@@ -755,7 +757,7 @@ require("which-key").add({
 		"<space>dq",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('quit')")
+				vim.cmd("silent call TermDebugSendCommand('quit')")
 			else
 				vim.cmd.DapTerminate()
 			end
@@ -768,7 +770,7 @@ require("which-key").add({
 		"<space>dr",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('start')")
+				vim.cmd("silent call TermDebugSendCommand('start')")
 			else
 				require("dap").restart()
 			end
@@ -781,7 +783,7 @@ require("which-key").add({
 		"<space>ds",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("Step")
+				vim.cmd("silent Step")
 			else
 				vim.cmd.DapStepInto()
 			end
@@ -795,7 +797,7 @@ require("which-key").add({
 		"<space>dd",
 		function()
 			if vim.g.termdebug_running then
-				vim.cmd("call TermDebugSendCommand('up 1')")
+				vim.cmd("silent call TermDebugSendCommand('up 1')")
 			else
 				require("dap").up()
 			end
@@ -1050,7 +1052,6 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "<space>tm", "<cmd>RenderMarkdown toggle<CR>", desc = "Render Markdown", nowait = true, remap = false },
 	{ "<space>to", "<cmd>Lspsaga outline<CR>", desc = "Outline", nowait = true, remap = false },
 	{
 		"<space>tq",
@@ -1336,8 +1337,8 @@ require("which-key").add({
 			"<F5>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("Break")
-					vim.cmd("call TermDebugSendCommand('c')")
+					vim.cmd("silent Break")
+					vim.cmd("silent call TermDebugSendCommand('c')")
 				else
 					require("dap").clear_breakpoints()
 					vim.cmd.DapToggleBreakpoint()
@@ -1352,7 +1353,7 @@ require("which-key").add({
 			"<F7>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('up 1')")
+					vim.cmd("silent call TermDebugSendCommand('up 1')")
 				else
 					require("dap").up()
 				end
@@ -1365,7 +1366,7 @@ require("which-key").add({
 			"<S-F7>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('down 1')")
+					vim.cmd("silent call TermDebugSendCommand('down 1')")
 				else
 					require("dap").down()
 				end
@@ -1378,7 +1379,7 @@ require("which-key").add({
 			"<F19>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('down 1')")
+					vim.cmd("silent call TermDebugSendCommand('down 1')")
 				else
 					require("dap").down()
 				end
@@ -1391,7 +1392,7 @@ require("which-key").add({
 			"<F8>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('c')")
+					vim.cmd("silent call TermDebugSendCommand('c')")
 				else
 					require("dap")
 					vim.cmd.DapContinue()
@@ -1405,7 +1406,7 @@ require("which-key").add({
 			"<F9>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("Break")
+					vim.cmd("silent Break")
 				else
 					require("dap")
 					vim.cmd.DapToggleBreakpoint()
@@ -1419,7 +1420,7 @@ require("which-key").add({
 			"<F10>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("Over")
+					vim.cmd("silent Over")
 				else
 					vim.cmd.DapStepOver()
 				end
@@ -1432,7 +1433,7 @@ require("which-key").add({
 			"<F11>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("Step")
+					vim.cmd("silent Step")
 				else
 					vim.cmd.DapStepInto()
 				end
@@ -1445,7 +1446,7 @@ require("which-key").add({
 			"<F12>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("Evaluate")
+					vim.cmd("silent Evaluate")
 				else
 					require("dapui").eval(nil, { enter = true })
 				end
@@ -1458,7 +1459,7 @@ require("which-key").add({
 			"<S-F5>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('quit')")
+					vim.cmd("silent call TermDebugSendCommand('quit')")
 				else
 					vim.cmd.DapTerminate()
 				end
@@ -1471,7 +1472,7 @@ require("which-key").add({
 			"<F17>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('quit')")
+					vim.cmd("silent call TermDebugSendCommand('quit')")
 				else
 					vim.cmd.DapTerminate()
 				end
@@ -1484,7 +1485,7 @@ require("which-key").add({
 			"<S-F11>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("Finish")
+					vim.cmd("silent Finish")
 				else
 					vim.cmd.DapStepOut()
 				end
@@ -1497,7 +1498,7 @@ require("which-key").add({
 			"<F23>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("Finish")
+					vim.cmd("silent Finish")
 				else
 					vim.cmd.DapStepOut()
 				end
@@ -1528,7 +1529,7 @@ require("which-key").add({
 			"<C-F9>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('delete')")
+					vim.cmd("silent call TermDebugSendCommand('delete')")
 				else
 					require("dap").clear_breakpoints()
 				end
@@ -1541,7 +1542,7 @@ require("which-key").add({
 			"<F33>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('delete')")
+					vim.cmd("silent call TermDebugSendCommand('delete')")
 				else
 					require("dap").clear_breakpoints()
 				end
@@ -1554,7 +1555,7 @@ require("which-key").add({
 			"<C-F10>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("Until")
+					vim.cmd("silent Until")
 				else
 					require("dap").run_to_cursor()
 				end
@@ -1567,7 +1568,7 @@ require("which-key").add({
 			"<F34>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("Until")
+					vim.cmd("silent Until")
 				else
 					require("dap").run_to_cursor()
 				end
@@ -1580,7 +1581,7 @@ require("which-key").add({
 			"<C-S-F5>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('start')")
+					vim.cmd("silent call TermDebugSendCommand('start')")
 				else
 					require("dap").restart()
 				end
@@ -1593,7 +1594,7 @@ require("which-key").add({
 			"<F41>",
 			function()
 				if vim.g.termdebug_running then
-					vim.cmd("call TermDebugSendCommand('start')")
+					vim.cmd("silent call TermDebugSendCommand('start')")
 				else
 					require("dap").restart()
 				end

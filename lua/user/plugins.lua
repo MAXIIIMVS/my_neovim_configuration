@@ -56,7 +56,7 @@ return require("lazy").setup({
 					},
 				},
 				sort_by = "insert_at_end",
-				numbers = "ordinal",
+				numbers = "none",
 				separator_style = "thin",
 				diagnostics = "nvim_lsp",
 			},
@@ -606,13 +606,6 @@ return require("lazy").setup({
 			"UndotreeFocus",
 			"UndotreePersistUndo",
 		},
-	},
-	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		opts = {},
-		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-		ft = { "markdown" },
-		cmd = { "RenderMarkdown" },
 	},
 	{
 		"mfussenegger/nvim-dap",
@@ -1810,8 +1803,8 @@ return require("lazy").setup({
 				}, bufnr)
 
 				if
-					-- client.name == "clangd"
-					client.name == "prismals"
+					client.name == "clangd"
+					or client.name == "prismals"
 					or client.name == "neocmake"
 					or client.name == "rust_analyzer"
 					or client.name == "eslint_d"

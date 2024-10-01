@@ -26,6 +26,28 @@ flavors = {
 	"catppuccin-latte",
 }
 
+local function get_normal_bg()
+	local bg = vim.api.nvim_get_hl_by_name("Normal", true)["background"]
+	-- local bg = vim.api.nvim_get_hl_by_name("Normal", true)["background"]
+	return bg
+end
+
+local function toggle_colorcolumn()
+	local win_count = #vim.api.nvim_tabpage_list_wins(0)
+	local bg = get_normal_bg()
+	if win_count == 1 and bg then
+		vim.wo.colorcolumn = "80"
+	else
+		vim.wo.colorcolumn = ""
+	end
+end
+
+vim.api.nvim_create_autocmd({ "WinEnter", "WinLeave" }, {
+	callback = function()
+		toggle_colorcolumn()
+	end,
+})
+
 function toggle_todo()
 	local line = vim.api.nvim_get_current_line()
 	local new_line = line
@@ -56,14 +78,15 @@ function term_debug()
 	-- local current_dir = vim.fn.expand("%:p:h")
 	vim.cmd("packadd termdebug | startinsert | Termdebug")
 	if vim.g.termdebug_wide then
-		vim.cmd("wincmd k | wincmd J | resize 10 | wincmd k | wincmd l | wincmd L")
-		vim.api.nvim_feedkeys(
-			"dashboard -layout variables stack breakpoints  expressions memory registers\n",
-			"n",
-			true
-		)
+		vim.cmd("Asm")
+		vim.cmd("Var")
+		vim.cmd("Gdb")
+		vim.cmd("wincmd x")
+		vim.cmd("Gdb")
+		vim.cmd("resize 25")
+		vim.api.nvim_feedkeys("dashboard -enabled off\n", "n", true)
 	else
-		vim.api.nvim_feedkeys("dashboard -layout variables\n", "n", true)
+		vim.api.nvim_feedkeys("dashboard -enabled off\n", "n", true)
 	end
 	vim.g.termdebug_running = true
 	-- vim.api.nvim_feedkeys("layout asm\nlayout regs\n", "n", true)
