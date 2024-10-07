@@ -35,14 +35,14 @@ end
 local function toggle_colorcolumn()
 	local win_count = #vim.api.nvim_tabpage_list_wins(0)
 	local bg = get_normal_bg()
-	if win_count == 1 and bg then
+	if win_count == 1 and bg and vim.bo.filetype ~= "dashboard" then
 		vim.wo.colorcolumn = "80"
 	else
 		vim.wo.colorcolumn = ""
 	end
 end
 
-vim.api.nvim_create_autocmd({ "WinEnter", "WinLeave" }, {
+vim.api.nvim_create_autocmd({ "WinEnter", "WinLeave", "BufWinEnter", "BufLeave" }, {
 	callback = function()
 		toggle_colorcolumn()
 	end,
@@ -522,6 +522,7 @@ vim.o.smartcase = true -- if you include mixed case in your search, assumes you 
 vim.o.backspace = "start,eol,indent"
 vim.o.path = vim.o.path .. "**" -- or vim.wo.path, IDK
 vim.o.wildignore = vim.o.wildignore .. "*/node_modules/*,tags"
+vim.o.wildignorecase = true
 vim.o.termbidi = true
 
 -- Syntax theme "{{{

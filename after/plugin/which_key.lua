@@ -28,14 +28,7 @@ require("which-key").add({
 	},
 	{ ",D", term_debug, desc = "Debug with GDB", nowait = true, remap = false },
 	{ ",d", "<cmd>silent Dashboard<CR>", desc = "dashboard", nowait = true, remap = false },
-	{
-		",F",
-		"<cmd>Telescope git_files<CR>",
-		desc = "Fuzzy search for files tracked by Git",
-		nowait = true,
-		remap = false,
-	},
-	{ ",f", "<cmd>silent Telescope filetypes<CR>", desc = "Set filetype", nowait = true, remap = false },
+	{ ",f", ":find ", desc = "find a file", nowait = true, remap = false, silent = false },
 	{
 		",g",
 		"<cmd>call OpenLazyGit()<CR>",
@@ -79,74 +72,7 @@ require("which-key").add({
 		silent = true,
 		nowait = true,
 	},
-	{ ",t", group = "tmux", nowait = true, remap = false },
-	{
-		",tF",
-		function()
-			local p = vim.fn.expand("%:p:h")
-			local s = vim.fn.escape(
-				[[ silent !tmux display-popup -w 90% -h 85% -d ]] .. p .. [[ -E "tmux new-session -A -s bash "]],
-				"%"
-			)
-			vim.cmd(s)
-		end,
-		desc = "Floating Bash (tmux)",
-		nowait = true,
-		remap = false,
-	},
-	{
-		",tH",
-		function()
-			local filepath = vim.fn.expand("%:p:h")
-			vim.cmd("silent !tmux split-window -c " .. filepath)
-		end,
-		desc = "Horizontal split normal",
-		nowait = true,
-		remap = false,
-	},
-	{ ",tc", "<cmd>silent !tmux clock-mode<CR>", desc = "Clock", nowait = true, remap = false },
-	{
-		",tf",
-		function()
-			local p = vim.fn.expand("%:p:h")
-			local s = vim.fn.escape("silent !tmux display-popup -w 90% -h 85%  -E -d " .. p, "%")
-			vim.cmd(s)
-		end,
-		desc = "Floating Bash (terminal)",
-		nowait = true,
-		remap = false,
-	},
-	{ ",tg", "<cmd>silent !tmux new-window 'lazygit'<CR>", desc = "LazyGit", nowait = true, remap = false },
-	{
-		",th",
-		function()
-			local filepath = vim.fn.expand("%:p:h")
-			vim.cmd("silent !tmux split-window -c " .. filepath)
-		end,
-		desc = "Horizontal split",
-		nowait = true,
-		remap = false,
-	},
-	{
-		",tt",
-		function()
-			local filepath = vim.fn.expand("%:p:h")
-			vim.cmd("silent !tmux new-window -c " .. filepath)
-		end,
-		desc = "Window",
-		nowait = true,
-		remap = false,
-	},
-	{
-		",tv",
-		function()
-			local filepath = vim.fn.expand("%:p:h")
-			vim.cmd("silent !tmux split-window -h -c " .. filepath)
-		end,
-		desc = "Vertical split",
-		nowait = true,
-		remap = false,
-	},
+	{ ",t", ":tabfind ", desc = "tab find", remap = false, silent = false, nowait = true },
 	{ ",x", "<cmd>BufferLinePickClose<CR>", desc = "Pick a buffer to close", nowait = true, remap = false },
 	{ "-", "<cmd>silent Oil<CR>", desc = "Current directory", nowait = true, remap = false },
 	{ ";", group = "Quick", nowait = true, remap = false },
@@ -191,7 +117,13 @@ require("which-key").add({
 	},
 	{ ";D", "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Show line diagnostics", nowait = true, remap = false },
 	{ ";d", "<cmd>silent Telescope diagnostics<CR>", desc = "List diagnostics", nowait = true, remap = false },
-	{ ";F", ":find ", desc = "find a file", nowait = true, remap = false, silent = false },
+	{
+		";F",
+		"<cmd>Telescope git_files<CR>",
+		desc = "Fuzzy search for files tracked by Git",
+		nowait = true,
+		remap = false,
+	},
 	{ ";f", "<cmd>Telescope find_files<CR>", desc = "Find files", nowait = true, remap = false },
 	{ ";G", "<cmd>Telescope grep_string<CR>", desc = "Grep string under the cursor", nowait = true, remap = false },
 	{ ";g", "<cmd>Telescope live_grep<CR>", desc = "Live grep", nowait = true, remap = false },
@@ -492,6 +424,15 @@ require("which-key").add({
 		remap = false,
 	},
 	{ "<space>", group = "Groups", nowait = true, remap = false },
+	{ "<space>1", "<cmd>tabn 1<CR>", desc = "Go to 1st tab", nowait = true, remap = false },
+	{ "<space>2", "<cmd>tabn 2<CR>", desc = "Go to 2nd tab", nowait = true, remap = false },
+	{ "<space>3", "<cmd>tabn 3<CR>", desc = "Go to 3rd tab", nowait = true, remap = false },
+	{ "<space>4", "<cmd>tabn 4<CR>", desc = "Go to 4th tab", nowait = true, remap = false },
+	{ "<space>5", "<cmd>tabn 5<CR>", desc = "Go to 5th tab", nowait = true, remap = false },
+	{ "<space>6", "<cmd>tabn 6<CR>", desc = "Go to 6th tab", nowait = true, remap = false },
+	{ "<space>7", "<cmd>tabn 7<CR>", desc = "Go to 7th tab", nowait = true, remap = false },
+	{ "<space>8", "<cmd>tabn 8<CR>", desc = "Go to 8th tab", nowait = true, remap = false },
+	{ "<space>9", "<cmd>tabn 9<CR>", desc = "Go to 9th tab", nowait = true, remap = false },
 	{
 		"<space><space>",
 		function()

@@ -336,6 +336,16 @@ return require("lazy").setup({
 				}
 			end
 
+			local function disable_for_specific_commands()
+				local cmd_type = vim.fn.getcmdtype() -- Get command type (e.g., ':')
+				local cmd_line = vim.fn.getcmdline() -- Get the current command being typed (e.g., 'find')
+				if cmd_type == ":" and (vim.startswith(cmd_line, "find") or vim.startswith(cmd_line, "tabfind")) then
+					return true -- Disable completion
+				else
+					return false -- Enable completion for other commands
+				end
+			end
+
 			require("cmp.utils.window").info_ = require("cmp.utils.window").info
 			require("cmp.utils.window").info = function(self)
 				local info = self:info_()
@@ -359,6 +369,9 @@ return require("lazy").setup({
 				}, {
 					{ name = "cmdline" },
 				}),
+				enabled = function()
+					return not disable_for_specific_commands()
+				end,
 			})
 
 			require("cmp").setup({
