@@ -477,6 +477,18 @@ return require("lazy").setup({
 			-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 		end,
 	},
+	{
+		"j-hui/fidget.nvim",
+		event = "LspAttach",
+		opts = {
+			notification = {
+				window = {
+					winblend = 0,
+					-- border = "rounded",
+				},
+			},
+		},
+	},
 	{ "jghauser/follow-md-links.nvim", ft = { "markdown" } },
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{
@@ -970,7 +982,7 @@ return require("lazy").setup({
 					},
 				},
 				footer = {
-					"👑 " .. "Today is the youngest you'll ever be." .. " 👑",
+					"👑 " .. "Dear Me in 6 months, I'm going to make you so damn proud." .. " 👑",
 				},
 			},
 		},
