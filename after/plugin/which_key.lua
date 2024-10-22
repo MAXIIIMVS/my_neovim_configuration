@@ -117,6 +117,7 @@ require("which-key").add({
 	},
 	{ ";D", "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Show line diagnostics", nowait = true, remap = false },
 	{ ";d", "<cmd>silent Telescope diagnostics<CR>", desc = "List diagnostics", nowait = true, remap = false },
+	{ ";e", ":e ", desc = "Edit file", nowait = true, remap = false, silent = false },
 	{
 		";F",
 		"<cmd>Telescope git_files<CR>",
@@ -258,6 +259,8 @@ require("which-key").add({
 		remap = false,
 	},
 	{ "K", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover info", nowait = true, remap = false },
+	{ "H", "<cmd>bp<CR>", desc = "Previous Buffer", nowait = true, remap = false },
+	{ "L", "<cmd>bn<CR>", desc = "Next Buffer", nowait = true, remap = false },
 	{ "]<space>", "o<ESC>k", desc = "Insert a blank line below", nowait = true, remap = false },
 	{ "[<space>", "O<ESC>j", desc = "Insert a blank line above", nowait = true, remap = false },
 	{
@@ -352,10 +355,6 @@ require("which-key").add({
 	{ "[h", "<cmd>silent Gitsigns prev_hunk<CR>", desc = "Jump to the previous hunk", nowait = true, remap = false },
 	{ "]p", "<cmd>pu<CR>", desc = "Paste below current line", nowait = true, remap = false },
 	{ "[p", "<cmd>pu!<CR>", desc = "Paste above current line", nowait = true, remap = false },
-	{ "]Q", "<cmd>silent clast<CR>", desc = "See the last item in QuickFix", nowait = true, remap = false },
-	{ "]q", "<cmd>silent cnext<CR>", desc = "Show the next item in QuickFix", nowait = true, remap = false },
-	{ "[Q", "<cmd>silent cfirst<CR>", desc = "See the first item in QuickFix", nowait = true, remap = false },
-	{ "[q", "<cmd>silent cprev<CR>", desc = "Show the previous item in QuickFix", nowait = true, remap = false },
 	{
 		"]t",
 		function()

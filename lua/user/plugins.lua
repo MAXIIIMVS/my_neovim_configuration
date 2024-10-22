@@ -23,6 +23,7 @@ return require("lazy").setup({
 		end,
 		event = "UIEnter",
 	},
+	{ "arthurxavierx/vim-unicoder", event = "InsertEnter" },
 	{
 		"akinsho/bufferline.nvim",
 		event = "UIEnter",
@@ -179,7 +180,6 @@ return require("lazy").setup({
 		opts = {
 			conflict = { suffix = "", options = {} },
 			diagnostic = { suffix = "", options = {} },
-			quickfix = { suffix = "", options = {} },
 			treesitter = { suffix = "n", options = {} },
 		},
 		init = function()
