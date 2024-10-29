@@ -12,7 +12,6 @@ silent! nnoremap <buffer> <nowait> ;; :silent q<CR><silent>
 silent! nnoremap <buffer> <nowait> ;n :silent q<CR><silent>
 setl bufhidden=wipe
 
-nmap <buffer> L <NOP>
 nmap <buffer> <c-p> p
 nmap <buffer> <c-v> v
 nmap <buffer> <C-t> t

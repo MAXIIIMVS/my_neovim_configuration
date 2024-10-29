@@ -50,7 +50,7 @@ require("which-key").add({
 	},
 	{
 		",S",
-		":%s/<c-r><C-w>/<C-r><C-w>/gi<left><left><left>",
+		":%s/<c-r><C-w>//gi<left><left><left>",
 		desc = "Substitute the word in the whole file (ignore case)",
 		nowait = true,
 		remap = false,
@@ -58,7 +58,7 @@ require("which-key").add({
 	},
 	{
 		",s",
-		":s/<C-r><C-w>/<C-r><C-w>/gi<left><left><left>",
+		":s/<C-r><C-w>//gi<left><left><left>",
 		desc = "Substitute the word in this line (ignore case)",
 		nowait = true,
 		remap = false,
@@ -177,7 +177,7 @@ require("which-key").add({
 	},
 	{
 		";S",
-		":%S/<C-r><C-w>/<C-r><C-w>/g<Left><left>",
+		":%S/<C-r><C-w>//g<Left><left>",
 		desc = "Change the word under the cursor in the whole file",
 		nowait = true,
 		remap = false,
@@ -185,7 +185,7 @@ require("which-key").add({
 	},
 	{
 		";s",
-		":S/<C-r><C-w>/<C-r><C-w>/g<Left><left>",
+		":S/<C-r><C-w>//g<Left><left>",
 		desc = "Change the word under the cursor in the line",
 		nowait = true,
 		remap = false,
@@ -259,8 +259,6 @@ require("which-key").add({
 		remap = false,
 	},
 	{ "K", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover info", nowait = true, remap = false },
-	{ "H", "<cmd>bp<CR>", desc = "Previous Buffer", nowait = true, remap = false },
-	{ "L", "<cmd>bn<CR>", desc = "Next Buffer", nowait = true, remap = false },
 	{ "]<space>", "o<ESC>k", desc = "Insert a blank line below", nowait = true, remap = false },
 	{ "[<space>", "O<ESC>j", desc = "Insert a blank line above", nowait = true, remap = false },
 	{
