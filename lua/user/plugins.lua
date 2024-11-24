@@ -13,6 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 return require("lazy").setup({
+	-- A
 	{
 		"airblade/vim-rooter",
 		init = function()
@@ -89,6 +90,8 @@ return require("lazy").setup({
 			"TermExec",
 		},
 	},
+	-- B
+	-- C
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
@@ -170,6 +173,8 @@ return require("lazy").setup({
 			},
 		},
 	},
+	-- D
+	-- E
 	{
 		"echasnovski/mini.bracketed",
 		keys = {
@@ -260,6 +265,7 @@ return require("lazy").setup({
 			})
 		end,
 	},
+	-- F
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -301,9 +307,18 @@ return require("lazy").setup({
 	},
 	{
 		"folke/zen-mode.nvim",
-		opts = { window = { width = 100 } },
+		opts = {
+			window = { width = 100 },
+			on_open = function(win)
+				vim.cmd("normal zt<CR>")
+			end,
+			on_close = function(win)
+				vim.cmd("normal zt<CR>")
+			end,
+		},
 		cmd = { "ZenMode" },
 	},
+	-- G
 	{
 		"ghassan0/telescope-glyph.nvim",
 		dependencies = { "nvim-telescope/telescope.nvim" },
@@ -312,6 +327,7 @@ return require("lazy").setup({
 			require("telescope").load_extension("glyph")
 		end,
 	},
+	-- H
 	{
 		"hrsh7th/nvim-cmp",
 		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
@@ -431,6 +447,10 @@ return require("lazy").setup({
 						end
 					end, { "i", "s" }),
 				}),
+				performance = {
+					debounce = 0,
+					throttle = 0,
+				},
 				sources = {
 					{ name = "calc" },
 					{ name = "nvim_lsp" },
@@ -457,6 +477,7 @@ return require("lazy").setup({
 	{ "hrsh7th/cmp-emoji", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
 	{ "hrsh7th/cmp-nvim-lsp", event = "LspAttach", after = "nvim-cmp" },
 	{ "hrsh7th/cmp-path", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
+	-- I
 	{
 		"itchyny/calendar.vim",
 		cmd = { "Calendar" },
@@ -477,6 +498,7 @@ return require("lazy").setup({
 			-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 		end,
 	},
+	-- J
 	{
 		"j-hui/fidget.nvim",
 		event = "LspAttach",
@@ -499,6 +521,7 @@ return require("lazy").setup({
 			require("telescope").load_extension("zoxide")
 		end,
 	},
+	-- K
 	{
 		"KabbAmine/vCoolor.vim",
 		cmd = {
@@ -553,6 +576,7 @@ return require("lazy").setup({
 			{ "<C-g>S", mode = { "i" } },
 		},
 	},
+	-- L
 	{
 		"L3MON4D3/LuaSnip",
 		dependencies = { "rafamadriz/friendly-snippets" },
@@ -621,6 +645,7 @@ return require("lazy").setup({
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{ "LunarVim/bigfile.nvim", event = "BufReadPre", opts = {} },
+	-- M
 	{
 		"mbbill/undotree",
 		cmd = {
@@ -898,6 +923,7 @@ return require("lazy").setup({
 			}
 		end,
 	},
+	-- N
 	{
 		"neovim/nvim-lspconfig",
 		after = "mason-lspconfig.nvim",
@@ -1602,12 +1628,16 @@ return require("lazy").setup({
 			},
 		},
 	},
+	-- O
 	{
 		"onsails/lspkind.nvim",
 		lazy = true,
 		event = "LspAttach",
 		-- dependencies = { "hrsh7th/nvim-cmp" },
 	},
+	-- P
+	-- Q
+	-- R
 	{ "rafamadriz/friendly-snippets", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
 	{ "ray-x/lsp_signature.nvim", event = "LspAttach" },
 	{
@@ -1717,6 +1747,7 @@ return require("lazy").setup({
 		},
 	},
 	{ "romainl/vim-cool", event = { "CmdlineEnter" }, keys = { "#", "*" } },
+	-- S
 	{
 		"saadparwaiz1/cmp_luasnip",
 		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
@@ -1737,6 +1768,7 @@ return require("lazy").setup({
 			},
 		},
 	},
+	-- T
 	{
 		"theHamsta/nvim-dap-virtual-text",
 		dependencies = { "mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter" },
@@ -1788,6 +1820,9 @@ return require("lazy").setup({
 	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
 	{ "tpope/vim-obsession", cmd = { "Obsession" } },
 	{ "tpope/vim-speeddating", keys = { { "<c-a>", mode = { "n", "v" } }, { "<c-x>", mode = { "n", "v" } } } },
+	-- U
+	-- V
+	-- W
 	{
 		"williamboman/mason.nvim",
 		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate", "MasonUninstallAll" },

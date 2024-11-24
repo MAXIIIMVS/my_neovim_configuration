@@ -1,4 +1,6 @@
 require("which-key").add({
+	{ "<Tab>", "<cmd>bn<CR>", desc = "Buffer forward", nowait = true, remap = false },
+	{ "<S-Tab>", "<cmd>bp<CR>", desc = "Buffer backward", nowait = true, remap = false },
 	{ ",", group = "Miscellaneous", nowait = true, remap = false },
 	{
 		",,",
@@ -958,6 +960,7 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{ "<space>tD", "<cmd>dig!<CR>", desc = "Digraphs", nowait = true, remap = false },
 	{ "<space>td", "<cmd>silent DBUIToggle<CR>", desc = "DB UI", nowait = true, remap = false },
 	{
 		"<space>tg",
@@ -1116,7 +1119,7 @@ require("which-key").add({
 	},
 	{
 		mode = { "i" },
-		{ "<C-k>", "<C-o>C", desc = "Delete to the end of the line", nowait = true, remap = false },
+		-- { "<C-k>", "<C-o>C", desc = "Delete to the end of the line", nowait = true, remap = false },
 		{ "<C-l>", "<ESC><S-^>dd", desc = "Change the whole line", nowait = true, remap = false },
 		{ "<C-s>", "<ESC><ESC><cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false },
 		{ "<C-x>", group = "Insert expand", nowait = true, remap = false },
