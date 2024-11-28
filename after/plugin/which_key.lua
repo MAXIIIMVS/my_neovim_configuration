@@ -29,6 +29,16 @@ require("which-key").add({
 		nowait = true,
 	},
 	{ ",D", term_debug, desc = "Debug with GDB", nowait = true, remap = false },
+	{
+		",D",
+		function()
+			local word = vim.fn.expand("<cword>")
+			vim.cmd("terminal dict " .. word)
+		end,
+		desc = "Dictionary",
+		nowait = true,
+		remap = false,
+	},
 	{ ",d", "<cmd>silent Dashboard<CR>", desc = "dashboard", nowait = true, remap = false },
 	{ ",f", ":find ", desc = "find a file", nowait = true, remap = false, silent = false },
 	{
@@ -237,7 +247,6 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ ";y", "<cmd>silent lua require('tfm').open()<CR>", desc = "Yazi", nowait = true, remap = false },
 	{ ";z", "<cmd>ZenMode<CR>", desc = "Toggle Zen Mode", nowait = true, remap = false },
 	{ ";Z", "<C-w>|<C-w>_", desc = "Maximize the window", nowait = true, remap = false },
 	{ "<C-s>", "<cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false },
@@ -787,22 +796,13 @@ require("which-key").add({
 		remap = false,
 	},
 	{
-		"<space>gL",
-		function()
-			if vim.fn.winwidth(0) > 85 then
-				vim.cmd("silent vertical G log --decorate --graph | set filetype=git")
-			else
-				vim.cmd("silent G log --decorate --graph | set filetype=git")
-			end
-		end,
-		desc = "Log",
-		nowait = true,
-		remap = false,
-	},
-	{
 		"<space>gl",
 		function()
-			vim.cmd("silent Flog")
+			if vim.fn.winwidth(0) > 85 then
+				vim.cmd("silent vertical G log --decorate --graph --abbrev-commit | set filetype=git")
+			else
+				vim.cmd("silent G log --decorate --graph --abbrev-commit | set filetype=git")
+			end
 		end,
 		desc = "Log",
 		nowait = true,
@@ -1155,6 +1155,7 @@ require("which-key").add({
 	{
 		mode = { "v" },
 		{ ";", group = "Quick", nowait = true, remap = false },
+		{ ";q", "<cmd>q<CR>", desc = "quit", nowait = true, remap = false },
 		{
 			";S",
 			'y:%S/<C-r>"/<C-r>"/g<LEFT><LEFT>',
@@ -1178,7 +1179,6 @@ require("which-key").add({
 			nowait = true,
 			remap = false,
 		},
-		{ ";q", "<cmd>q<CR>", desc = "quit", nowait = true, remap = false },
 		{
 			";x",
 			"<cmd>ToggleTermSendVisualLines<CR>",

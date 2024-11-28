@@ -319,14 +319,6 @@ return require("lazy").setup({
 		cmd = { "ZenMode" },
 	},
 	-- G
-	{
-		"ghassan0/telescope-glyph.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim" },
-		cmd = { "Telescope glyph" },
-		config = function()
-			require("telescope").load_extension("glyph")
-		end,
-	},
 	-- H
 	{
 		"hrsh7th/nvim-cmp",
@@ -1412,15 +1404,9 @@ return require("lazy").setup({
 					}, -- mappings
 				},
 				extensions = {
-					glyph = {
-						action = function(glyph)
-							vim.fn.setreg("*", glyph.value)
-							vim.api.nvim_put({ glyph.value }, "c", false, true)
-						end,
-					},
 					zoxide = { prompt_title = "Projects" },
 				},
-				extensions_list = { "fzf", "glyph", "zoxide" },
+				extensions_list = { "fzf", "zoxide" },
 			})
 		end,
 	},
@@ -1613,6 +1599,7 @@ return require("lazy").setup({
 	{
 		"NvChad/nvim-colorizer.lua",
 		ft = { "css", "html", "htmx", "scss", "javascriptreact", "typescriptreact" },
+		cmd = "ColorizerToggle",
 		opts = {
 			filetypes = { "*", "!toggleterm" },
 			user_default_options = {
@@ -1640,34 +1627,6 @@ return require("lazy").setup({
 	-- R
 	{ "rafamadriz/friendly-snippets", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
 	{ "ray-x/lsp_signature.nvim", event = "LspAttach" },
-	{
-		"rbong/vim-buffest",
-		cmd = {
-			"Regsplit",
-			"Regvsplit",
-			"Regtabedit",
-			"Regedit",
-			"Regpedit",
-			"Loclistsplit",
-			"Loclistvsplit",
-			"Loclisttabedit",
-			"Loclistedit",
-			"Qflistsplit",
-			"Qflistvsplit",
-			"Qflisttabedit",
-			"Qflistedit",
-		},
-		keys = { "c@", "c\\" },
-	},
-	{
-		"rbong/vim-flog",
-		lazy = true,
-		cmd = { "Flog", "Flogsplit", "Floggit" },
-		dependencies = { "tpope/vim-fugitive" },
-		init = function()
-			vim.g.flog_default_opts = { ["max_count"] = 1000000 }
-		end,
-	},
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
@@ -1732,19 +1691,6 @@ return require("lazy").setup({
 			vim.g.clever_f_smart_case = true
 			vim.g.clever_f_mark_char_color = 0
 		end,
-	},
-	{
-		"rolv-apneseth/tfm.nvim",
-		lazy = true,
-		opts = {
-			enable_cmds = true,
-			keybindings = {
-				["<ESC>"] = "q",
-				["<C-v>"] = "<C-\\><C-o> <cmd>lua require('tfm').set_next_open_mode(require('tfm').OPEN_MODE.vsplit)<CR>|<CR>",
-				["<C-s>"] = "<C-\\><C-o> <cmd>lua require('tfm').set_next_open_mode(require('tfm').OPEN_MODE.split)<CR>|<CR>",
-				["<C-t>"] = "<C-\\><C-o> <cmd>lua require('tfm').set_next_open_mode(require('tfm').OPEN_MODE.tabedit)<CR>|<CR>",
-			},
-		},
 	},
 	{ "romainl/vim-cool", event = { "CmdlineEnter" }, keys = { "#", "*" } },
 	-- S
@@ -2034,18 +1980,6 @@ return require("lazy").setup({
 		end,
 	},
 	{ "windwp/nvim-ts-autotag", event = { "InsertEnter" } },
-	{
-		"windwp/nvim-autopairs",
-		opts = { check_ts = true },
-		config = function()
-			require("cmp").event:on(
-				"confirm_done",
-				require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } })
-			)
-			require("nvim-autopairs").setup()
-		end,
-		event = { "BufReadPre", "BufNewFile" },
-	},
 }, {
 	ui = {
 		border = "rounded",
