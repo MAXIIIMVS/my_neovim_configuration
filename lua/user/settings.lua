@@ -158,7 +158,7 @@ function sync_statusline_with_tmux()
 	else
 		vim.o.cursorlineopt = "number"
 	end
-	vim.wo.colorcolumn = current_background ~= nil and "80" or ""
+	-- vim.wo.colorcolumn = current_background ~= nil and "80" or ""
 end
 
 function git_next()

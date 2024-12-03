@@ -1,4 +1,5 @@
 require("which-key").add({
+	{ "<Nop>", "<Plug>VimwikiRemoveHeaderLevel", desc = "disabled", nowait = true, remap = false },
 	{ "<Tab>", "<cmd>bn<CR>", desc = "Buffer forward", nowait = true, remap = false },
 	{ "<S-Tab>", "<cmd>bp<CR>", desc = "Buffer backward", nowait = true, remap = false },
 	{ ",", group = "Miscellaneous", nowait = true, remap = false },
@@ -1110,6 +1111,15 @@ require("which-key").add({
 	},
 	{ "<leader>s", "<cmd>silent so %<CR>", desc = "Source the file", nowait = true, remap = false },
 	{ "<leader>t", "<cmd>tabnew<CR>", desc = "Create an empty tab", nowait = true, remap = false },
+
+	{ "<leader>w", group = "VimWiki", nowait = true, remap = false },
+	{
+		"<leader>wl",
+		"<cmd>VimwikiTOC<CR>",
+		desc = "Create or update the Table of Contents for the current wiki file",
+		nowait = true,
+		remap = false,
+	},
 	{
 		"<leader>x",
 		"<cmd>silent !chmod u+x %<CR>",

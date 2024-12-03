@@ -487,6 +487,7 @@ return require("lazy").setup({
 			vim.g.calendar_skip_task_clear_completed_confirm = true
 			vim.g.calendar_task_width = 45
 			vim.g.calendar_task_delete = true
+			vim.g.calendar_task_delete = true
 			-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 		end,
 	},
@@ -636,6 +637,10 @@ return require("lazy").setup({
 		},
 		event = { "BufReadPost", "BufNewFile" },
 	},
+	-- { "lukas-reineke/virt-column.nvim", opts = {}, event = {
+	-- 	"BufReadPost",
+	-- 	"BufNewFile",
+	-- } },
 	{ "LunarVim/bigfile.nvim", event = "BufReadPre", opts = {} },
 	-- M
 	{
@@ -971,7 +976,8 @@ return require("lazy").setup({
 					{
 						icon = "📓 ",
 						desc = "Open Wiki",
-						action = "e ~/notes/wiki/index.md",
+						action = "VimwikiIndex",
+						-- action = "e ~/notes/wiki/index.md",
 						key = "w",
 					},
 					{
@@ -1555,6 +1561,7 @@ return require("lazy").setup({
 							"yaml",
 							"markdown",
 							"markdown.mdx",
+							"vimwiki",
 							"graphql",
 							"template",
 							"handlebars",
@@ -1601,7 +1608,7 @@ return require("lazy").setup({
 		ft = { "css", "html", "htmx", "scss", "javascriptreact", "typescriptreact" },
 		cmd = "ColorizerToggle",
 		opts = {
-			filetypes = { "*", "!toggleterm" },
+			filetypes = { "*", "!toggleterm", "!vimwiki" },
 			user_default_options = {
 				AARRGGBB = true,
 				RRGGBBAA = true,
@@ -1768,6 +1775,32 @@ return require("lazy").setup({
 	{ "tpope/vim-speeddating", keys = { { "<c-a>", mode = { "n", "v" } }, { "<c-x>", mode = { "n", "v" } } } },
 	-- U
 	-- V
+	{
+		"vimwiki/vimwiki",
+		cmd = {
+			"VimwikiIndex",
+			"VimwikiVar",
+			"VimwikiTabIndex",
+			"VimwikiUISelect",
+			"VimwikiDiaryIndex",
+			"VimwikiShowVersion",
+			"VimwikiMakeDiaryNote",
+			"VimwikiTabMakeDiaryNote",
+			"VimwikiDiaryGenerateLinks",
+			"VimwikiMakeTomorrowDiaryNote",
+			"VimwikiMakeYesterdayDiaryNote",
+		},
+		keys = { "<leader>w" },
+		ft = { "vimwiki", "vimwiki_markdown_custom" },
+		init = function()
+			vim.treesitter.language.register("markdown", "vimwiki")
+			vim.g.vimwiki_listsyms = "    x"
+			vim.g.vimwiki_markdown_link_ext = 1
+			vim.g.vimwiki_global_ext = 0
+			vim.g.vimwiki_list = { { path = "~/notes/wiki/", syntax = "markdown", ext = ".md", auto_diary_index = 1 } }
+			vim.g.vimwiki_ext2syntax = { [".md"] = "markdown", [".mkd"] = "markdown", [".wiki"] = "media" }
+		end,
+	},
 	-- W
 	{
 		"williamboman/mason.nvim",
