@@ -31,6 +31,7 @@ return require("lazy").setup({
 		dependencies = "nvim-tree/nvim-web-devicons",
 		opts = {
 			options = {
+				themable = true,
 				offsets = {
 					{
 						filetype = "NvimTree",
@@ -159,6 +160,7 @@ return require("lazy").setup({
 					enabled = true,
 					indentscope_color = "lavender",
 				},
+				vimwiki = true,
 			},
 		},
 	},
@@ -578,6 +580,7 @@ return require("lazy").setup({
 		build = "make install_jsregexp",
 		config = function()
 			require("luasnip.loaders.from_vscode").lazy_load()
+			require("luasnip").filetype_extend("vimwiki", { "markdown" })
 		end,
 	},
 	{ "leoluz/nvim-dap-go", config = true, ft = "go" },

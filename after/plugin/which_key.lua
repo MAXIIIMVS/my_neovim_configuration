@@ -768,8 +768,23 @@ require("which-key").add({
 	},
 	{ "<space>g", group = "Git", nowait = true, remap = false },
 	{ "<space>gA", "<cmd>silent G restore --staged %<CR>", desc = "Unstage the file", nowait = true, remap = false },
+	{ "<space>ga", "<cmd>silent G add %<CR>", desc = "Stage the file", nowait = true, remap = false },
 	{ "<space>gB", "<cmd>Gitsigns blame_line<CR>", desc = "Blame on the current line", nowait = true, remap = false },
+	{ "<space>gb", "<cmd>silent G blame<CR>", desc = "Blame on the current file", nowait = true, remap = false },
 	{ "<space>gC", ":silent G checkout ", desc = "Checkout", nowait = true, remap = false, silent = false },
+	{
+		"<space>gc",
+		function()
+			if vim.fn.winwidth(0) > 85 then
+				vim.cmd("silent vertical G commit")
+			else
+				vim.cmd("silent G commit")
+			end
+		end,
+		desc = "Commit",
+		nowait = true,
+		remap = false,
+	},
 	{
 		"<space>gD",
 		function()
@@ -777,6 +792,19 @@ require("which-key").add({
 				vim.cmd("silent Gvdiffsplit! HEAD~")
 			else
 				vim.cmd("silent Gdiffsplit! HEAD~")
+			end
+		end,
+		desc = "Diff with previous commit",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>gd",
+		function()
+			if vim.fn.winwidth(0) > 85 then
+				vim.cmd("silent Gvdiffsplit!")
+			else
+				vim.cmd("silent Gdiffsplit!")
 			end
 		end,
 		desc = "Diff with previous commit",
@@ -823,7 +851,7 @@ require("which-key").add({
 		"<space>g[",
 		function()
 			git_previous()
-			vim.cmd("G log -1 --stat")
+			-- vim.cmd("G log -1 --stat")
 		end,
 		desc = "Checkout previous commit",
 		nowait = true,
@@ -833,43 +861,22 @@ require("which-key").add({
 		"<space>g]",
 		function()
 			git_next()
-			vim.cmd("G log -1 --stat")
+			-- vim.cmd("G log -1 --stat")
 		end,
 		desc = "checkout next commit",
-		nowait = true,
-		remap = false,
-	},
-	{ "<space>ga", "<cmd>silent G add %<CR>", desc = "Stage the file", nowait = true, remap = false },
-	{ "<space>gb", "<cmd>silent G blame<CR>", desc = "Blame on the current file", nowait = true, remap = false },
-	{
-		"<space>gc",
-		function()
-			if vim.fn.winwidth(0) > 85 then
-				vim.cmd("silent vertical G commit")
-			else
-				vim.cmd("silent G commit")
-			end
-		end,
-		desc = "Commit",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"<space>gd",
-		function()
-			if vim.fn.winwidth(0) > 85 then
-				vim.cmd("silent Gvdiffsplit!")
-			else
-				vim.cmd("silent Gdiffsplit!")
-			end
-		end,
-		desc = "Diff with previous commit",
 		nowait = true,
 		remap = false,
 	},
 	{ "<space>gf", "<cmd>silent G fetch<CR>", desc = "Fetch", nowait = true, remap = false },
 	{ "<space>gg", ":Ggrep! -q ", desc = "Grep", nowait = true, remap = false, silent = false },
 	{ "<space>gh", get_git_hash, desc = "copy current git hash to g register", nowait = true, remap = false },
+	{
+		"<space>gN",
+		"<cmd>silent !xdg-open https://github.com/new<CR>",
+		desc = "Create a new Respository",
+		nowait = true,
+		remap = false,
+	},
 	{
 		"<space>gn",
 		"<cmd>silent G! difftool HEAD~1 | cfirst <CR>",
@@ -935,6 +942,9 @@ require("which-key").add({
 				return
 			end
 			vim.cmd('1TermExec cmd="' .. vim.fn.getreg(reg) .. '"')
+			vim.defer_fn(function()
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true), "n", true)
+			end, 50)
 		end,
 		desc = "Run the command in register",
 		silent = false,
