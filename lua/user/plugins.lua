@@ -923,6 +923,17 @@ return require("lazy").setup({
 			}
 		end,
 	},
+	{
+		"mtth/scratch.vim",
+		cmd = { "Scratch", "ScratchInsert" },
+		init = function()
+			vim.g.scratch_persistence_file = ".scratch.vim"
+			vim.g.scratch_no_mappings = true
+			-- vim.g.scratch_top = false
+			-- vim.g.scratch_horizontal = true
+			vim.g.scratch_height = 12
+		end,
+	},
 	-- N
 	{
 		"neovim/nvim-lspconfig",
@@ -971,46 +982,66 @@ return require("lazy").setup({
 				},
 				center = {
 					{
-						icon = "🗓 ",
+						icon = "📆 ",
 						desc = "Calendar",
 						action = "Calendar",
 						key = "c",
 					},
 					{
-						icon = "📓 ",
+						icon = "📚 ",
 						desc = "Open Wiki",
 						action = "VimwikiIndex",
-						-- action = "e ~/notes/wiki/index.md",
 						key = "w",
 					},
 					{
-						icon = "💻 ",
-						desc = "Terminal",
-						action = "ToggleTerm",
-						key = "t",
+						-- icon = "🗂️ ",
+						icon = "💾 ",
+						desc = "Restore Session",
+						action = function()
+							local session_file = vim.fn.getcwd() .. "/Session.vim"
+							if vim.fn.filereadable(session_file) == 1 then
+								vim.cmd("silent! source Session.vim")
+							else
+								vim.notify("No session file found for this project.", vim.log.levels.WARN)
+							end
+						end,
+						key = "s",
 					},
 					{
-						icon = "🚀 ",
+						icon = "⚡ ",
 						desc = "Manage LSP/Formatters/...                    ",
 						action = "Mason",
 						key = "m",
 					},
 					{
-						icon = "🔌 ",
+						icon = "🔧 ",
 						desc = "Extensions",
 						action = "Lazy",
 						key = "x",
 					},
 					{
-						icon = "🚪 ",
+						icon = "🛠️ ",
+						desc = "Neovim Config Files",
+						key = "v",
+						action = function()
+							require("telescope.builtin").find_files({
+								prompt_title = "Neovim Config Files",
+								cwd = "~/.config/nvim",
+								hidden = true,
+							})
+						end,
+					},
+					{
+						icon = "⏻ ",
 						desc = "Quit",
 						action = "q",
 						key = "q",
 					},
 				},
-				footer = {
-					"👑 " .. "Dear Me in 6 months, I'm going to make you so damn proud." .. " 👑",
-				},
+				-- footer = {
+				-- 	"👑 " .. "Dear Me in 6 months, I'm going to make you so damn proud." .. " 👑",
+				-- },
+				packages = { enable = true },
 			},
 		},
 	},
