@@ -61,26 +61,18 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	-- {
-	-- 	",S",
-	-- 	":%s/<c-r><C-w>//gi<left><left><left>",
-	-- 	desc = "Substitute the word in the whole file (ignore case)",
-	-- 	nowait = true,
-	-- 	remap = false,
-	-- 	silent = false,
-	-- },
-	-- {
-	-- 	",s",
-	-- 	":s/<C-r><C-w>//gi<left><left><left>",
-	-- 	desc = "Substitute the word in this line (ignore case)",
-	-- 	nowait = true,
-	-- 	remap = false,
-	-- 	silent = false,
-	-- },
+	{
+		",S",
+		":%s/<c-r><C-w>//gi<left><left><left>",
+		desc = "Substitute the word in the whole file (ignore case)",
+		nowait = true,
+		remap = false,
+		silent = false,
+	},
 	{
 		",s",
-		"<cmd>Scratch<CR>",
-		desc = "Scratch Window",
+		":s/<C-r><C-w>//gi<left><left><left>",
+		desc = "Substitute the word in this line (ignore case)",
 		nowait = true,
 		remap = false,
 		silent = false,
@@ -93,7 +85,15 @@ require("which-key").add({
 		silent = true,
 		nowait = true,
 	},
-	{ ",t", ":tabfind ", desc = "tab find", remap = false, silent = false, nowait = true },
+	-- { ",t", ":tabfind ", desc = "tab find", remap = false, silent = false, nowait = true },
+	{
+		",t",
+		"<cmd>Scratch<CR>",
+		desc = "Todos",
+		nowait = true,
+		remap = false,
+		silent = false,
+	},
 	{ ",x", "<cmd>BufferLinePickClose<CR>", desc = "Pick a buffer to close", nowait = true, remap = false },
 	{ "-", "<cmd>silent Oil<CR>", desc = "Current directory", nowait = true, remap = false },
 	{ ";", group = "Quick", nowait = true, remap = false },
@@ -994,7 +994,16 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "<space>th", "<cmd>TSToggle highlight<CR>", desc = "Treesitter highlight", nowait = true, remap = false },
+	{ "<space>tH", "<cmd>TSToggle highlight<CR>", desc = "Treesitter highlight", nowait = true, remap = false },
+	{
+		"<space>th",
+		function()
+			vim.opt.cmdheight = vim.opt.cmdheight:get() == 0 and 1 or 0
+		end,
+		desc = "cmdheight",
+		nowait = true,
+		remap = false,
+	},
 	{
 		"<space>ti",
 		function()
@@ -1049,9 +1058,9 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "<space>tS", "<cmd>silent Sleuth<CR>", desc = "sleuth", nowait = true, remap = false },
+	-- { "<space>tS", "<cmd>silent Sleuth<CR>", desc = "sleuth", nowait = true, remap = false },
 	{
-		"<space>ts",
+		"<space>tS",
 		function()
 			if vim.o.statusline == "" then
 				require("lualine").hide({ unhide = true })
@@ -1061,6 +1070,15 @@ require("which-key").add({
 			end
 		end,
 		desc = "Statusline/lualine",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>ts",
+		function()
+			vim.wo.spell = not vim.wo.spell
+		end,
+		desc = "Spell",
 		nowait = true,
 		remap = false,
 	},

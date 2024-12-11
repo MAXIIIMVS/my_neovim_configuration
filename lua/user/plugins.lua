@@ -489,7 +489,6 @@ return require("lazy").setup({
 			vim.g.calendar_skip_task_clear_completed_confirm = true
 			vim.g.calendar_task_width = 45
 			vim.g.calendar_task_delete = true
-			vim.g.calendar_task_delete = true
 			-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 		end,
 	},
@@ -581,6 +580,7 @@ return require("lazy").setup({
 		config = function()
 			require("luasnip.loaders.from_vscode").lazy_load()
 			require("luasnip").filetype_extend("vimwiki", { "markdown" })
+			require("luasnip").filetype_extend("scratch", { "markdown" })
 		end,
 	},
 	{ "leoluz/nvim-dap-go", config = true, ft = "go" },
@@ -927,11 +927,12 @@ return require("lazy").setup({
 		"mtth/scratch.vim",
 		cmd = { "Scratch", "ScratchInsert" },
 		init = function()
-			vim.g.scratch_persistence_file = ".scratch.vim"
+			vim.g.scratch_persistence_file = ".todo.vim"
 			vim.g.scratch_no_mappings = true
 			-- vim.g.scratch_top = false
 			-- vim.g.scratch_horizontal = true
 			vim.g.scratch_height = 12
+			-- vim.g.scratch_filetype = "markdown"
 		end,
 	},
 	-- N
