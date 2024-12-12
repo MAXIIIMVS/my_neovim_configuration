@@ -1,7 +1,8 @@
 require("which-key").add({
 	{ "<Nop>", "<Plug>VimwikiRemoveHeaderLevel", desc = "disabled", nowait = true, remap = false },
-	{ "<Tab>", "<cmd>bn<CR>", desc = "Buffer forward", nowait = true, remap = false },
-	{ "<S-Tab>", "<cmd>bp<CR>", desc = "Buffer backward", nowait = true, remap = false },
+	-- NOTE: don't use tab and S-Tab because they mess up with snippets
+	-- { "<Tab>", "<cmd>bn<CR>", desc = "Buffer forward", nowait = true, remap = false },
+	-- { "<S-Tab>", "<cmd>bp<CR>", desc = "Buffer backward", nowait = true, remap = false },
 	{ ",", group = "Miscellaneous", nowait = true, remap = false },
 	{
 		",,",
@@ -1248,6 +1249,10 @@ require("which-key").add({
 	},
 	{
 		mode = { "s" },
+		{ "f", "f", desc = "f", nowait = true, remap = false },
+		{ "F", "F", desc = "F", nowait = true, remap = false },
+		{ "t", "t", desc = "t", nowait = true, remap = false },
+		{ "T", "T", desc = "T", nowait = true, remap = false },
 		{ "<C-a>", "<ESC>I", desc = "Go to the beginning of line", nowait = true, remap = false },
 		{ "<C-e>", "<ESC>A", desc = "Go to the end of line", nowait = true, remap = false },
 		{ "<C-d>", "<Delete>i", desc = "delete selection", nowait = true, remap = false },
