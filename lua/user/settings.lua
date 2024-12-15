@@ -26,6 +26,41 @@ flavors = {
 	"catppuccin-latte",
 }
 
+function open_todo_window()
+	local root = vim.fn["FindRootDirectory"]() -- NOTE: depends on vim-rooter
+	local todo_file = root .. "/.todo.vim"
+	if vim.fn.filereadable(todo_file) == 0 then
+		vim.fn.writefile({}, todo_file) -- Create an empty file
+	end
+	local buf = vim.api.nvim_create_buf(false, true) -- Create a scratch buffer
+	vim.api.nvim_buf_set_option(buf, "filetype", "scratch")
+	local content = vim.fn.readfile(todo_file)
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, content)
+	local width = math.floor(vim.o.columns * 0.8)
+	local height = math.floor(vim.o.lines * 0.8)
+	local row = math.floor((vim.o.lines - height) / 2)
+	local col = math.floor((vim.o.columns - width) / 2)
+	local win = vim.api.nvim_open_win(buf, true, {
+		relative = "editor",
+		width = width,
+		height = height,
+		row = row,
+		col = col,
+		style = "minimal",
+		border = "rounded",
+	})
+	vim.api.nvim_win_set_option(win, "number", true)
+	vim.api.nvim_win_set_option(win, "relativenumber", true)
+	vim.api.nvim_create_autocmd("BufLeave", {
+		buffer = buf,
+		callback = function()
+			local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+			vim.fn.writefile(lines, todo_file)
+			vim.api.nvim_buf_delete(buf, { force = true })
+		end,
+	})
+end
+
 local function get_normal_bg()
 	local bg = vim.api.nvim_get_hl_by_name("Normal", true)["background"]
 	-- local bg = vim.api.nvim_get_hl_by_name("Normal", true)["background"]

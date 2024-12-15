@@ -275,21 +275,13 @@ return require("lazy").setup({
 		event = "BufReadPost",
 		cmd = { "TodoTelescope" },
 		opts = {
-			signs = true,
+			signs = false,
 			highlight = {
 				multiline = false,
 				multiline_context = 0,
 				keyword = "fg",
 				before = "",
 				after = "",
-			},
-			keywords = {
-				FIX = { color = "#FF3E00", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
-				TODO = { color = "#FF1C7B", alt = { "LATER" } },
-				NOTE = { icon = "", color = "#0AF106", alt = { "INFO" } },
-				HACK = { color = "#F0FD00" },
-				WARN = { color = "#FBBF24", alt = { "WARNING", "XXX" } },
-				TEST = { icon = "", color = "#FF004E", alt = { "TESTING", "PASSED", "FAILED" } },
 			},
 		},
 	},
@@ -921,18 +913,6 @@ return require("lazy").setup({
 				["Add Cursor Down"] = "<M-n>",
 				["Add Cursor Up"] = "<M-p>",
 			}
-		end,
-	},
-	{
-		"mtth/scratch.vim",
-		cmd = { "Scratch", "ScratchInsert" },
-		init = function()
-			vim.g.scratch_persistence_file = ".todo.vim"
-			vim.g.scratch_no_mappings = true
-			-- vim.g.scratch_top = false
-			-- vim.g.scratch_horizontal = true
-			vim.g.scratch_height = 12
-			-- vim.g.scratch_filetype = "markdown"
 		end,
 	},
 	-- N

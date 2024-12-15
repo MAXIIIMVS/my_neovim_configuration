@@ -89,7 +89,7 @@ require("which-key").add({
 	-- { ",t", ":tabfind ", desc = "tab find", remap = false, silent = false, nowait = true },
 	{
 		",t",
-		"<cmd>Scratch<CR>",
+		open_todo_window,
 		desc = "Todos",
 		nowait = true,
 		remap = false,
