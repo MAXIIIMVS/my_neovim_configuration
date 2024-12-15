@@ -28,12 +28,12 @@ flavors = {
 
 function open_todo_window()
 	local root = vim.fn["FindRootDirectory"]() -- NOTE: depends on vim-rooter
-	local todo_file = root .. "/.todo.vim"
+	local todo_file = root .. "/.todo.md"
 	if vim.fn.filereadable(todo_file) == 0 then
 		vim.fn.writefile({}, todo_file) -- Create an empty file
 	end
 	local buf = vim.api.nvim_create_buf(false, true) -- Create a scratch buffer
-	vim.api.nvim_buf_set_option(buf, "filetype", "scratch")
+	vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
 	local content = vim.fn.readfile(todo_file)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, content)
 	local width = math.floor(vim.o.columns * 0.8)
@@ -51,6 +51,8 @@ function open_todo_window()
 	})
 	vim.api.nvim_win_set_option(win, "number", true)
 	vim.api.nvim_win_set_option(win, "relativenumber", true)
+	vim.api.nvim_win_set_option(win, "spell", true)
+	vim.api.nvim_buf_set_keymap(buf, "n", "q", "<cmd>q<CR>", { noremap = true, silent = true })
 	vim.api.nvim_create_autocmd("BufLeave", {
 		buffer = buf,
 		callback = function()
