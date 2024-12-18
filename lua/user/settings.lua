@@ -53,6 +53,7 @@ function open_todo_window()
 	vim.api.nvim_win_set_option(win, "relativenumber", true)
 	vim.api.nvim_win_set_option(win, "spell", true)
 	vim.api.nvim_buf_set_keymap(buf, "n", "q", "<cmd>q<CR>", { noremap = true, silent = true })
+	vim.api.nvim_buf_set_keymap(buf, "n", "<C-c>", "<cmd>q<CR>", { noremap = true, silent = true })
 	vim.api.nvim_create_autocmd("BufLeave", {
 		buffer = buf,
 		callback = function()
@@ -602,8 +603,8 @@ vim.g.python3_host_prog = "/usr/bin/python3"
 
 -- vim.o.smarttab = true
 -- b.smartindent = true
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
 -- vim.o.softtabstop = 2
 vim.o.autoindent = true
 vim.bo.autoindent = true

@@ -118,7 +118,7 @@ return require("lazy").setup({
 				end,
 			},
 			integrations = {
-				cmp = true,
+				blink_cmp = true,
 				gitsigns = true,
 				dashboard = true,
 				dap = true,
@@ -313,156 +313,12 @@ return require("lazy").setup({
 		cmd = { "ZenMode" },
 	},
 	-- G
-	-- H
 	{
-		"hrsh7th/nvim-cmp",
-		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
-		config = function()
-			local has_words_before = function()
-				unpack = unpack or table.unpack
-				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				return col ~= 0
-					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-			end
-
-			local function border(hl_name)
-				return {
-					{ "╭", hl_name },
-					{ "─", hl_name },
-					{ "╮", hl_name },
-					{ "│", hl_name },
-					{ "╯", hl_name },
-					{ "─", hl_name },
-					{ "╰", hl_name },
-					{ "│", hl_name },
-				}
-			end
-
-			local function disable_for_specific_commands()
-				local cmd_type = vim.fn.getcmdtype() -- Get command type (e.g., ':')
-				local cmd_line = vim.fn.getcmdline() -- Get the current command being typed (e.g., 'find')
-				if cmd_type == ":" and (vim.startswith(cmd_line, "find") or vim.startswith(cmd_line, "tabfind")) then
-					return true -- Disable completion
-				else
-					return false -- Enable completion for other commands
-				end
-			end
-
-			require("cmp.utils.window").info_ = require("cmp.utils.window").info
-			require("cmp.utils.window").info = function(self)
-				local info = self:info_()
-				info.scrollable = false
-				return info
-			end
-
-			require("cmp").setup.cmdline({ "/", "?" }, {
-				mapping = require("cmp").mapping.preset.cmdline(),
-				sources = {
-					{ name = "buffer" },
-				},
-			})
-
-			-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-			---@diagnostic disable-next-line: missing-fields
-			require("cmp").setup.cmdline(":", {
-				mapping = require("cmp").mapping.preset.cmdline(),
-				sources = require("cmp").config.sources({
-					{ name = "path" },
-				}, {
-					{ name = "cmdline" },
-				}),
-				enabled = function()
-					return not disable_for_specific_commands()
-				end,
-			})
-
-			require("cmp").setup({
-				formatting = {
-					format = require("lspkind").cmp_format({
-						mode = "symbol_text", -- 'text', 'text_symbol', 'symbol_text', 'symbol'
-					}),
-				},
-				preselect = require("cmp").PreselectMode.None,
-				window = {
-					completion = {
-						border = border("CmpBorder"),
-						winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
-						scrolloff = 0,
-						side_padding = 0,
-						col_offset = 0,
-					},
-					documentation = {
-						border = border("CmpDocBorder"),
-						scrolloff = 0,
-						side_padding = 0,
-						col_offset = 0,
-					},
-				},
-				snippet = {
-					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
-					end,
-				},
-				mapping = require("cmp").mapping.preset.insert({
-					["<C-u>"] = require("cmp").mapping.scroll_docs(-4),
-					["<C-d>"] = require("cmp").mapping.scroll_docs(4),
-					["<C-Space>"] = require("cmp").mapping.complete({}),
-					["<C-c>"] = require("cmp").mapping.abort(),
-					["<CR>"] = require("cmp").mapping.confirm({ select = true }),
-					-- ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-					["<Tab>"] = require("cmp").mapping(function(fallback)
-						-- if require("cmp").visible() then
-						-- 	require("cmp").select_next_item()
-						-- elseif require("luasnip").expand_or_jumpable() then
-						if require("luasnip").expand_or_jumpable() then
-							require("luasnip").expand_or_jump()
-						elseif has_words_before() then
-							require("cmp").complete()
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-					["<S-Tab>"] = require("cmp").mapping(function(fallback)
-						-- if require("cmp").visible() then
-						-- 	require("cmp").select_prev_item()
-						-- elseif require("luasnip").jumpable(-1) then
-						if require("luasnip").jumpable(-1) then
-							require("luasnip").jump(-1)
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-				}),
-				performance = {
-					debounce = 0,
-					throttle = 0,
-				},
-				sources = {
-					{ name = "calc" },
-					{ name = "nvim_lsp" },
-					{ name = "vim-dadbod-completion" },
-					{ name = "emoji", option = { insert = false } },
-					{
-						name = "luasnip",
-						entry_filter = function()
-							return not require("cmp.config.context").in_treesitter_capture("string")
-								and not require("cmp.config.context").in_syntax_group("String")
-						end,
-					},
-					{ name = "buffer" },
-					{ name = "path" },
-					-- { name = "nvim_lsp_signature_help" },
-					-- { name = "nvim_lua" },
-				},
-			})
-		end,
+		"ghassan0/telescope-glyph.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim" },
+		cmd = { "Telescope glyph" },
 	},
-	{ "hrsh7th/cmp-buffer", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
-	{ "hrsh7th/cmp-calc", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
-	{ "hrsh7th/cmp-cmdline", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
-	{ "hrsh7th/cmp-emoji", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
-	{ "hrsh7th/cmp-nvim-lsp", event = "LspAttach", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-path", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
+	-- H
 	-- I
 	{
 		"itchyny/calendar.vim",
@@ -563,18 +419,6 @@ return require("lazy").setup({
 		},
 	},
 	-- L
-	{
-		"L3MON4D3/LuaSnip",
-		dependencies = { "rafamadriz/friendly-snippets" },
-		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
-		version = "v2.*",
-		build = "make install_jsregexp",
-		config = function()
-			require("luasnip.loaders.from_vscode").lazy_load()
-			require("luasnip").filetype_extend("vimwiki", { "markdown" })
-			require("luasnip").filetype_extend("scratch", { "markdown" })
-		end,
-	},
 	{ "leoluz/nvim-dap-go", config = true, ft = "go" },
 	{
 		"lervag/vimtex",
@@ -922,11 +766,6 @@ return require("lazy").setup({
 		lazy = true,
 		config = function()
 			require("lspconfig.ui.windows").default_options.border = "rounded"
-			require("lspconfig").util.default_config.capabilities = vim.tbl_deep_extend(
-				"force",
-				require("lspconfig").util.default_config.capabilities,
-				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-			)
 		end,
 	},
 	{
@@ -1425,9 +1264,21 @@ return require("lazy").setup({
 					}, -- mappings
 				},
 				extensions = {
+					emoji = {
+						action = function(emoji)
+							vim.fn.setreg("*", emoji.value)
+							vim.api.nvim_put({ emoji.value }, "c", false, true)
+						end,
+					},
+					glyph = {
+						action = function(glyph)
+							vim.fn.setreg("*", glyph.value)
+							vim.api.nvim_put({ glyph.value }, "c", false, true)
+						end,
+					},
 					zoxide = { prompt_title = "Projects" },
 				},
-				extensions_list = { "fzf", "zoxide" },
+				extensions_list = { "emoji", "fzf", "glyph", "zoxide" },
 			})
 		end,
 	},
@@ -1638,12 +1489,6 @@ return require("lazy").setup({
 		},
 	},
 	-- O
-	{
-		"onsails/lspkind.nvim",
-		lazy = true,
-		event = "LspAttach",
-		-- dependencies = { "hrsh7th/nvim-cmp" },
-	},
 	-- P
 	-- Q
 	-- R
@@ -1717,9 +1562,36 @@ return require("lazy").setup({
 	{ "romainl/vim-cool", event = { "CmdlineEnter" }, keys = { "#", "*" } },
 	-- S
 	{
-		"saadparwaiz1/cmp_luasnip",
-		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
-		after = { "nvim-cmp", "LuaSnip" },
+		"saghen/blink.cmp",
+		event = "InsertEnter",
+		dependencies = { "rafamadriz/friendly-snippets" },
+		version = "v0.*",
+		opts = {
+			accept = {
+				auto_brackets = {
+					enabled = true,
+				},
+			},
+			completion = {
+				menu = {
+					border = "rounded",
+					winhighlight = "Normal:None,FloatBorder:None,CursorLine:BlinkCmpMenuSelection,Search:None",
+				},
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 0,
+					window = { border = "rounded" },
+				},
+			},
+			keymap = {
+				["<CR>"] = { "select_and_accept", "fallback" },
+				["<C-d>"] = { "scroll_documentation_down", "fallback" },
+				["<C-u>"] = { "scroll_documentation_up", "fallback" },
+				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+			},
+		},
+		opts_extend = { "sources.default" },
 	},
 	{
 		"stevearc/oil.nvim",
@@ -1838,196 +1710,172 @@ return require("lazy").setup({
 	{
 		"williamboman/mason-lspconfig.nvim",
 		event = { "BufReadPre", "BufNewFile" },
-		dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
+		dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig", "saghen/blink.cmp" },
 		config = function()
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			local on_attach = function(client, bufnr)
-				-- Enable completion triggered by <c-x><c-o>
-				-- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-				-- if vim.lsp.inlay_hint then
-				-- 	vim.lsp.inlay_hint.enable(true)
-				-- end
-
 				require("lsp_signature").on_attach({
 					hint_enable = false,
 					bind = true,
-					handler_opts = {
-						border = "rounded",
-					},
+					handler_opts = { border = "rounded" },
 				}, bufnr)
 
-				if
-					client.name == "clangd"
-					or client.name == "prismals"
-					or client.name == "neocmake"
-					or client.name == "rust_analyzer"
-					or client.name == "eslint_d"
-					or client.name == "texlab" -- doesn't work
-				then
-					vim.api.nvim_command([[augroup Format]])
-					vim.api.nvim_command([[autocmd! * <buffer>]])
-					vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
-					vim.api.nvim_command([[augroup END]])
+				if client.supports_method("textDocument/formatting") then
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						buffer = bufnr,
+						callback = function()
+							vim.lsp.buf.format({ async = false })
+						end,
+					})
 				end
 			end
-
-			require("mason-lspconfig").setup_handlers({
-				function(server_name) -- default handler (optional)
-					require("lspconfig")[server_name].setup({
-						on_attach = on_attach,
-						capabilities = require("lspconfig").util.default_config.capabilities,
-					})
-				end,
-				-- Next, you can provide targeted overrides for specific servers.
-				["cssls"] = function()
-					require("lspconfig").util.default_config.capabilities.textDocument.completion.completionItem.snippetSupport =
-						true
-					require("lspconfig").cssls.setup({
-						on_attach = on_attach,
-						capabilities = require("lspconfig").util.default_config.capabilities,
-					})
-				end,
-				["emmet_ls"] = function()
-					require("lspconfig").emmet_ls.setup({
-						on_attach = on_attach,
-						capabilities = require("lspconfig").util.default_config.capabilities,
-						filetypes = {
-							"html",
-							"css",
-							"sass",
-							"scss",
-							"less",
-							"vue",
-							"javascriptreact",
-							"typescriptreact",
-							"jsx",
-							"tsx",
-							"htmldjango", -- doesn't work
-							"gohtml",
-							"tmpl.html",
-							"template",
-						},
-					})
-				end,
-				["html"] = function()
-					require("lspconfig").util.default_config.capabilities.textDocument.completion.completionItem.snippetSupport =
-						true
-					require("lspconfig").html.setup({
-						on_attach = on_attach,
-						capabilities = require("lspconfig").util.default_config.capabilities,
-						filetypes = {
-							"html",
-							"handlebars",
-							"htmldjango",
-							"blade",
-							"gohtml",
-							"tmpl.html",
-							"template",
-						},
-					})
-				end,
-				["jsonls"] = function()
-					require("lspconfig").util.default_config.capabilities.textDocument.completion.completionItem.snippetSupport =
-						true
-					require("lspconfig").jsonls.setup({
-						on_attach = on_attach,
-						capabilities = require("lspconfig").util.default_config.capabilities,
-					})
-				end,
-				["ts_ls"] = function()
-					require("lspconfig").ts_ls.setup({
-						on_attach = on_attach,
-						capabilities = require("lspconfig").util.default_config.capabilities,
-						filetypes = {
-							"javascript",
-							"typescript",
-							"javascriptreact",
-							"typescriptreact",
-							"jsx",
-							"tsx",
-						},
-					})
-				end,
-				["rust_analyzer"] = function()
-					require("lspconfig").rust_analyzer.setup({
-						on_attach = on_attach,
-						capabilities = require("lspconfig").util.default_config.capabilities,
-						settings = {
-							["rust-analyzer"] = {
-								assist = {
-									importGranularity = "module",
-									importPrefix = "self",
-								},
-								cargo = {
-									loadOutDirsFromCheck = true,
-								},
-								procMacro = {
-									enable = true,
-								},
-								checkOnSave = {
-									command = "clippy",
-								},
+			local lspconfig = require("lspconfig")
+			local servers = {
+				ts_ls = {
+					on_attach = function(client, bufnr)
+						client.server_capabilities.documentFormattingProvider = false
+						on_attach(client, bufnr)
+					end,
+					capabilities = capabilities,
+					filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "jsx", "tsx" },
+					root_dir = lspconfig.util.root_pattern("tsconfig.json", "jsconfig.json", ".git"),
+				},
+				html = {
+					on_attach = on_attach,
+					capabilities = capabilities,
+					filetypes = { "html", "htmldjango", "gohtml", "tmpl.html", "template" },
+				},
+				emmet_ls = {
+					on_attach = on_attach,
+					capabilities = capabilities,
+					filetypes = {
+						"html",
+						"css",
+						"sass",
+						"scss",
+						"less",
+						"vue",
+						"javascriptreact",
+						"typescriptreact",
+						"jsx",
+						"tsx",
+					},
+					-- init_options = {
+					-- 	html = {
+					-- 		options = {
+					-- 			["bem.enabled"] = true,
+					-- 		},
+					-- 	},
+					-- },
+				},
+				jsonls = {
+					on_attach = on_attach,
+					capabilities = capabilities,
+				},
+				cssls = {
+					on_attach = on_attach,
+					capabilities = capabilities,
+				},
+				rust_analyzer = {
+					on_attach = on_attach,
+					capabilities = capabilities,
+					settings = {
+						["rust-analyzer"] = {
+							assist = {
+								importGranularity = "module",
+								importPrefix = "self",
+							},
+							cargo = {
+								loadOutDirsFromCheck = true,
+							},
+							procMacro = {
+								enable = true,
+							},
+							checkOnSave = {
+								command = "clippy",
 							},
 						},
-					})
-					-- require("rust-tools").setup {}
-				end,
-				["pyright"] = function()
-					require("lspconfig").pyright.setup({
-						on_attach = on_attach,
-						capabilities = require("lspconfig").util.default_config.capabilities,
-						settings = {
-							python = {
-								analysis = {
-									autoSearchPaths = true,
-									diagnosticMode = "workspace",
-									useLibraryCodeForTypes = true,
-								},
+					},
+				},
+				gopls = {
+					on_attach = on_attach,
+					capabilities = capabilities,
+					cmd = { "gopls", "serve" },
+					filetypes = { "go", "gomod", "gowork", "gotmpl" },
+					root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+					settings = {
+						gopls = {
+							templateExtensions = { "tpl", "yaml", "tmpl", "tmpl.html" },
+							experimentalPostfixCompletions = true,
+							gofumpt = true,
+							usePlaceholders = true,
+							analyses = {
+								-- shadow = true,
+								nilness = true,
+								unusedresult = true,
+								unusedparams = true,
+								unusedwrite = true,
+								useany = true,
+								unreachable = true,
+							},
+							hints = {
+								assignVariableTypes = true,
+								compositeLiteralFields = true,
+								compositeLiteralTypes = true,
+								constantValues = true,
+								functionTypeParameters = true,
+								parameterNames = true,
+								rangeVariableTypes = true,
+							},
+							staticcheck = true,
+						},
+					},
+				},
+				pyright = {
+					on_attach = on_attach,
+					capabilities = capabilities,
+					settings = {
+						python = {
+							analysis = {
+								autoSearchPaths = true,
+								diagnosticMode = "workspace",
+								useLibraryCodeForTypes = true,
 							},
 						},
-					})
-				end,
-				["gopls"] = function()
-					require("lspconfig").gopls.setup({
-						on_attach = on_attach,
-						capabilities = require("lspconfig").util.default_config.capabilities,
-						cmd = { "gopls", "serve" },
-						filetypes = { "go", "gomod", "gowork", "gotmpl" },
-						root_dir = require("lspconfig").util.root_pattern("go.work", "go.mod", ".git"),
-						settings = {
-							gopls = {
-								templateExtensions = { "tpl", "yaml", "tmpl", "tmpl.html" },
-								experimentalPostfixCompletions = true,
-								gofumpt = true,
-								usePlaceholders = true,
-								analyses = {
-									shadow = true,
-									nilness = true,
-									unusedresult = true,
-									unusedparams = true,
-									unusedwrite = true,
-									useany = true,
-									unreachable = true,
-								},
-								hints = {
-									assignVariableTypes = true,
-									compositeLiteralFields = true,
-									compositeLiteralTypes = true,
-									constantValues = true,
-									functionTypeParameters = true,
-									parameterNames = true,
-									rangeVariableTypes = true,
-								},
-								staticcheck = true,
-							},
-						},
-					})
-				end,
-			})
+					},
+				},
+				clangd = {
+					on_attach = on_attach,
+					capabilities = capabilities,
+					cmd = { "clangd" },
+					filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+					root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
+				},
+				neocmake = {
+					on_attach = on_attach,
+					capabilities = capabilities,
+					cmd = { "neocmakelsp", "--stdio" },
+					filetypes = { "cmake" },
+					root_dir = lspconfig.util.root_pattern("CMakeLists.txt", ".git"),
+				},
+				texlab = {
+					on_attach = on_attach,
+					capabilities = capabilities,
+				},
+			}
+			for server, config in pairs(servers) do
+				lspconfig[server].setup(config)
+			end
 			require("mason-lspconfig").setup()
 		end,
 	},
 	{ "windwp/nvim-ts-autotag", event = { "InsertEnter" } },
+	-- X
+	{
+		"xiyaowong/telescope-emoji.nvim",
+		cmd = { "Telescope emoji" },
+		dependencies = { "nvim-telescope/telescope.nvim" },
+	},
 }, {
 	ui = {
 		border = "rounded",
