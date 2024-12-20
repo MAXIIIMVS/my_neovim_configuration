@@ -319,6 +319,7 @@ set grepformat=%f:%l:%c:%m
 
 nmap <C-_> gcc
 xmap <C-_> gc
+smap <C-_> <ESC><ESC>gcc
 imap <C-_> <ESC>gcc
 
 autocmd FileType template set filetype=html
@@ -357,12 +358,12 @@ else
   augroup END
 endif
 
-augroup CmdHeight
-    autocmd!
-    autocmd CmdlineEnter * if &cmdheight == 0 | let g:cmdheight_prev = 0 | set cmdheight=1 | endif
-    autocmd CmdlineLeave * if exists('g:cmdheight_prev') && g:cmdheight_prev == 0 | set cmdheight=0 | unlet! g:cmdheight_prev | endif
-augroup END
-
+" augroup CmdHeight
+"     autocmd!
+"     autocmd CmdlineEnter * if &cmdheight == 0 | let g:cmdheight_prev = 0 | set cmdheight=1 | endif
+"     autocmd CmdlineLeave * if exists('g:cmdheight_prev') && g:cmdheight_prev == 0 | set cmdheight=0 | unlet! g:cmdheight_prev | endif
+" augroup END
+"
 " hide tmux
 " autocmd VimEnter,VimLeave * silent !tmux set status
 " autocmd VimLeave * silent !tmux set -g status-style bg=default

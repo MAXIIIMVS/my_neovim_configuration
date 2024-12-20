@@ -116,6 +116,42 @@ require("which-key").add({
 	},
 	{ ";<space>", "<cmd>Telescope<CR>", desc = "Telescope", nowait = true, remap = false },
 	{
+		";a",
+		function()
+			local status, query = pcall(vim.fn.input, "Enter search query: ")
+			if not status then
+				print("Search canceled.")
+				return
+			end
+			if query == "" then
+				print("Search canceled.")
+				return
+			end
+			local encoded_query = query
+				:gsub("([^%w _%-%.~])", function(c)
+					return string.format("%%%02X", string.byte(c))
+				end)
+				:gsub(" ", "+") -- Replace spaces with '+'
+
+			local url = "https://www.google.com/search?q=" .. encoded_query
+			local open_command
+			if vim.fn.has("unix") == 1 then
+				open_command = "xdg-open"
+			elseif vim.fn.has("mac") == 1 then
+				open_command = "open"
+			elseif vim.fn.has("win32") == 1 then
+				open_command = "start"
+			else
+				print("Unsupported OS for opening the browser.")
+				return
+			end
+			vim.fn.system(open_command .. " " .. vim.fn.shellescape(url))
+		end,
+		desc = "Ask Google",
+		nowait = true,
+		remap = false,
+	},
+	{
 		";b",
 		function()
 			require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({
@@ -1221,6 +1257,7 @@ require("which-key").add({
 	},
 	{
 		mode = { "v" },
+		{ "<leader>m", [[ygvs<C-r>=<C-r>"<CR>]], desc = "Math Result", nowait = true, remap = false },
 		{ ";", group = "Quick", nowait = true, remap = false },
 		{ ";q", "<cmd>q<CR>", desc = "quit", nowait = true, remap = false },
 		{

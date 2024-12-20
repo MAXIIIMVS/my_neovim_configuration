@@ -13,7 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 return require("lazy").setup({
-	-- A
+	--A
 	{
 		"airblade/vim-rooter",
 		init = function()
@@ -91,8 +91,8 @@ return require("lazy").setup({
 			"TermExec",
 		},
 	},
-	-- B
-	-- C
+	--B
+	--C
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
@@ -175,8 +175,8 @@ return require("lazy").setup({
 			},
 		},
 	},
-	-- D
-	-- E
+	--D
+	--E
 	{
 		"echasnovski/mini.bracketed",
 		keys = {
@@ -267,7 +267,19 @@ return require("lazy").setup({
 			})
 		end,
 	},
-	-- F
+	--F
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- presets = {
+			-- 	-- lsp_doc_border = true,
+			-- },
+		},
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
+	},
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -312,14 +324,15 @@ return require("lazy").setup({
 		},
 		cmd = { "ZenMode" },
 	},
-	-- G
+	--G
 	{
 		"ghassan0/telescope-glyph.nvim",
 		dependencies = { "nvim-telescope/telescope.nvim" },
 		cmd = { "Telescope glyph" },
 	},
-	-- H
-	-- I
+	-- { "github/copilot.vim" },
+	--H
+	--I
 	{
 		"itchyny/calendar.vim",
 		cmd = { "Calendar" },
@@ -340,19 +353,7 @@ return require("lazy").setup({
 			-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 		end,
 	},
-	-- J
-	{
-		"j-hui/fidget.nvim",
-		event = "LspAttach",
-		opts = {
-			notification = {
-				window = {
-					winblend = 0,
-					-- border = "rounded",
-				},
-			},
-		},
-	},
+	--J
 	{ "jghauser/follow-md-links.nvim", ft = { "markdown" } },
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{
@@ -363,7 +364,7 @@ return require("lazy").setup({
 			require("telescope").load_extension("zoxide")
 		end,
 	},
-	-- K
+	--K
 	{
 		"KabbAmine/vCoolor.vim",
 		cmd = {
@@ -402,6 +403,19 @@ return require("lazy").setup({
 		end,
 	},
 	{
+		"kwakzalver/duckytype.nvim",
+		cmd = "DuckyType",
+		opts = {
+			expected = "english_common",
+			number_of_words = 50,
+			window_config = { border = "rounded" },
+			highlight = {
+				good = "Comment",
+				remaining = "Normal",
+			},
+		},
+	},
+	{
 		"kylechui/nvim-surround",
 		config = true,
 		keys = {
@@ -418,7 +432,7 @@ return require("lazy").setup({
 			{ "<C-g>S", mode = { "i" } },
 		},
 	},
-	-- L
+	--L
 	{ "leoluz/nvim-dap-go", config = true, ft = "go" },
 	{
 		"lervag/vimtex",
@@ -481,7 +495,7 @@ return require("lazy").setup({
 	-- 	"BufNewFile",
 	-- } },
 	{ "LunarVim/bigfile.nvim", event = "BufReadPre", opts = {} },
-	-- M
+	--M
 	{
 		"mbbill/undotree",
 		cmd = {
@@ -759,7 +773,7 @@ return require("lazy").setup({
 			}
 		end,
 	},
-	-- N
+	--N
 	{
 		"neovim/nvim-lspconfig",
 		after = "mason-lspconfig.nvim",
@@ -1488,10 +1502,10 @@ return require("lazy").setup({
 			},
 		},
 	},
-	-- O
-	-- P
-	-- Q
-	-- R
+	--O
+	--P
+	--Q
+	--R
 	{ "rafamadriz/friendly-snippets", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
 	{ "ray-x/lsp_signature.nvim", event = "LspAttach" },
 	{
@@ -1559,8 +1573,8 @@ return require("lazy").setup({
 			vim.g.clever_f_mark_char_color = 0
 		end,
 	},
-	{ "romainl/vim-cool", event = { "CmdlineEnter" }, keys = { "#", "*" } },
-	-- S
+	{ "romainl/vim-cool", event = { "CmdlineEnter" }, keys = { "#", "*", "n", "N" } },
+	--S
 	{
 		"saghen/blink.cmp",
 		event = "InsertEnter",
@@ -1608,7 +1622,7 @@ return require("lazy").setup({
 			},
 		},
 	},
-	-- T
+	--T
 	{
 		"theHamsta/nvim-dap-virtual-text",
 		dependencies = { "mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter" },
@@ -1660,8 +1674,8 @@ return require("lazy").setup({
 	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
 	{ "tpope/vim-obsession", cmd = { "Obsession" } },
 	{ "tpope/vim-speeddating", keys = { { "<c-a>", mode = { "n", "v" } }, { "<c-x>", mode = { "n", "v" } } } },
-	-- U
-	-- V
+	--U
+	--V
 	{
 		"vimwiki/vimwiki",
 		cmd = {
@@ -1688,7 +1702,7 @@ return require("lazy").setup({
 			vim.g.vimwiki_ext2syntax = { [".md"] = "markdown", [".mkd"] = "markdown", [".wiki"] = "media" }
 		end,
 	},
-	-- W
+	--W
 	{
 		"williamboman/mason.nvim",
 		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate", "MasonUninstallAll" },
@@ -1870,7 +1884,7 @@ return require("lazy").setup({
 		end,
 	},
 	{ "windwp/nvim-ts-autotag", event = { "InsertEnter" } },
-	-- X
+	--X
 	{
 		"xiyaowong/telescope-emoji.nvim",
 		cmd = { "Telescope emoji" },
