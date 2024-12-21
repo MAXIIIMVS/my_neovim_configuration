@@ -116,6 +116,27 @@ require("which-key").add({
 	},
 	{ ";<space>", "<cmd>Telescope<CR>", desc = "Telescope", nowait = true, remap = false },
 	{
+		";A",
+		function()
+			local url = "https://www.chatgpt.com/"
+			local open_command
+			if vim.fn.has("unix") == 1 then
+				open_command = "xdg-open"
+			elseif vim.fn.has("mac") == 1 then
+				open_command = "open"
+			elseif vim.fn.has("win32") == 1 then
+				open_command = "start"
+			else
+				print("Unsupported OS for opening the browser.")
+				return
+			end
+			vim.fn.system(open_command .. " " .. vim.fn.shellescape(url))
+		end,
+		desc = "Ask ChatGPT",
+		nowait = true,
+		remap = false,
+	},
+	{
 		";a",
 		function()
 			local status, query = pcall(vim.fn.input, "Enter search query: ")

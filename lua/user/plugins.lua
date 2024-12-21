@@ -269,18 +269,6 @@ return require("lazy").setup({
 	},
 	--F
 	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		opts = {
-			-- presets = {
-			-- 	-- lsp_doc_border = true,
-			-- },
-		},
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-		},
-	},
-	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		lazy = true,
@@ -354,6 +342,18 @@ return require("lazy").setup({
 		end,
 	},
 	--J
+	{
+		"j-hui/fidget.nvim",
+		event = "LspAttach",
+		opts = {
+			notification = {
+				window = {
+					winblend = 0,
+					-- border = "rounded",
+				},
+			},
+		},
+	},
 	{ "jghauser/follow-md-links.nvim", ft = { "markdown" } },
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{
@@ -1581,11 +1581,6 @@ return require("lazy").setup({
 		dependencies = { "rafamadriz/friendly-snippets" },
 		version = "v0.*",
 		opts = {
-			accept = {
-				auto_brackets = {
-					enabled = true,
-				},
-			},
 			completion = {
 				menu = {
 					border = "rounded",
@@ -1597,13 +1592,13 @@ return require("lazy").setup({
 					window = { border = "rounded" },
 				},
 			},
-			keymap = {
-				["<CR>"] = { "select_and_accept", "fallback" },
-				["<C-d>"] = { "scroll_documentation_down", "fallback" },
-				["<C-u>"] = { "scroll_documentation_up", "fallback" },
-				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
-				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
-			},
+			-- keymap = {
+			-- 	["<CR>"] = { "select_and_accept", "fallback" },
+			-- 	["<C-d>"] = { "scroll_documentation_down", "fallback" },
+			-- 	["<C-u>"] = { "scroll_documentation_up", "fallback" },
+			-- 	["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+			-- 	["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+			-- },
 		},
 		opts_extend = { "sources.default" },
 	},
