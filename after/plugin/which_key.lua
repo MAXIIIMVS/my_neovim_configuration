@@ -278,7 +278,7 @@ require("which-key").add({
 	},
 	{ ";T", "<cmd>Telescope tags<CR>", desc = "tags", nowait = true, remap = false },
 	{ ";t", "<cmd>TodoTelescope<CR>", desc = "See notes/todos...", nowait = true, remap = false },
-	{ ";U", "<cmd>e!<CR>", desc = "Toggle Undotree", nowait = true, remap = false },
+	{ ";U", "<cmd>e!<CR>", desc = "Undo all changes to the file", nowait = true, remap = false },
 	{ ";u", vim.cmd.UndotreeToggle, desc = "Toggle Undotree", nowait = true, remap = false },
 	{
 		";w",

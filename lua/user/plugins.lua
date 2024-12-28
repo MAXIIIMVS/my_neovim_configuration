@@ -403,19 +403,6 @@ return require("lazy").setup({
 		end,
 	},
 	{
-		"kwakzalver/duckytype.nvim",
-		cmd = "DuckyType",
-		opts = {
-			expected = "english_common",
-			number_of_words = 50,
-			window_config = { border = "rounded" },
-			highlight = {
-				good = "Comment",
-				remaining = "Normal",
-			},
-		},
-	},
-	{
 		"kylechui/nvim-surround",
 		config = true,
 		keys = {
@@ -1581,8 +1568,12 @@ return require("lazy").setup({
 		dependencies = { "rafamadriz/friendly-snippets" },
 		version = "v0.*",
 		opts = {
+			sources = {
+				cmdline = {},
+			},
 			completion = {
 				menu = {
+					auto_show = false,
 					border = "rounded",
 					winhighlight = "Normal:None,FloatBorder:None,CursorLine:BlinkCmpMenuSelection,Search:None",
 				},
@@ -1592,13 +1583,13 @@ return require("lazy").setup({
 					window = { border = "rounded" },
 				},
 			},
-			-- keymap = {
-			-- 	["<CR>"] = { "select_and_accept", "fallback" },
-			-- 	["<C-d>"] = { "scroll_documentation_down", "fallback" },
-			-- 	["<C-u>"] = { "scroll_documentation_up", "fallback" },
-			-- 	["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
-			-- 	["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
-			-- },
+			keymap = {
+				["<CR>"] = { "select_and_accept", "fallback" },
+				["<C-d>"] = { "scroll_documentation_down", "fallback" },
+				["<C-u>"] = { "scroll_documentation_up", "fallback" },
+				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+			},
 		},
 		opts_extend = { "sources.default" },
 	},
