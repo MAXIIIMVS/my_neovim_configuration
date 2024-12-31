@@ -477,10 +477,6 @@ return require("lazy").setup({
 		},
 		event = { "BufReadPost", "BufNewFile" },
 	},
-	-- { "lukas-reineke/virt-column.nvim", opts = {}, event = {
-	-- 	"BufReadPost",
-	-- 	"BufNewFile",
-	-- } },
 	{ "LunarVim/bigfile.nvim", event = "BufReadPre", opts = {} },
 	--M
 	{
@@ -859,9 +855,9 @@ return require("lazy").setup({
 						key = "q",
 					},
 				},
-				-- footer = {
-				-- 	"👑 " .. "Dear Me in 6 months, I'm going to make you so damn proud." .. " 👑",
-				-- },
+				footer = {
+					"👑 " .. "When You Work, Work Hard. When You’re Done, Be Done" .. " 👑",
+				},
 				packages = { enable = true },
 			},
 		},
