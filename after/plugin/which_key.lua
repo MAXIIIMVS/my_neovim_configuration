@@ -30,12 +30,12 @@ require("which-key").add({
 		silent = true,
 		nowait = true,
 	},
-	{ ",D", term_debug, desc = "Debug with GDB", nowait = true, remap = false },
 	{
 		",D",
 		function()
 			local word = vim.fn.expand("<cword>")
-			vim.cmd("terminal dict " .. word)
+			-- vim.cmd("terminal dict " .. word)
+			vim.cmd("!dict " .. word)
 		end,
 		desc = "Dictionary",
 		nowait = true,
@@ -232,6 +232,9 @@ require("which-key").add({
 		";m",
 		function()
 			vim.cmd('1TermExec cmd="make"')
+			vim.defer_fn(function()
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true), "n", true)
+			end, 50)
 		end,
 		desc = "Make",
 		nowait = true,
@@ -1244,7 +1247,6 @@ require("which-key").add({
 	{
 		mode = { "i" },
 		-- { "<C-k>", "<C-o>C", desc = "Delete to the end of the line", nowait = true, remap = false },
-		{ "<C-l>", "<ESC><S-^>dd", desc = "Change the whole line", nowait = true, remap = false },
 		{ "<C-s>", "<ESC><ESC><cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false },
 		{ "<C-x>", group = "Insert expand", nowait = true, remap = false },
 		{ "<C-x><C-D>", desc = "Complete defined identifiers", nowait = true, remap = false },
@@ -1278,6 +1280,7 @@ require("which-key").add({
 	},
 	{
 		mode = { "v" },
+		{ "<c-t>", ":Tabularize /", desc = "Tabularize", silent = false, nowait = true, remap = false },
 		{ "<leader>m", [[ygvs<C-r>=<C-r>"<CR>]], desc = "Math Result", nowait = true, remap = false },
 		{ ";", group = "Quick", nowait = true, remap = false },
 		{ ";q", "<cmd>q<CR>", desc = "quit", nowait = true, remap = false },

@@ -100,15 +100,14 @@ function term_debug()
 	-- local current_dir = vim.fn.expand("%:p:h")
 	vim.cmd("packadd termdebug | startinsert | Termdebug")
 	if vim.g.termdebug_wide then
-		-- vim.cmd("Asm")
+		vim.cmd("Asm")
 		vim.cmd("Var")
-		vim.cmd("Source")
-		vim.cmd("resize 25")
 		vim.cmd("Gdb")
 		vim.cmd("wincmd x")
 		vim.cmd("Gdb")
 		vim.cmd("resize 25")
-		vim.api.nvim_feedkeys("dashboard -enabled off\n", "n", true)
+		vim.api.nvim_feedkeys("dashboard -enabled on\n", "n", true)
+		vim.api.nvim_feedkeys("dashboard -layout registers\n", "n", true)
 	else
 		vim.api.nvim_feedkeys("dashboard -enabled off\n", "n", true)
 	end

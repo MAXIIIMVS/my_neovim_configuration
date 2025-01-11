@@ -318,6 +318,7 @@ return require("lazy").setup({
 		dependencies = { "nvim-telescope/telescope.nvim" },
 		cmd = { "Telescope glyph" },
 	},
+	{ "godlygeek/tabular", cmd = "Tabularize" },
 	-- { "github/copilot.vim" },
 	--H
 	--I
@@ -1398,7 +1399,7 @@ return require("lazy").setup({
 
 			require("null-ls").setup({
 				sources = {
-					require("null-ls").builtins.formatting.asmfmt,
+					-- require("null-ls").builtins.formatting.asmfmt,
 					-- require("null-ls").builtins.formatting.clang_format.with({
 					-- 	filetypes = { "asm" },
 					-- 	args = { "-style=llvm" },
@@ -1561,10 +1562,37 @@ return require("lazy").setup({
 	{
 		"saghen/blink.cmp",
 		event = "InsertEnter",
-		dependencies = { "rafamadriz/friendly-snippets" },
+		dependencies = {
+			"rafamadriz/friendly-snippets",
+			"moyiz/blink-emoji.nvim",
+		},
 		version = "v0.*",
 		opts = {
 			sources = {
+				default = { "lsp", "path", "snippets", "buffer", "emoji" },
+				providers = {
+					lsp = {
+						name = "LSP",
+						module = "blink.cmp.sources.lsp",
+						score_offset = 98,
+					},
+					snippets = {
+						name = "snippets",
+						module = "blink.cmp.sources.snippets",
+						score_offset = 90,
+					},
+					path = {
+						name = "path",
+						module = "blink.cmp.sources.path",
+						score_offset = 99,
+					},
+					emoji = {
+						module = "blink-emoji",
+						name = "Emoji",
+						score_offset = 15, -- higher means it will be listed upper in the suggestions
+						opts = { insert = true },
+					},
+				},
 				cmdline = {},
 			},
 			completion = {
@@ -1846,6 +1874,17 @@ return require("lazy").setup({
 					cmd = { "clangd" },
 					filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
 					root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
+				},
+				phpactor = {
+					on_attach = on_attach,
+					capabilities = capabilities,
+					cmd = { "phpactor", "language-server" },
+					filetypes = { "php" },
+				},
+				intelephense = {
+					on_attach = on_attach,
+					capabilities = capabilities,
+					filetypes = { "php" },
 				},
 				neocmake = {
 					on_attach = on_attach,
