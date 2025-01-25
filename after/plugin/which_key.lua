@@ -52,7 +52,7 @@ require("which-key").add({
 		nowait = true,
 	},
 	{ ",H", "<cmd>silent Telescope keymaps<CR>", desc = "Keymaps", nowait = true, remap = false },
-	{ ",h", "<cmd>WhichKey<CR>", desc = "Which Key", nowait = true, remap = false },
+	{ ",h", ":Man ", desc = "Show man pages", nowait = true, remap = false, silent = false },
 	{ ",m", "<cmd>messages<CR>", desc = "Messages", nowait = true, remap = false },
 	{ ",q", "<cmd>tabclose<CR>", desc = "Close tab", nowait = true, remap = false },
 	{
@@ -207,7 +207,6 @@ require("which-key").add({
 	{ ";f", "<cmd>Telescope find_files<CR>", desc = "Find files", nowait = true, remap = false },
 	{ ";G", "<cmd>Telescope grep_string<CR>", desc = "Grep string under the cursor", nowait = true, remap = false },
 	{ ";g", "<cmd>Telescope live_grep<CR>", desc = "Live grep", nowait = true, remap = false },
-	{ ";H", ":Man ", desc = "Show man pages", nowait = true, remap = false, silent = false },
 	{
 		";h",
 		":h ",
@@ -475,6 +474,7 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{ "gA", "<cmd>normal! ga<CR>", desc = "ASCII code", nowait = true, remap = false },
 	{ "ga", "<cmd>Lspsaga code_action<CR>", desc = "Code actions", nowait = true, remap = false },
 	{ "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Go to declaration", nowait = true, remap = false },
 	{ "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "Go to definition", nowait = true, remap = false },
@@ -968,7 +968,7 @@ require("which-key").add({
 	},
 	{
 		"<space>gO",
-		"<cmd>silent !xdg-open https://github.com/exvimmer<CR>",
+		"<cmd>silent !xdg-open https://github.com/MAXIIIMVS<CR>",
 		desc = "Open my github profile",
 		nowait = true,
 		remap = false,

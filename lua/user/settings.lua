@@ -321,6 +321,8 @@ xmap <C-_> gc
 smap <C-_> <ESC><ESC>gcc
 imap <C-_> <ESC>gcc
 
+nnoremap <silent> <leader>a ggVG:Tabularize /;<CR>=G:%s/^\ssection/section<CR>
+
 autocmd FileType template set filetype=html
 
 " dadbod completion with cmp

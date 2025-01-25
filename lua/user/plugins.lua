@@ -857,7 +857,7 @@ return require("lazy").setup({
 					},
 				},
 				footer = {
-					"👑 " .. "When You Work, Work Hard. When You’re Done, Be Done" .. " 👑",
+					"👑 " .. "Time Without Purpose Is a Prison" .. " 👑",
 				},
 				packages = { enable = true },
 			},
@@ -1704,6 +1704,7 @@ return require("lazy").setup({
 		keys = { "<leader>w" },
 		ft = { "vimwiki", "vimwiki_markdown_custom" },
 		init = function()
+			vim.cmd("autocmd FileType vimwiki set filetype=markdown")
 			vim.treesitter.language.register("markdown", "vimwiki")
 			vim.g.vimwiki_listsyms = "    x"
 			vim.g.vimwiki_markdown_link_ext = 1
@@ -1755,6 +1756,13 @@ return require("lazy").setup({
 			end
 			local lspconfig = require("lspconfig")
 			local servers = {
+				awk_ls = {
+					on_attach = function(client, bufnr)
+						client.server_capabilities.documentFormattingProvider = false
+						on_attach(client, bufnr)
+					end,
+					capabilities = capabilities,
+				},
 				ts_ls = {
 					on_attach = function(client, bufnr)
 						client.server_capabilities.documentFormattingProvider = false
