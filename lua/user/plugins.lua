@@ -1569,8 +1569,9 @@ return require("lazy").setup({
 		version = "v0.*",
 		opts = {
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer", "emoji" },
+				default = { "lsp", "path", "snippets", "buffer", "emoji", "dadbod" },
 				providers = {
+					dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
 					lsp = {
 						name = "LSP",
 						module = "blink.cmp.sources.lsp",
@@ -1757,6 +1758,13 @@ return require("lazy").setup({
 			local lspconfig = require("lspconfig")
 			local servers = {
 				awk_ls = {
+					on_attach = function(client, bufnr)
+						client.server_capabilities.documentFormattingProvider = false
+						on_attach(client, bufnr)
+					end,
+					capabilities = capabilities,
+				},
+				bashls = {
 					on_attach = function(client, bufnr)
 						client.server_capabilities.documentFormattingProvider = false
 						on_attach(client, bufnr)
