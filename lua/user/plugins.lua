@@ -106,6 +106,10 @@ return require("lazy").setup({
 			compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
 			transparent_background = vim.g.is_transparent,
 			term_colors = true,
+			dim_inactive = {
+				enabled = true,
+				percentage = 0.01,
+			},
 			color_overrides = {
 				-- #1A1A2F #1D182E #171421, terminal background: #171421
 				mocha = { base = "#191724" },
@@ -355,7 +359,6 @@ return require("lazy").setup({
 			},
 		},
 	},
-	{ "jghauser/follow-md-links.nvim", ft = { "markdown" } },
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
 	{
 		"jvgrootveld/telescope-zoxide",
@@ -1568,6 +1571,10 @@ return require("lazy").setup({
 		},
 		version = "v0.*",
 		opts = {
+			cmdline = {
+				enabled = false,
+				sources = {},
+			},
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer", "emoji", "dadbod" },
 				providers = {
@@ -1594,7 +1601,6 @@ return require("lazy").setup({
 						opts = { insert = true },
 					},
 				},
-				cmdline = {},
 			},
 			completion = {
 				menu = {
@@ -1927,6 +1933,14 @@ return require("lazy").setup({
 		cmd = { "Telescope emoji" },
 		dependencies = { "nvim-telescope/telescope.nvim" },
 	},
+	--Y
+	--Z
+	-- {
+	-- 	"zongben/capsoff.nvim",
+	-- 	build = ":CapsLockOffBuild",
+	-- 	opts = {},
+	-- 	event = { "InsertLeave" },
+	-- },
 }, {
 	ui = {
 		border = "rounded",
