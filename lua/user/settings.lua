@@ -5,6 +5,22 @@ local signs = {
 	Info = " ",
 }
 
+-- enable autocompletion: nvim v.0.0.11
+-- vim.api.nvim_create_autocmd("LspAttach", {
+-- 	callback = function(event)
+-- 		local client = vim.lsp.get_client_by_id(event.data.client_id)
+-- 		if client:supports_method("textDocument/completion") then
+-- 			vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+-- 		end
+-- 	end,
+-- })
+
+-- enable diagnostics: nvim v.0.0.11
+-- vim.diagnostic.config({ virtual_text = true })
+-- vim.diagnostic.config({ virtual_text = { current_line = true } })
+-- vim.diagnostic.config({ virtual_lines = true })
+vim.diagnostic.config({ virtual_lines = { current_line = true } })
+
 for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -511,6 +527,18 @@ ab :note: 📝
 ab :separator_ltt: ❮
 ab :separator_rtt: ❯
 ab :degrees: °
+ab :wp: ♟
+ab :bp: ♙
+ab :wk: ♚
+ab :bk: ♔
+ab :wq: ♛
+ab :bq: ♕
+ab :wb: ♝
+ab :bb: ♗
+ab :wk: ♞
+ab :bk: ♘
+ab :wr: ♜
+ab :br: ♖
 ]])
 -- }}}
 

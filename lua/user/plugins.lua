@@ -107,7 +107,7 @@ return require("lazy").setup({
 			transparent_background = vim.g.is_transparent,
 			term_colors = true,
 			dim_inactive = {
-				enabled = true,
+				enabled = false,
 				percentage = 0.01,
 			},
 			color_overrides = {
@@ -181,35 +181,6 @@ return require("lazy").setup({
 	},
 	--D
 	--E
-	{
-		"echasnovski/mini.bracketed",
-		keys = {
-			{ "]", mode = { "n", "v" } },
-			{ "[", mode = { "n", "v" } },
-		},
-		version = false,
-		opts = {
-			conflict = { suffix = "", options = {} },
-			diagnostic = { suffix = "", options = {} },
-			treesitter = { suffix = "n", options = {} },
-		},
-		init = function()
-			vim.cmd([[
-				augroup diff_keys
-				  autocmd!
-				  autocmd OptionSet diff if &diff
-				    \ | nnoremap <silent> ]c ]c
-				    \ | nnoremap <silent> [c [c
-				    \ | else
-				    \ | nnoremap <silent> ]c :lua require('mini.bracketed').comment('forward', nil)<CR>
-				    \ | nnoremap <silent> [c :lua require('mini.bracketed').comment('backward', nil)<CR>
-				    \ | nnoremap <silent> [C :lua require('mini.bracketed').comment('first', nil)<CR>
-				    \ | nnoremap <silent> ]C :lua require('mini.bracketed').comment('last', nil)<CR>
-				    \ | endif
-				augroup END
-		      ]])
-		end,
-	},
 	{ "echasnovski/mini.bufremove", version = false, opts = { silent = true }, lazy = true },
 	{
 		"echasnovski/mini.jump2d",
@@ -859,6 +830,7 @@ return require("lazy").setup({
 						key = "q",
 					},
 				},
+				-- He that lives upon hope will die fasting.
 				footer = {
 					"👑 " .. "Time Without Purpose Is a Prison" .. " 👑",
 				},
@@ -1139,7 +1111,7 @@ return require("lazy").setup({
 				function()
 					local msg = ""
 					local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-					local clients = vim.lsp.get_active_clients()
+					local clients = vim.lsp.get_clients()
 					if next(clients) == nil then
 						return msg
 					end
@@ -1410,6 +1382,7 @@ return require("lazy").setup({
 					require("null-ls").builtins.formatting.stylua,
 					require("null-ls").builtins.formatting.black,
 					require("null-ls").builtins.formatting.djhtml,
+					require("null-ls").builtins.formatting.shfmt,
 					-- require("null-ls").builtins.formatting.djlint,
 					require("null-ls").builtins.formatting.gofmt,
 					require("null-ls").builtins.formatting.prettierd.with({
@@ -1445,7 +1418,7 @@ return require("lazy").setup({
 					}),
 				},
 				on_attach = function(client, bufnr)
-					if client.supports_method("textDocument/formatting") then
+					if client:supports_method("textDocument/formatting") then
 						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 						vim.api.nvim_create_autocmd("BufWritePre", {
 							group = augroup,
@@ -1494,7 +1467,7 @@ return require("lazy").setup({
 	--Q
 	--R
 	{ "rafamadriz/friendly-snippets", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
-	{ "ray-x/lsp_signature.nvim", event = "LspAttach" },
+	{ "ray-x/lsp_signature.nvim", event = "InsertEnter" },
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
@@ -1589,6 +1562,11 @@ return require("lazy").setup({
 						module = "blink.cmp.sources.snippets",
 						score_offset = 90,
 					},
+					buffer = {
+						name = "buffer",
+						module = "blink.cmp.sources.buffer",
+						score_offset = 99,
+					},
 					path = {
 						name = "path",
 						module = "blink.cmp.sources.path",
@@ -1615,8 +1593,8 @@ return require("lazy").setup({
 				},
 			},
 			keymap = {
-				["<CR>"] = { "select_and_accept", "fallback" },
-				["<C-d>"] = { "scroll_documentation_down", "fallback" },
+				["<CR>"] = { "accept", "fallback" },
+				["<C-d>"] = { "fallback", "scroll_documentation_down" },
 				["<C-u>"] = { "scroll_documentation_up", "fallback" },
 				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
 				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
@@ -1728,11 +1706,6 @@ return require("lazy").setup({
 			require("mason").setup({
 				ui = {
 					border = "rounded",
-					icons = {
-						package_installed = "✓",
-						package_pending = "➜",
-						package_uninstalled = "✗",
-					},
 					check_outdated_packages_on_open = true,
 				},
 				max_concurrent_installers = 1,
@@ -1752,7 +1725,7 @@ return require("lazy").setup({
 					handler_opts = { border = "rounded" },
 				}, bufnr)
 
-				if client.supports_method("textDocument/formatting") then
+				if client:supports_method("textDocument/formatting") then
 					vim.api.nvim_create_autocmd("BufWritePre", {
 						buffer = bufnr,
 						callback = function()

@@ -345,64 +345,6 @@ require("which-key").add({
 		remap = false,
 	},
 	{ "K", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover info", nowait = true, remap = false },
-	{ "]<space>", "o<ESC>k", desc = "Insert a blank line below", nowait = true, remap = false },
-	{ "[<space>", "O<ESC>j", desc = "Insert a blank line above", nowait = true, remap = false },
-	{
-		"]A",
-		function()
-			vim.cmd.colorscheme(flavors[#flavors])
-		end,
-		desc = "Last light theme",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"]a",
-		function()
-			local index = 1
-			for i, f in ipairs(flavors) do
-				if vim.g.colors_name == f then
-					index = i + 1
-					break
-				end
-			end
-			if index > #flavors then
-				index = 1
-			end
-			vim.cmd.colorscheme(flavors[index])
-		end,
-		desc = "Next flavor",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"[A",
-		function()
-			vim.cmd.colorscheme(flavors[1])
-		end,
-		desc = "First dark theme",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"[a",
-		function()
-			local index = #flavors
-			for i, f in ipairs(flavors) do
-				if vim.g.colors_name == f then
-					index = i - 1
-					break
-				end
-			end
-			if index < 1 then
-				index = #flavors
-			end
-			vim.cmd.colorscheme(flavors[index])
-		end,
-		desc = "Previous flavor",
-		nowait = true,
-		remap = false,
-	},
 	{
 		"]E",
 		function()
@@ -432,6 +374,62 @@ require("which-key").add({
 		"[e",
 		"<cmd>Lspsaga diagnostic_jump_prev<CR>",
 		desc = "Jump to the previous diagnostic",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"]F",
+		function()
+			vim.cmd.colorscheme(flavors[#flavors])
+		end,
+		desc = "Last flavor",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"]f",
+		function()
+			local index = 1
+			for i, f in ipairs(flavors) do
+				if vim.g.colors_name == f then
+					index = i + 1
+					break
+				end
+			end
+			if index > #flavors then
+				index = 1
+			end
+			vim.cmd.colorscheme(flavors[index])
+		end,
+		desc = "Next flavor",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"[F",
+		function()
+			vim.cmd.colorscheme(flavors[1])
+		end,
+		desc = "First flavor",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"[f",
+		function()
+			local index = #flavors
+			for i, f in ipairs(flavors) do
+				if vim.g.colors_name == f then
+					index = i - 1
+					break
+				end
+			end
+			if index < 1 then
+				index = #flavors
+			end
+			vim.cmd.colorscheme(flavors[index])
+		end,
+		desc = "Previous flavor",
 		nowait = true,
 		remap = false,
 	},
@@ -475,21 +473,19 @@ require("which-key").add({
 		remap = false,
 	},
 	{ "gA", "<cmd>normal! ga<CR>", desc = "ASCII code", nowait = true, remap = false },
-	{ "ga", "<cmd>Lspsaga code_action<CR>", desc = "Code actions", nowait = true, remap = false },
 	{ "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Go to declaration", nowait = true, remap = false },
 	{ "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "Go to definition", nowait = true, remap = false },
+	{ "gP", "<cmd>Lspsaga peek_type_definition<CR>", desc = "Peek type definition", nowait = true, remap = false },
+	{ "gp", "<cmd>Lspsaga peek_definition<CR>", desc = "Show the definition", nowait = true, remap = false },
+	{ "gra", "<cmd>Lspsaga code_action<CR>", desc = "Code actions", nowait = true, remap = false },
 	{
-		"gh",
+		"gri",
 		"<cmd>Lspsaga finder def+ref+imp<CR>",
 		desc = "Show the definition, reference, implementation...",
 		nowait = true,
 		remap = false,
 	},
-	-- { "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "Go to implementation", nowait = true, remap = false },
-	{ "gP", "<cmd>Lspsaga peek_type_definition<CR>", desc = "Peek type definition", nowait = true, remap = false },
-	{ "gp", "<cmd>Lspsaga peek_definition<CR>", desc = "Show the definition", nowait = true, remap = false },
-	{ "gR", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "Show references", nowait = true, remap = false },
-	{ "gr", "<cmd>Lspsaga rename<CR>", desc = "Rename the symbol", nowait = true, remap = false },
+	{ "grn", "<cmd>Lspsaga rename<CR>", desc = "Rename the symbol", nowait = true, remap = false },
 	{ "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc = "Show signature", nowait = true, remap = false },
 	{
 		"gy",
@@ -1247,7 +1243,7 @@ require("which-key").add({
 	{
 		mode = { "i" },
 		-- { "<C-k>", "<C-o>C", desc = "Delete to the end of the line", nowait = true, remap = false },
-		{ "<C-s>", "<ESC><ESC><cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false },
+		{ "<C-s>", "<ESC><ESC><cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false }, -- not default
 		{ "<C-x>", group = "Insert expand", nowait = true, remap = false },
 		{ "<C-x><C-D>", desc = "Complete defined identifiers", nowait = true, remap = false },
 		{ "<C-x><C-E>", desc = "Scroll up", nowait = true, remap = false },
