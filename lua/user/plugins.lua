@@ -733,14 +733,6 @@ return require("lazy").setup({
 	},
 	--N
 	{
-		"neovim/nvim-lspconfig",
-		after = "mason-lspconfig.nvim",
-		lazy = true,
-		config = function()
-			require("lspconfig.ui.windows").default_options.border = "rounded"
-		end,
-	},
-	{
 		"nvimdev/dashboard-nvim",
 		event = "UIEnter",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -1560,12 +1552,12 @@ return require("lazy").setup({
 					snippets = {
 						name = "snippets",
 						module = "blink.cmp.sources.snippets",
-						score_offset = 90,
+						score_offset = 99,
 					},
 					buffer = {
 						name = "buffer",
 						module = "blink.cmp.sources.buffer",
-						score_offset = 99,
+						score_offset = 96,
 					},
 					path = {
 						name = "path",
@@ -1598,6 +1590,8 @@ return require("lazy").setup({
 				["<C-u>"] = { "scroll_documentation_up", "fallback" },
 				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
 				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+				["<C-n>"] = { "select_next", "fallback" },
+				["<C-p>"] = { "select_prev", "fallback" },
 			},
 		},
 		opts_extend = { "sources.default" },
@@ -1701,7 +1695,12 @@ return require("lazy").setup({
 	--W
 	{
 		"williamboman/mason.nvim",
+		event = { "BufReadPre", "BufNewFile" },
 		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate", "MasonUninstallAll" },
+		dependencies = {
+			"ray-x/lsp_signature.nvim",
+			"saghen/blink.cmp", -- or whatever provides get_lsp_capabilities()
+		},
 		config = function()
 			require("mason").setup({
 				ui = {
@@ -1710,13 +1709,7 @@ return require("lazy").setup({
 				},
 				max_concurrent_installers = 1,
 			})
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig", "saghen/blink.cmp" },
-		config = function()
+
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			local on_attach = function(client, bufnr)
 				require("lsp_signature").on_attach({
@@ -1729,176 +1722,26 @@ return require("lazy").setup({
 					vim.api.nvim_create_autocmd("BufWritePre", {
 						buffer = bufnr,
 						callback = function()
-							vim.lsp.buf.format({ async = false })
+							vim.lsp.buf.format({ async = true })
 						end,
 					})
 				end
 			end
-			local lspconfig = require("lspconfig")
-			local servers = {
-				awk_ls = {
-					on_attach = function(client, bufnr)
-						client.server_capabilities.documentFormattingProvider = false
-						on_attach(client, bufnr)
-					end,
-					capabilities = capabilities,
-				},
-				bashls = {
-					on_attach = function(client, bufnr)
-						client.server_capabilities.documentFormattingProvider = false
-						on_attach(client, bufnr)
-					end,
-					capabilities = capabilities,
-				},
-				ts_ls = {
-					on_attach = function(client, bufnr)
-						client.server_capabilities.documentFormattingProvider = false
-						on_attach(client, bufnr)
-					end,
-					capabilities = capabilities,
-					filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "jsx", "tsx" },
-					root_dir = lspconfig.util.root_pattern("tsconfig.json", "jsconfig.json", ".git"),
-				},
-				html = {
-					on_attach = on_attach,
-					capabilities = capabilities,
-					filetypes = { "html", "htmldjango", "gohtml", "tmpl.html", "template" },
-				},
-				emmet_ls = {
-					on_attach = on_attach,
-					capabilities = capabilities,
-					filetypes = {
-						"html",
-						"css",
-						"sass",
-						"scss",
-						"less",
-						"vue",
-						"javascriptreact",
-						"typescriptreact",
-						"jsx",
-						"tsx",
-					},
-					-- init_options = {
-					-- 	html = {
-					-- 		options = {
-					-- 			["bem.enabled"] = true,
-					-- 		},
-					-- 	},
-					-- },
-				},
-				jsonls = {
-					on_attach = on_attach,
-					capabilities = capabilities,
-				},
-				cssls = {
-					on_attach = on_attach,
-					capabilities = capabilities,
-				},
-				rust_analyzer = {
-					on_attach = on_attach,
-					capabilities = capabilities,
-					settings = {
-						["rust-analyzer"] = {
-							assist = {
-								importGranularity = "module",
-								importPrefix = "self",
-							},
-							cargo = {
-								loadOutDirsFromCheck = true,
-							},
-							procMacro = {
-								enable = true,
-							},
-							checkOnSave = {
-								command = "clippy",
-							},
-						},
-					},
-				},
-				gopls = {
-					on_attach = on_attach,
-					capabilities = capabilities,
-					cmd = { "gopls", "serve" },
-					filetypes = { "go", "gomod", "gowork", "gotmpl" },
-					root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
-					settings = {
-						gopls = {
-							templateExtensions = { "tpl", "yaml", "tmpl", "tmpl.html" },
-							experimentalPostfixCompletions = true,
-							gofumpt = true,
-							usePlaceholders = true,
-							analyses = {
-								-- shadow = true,
-								nilness = true,
-								unusedresult = true,
-								unusedparams = true,
-								unusedwrite = true,
-								useany = true,
-								unreachable = true,
-							},
-							hints = {
-								assignVariableTypes = true,
-								compositeLiteralFields = true,
-								compositeLiteralTypes = true,
-								constantValues = true,
-								functionTypeParameters = true,
-								parameterNames = true,
-								rangeVariableTypes = true,
-							},
-							staticcheck = true,
-						},
-					},
-				},
-				pyright = {
-					on_attach = on_attach,
-					capabilities = capabilities,
-					settings = {
-						python = {
-							analysis = {
-								autoSearchPaths = true,
-								diagnosticMode = "workspace",
-								useLibraryCodeForTypes = true,
-							},
-						},
-					},
-				},
-				clangd = {
-					on_attach = on_attach,
-					capabilities = capabilities,
-					cmd = { "clangd" },
-					filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-					root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
-				},
-				phpactor = {
-					on_attach = on_attach,
-					capabilities = capabilities,
-					cmd = { "phpactor", "language-server" },
-					filetypes = { "php" },
-				},
-				intelephense = {
-					on_attach = on_attach,
-					capabilities = capabilities,
-					filetypes = { "php" },
-				},
-				neocmake = {
-					on_attach = on_attach,
-					capabilities = capabilities,
-					cmd = { "neocmakelsp", "--stdio" },
-					filetypes = { "cmake" },
-					root_dir = lspconfig.util.root_pattern("CMakeLists.txt", ".git"),
-				},
-				texlab = {
-					on_attach = on_attach,
-					capabilities = capabilities,
-				},
-			}
-			for server, config in pairs(servers) do
-				lspconfig[server].setup(config)
-			end
-			require("mason-lspconfig").setup()
+
+			-- Load your native LSP configuration (path may vary)
+			require("config.native-lsp").setup(on_attach, capabilities)
 		end,
 	},
+	-- {
+	-- 	"willothy/flatten.nvim",
+	-- 	lazy = false,
+	-- 	opts = {
+	-- 		window = {
+	-- 			open = "alternate",
+	-- 		},
+	-- 	},
+	-- 	priority = 1001,
+	-- },
 	{ "windwp/nvim-ts-autotag", event = { "InsertEnter" } },
 	--X
 	{
