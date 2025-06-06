@@ -486,7 +486,13 @@ require("which-key").add({
 		remap = false,
 	},
 	{ "grn", "<cmd>Lspsaga rename<CR>", desc = "Rename the symbol", nowait = true, remap = false },
-	{ "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc = "Show signature", nowait = true, remap = false },
+	{
+		"gs",
+		require("lsp_signature").toggle_float_win,
+		desc = "Show signature",
+		nowait = true,
+		remap = false,
+	},
 	{
 		"gy",
 		"<cmd>lua vim.lsp.buf.type_definition()<CR>",
@@ -853,7 +859,7 @@ require("which-key").add({
 	{
 		"<space>gc",
 		function()
-			if vim.fn.winwidth(0) > 85 then
+			if vim.fn.winwidth(0) > 96 then
 				vim.cmd("silent vertical G commit")
 			else
 				vim.cmd("silent G commit")
@@ -866,7 +872,7 @@ require("which-key").add({
 	{
 		"<space>gD",
 		function()
-			if vim.fn.winwidth(0) > 85 then
+			if vim.fn.winwidth(0) > 96 then
 				vim.cmd("silent Gvdiffsplit! HEAD~")
 			else
 				vim.cmd("silent Gdiffsplit! HEAD~")
@@ -879,7 +885,7 @@ require("which-key").add({
 	{
 		"<space>gd",
 		function()
-			if vim.fn.winwidth(0) > 85 then
+			if vim.fn.winwidth(0) > 96 then
 				vim.cmd("silent Gvdiffsplit!")
 			else
 				vim.cmd("silent Gdiffsplit!")
@@ -892,7 +898,7 @@ require("which-key").add({
 	{
 		"<space>gE",
 		function()
-			if vim.fn.winwidth(0) > 85 then
+			if vim.fn.winwidth(0) > 96 then
 				vim.cmd("silent vertical G commit --amend")
 			else
 				vim.cmd("silent G commit --amend")
@@ -905,7 +911,7 @@ require("which-key").add({
 	{
 		"<space>gl",
 		function()
-			if vim.fn.winwidth(0) > 85 then
+			if vim.fn.winwidth(0) > 96 then
 				vim.cmd("silent vertical G log --decorate --graph --abbrev-commit | set filetype=git")
 			else
 				vim.cmd("silent G log --decorate --graph --abbrev-commit | set filetype=git")
@@ -981,7 +987,7 @@ require("which-key").add({
 	{
 		"<space>gs",
 		function()
-			if vim.fn.winwidth(0) > 85 then
+			if vim.fn.winwidth(0) > 96 then
 				vim.cmd("silent vertical Git")
 			else
 				vim.cmd("silent Git")

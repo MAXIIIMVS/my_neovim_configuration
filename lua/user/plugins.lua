@@ -452,7 +452,7 @@ return require("lazy").setup({
 		},
 		event = { "BufReadPost", "BufNewFile" },
 	},
-	{ "LunarVim/bigfile.nvim", event = "BufReadPre", opts = {} },
+	{ "LunarVim/bigfile.nvim", event = "BufReadPre", opts = { filesize = 1 } },
 	--M
 	{
 		"mbbill/undotree",
@@ -938,7 +938,7 @@ return require("lazy").setup({
 					return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
 				end,
 				hide_in_width = function()
-					return vim.fn.winwidth(0) > 85
+					return vim.fn.winwidth(0) > 94
 				end,
 				check_git_workspace = function()
 					local filepath = vim.fn.expand("%:p:h")
@@ -1020,7 +1020,9 @@ return require("lazy").setup({
 				"filetype",
 				icon_only = true,
 				-- icon = { align = "left" },
-				cond = conditions.is_not_terminal,
+				cond = function()
+					return conditions.is_not_terminal() and conditions.hide_in_width()
+				end,
 			})
 
 			ins_left({
@@ -1034,6 +1036,7 @@ return require("lazy").setup({
 				"branch",
 				icon = "",
 				color = { fg = colors.violet, gui = "bold" },
+				-- cond = conditions.hide_in_width,
 			})
 
 			ins_left({
@@ -1151,7 +1154,11 @@ return require("lazy").setup({
 				cond = conditions.hide_in_width,
 			})
 
-			ins_right({ "progress", color = { fg = colors.cyan, gui = "bold" } })
+			ins_right({
+				"progress",
+				color = { fg = colors.cyan, gui = "bold" },
+				cond = conditions.hide_in_width,
+			})
 
 			ins_right({ "location", color = { fg = colors.cyan, gui = "bold" } })
 
@@ -1699,7 +1706,7 @@ return require("lazy").setup({
 		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate", "MasonUninstallAll" },
 		dependencies = {
 			"ray-x/lsp_signature.nvim",
-			"saghen/blink.cmp", -- or whatever provides get_lsp_capabilities()
+			"saghen/blink.cmp",
 		},
 		config = function()
 			require("mason").setup({
@@ -1727,8 +1734,6 @@ return require("lazy").setup({
 					})
 				end
 			end
-
-			-- Load your native LSP configuration (path may vary)
 			require("config.native-lsp").setup(on_attach, capabilities)
 		end,
 	},
