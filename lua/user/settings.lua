@@ -5,15 +5,22 @@ local signs = {
 	Info = " ",
 }
 
+-- TODO: figure out how to integrate friendly snippets with native
+-- autocompletion, and remove blink.cmp.
 -- enable autocompletion: nvim v.0.0.11
 -- vim.api.nvim_create_autocmd("LspAttach", {
 -- 	callback = function(event)
 -- 		local client = vim.lsp.get_client_by_id(event.data.client_id)
 -- 		if client:supports_method("textDocument/completion") then
--- 			vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+-- 			vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = false })
 -- 		end
 -- 	end,
 -- })
+-- vim.keymap.set("i", "<c-space>", vim.lsp.completion.get)
+--
+-- vim.keymap.set("i", "<CR>", function()
+-- 	return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+-- end, { expr = true, noremap = true })
 
 -- enable diagnostics: nvim v.0.0.11
 -- vim.diagnostic.config({ virtual_text = true })
@@ -122,8 +129,8 @@ function term_debug()
 		vim.cmd("wincmd x")
 		vim.cmd("Gdb")
 		vim.cmd("resize 25")
-		vim.api.nvim_feedkeys("dashboard -enabled on\n", "n", true)
-		vim.api.nvim_feedkeys("dashboard -layout registers\n", "n", true)
+		vim.api.nvim_feedkeys("dashboard -enabled off\n", "n", true)
+		-- vim.api.nvim_feedkeys("dashboard -layout registers\n", "n", true)
 	else
 		vim.api.nvim_feedkeys("dashboard -enabled off\n", "n", true)
 	end
@@ -380,7 +387,7 @@ augroup CmdHeight
     autocmd CmdlineEnter * if &cmdheight == 0 | let g:cmdheight_prev = 0 | set cmdheight=1 | endif
     autocmd CmdlineLeave * if exists('g:cmdheight_prev') && g:cmdheight_prev == 0 | set cmdheight=0 | unlet! g:cmdheight_prev | endif
 augroup END
-"
+
 " hide tmux
 " autocmd VimEnter,VimLeave * silent !tmux set status
 " autocmd VimLeave * silent !tmux set -g status-style bg=default
@@ -521,7 +528,6 @@ endfunction
 ab :pi: 𝞹
 ab :micro: μ
 ab :dh: ⏃
-ab :degree: \u02DA
 ab :bullseye: 🎯
 ab :note: 📝
 ab :separator_ltt: ❮

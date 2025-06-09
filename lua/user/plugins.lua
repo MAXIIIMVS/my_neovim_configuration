@@ -395,6 +395,18 @@ return require("lazy").setup({
 		},
 	},
 	--L
+	-- {
+	-- 	"L3MON4D3/LuaSnip",
+	-- 	dependencies = { "rafamadriz/friendly-snippets" },
+	-- 	event = { "BufNewFile", "BufReadPost", "BufFilePost" },
+	-- 	version = "v2.*",
+	-- 	build = "make install_jsregexp",
+	-- 	config = function()
+	-- 		require("luasnip.loaders.from_vscode").lazy_load()
+	-- 		require("luasnip").filetype_extend("vimwiki", { "markdown" })
+	-- 		require("luasnip").filetype_extend("scratch", { "markdown" })
+	-- 	end,
+	-- },
 	{ "leoluz/nvim-dap-go", config = true, ft = "go" },
 	{
 		"lervag/vimtex",
@@ -1548,33 +1560,33 @@ return require("lazy").setup({
 				sources = {},
 			},
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer", "emoji", "dadbod" },
+				default = { "lsp", "path", "buffer", "emoji", "dadbod", "snippets" },
 				providers = {
 					dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
 					lsp = {
 						name = "LSP",
 						module = "blink.cmp.sources.lsp",
-						score_offset = 98,
+						score_offset = 3,
 					},
 					snippets = {
 						name = "snippets",
 						module = "blink.cmp.sources.snippets",
-						score_offset = 99,
+						score_offset = 4,
 					},
 					buffer = {
 						name = "buffer",
 						module = "blink.cmp.sources.buffer",
-						score_offset = 96,
+						score_offset = 2,
 					},
 					path = {
 						name = "path",
 						module = "blink.cmp.sources.path",
-						score_offset = 99,
+						score_offset = 5,
 					},
 					emoji = {
 						module = "blink-emoji",
 						name = "Emoji",
-						score_offset = 15, -- higher means it will be listed upper in the suggestions
+						score_offset = 1, -- higher means it will be listed upper in the suggestions
 						opts = { insert = true },
 					},
 				},
@@ -1601,7 +1613,7 @@ return require("lazy").setup({
 				["<C-p>"] = { "select_prev", "fallback" },
 			},
 		},
-		opts_extend = { "sources.default" },
+		opts_extend = { "sources.default", "sources.providers" },
 	},
 	{
 		"stevearc/oil.nvim",
@@ -1729,7 +1741,7 @@ return require("lazy").setup({
 					vim.api.nvim_create_autocmd("BufWritePre", {
 						buffer = bufnr,
 						callback = function()
-							vim.lsp.buf.format({ async = true })
+							vim.lsp.buf.format({ async = false })
 						end,
 					})
 				end
