@@ -229,13 +229,20 @@ require("which-key").add({
 	},
 	{
 		";m",
+		"<cmd>make<CR>",
+		desc = "Make vim",
+		nowait = true,
+		remap = false,
+	},
+	{
+		";M",
 		function()
 			vim.cmd('1TermExec cmd="make"')
 			vim.defer_fn(function()
 				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true), "n", true)
 			end, 50)
 		end,
-		desc = "Make",
+		desc = "Make command",
 		nowait = true,
 		remap = false,
 	},
@@ -1229,8 +1236,16 @@ require("which-key").add({
 		remap = false,
 	},
 	{ "<leader>s", "<cmd>silent so %<CR>", desc = "Source the file", nowait = true, remap = false },
-	{ "<leader>t", "<cmd>tabnew<CR>", desc = "Create an empty tab", nowait = true, remap = false },
-
+	{
+		"<leader>t",
+		function()
+			require("toggleterm")
+			vim.cmd('execute "99ToggleTerm dir=' .. vim.fn.expand("%:p:h") .. '"')
+		end,
+		desc = "Open ToggleTerm in current file directory",
+		nowait = true,
+		remap = false,
+	},
 	{ "<leader>w", group = "VimWiki", nowait = true, remap = false },
 	{
 		"<leader>wl",

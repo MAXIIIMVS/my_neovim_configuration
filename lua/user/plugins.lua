@@ -278,12 +278,12 @@ return require("lazy").setup({
 		"folke/zen-mode.nvim",
 		opts = {
 			window = { width = 100 },
-			on_open = function(win)
-				vim.cmd("normal zt<CR>")
-			end,
-			on_close = function(win)
-				vim.cmd("normal zt<CR>")
-			end,
+			-- on_open = function(win)
+			-- 	vim.cmd("normal zt<CR>")
+			-- end,
+			-- on_close = function(win)
+			-- 	vim.cmd("normal zt<CR>")
+			-- end,
 		},
 		cmd = { "ZenMode" },
 	},

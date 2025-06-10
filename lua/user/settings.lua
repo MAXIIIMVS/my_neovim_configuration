@@ -397,6 +397,10 @@ augroup sync_tmux
     autocmd VimEnter * lua sync_statusline_with_tmux()
 augroup END
 
+function! Dir()
+  return expand('%:p:h')
+endfunction
+
 let g:first_color_scheme_change = 1
 
 function! SyncTmuxOnColorSchemeChange()
