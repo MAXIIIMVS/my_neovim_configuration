@@ -495,7 +495,9 @@ require("which-key").add({
 	{ "grn", "<cmd>Lspsaga rename<CR>", desc = "Rename the symbol", nowait = true, remap = false },
 	{
 		"gs",
-		require("lsp_signature").toggle_float_win,
+		function()
+			require("lsp_signature").toggle_float_win()
+		end,
 		desc = "Show signature",
 		nowait = true,
 		remap = false,

@@ -34,8 +34,8 @@ return require("lazy").setup({
 				themable = true,
 				offsets = {
 					{
-						filetype = "NvimTree",
-						text = "Explorer",
+						filetype = "dbui",
+						text = "DB",
 						highlight = "Directory",
 						separator = true, -- use a "true" to enable the default, or set your own character
 					},
@@ -894,7 +894,10 @@ return require("lazy").setup({
 	{
 		"nvim-lualine/lualine.nvim",
 		event = { "BufReadPost", "BufNewFile" },
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = {
+			"tpope/vim-obsession",
+			"nvim-tree/nvim-web-devicons",
+		},
 		config = function()
 			local custom_auto = require("lualine.themes.auto")
 			custom_auto.normal.c.bg = "NONE"
@@ -1687,7 +1690,7 @@ return require("lazy").setup({
 	{ "tpope/vim-rhubarb", event = "UIEnter" },
 	{ "tpope/vim-rsi", event = "InsertEnter" },
 	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
-	{ "tpope/vim-obsession", cmd = { "Obsession" }, event = { "BufReadPost", "BufNewFile" } },
+	{ "tpope/vim-obsession", cmd = { "Obsession" } },
 	{ "tpope/vim-speeddating", keys = { { "<c-a>", mode = { "n", "v" } }, { "<c-x>", mode = { "n", "v" } } } },
 	--U
 	--V
