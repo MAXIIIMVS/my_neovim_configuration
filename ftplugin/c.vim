@@ -17,7 +17,13 @@ let @x='cd ./build/bin/ && ./main; ret=$?; cd ../../; (exit $ret)'
 if &filetype !=# 'c'
   finish
 else
-setlocal makeprg=gcc\ -ggdb3\ -Wall\ -Werror\ -Wpedantic\ -Wextra\ -Wsign-conversion\ -o\ %:r.out\ %
-setlocal errorformat=%f:%l:%c:\ %m
-endif
+  if filereadable('CMakeLists.txt')
+    setlocal makeprg=cmake\ --build\ build
+  elseif filereadable('Makefile') || filereadable('makefile')
+    setlocal makeprg=make
+  else
+    setlocal makeprg=gcc\ -ggdb3\ -Wall\ -Werror\ -Wpedantic\ -Wextra\ -Wsign-conversion\ -o\ %:r.out\ %
+  endif
 
+  setlocal errorformat=%f:%l:%c:\ %t%*[^:]:\ %m,%f:%l:\ %t%*[^:]:\ %m
+endif

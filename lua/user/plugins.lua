@@ -1062,6 +1062,13 @@ return require("lazy").setup({
 				cond = conditions.hide_in_width,
 			})
 
+			ins_left({
+				function()
+					return vim.fn.ObsessionStatus("▶", "Ⅱ")
+				end,
+				color = { fg = colors.green },
+			})
+
 			-- Insert mid section. You can make any number of sections in neovim :)
 			-- for lualine it's any number greater then 2
 			-- ins_left({
@@ -1680,7 +1687,7 @@ return require("lazy").setup({
 	{ "tpope/vim-rhubarb", event = "UIEnter" },
 	{ "tpope/vim-rsi", event = "InsertEnter" },
 	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
-	{ "tpope/vim-obsession", cmd = { "Obsession" } },
+	{ "tpope/vim-obsession", cmd = { "Obsession" }, event = { "BufReadPost", "BufNewFile" } },
 	{ "tpope/vim-speeddating", keys = { { "<c-a>", mode = { "n", "v" } }, { "<c-x>", mode = { "n", "v" } } } },
 	--U
 	--V

@@ -1014,17 +1014,9 @@ require("which-key").add({
 	{ "<space>gwp", "<cmd>G worktree prune<CR>", desc = "prune", nowait = true, remap = false },
 	{ "<space>gwr", ":G worktree remove ", desc = "remove", nowait = true, remap = false, silent = false },
 	{ "<space>gwu", ":G worktree unlock ", desc = "Unlock", nowait = true, remap = false, silent = false },
-	{ "<space>l", group = "LSP", nowait = true, remap = false },
-	{ "<space>lI", ":LspInstall ", desc = "Install", nowait = true, remap = false, silent = false },
-	{ "<space>lL", "<cmd>LspLog<CR>", desc = "Log", nowait = true, remap = false },
-	{ "<space>lS", ":LspStart ", desc = "Start", nowait = true, remap = false, silent = false },
-	{ "<space>li", "<cmd>LspInfo<CR>", desc = "Info", nowait = true, remap = false },
-	{ "<space>lr", ":LspRestart ", desc = "Restart", nowait = true, remap = false, silent = false },
-	{ "<space>ls", ":LspStop ", desc = "Stop", nowait = true, remap = false, silent = false },
-	{ "<space>lu", ":LspUninstall ", desc = "Uninstall", nowait = true, remap = false, silent = false },
 	{ "<space>s", group = "Session", nowait = true, remap = false },
-	{ "<space>sd", "<cmd>Obsession!<CR>", desc = "Delete the session", nowait = true, remap = false },
-	{ "<space>sm", "<cmd>Obsession<CR>", desc = "Make a session", nowait = true, remap = false },
+	{ "<space>sd", "<cmd>silent Obsession!<CR>", desc = "Delete the session", nowait = true, remap = false },
+	{ "<space>ss", "<cmd>silent Obsession<CR>", desc = "Make a session", nowait = true, remap = false },
 	{
 		"<space>r",
 		function()
@@ -1217,6 +1209,16 @@ require("which-key").add({
 	},
 	{ "<space>wS", "<cmd>windo set scrollbind!<CR>", desc = "Unset scrollbind", nowait = true, remap = false },
 	{ "<space>ws", "<cmd>windo set scrollbind<CR>", desc = "Set scrollbind", nowait = true, remap = false },
+	{
+		"<leader><leader>",
+		function()
+			require("toggleterm")
+			vim.cmd('execute "99ToggleTerm dir=' .. vim.fn.expand("%:p:h") .. '"')
+		end,
+		desc = "Open ToggleTerm in current file directory",
+		nowait = true,
+		remap = false,
+	},
 	{ "<leader>c", "<cmd>silent CatppuccinCompile<CR>", desc = "Recompile Catppuccin", nowait = true, remap = false },
 	{ "<leader>h", group = "Hex", nowait = true, remap = false },
 	{ "<leader>hr", "<cmd>%!xxd<CR> :set filetype=xxd<CR>", desc = "Show", nowait = true, remap = false },
@@ -1236,16 +1238,6 @@ require("which-key").add({
 		remap = false,
 	},
 	{ "<leader>s", "<cmd>silent so %<CR>", desc = "Source the file", nowait = true, remap = false },
-	{
-		"<leader>t",
-		function()
-			require("toggleterm")
-			vim.cmd('execute "99ToggleTerm dir=' .. vim.fn.expand("%:p:h") .. '"')
-		end,
-		desc = "Open ToggleTerm in current file directory",
-		nowait = true,
-		remap = false,
-	},
 	{ "<leader>w", group = "VimWiki", nowait = true, remap = false },
 	{
 		"<leader>wl",
