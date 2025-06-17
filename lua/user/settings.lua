@@ -416,7 +416,7 @@ endfunction
 
 autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 
-autocmd BufWinEnter * if &laststatus != 3 | set laststatus=3 | endif
+autocmd BufWinLeave * if &laststatus != 3 | set laststatus=3 | endif
 
 function! OpenLazyGit()
   set notermguicolors
