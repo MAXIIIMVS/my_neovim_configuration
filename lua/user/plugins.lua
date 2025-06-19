@@ -37,19 +37,19 @@ return require("lazy").setup({
 						filetype = "dbui",
 						text = "DB",
 						highlight = "Directory",
-						separator = true, -- use a "true" to enable the default, or set your own character
+						separator = true,
 					},
 					{
 						filetype = "netrw",
 						text = "Netrw",
 						highlight = "Directory",
-						separator = false,
+						separator = true,
 					},
 					{
 						filetype = "undotree",
 						text = "Undo Tree",
 						highlight = "Directory",
-						separator = false,
+						separator = true,
 					},
 					{
 						filetype = "sagaoutline",
@@ -118,6 +118,7 @@ return require("lazy").setup({
 				all = function(colors)
 					return {
 						WinSeparator = { fg = "#554D80" },
+						NetrwTreeBar = { fg = colors.peach },
 					}
 				end,
 			},

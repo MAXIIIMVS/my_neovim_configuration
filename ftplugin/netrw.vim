@@ -5,15 +5,19 @@ let g:netrw_usexterm = 0
 " let s:treedepthstring     = "│ "
 " let g:netrw_hide = 1
 " let g:netrw_altv=1
-silent! nnoremap <silent> <buffer> <nowait> q :silent q<CR>
-silent! nnoremap <silent> <buffer> <nowait> <c-c> :silent q<CR>
-silent! nnoremap <silent> <buffer> <nowait> ;q :silent q<CR>
-silent! nnoremap <silent> <buffer> <nowait> ;; :silent q<CR>
-silent! nnoremap <silent> <buffer> <nowait> ;n :silent q<CR>
-setl bufhidden=wipe
+
+if g:NetrwIsOpen == 1
+  silent! nnoremap <silent> <buffer> <nowait> q :silent q<CR>
+  silent! nnoremap <silent> <buffer> <nowait> <c-c> :silent q<CR>
+  silent! nnoremap <silent> <buffer> <nowait> ;q :silent q<CR>
+  silent! nnoremap <silent> <buffer> <nowait> ;; :silent q<CR>
+  silent! nnoremap <silent> <buffer> <nowait> ;n :silent q<CR>
+  setl bufhidden=wipe
+endif
 
 nmap <buffer> <c-p> p
 nmap <buffer> <c-v> v
+nmap <buffer> <C-h> o<c-w>J
 nmap <buffer> <C-t> t
 nmap <buffer> g? <f1><silent>
 nmap <buffer> gs s

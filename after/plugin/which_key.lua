@@ -1216,7 +1216,7 @@ require("which-key").add({
 		"<leader><leader>",
 		function()
 			require("toggleterm")
-			vim.cmd('execute "99ToggleTerm dir=' .. vim.fn.expand("%:p:h") .. '"')
+			vim.cmd('execute "99ToggleTerm size=80 direction=vertical dir=' .. vim.fn.expand("%:p:h") .. '"')
 		end,
 		desc = "Open ToggleTerm in current file directory",
 		nowait = true,
