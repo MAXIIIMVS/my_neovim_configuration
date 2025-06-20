@@ -112,6 +112,7 @@ end
 
 function term_debug()
 	-- specific to my system
+	local filepath = vim.fn.expand("%:p:h") -- the directory
 	local gdbfake_file = os.getenv("HOME") .. "/.gdbfake"
 	local gdbinit_file = os.getenv("HOME") .. "/.gdbinit"
 	local has_gdbfake = vim.fn.filereadable(gdbfake_file) == 1
@@ -138,7 +139,7 @@ function term_debug()
 	-- vim.api.nvim_feedkeys("layout asm\nlayout regs\n", "n", true)
 	-- vim.api.nvim_feedkeys("cd " .. current_dir .. "\n", "n", true)
 	-- vim.api.nvim_feedkeys("file " .. current_dir .. "/", "n", true)
-	vim.api.nvim_feedkeys("file ", "n", true)
+	vim.api.nvim_feedkeys("file " .. filepath .. "/", "n", true)
 end
 
 -- get a character from user and return it. returns "" if there's an error or
