@@ -1057,7 +1057,17 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "<space>tD", "<cmd>dig!<CR>", desc = "Digraphs", nowait = true, remap = false },
+	-- { "<space>tD", "<cmd>dig!<CR>", desc = "Digraphs", nowait = true, remap = false },
+	{
+		"<space>tD",
+		function()
+			vim.g.is_diff_on = not vim.g.is_diff_on
+			vim.cmd("windo " .. (vim.g.is_diff_on and "diffthis" or "diffoff"))
+		end,
+		desc = "Difference between all windows",
+		nowait = true,
+		remap = false,
+	},
 	{ "<space>td", "<cmd>silent DBUIToggle<CR>", desc = "DB UI", nowait = true, remap = false },
 	{
 		"<space>te",
@@ -1138,17 +1148,28 @@ require("which-key").add({
 		remap = false,
 	},
 	-- { "<space>tS", "<cmd>silent Sleuth<CR>", desc = "sleuth", nowait = true, remap = false },
+	-- {
+	-- 	"<space>tS",
+	-- 	function()
+	-- 		if vim.o.statusline == "" then
+	-- 			require("lualine").hide({ unhide = true })
+	-- 		else
+	-- 			require("lualine").hide({ unhide = false })
+	-- 			vim.o.statusline = "" -- "" is same as "%t %m"
+	-- 		end
+	-- 	end,
+	-- 	desc = "Statusline/lualine",
+	-- 	nowait = true,
+	-- 	remap = false,
+	-- },
 	{
 		"<space>tS",
 		function()
-			if vim.o.statusline == "" then
-				require("lualine").hide({ unhide = true })
-			else
-				require("lualine").hide({ unhide = false })
-				vim.o.statusline = "" -- "" is same as "%t %m"
-			end
+			local cmd = "windo set scrollbind" .. (vim.wo.scrollbind and "!" or "")
+			vim.wo.scrollbind = not vim.wo.scrollbind
+			vim.cmd(cmd)
 		end,
-		desc = "Statusline/lualine",
+		desc = "Scrollbind",
 		nowait = true,
 		remap = false,
 	},
@@ -1195,23 +1216,40 @@ require("which-key").add({
 	},
 	{ "<space>tv", "<cmd>silent lua ToggleDiagnostics()<CR>", desc = "Virtual Text", nowait = true, remap = false },
 	{ "<space>tw", "<cmd>silent e ~/notes/wiki/index.md<CR>", desc = "Wiki", nowait = true, remap = false },
-	{ "<space>w", group = "Window", nowait = true, remap = false },
 	{
-		"<space>wD",
-		"<cmd>windo diffoff<CR>",
-		desc = "Hide the difference between 2 windows",
+		"<space>w",
+		function()
+			-- NOTE: you need to install porsmo using cargo
+			local command = get_char("<command> [(S)topwatch, (T)imer, (P)omodoro]: ")
+			if command ~= "s" and command ~= "t" and command ~= "p" then
+				print("invalid input")
+				return
+			end
+			if command == "s" then
+				vim.cmd('2TermExec  cmd="porsmo s"')
+			elseif command == "t" then
+				local time = vim.fn.input("Enter the time: ")
+				vim.cmd('3TermExec  cmd="porsmo t ' .. time .. '"')
+			elseif command == "p" then
+				local option = get_char("<duration> [(S)hort, (L)ong, (C)ustom]: ")
+				if option ~= "s" and option ~= "l" and option ~= "c" then
+					print("invalid input")
+					return
+				end
+				if option == "c" then
+					local time = vim.fn.input("Enter the time: ")
+					vim.cmd('4TermExec  cmd="porsmo p c ' .. time .. '"')
+				elseif option == "s" then
+					vim.cmd('5TermExec  cmd="porsmo p s"')
+				else
+					vim.cmd('6TermExec  cmd="porsmo p l"')
+				end
+			end
+		end,
+		desc = "Work (pomodoro, timer, stopwatch)",
 		nowait = true,
 		remap = false,
 	},
-	{
-		"<space>wd",
-		"<cmd>windo diffthis<CR>",
-		desc = "Show the difference between 2 windows",
-		nowait = true,
-		remap = false,
-	},
-	{ "<space>wS", "<cmd>windo set scrollbind!<CR>", desc = "Unset scrollbind", nowait = true, remap = false },
-	{ "<space>ws", "<cmd>windo set scrollbind<CR>", desc = "Set scrollbind", nowait = true, remap = false },
 	{
 		"<leader><leader>",
 		function()

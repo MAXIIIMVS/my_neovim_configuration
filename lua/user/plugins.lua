@@ -119,6 +119,7 @@ return require("lazy").setup({
 					return {
 						WinSeparator = { fg = "#554D80" },
 						NetrwTreeBar = { fg = colors.peach },
+						FloatBorder = { fg = "#6C70B8" },
 					}
 				end,
 			},
@@ -1606,7 +1607,7 @@ return require("lazy").setup({
 				menu = {
 					auto_show = false,
 					border = "rounded",
-					winhighlight = "Normal:None,FloatBorder:None,CursorLine:BlinkCmpMenuSelection,Search:None",
+					winhighlight = "Normal:None,CursorLine:BlinkCmpMenuSelection,Search:None",
 				},
 				documentation = {
 					auto_show = true,
