@@ -955,7 +955,7 @@ return require("lazy").setup({
 					return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
 				end,
 				hide_in_width = function()
-					return vim.fn.winwidth(0) > 94
+					return vim.fn.winwidth(0) > vim.g.big_screen_size
 				end,
 				check_git_workspace = function()
 					local filepath = vim.fn.expand("%:p:h")
@@ -1064,7 +1064,7 @@ return require("lazy").setup({
 					modified = { fg = colors.orange },
 					removed = { fg = colors.red },
 				},
-				cond = conditions.hide_in_width,
+				-- cond = conditions.hide_in_width,
 			})
 
 			ins_left({
@@ -1626,6 +1626,16 @@ return require("lazy").setup({
 			},
 		},
 		opts_extend = { "sources.default", "sources.providers" },
+	},
+	{
+		"srackham/digraph-picker.nvim",
+		keys = { "<c-k><c-k>", mode = { "i", "n" } },
+		event = "InsertEnter",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+		},
+		version = "*",
+		opts = {},
 	},
 	{
 		"stevearc/oil.nvim",

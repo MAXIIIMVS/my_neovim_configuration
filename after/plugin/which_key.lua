@@ -869,7 +869,7 @@ require("which-key").add({
 	{
 		"<space>gc",
 		function()
-			if vim.fn.winwidth(0) > 96 then
+			if vim.fn.winwidth(0) > vim.g.big_screen_size then
 				vim.cmd("silent vertical G commit")
 			else
 				vim.cmd("silent G commit")
@@ -882,7 +882,7 @@ require("which-key").add({
 	{
 		"<space>gD",
 		function()
-			if vim.fn.winwidth(0) > 96 then
+			if vim.fn.winwidth(0) > vim.g.big_screen_size then
 				vim.cmd("silent Gvdiffsplit! HEAD~")
 			else
 				vim.cmd("silent Gdiffsplit! HEAD~")
@@ -895,7 +895,7 @@ require("which-key").add({
 	{
 		"<space>gd",
 		function()
-			if vim.fn.winwidth(0) > 96 then
+			if vim.fn.winwidth(0) > vim.g.big_screen_size then
 				vim.cmd("silent Gvdiffsplit!")
 			else
 				vim.cmd("silent Gdiffsplit!")
@@ -908,7 +908,7 @@ require("which-key").add({
 	{
 		"<space>gE",
 		function()
-			if vim.fn.winwidth(0) > 96 then
+			if vim.fn.winwidth(0) > vim.g.big_screen_size then
 				vim.cmd("silent vertical G commit --amend")
 			else
 				vim.cmd("silent G commit --amend")
@@ -926,6 +926,7 @@ require("which-key").add({
 			else
 				vim.cmd("silent G log --decorate --graph --abbrev-commit | set filetype=git")
 			end
+			vim.wo.listchars = "nbsp:.,precedes:❮,extends:❯,tab:  "
 		end,
 		desc = "Log",
 		nowait = true,
@@ -934,6 +935,19 @@ require("which-key").add({
 	{ "<space>gP", "<cmd>silent G push<CR>", desc = "Push", nowait = true, remap = false },
 	{ "<space>gR", "<cmd>silent G checkout HEAD -- %<CR>", desc = "Reset the file", nowait = true, remap = false },
 	{ "<space>gS", ":silent G switch ", desc = "Switch", nowait = true, remap = false, silent = false },
+	{
+		"<space>gs",
+		function()
+			if vim.fn.winwidth(0) > vim.g.big_screen_size then
+				vim.cmd("silent vertical Git")
+			else
+				vim.cmd("silent Git")
+			end
+		end,
+		desc = "Status",
+		nowait = true,
+		remap = false,
+	},
 	{
 		"<space>gT",
 		"<cmd>Gitsigns toggle_current_line_blame<CR>",
@@ -991,19 +1005,6 @@ require("which-key").add({
 		"<space>gr",
 		"<cmd>Gitsigns reset_hunk<CR>",
 		desc = "Reset the hunk",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"<space>gs",
-		function()
-			if vim.fn.winwidth(0) > 96 then
-				vim.cmd("silent vertical Git")
-			else
-				vim.cmd("silent Git")
-			end
-		end,
-		desc = "Status",
 		nowait = true,
 		remap = false,
 	},
@@ -1254,7 +1255,11 @@ require("which-key").add({
 		"<leader><leader>",
 		function()
 			require("toggleterm")
-			vim.cmd('execute "99ToggleTerm size=80 direction=vertical dir=' .. vim.fn.expand("%:p:h") .. '"')
+			if vim.fn.winwidth(0) > vim.g.big_screen_size then
+				vim.cmd('execute "99ToggleTerm size=80 direction=vertical dir=' .. vim.fn.expand("%:p:h") .. '"')
+			else
+				vim.cmd('execute "99ToggleTerm dir=' .. vim.fn.expand("%:p:h") .. '"')
+			end
 		end,
 		desc = "Open ToggleTerm in current file directory",
 		nowait = true,
@@ -1296,7 +1301,17 @@ require("which-key").add({
 	},
 	{
 		mode = { "i" },
-		-- { "<C-k>", "<C-o>C", desc = "Delete to the end of the line", nowait = true, remap = false },
+		{ "<C-k>", "<C-o>C", desc = "Delete to the end of the line", nowait = false, remap = false },
+		{
+			"<c-k><c-k>",
+			function()
+				require("digraph-picker").insert_digraph()
+			end,
+			desc = "Digraph picker",
+			nowait = true,
+			remap = false,
+			silent = true,
+		},
 		{ "<C-s>", "<ESC><ESC><cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false }, -- not default
 		{ "<C-x>", group = "Insert expand", nowait = true, remap = false },
 		{ "<C-x><C-D>", desc = "Complete defined identifiers", nowait = true, remap = false },

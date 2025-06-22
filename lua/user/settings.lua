@@ -111,8 +111,8 @@ function toggle_todo()
 end
 
 function term_debug()
-	-- specific to my system
 	local filepath = vim.fn.expand("%:p:h") -- the directory
+	-- specific to my system
 	local gdbfake_file = os.getenv("HOME") .. "/.gdbfake"
 	local gdbinit_file = os.getenv("HOME") .. "/.gdbinit"
 	local has_gdbfake = vim.fn.filereadable(gdbfake_file) == 1
@@ -120,7 +120,7 @@ function term_debug()
 		os.rename(gdbfake_file, gdbinit_file)
 	end
 	-- until here
-	vim.g.termdebug_wide = vim.fn.winwidth(0) > 85
+	vim.g.termdebug_wide = vim.fn.winwidth(0) > vim.g.big_screen_size
 	-- local current_dir = vim.fn.expand("%:p:h")
 	vim.cmd("packadd termdebug | startinsert | Termdebug")
 	if vim.g.termdebug_wide then
