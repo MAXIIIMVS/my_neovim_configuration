@@ -21,6 +21,26 @@ local signs = {
 -- vim.keymap.set("i", "<CR>", function()
 -- 	return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
 -- end, { expr = true, noremap = true })
+--
+-- vim.keymap.set("i", "<Tab>", function()
+-- 	-- return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+-- 	return vim.fn.pumvisible() == 1 and "<C-n>" or vim.lsp.completion.get()
+-- end, { expr = true, noremap = true })
+--
+-- vim.keymap.set("i", "<S-Tab>", function()
+-- 	return vim.fn.pumvisible() == 1 and "<C-p>" or vim.lsp.completion.get()
+-- end, { expr = true, noremap = true })
+
+-- make the builtin K in normal to show hover info with a border.
+-- local hover = vim.lsp.buf.hover
+-- vim.lsp.buf.hover = function()
+-- 	return hover({
+-- 		border = "rounded",
+-- 		-- max_width = 100,
+-- 		max_width = math.floor(vim.o.columns * 0.7),
+-- 		max_height = math.floor(vim.o.lines * 0.7),
+-- 	})
+-- end
 
 -- enable diagnostics: nvim v.0.0.11
 -- vim.diagnostic.config({ virtual_text = true })
@@ -525,6 +545,7 @@ function! ToggleNetrw()
         let g:NetrwIsOpen=0
     else
         let g:NetrwIsOpen=1
+				let @m = expand("%:p:h")
         silent Lexplore %:p:h
     endif
 endfunction
@@ -554,6 +575,8 @@ ab :br: ♖
 -- }}}
 
 -- Fundamental {{{
+-- vim.o.winborder = "rounded" -- this messes up telescope and other plugins
+vim.g.completeopt = "fuzzy"
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
 vim.o.list = true
