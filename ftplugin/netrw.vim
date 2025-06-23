@@ -30,21 +30,19 @@ nmap <buffer> h -^
 nmap <buffer> l <CR>
 nmap <buffer> gx x
 
-nnoremap <silent> <buffer> a :call CreateFileCloseNetrwAndEdit()<CR>
+nnoremap <silent> <buffer> a :call CreateFileAndEdit()<CR>
 
-function! CreateFileCloseNetrwAndEdit()
+function! CreateFileAndEdit()
   let dir = getreg('m')
   if empty(dir)
-    " echoerr 'Register m is empty'
     let dir = getcwd()
-    return
   endif
 
   if dir[-1:] !=# '/'
     let dir .= '/'
   endif
 
-  let filename = input('Enter filename: ', dir, 'file')
+  let filename = trim(input('Enter filename: ', dir, 'file'))
   if empty(filename)
     return
   endif
@@ -55,36 +53,38 @@ function! CreateFileCloseNetrwAndEdit()
     return
   endif
 
+  " Ensure parent directories exist
+  let basedir = fnamemodify(filename, ':h')
+  if !isdirectory(basedir)
+    try
+      call mkdir(basedir, 'p')
+    catch /.*/
+      echoerr 'Could not create directories: ' . v:exception
+      return
+    endtry
+  endif
 
-  " TODO: compare the filename with the content of the register m, if it has
-  " any directories added to it, first create those directories (using call
-  " mkdir, 'p'), then check the filename again and see if the last part is a
-  " new filename, if yes, then create that file at the specified new location,
-  " quit netrw and open (edit) the newly created file.
-
-  if filename[-1:] ==# '/'
+  " If user typed a path ending with `/`, treat it as a directory
+  if filename =~ '[\/]$'
     try
       call mkdir(filename, 'p')
       quit
       return
     catch /.*/
-      echoerr 'Could not create file: ' . v:exception
+      echoerr 'Could not create directory: ' . v:exception
       return
     endtry
   endif
 
-  " Create empty file
+  " Create the file
   try
-    " TODO: create directories recursively
     call writefile([], filename, 's')
   catch /.*/
     echoerr 'Could not create file: ' . v:exception
     return
   endtry
 
-  " Close netrw window
+  " Close netrw (current window) and open the file
   quit
-
-  " Edit the newly created file in the current window
   execute 'edit ' . fnameescape(filename)
 endfunction

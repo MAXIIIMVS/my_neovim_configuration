@@ -1,8 +1,6 @@
 require("which-key").add({
 	{ "<Nop>", "<Plug>VimwikiRemoveHeaderLevel", desc = "disabled", nowait = true, remap = false },
 	-- NOTE: don't use tab and S-Tab because they mess up with snippets
-	-- { "<Tab>", "<cmd>bn<CR>", desc = "Buffer forward", nowait = true, remap = false },
-	-- { "<S-Tab>", "<cmd>bp<CR>", desc = "Buffer backward", nowait = true, remap = false },
 	{ ",", group = "Miscellaneous", nowait = true, remap = false },
 	{
 		",,",
@@ -249,6 +247,7 @@ require("which-key").add({
 	{
 		";n",
 		[[:call ToggleNetrw() | :sil! /<C-R>=expand("%:t")<CR><CR> :nohlsearch<CR>]],
+		-- "<cmd>topleft 40vsplit | Oil<CR>",
 		desc = "Netrw",
 		nowait = true,
 		remap = false,
