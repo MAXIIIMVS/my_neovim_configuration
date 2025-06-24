@@ -33,7 +33,7 @@ nmap <buffer> gx x
 nnoremap <silent> <buffer> a :call CreateFileAndEdit()<CR>
 
 function! CreateFileAndEdit()
-  let dir = getreg('m')
+  let dir = getreg('n')
   if empty(dir)
     let dir = getcwd()
   endif

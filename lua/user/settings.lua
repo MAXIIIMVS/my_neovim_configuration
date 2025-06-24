@@ -545,7 +545,7 @@ function! ToggleNetrw()
         let g:NetrwIsOpen=0
     else
         let g:NetrwIsOpen=1
-				let @m = expand("%:p:h")
+				let @n = expand("%:p:h")
         silent Lexplore %:p:h
     endif
 endfunction
