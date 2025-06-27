@@ -1701,7 +1701,7 @@ return require("lazy").setup({
 	},
 	{ "tpope/vim-rhubarb", event = "UIEnter" },
 	{ "tpope/vim-rsi", event = "InsertEnter" },
-	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
+	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPre", "BufFilePre" } },
 	{ "tpope/vim-obsession", cmd = { "Obsession" } },
 	{ "tpope/vim-speeddating", keys = { { "<c-a>", mode = { "n", "v" } }, { "<c-x>", mode = { "n", "v" } } } },
 	--U

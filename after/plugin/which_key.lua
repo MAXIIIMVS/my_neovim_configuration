@@ -1,6 +1,5 @@
 require("which-key").add({
 	{ "<Nop>", "<Plug>VimwikiRemoveHeaderLevel", desc = "disabled", nowait = true, remap = false },
-	-- NOTE: don't use tab and S-Tab because they mess up with snippets
 	{ ",", group = "Miscellaneous", nowait = true, remap = false },
 	{
 		",,",
