@@ -288,39 +288,6 @@ require("which-key").add({
 	{ ";U", "<cmd>e!<CR>", desc = "Undo all changes to the file", nowait = true, remap = false },
 	{ ";u", vim.cmd.UndotreeToggle, desc = "Toggle Undotree", nowait = true, remap = false },
 	{
-		";w",
-		function()
-			local command = get_char("<command> [(S)topwatch, (T)imer, (P)omodoro]: ")
-			if command ~= "s" and command ~= "t" and command ~= "p" then
-				print("invalid input")
-				return
-			end
-			if command == "s" then
-				vim.cmd('2TermExec  cmd="porsmo s"')
-			elseif command == "t" then
-				local time = vim.fn.input("Enter the time: ")
-				vim.cmd('3TermExec  cmd="porsmo t ' .. time .. '"')
-			elseif command == "p" then
-				local option = get_char("<duration> [(S)hort, (L)ong, (C)ustom]: ")
-				if option ~= "s" and option ~= "l" and option ~= "c" then
-					print("invalid input")
-					return
-				end
-				if option == "c" then
-					local time = vim.fn.input("Enter the time: ")
-					vim.cmd('4TermExec  cmd="porsmo p c ' .. time .. '"')
-				elseif option == "s" then
-					vim.cmd('5TermExec  cmd="porsmo p s"')
-				else
-					vim.cmd('6TermExec  cmd="porsmo p l"')
-				end
-			end
-		end,
-		desc = "Work (pomodoro, timer, stopwatch)",
-		nowait = true,
-		remap = false,
-	},
-	{
 		";x",
 		"<cmd>silent ToggleTermSendCurrentLine<CR>",
 		desc = "Execute the current line in terminal",
@@ -477,6 +444,7 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{ "g?", "<cmd>WhichKey<CR>", desc = "WhichKey", nowait = true, remap = false },
 	{ "gA", "<cmd>normal! ga<CR>", desc = "ASCII code", nowait = true, remap = false },
 	{ "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Go to declaration", nowait = true, remap = false },
 	{ "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "Go to definition", nowait = true, remap = false },
@@ -538,6 +506,7 @@ require("which-key").add({
 	},
 	{ "<space>b", group = "Buffer", nowait = true, remap = false },
 	{ "<space>bO", "<cmd>silent %bd|e#|bd#<CR>|'\"", desc = "Close other buffers", nowait = true, remap = false },
+	{ "<space>bo", "<cmd>BufferLineCloseOthers<CR>|'\"", desc = "Close other buffers", nowait = true, remap = false },
 	{ "<space>bP", "<cmd>BufferLineTogglePin<CR>", desc = "Pin buffer", nowait = true, remap = false },
 	{ "<space>ba", "<cmd>bufdo bd<CR>", desc = "Close all buffers", nowait = true, remap = false },
 	{ "<space>bd", "<cmd>silent bd<CR>", desc = "Close this buffer", nowait = true, remap = false },
@@ -578,7 +547,6 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "<space>bo", "<cmd>BufferLineCloseOthers<CR>|'\"", desc = "Close other buffers", nowait = true, remap = false },
 	{ "<space>bp", "<cmd>BufferLinePick<CR>", desc = "Pick a Buffer", nowait = true, remap = false },
 	{ "<space>c", group = "Calendar", nowait = true, remap = false },
 	{ "<space>cD", "<cmd>Calendar -view=days<CR>", desc = "View Days", nowait = true, remap = false },
@@ -1419,7 +1387,7 @@ require("which-key").add({
 			function()
 				vim.cmd("silent ! gnome-calculator &")
 			end,
-			desc = "Box comment the line",
+			desc = "Gnome Calculator",
 			nowait = true,
 			remap = false,
 			silent = true,

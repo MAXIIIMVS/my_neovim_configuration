@@ -1,5 +1,5 @@
-nmap <buffer> h -
-nmap <buffer> l <CR>
+nmap <buffer> H -
+nmap <buffer> L <CR>
 nmap <buffer> q <cmd>bd<CR>
 nmap <buffer> gh <cmd>Oil ~/<CR>
 nmap <buffer> gt <cmd>Oil /tmp/<CR>

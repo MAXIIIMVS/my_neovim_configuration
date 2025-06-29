@@ -13,6 +13,6 @@ if filereadable("CMakeLists.txt")
 elseif filereadable("Makefile") || filereadable("makefile")
   setlocal makeprg=make
 else
-  setlocal makeprg=g++\ -ggdb3\ -Wall\ -Werror\ -Wpedantic\ -Wextra\ -Wsign-conversion\ -std=c++20\ -o\ %:r.out\ %
+  setlocal makeprg=g++\ -ggdb3\ -Wall\ -Werror\ -Wpedantic\ -Wextra\ -Wsign-conversion\ -std=c++23\ -o\ %:r.out\ %
 endif
 setlocal errorformat=%f:%l:%c:\ %m,%f:%l:\ %m

@@ -262,6 +262,7 @@ return require("lazy").setup({
 			},
 		},
 	},
+	-- { "folke/trouble.nvim", opts = {}, cmd = "Trouble" },
 	{
 		"folke/ts-comments.nvim",
 		event = "InsertEnter",
@@ -362,6 +363,7 @@ return require("lazy").setup({
 		},
 		keys = { "<M-v>", "<M-r>", "<M-c>", "<M-w>", mode = { "n", "i", "x" } },
 	},
+	-- { "kevinhwang91/nvim-bqf", ft = "qf", opts = { preview = { winblend = 0 } } },
 	{
 		"kristijanhusak/vim-dadbod-ui",
 		dependencies = {
@@ -1557,6 +1559,7 @@ return require("lazy").setup({
 		end,
 	},
 	{ "romainl/vim-cool", event = { "CmdlineEnter" }, keys = { "#", "*", "n", "N" } },
+	-- { "RRethy/vim-illuminate", cmd = "IlluminateToggle", event = "BufReadPost" },
 	--S
 	{
 		"saghen/blink.cmp",

@@ -581,7 +581,7 @@ vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
 vim.o.list = true
 vim.o.listchars = "trail:,nbsp:.,precedes:❮,extends:❯,tab:  "
-vim.g.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal" -- removed blank
+vim.g.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal" -- removed blank
 -- vim.wo.spell = true
 vim.o.spellcapcheck = ""
 vim.wo.number = true
@@ -594,6 +594,7 @@ vim.o.autoindent = true
 vim.o.hlsearch = true
 vim.o.incsearch = true
 vim.o.showcmd = true
+-- vim.o.showtabline = 2 -- show tabline even if only one tab is open
 vim.o.cmdheight = 0
 vim.o.laststatus = 3
 vim.g.laststatus = 3
@@ -608,8 +609,20 @@ vim.o.lazyredraw = false
 vim.o.ignorecase = true -- ignore case when searching
 vim.o.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
 vim.o.backspace = "start,eol,indent"
-vim.o.path = vim.o.path .. "**" -- or vim.wo.path, IDK
-vim.o.wildignore = vim.o.wildignore .. "*/node_modules/*,tags"
+vim.opt.path:append("**") -- NOTE: this is slow
+vim.opt.wildignore:append({
+	"*/node_modules/*",
+	"tags",
+	"*.o",
+	"*/vendor/*",
+	"*/build/*",
+	"*/external/*",
+	"*.obj",
+	"*.pyc",
+	"*.class",
+	"*/.git/*",
+	"*/.svn/*",
+})
 vim.o.wildignorecase = true
 vim.o.termbidi = true
 
