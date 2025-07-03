@@ -124,14 +124,19 @@ return require("lazy").setup({
 				end,
 			},
 			integrations = {
-				blink_cmp = true,
+				blink_cmp = { style = "bordered" },
 				gitsigns = true,
 				dashboard = true,
+				dadbod_ui = false,
 				dap = true,
 				dap_ui = true,
 				telescope = {
 					enabled = true,
 					-- style = "nvchad",
+				},
+				illuminate = {
+					enabled = true,
+					lsp = false,
 				},
 				indent_blankline = {
 					enabled = true,
@@ -166,7 +171,7 @@ return require("lazy").setup({
 					enabled = true,
 					indentscope_color = "lavender",
 				},
-				vimwiki = true,
+				vimwiki = false,
 			},
 		},
 	},
@@ -1408,6 +1413,7 @@ return require("lazy").setup({
 					require("null-ls").builtins.formatting.black,
 					require("null-ls").builtins.formatting.djhtml,
 					require("null-ls").builtins.formatting.shfmt,
+					require("null-ls").builtins.formatting.csharpier,
 					-- require("null-ls").builtins.formatting.djlint,
 					require("null-ls").builtins.formatting.gofmt,
 					require("null-ls").builtins.formatting.prettierd.with({
@@ -1727,7 +1733,7 @@ return require("lazy").setup({
 		keys = { "<leader>w" },
 		ft = { "vimwiki", "vimwiki_markdown_custom" },
 		init = function()
-			vim.cmd("autocmd FileType vimwiki set filetype=markdown")
+			-- vim.cmd("autocmd FileType vimwiki set filetype=markdown")
 			vim.treesitter.language.register("markdown", "vimwiki")
 			vim.g.vimwiki_listsyms = "    x"
 			vim.g.vimwiki_markdown_link_ext = 1

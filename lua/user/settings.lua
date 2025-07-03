@@ -70,13 +70,17 @@ flavors = {
 }
 
 function open_todo_window()
+	if vim.g.is_todo_open then
+		vim.cmd("q")
+		return
+	end
 	local root = vim.fn["FindRootDirectory"]() -- NOTE: depends on vim-rooter
 	local todo_file = root .. "/.todo.md"
 	if vim.fn.filereadable(todo_file) == 0 then
 		vim.fn.writefile({}, todo_file) -- Create an empty file
 	end
 	local buf = vim.api.nvim_create_buf(false, true) -- Create a scratch buffer
-	vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
+	vim.api.nvim_buf_set_option(buf, "filetype", "vimwiki")
 	local content = vim.fn.readfile(todo_file)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, content)
 	local width = math.floor(vim.o.columns * 0.8)
@@ -92,6 +96,7 @@ function open_todo_window()
 		style = "minimal",
 		border = "rounded",
 	})
+	vim.g.is_todo_open = true
 	vim.api.nvim_win_set_option(win, "number", true)
 	vim.api.nvim_win_set_option(win, "relativenumber", true)
 	vim.api.nvim_win_set_option(win, "spell", true)
@@ -100,6 +105,7 @@ function open_todo_window()
 	vim.api.nvim_create_autocmd("BufLeave", {
 		buffer = buf,
 		callback = function()
+			vim.g.is_todo_open = false
 			local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
 			vim.fn.writefile(lines, todo_file)
 			vim.api.nvim_buf_delete(buf, { force = true })
@@ -144,12 +150,15 @@ function term_debug()
 	-- local current_dir = vim.fn.expand("%:p:h")
 	vim.cmd("packadd termdebug | startinsert | Termdebug")
 	if vim.g.termdebug_wide then
-		vim.cmd("Asm")
+		-- vim.cmd("Asm")
 		vim.cmd("Var")
 		vim.cmd("Gdb")
 		vim.cmd("wincmd x")
 		vim.cmd("Gdb")
 		vim.cmd("resize 25")
+		vim.cmd("Source")
+		vim.cmd("resize 25")
+		vim.cmd("Gdb")
 		vim.api.nvim_feedkeys("dashboard -enabled off\n", "n", true)
 		-- vim.api.nvim_feedkeys("dashboard -layout registers\n", "n", true)
 	else
@@ -366,6 +375,8 @@ smap <C-_> <ESC><ESC>gcc
 imap <C-_> <ESC>gcc
 
 nnoremap <silent> <leader>a ggVG:Tabularize /;<CR>=G:%s/^\ssection/section<CR>
+
+autocmd FileType vimwiki nnoremap <silent> <buffer> <CR> :silent! VimwikiFollowLink<CR>
 
 autocmd FileType template set filetype=html
 
@@ -599,7 +610,7 @@ vim.o.cmdheight = 0
 vim.o.laststatus = 3
 vim.g.laststatus = 3
 vim.go.laststatus = 3
-vim.o.scrolloff = 4
+vim.o.scrolloff = 1
 vim.o.timeoutlen = 300
 vim.o.inccommand = "split"
 vim.o.ruler = false
@@ -664,9 +675,8 @@ vim.bo.textwidth = 80
 vim.wo.linebreak = true
 vim.o.autochdir = true
 vim.o.hidden = true
-vim.o.wildmode = "full"
 vim.o.wildmenu = true
-vim.g.wildmenu = true
+vim.o.wildmode = "longest:full,full"
 -- vim.g.wildoptions = "pum"
 vim.o.splitright = true
 vim.o.splitbelow = true

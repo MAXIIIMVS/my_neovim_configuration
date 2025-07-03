@@ -498,9 +498,14 @@ require("which-key").add({
 	{
 		"<space><space>",
 		function()
-			vim.cmd("ToggleTerm direction=tab dir=%:p:h")
+			require("toggleterm")
+			if vim.fn.winwidth(0) > vim.g.big_screen_size then
+				vim.cmd('execute "99ToggleTerm size=80 direction=vertical dir=' .. vim.fn.expand("%:p:h") .. '"')
+			else
+				vim.cmd('execute "99ToggleTerm dir=' .. vim.fn.expand("%:p:h") .. '"')
+			end
 		end,
-		desc = "Terminal in Tab",
+		desc = "Open ToggleTerm in current file directory",
 		nowait = true,
 		remap = false,
 	},
@@ -1220,14 +1225,9 @@ require("which-key").add({
 	{
 		"<leader><leader>",
 		function()
-			require("toggleterm")
-			if vim.fn.winwidth(0) > vim.g.big_screen_size then
-				vim.cmd('execute "99ToggleTerm size=80 direction=vertical dir=' .. vim.fn.expand("%:p:h") .. '"')
-			else
-				vim.cmd('execute "99ToggleTerm dir=' .. vim.fn.expand("%:p:h") .. '"')
-			end
+			vim.cmd("ToggleTerm direction=tab dir=%:p:h")
 		end,
-		desc = "Open ToggleTerm in current file directory",
+		desc = "Terminal in Tab",
 		nowait = true,
 		remap = false,
 	},
