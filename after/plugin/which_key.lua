@@ -20,14 +20,6 @@ require("which-key").add({
 	{ ",8", "8<C-w>w", desc = "Go to 8th window", nowait = true, remap = false },
 	{ ",9", "9<C-w>w", desc = "Go to 9th window", nowait = true, remap = false },
 	{
-		",a",
-		"<cmd>call OpenAtac()<CR>",
-		desc = "ATAC",
-		remap = false,
-		silent = true,
-		nowait = true,
-	},
-	{
 		",D",
 		function()
 			local word = vim.fn.expand("<cword>")

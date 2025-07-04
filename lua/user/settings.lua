@@ -453,27 +453,14 @@ autocmd BufWinLeave * if &laststatus != 3 | set laststatus=3 | endif
 function! OpenLazyGit()
   set notermguicolors
   terminal lazygit
-  redraw!
+  tnoremap <buffer> <ESC> <ESC>
   startinsert
+  redraw!
   augroup LazyGit
-	autocmd! * <buffer>
-	autocmd WinResized <buffer> redraw
-	autocmd TermClose <buffer> :lua require("mini.bufremove").delete()
-	autocmd TermClose * set termguicolors
-  augroup END
-endfunction
-
-function! OpenAtac()
-  set notermguicolors
-  terminal atac
-  redraw!
-  silent! tunmap <ESC>
-  startinsert
-  augroup ATAC
-	  autocmd! * <buffer>
-	  autocmd WinResized <buffer> redraw
-	  autocmd TermClose <buffer> :lua require("mini.bufremove").delete()
-	  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>"
+    autocmd! * <buffer>
+    autocmd WinResized <buffer> redraw
+    autocmd TermClose <buffer> :lua require("mini.bufremove").delete()
+    autocmd TermClose * set termguicolors
   augroup END
 endfunction
 
