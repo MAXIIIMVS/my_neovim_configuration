@@ -30,17 +30,25 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ ",d", "<cmd>silent Dashboard<CR>", desc = "dashboard", nowait = true, remap = false },
+	{ ",d", "<cmd>silent lua Snacks.dashboard()<CR>", desc = "dashboard", nowait = true, remap = false },
 	{ ",f", ":find ", desc = "find a file", nowait = true, remap = false, silent = false },
 	{
-		",g",
+		",G",
 		"<cmd>call OpenLazyGit()<CR>",
 		desc = "LazyGit",
 		remap = false,
 		silent = true,
 		nowait = true,
 	},
-	{ ",H", "<cmd>silent Telescope keymaps<CR>", desc = "Keymaps", nowait = true, remap = false },
+	{
+		",g",
+		"<cmd>lua Snacks.lazygit()<CR>",
+		desc = "LazyGit (snacks)",
+		remap = false,
+		silent = true,
+		nowait = true,
+	},
+	{ ",H", "<cmd>silent lua Snacks.picker.keymaps()<CR>", desc = "Keymaps", nowait = true, remap = false },
 	{ ",h", ":Man ", desc = "Show man pages", nowait = true, remap = false, silent = false },
 	{ ",m", "<cmd>messages<CR>", desc = "Messages", nowait = true, remap = false },
 	{ ",q", "<cmd>tabclose<CR>", desc = "Close tab", nowait = true, remap = false },
@@ -98,12 +106,12 @@ require("which-key").add({
 	{ ";9", "<cmd>BufferLineGoToBuffer 9<CR>", desc = "Go to 9th buffer", nowait = true, remap = false },
 	{
 		";;",
-		"<cmd>lua require('mini.bufremove').delete()<CR>",
+		"<cmd>lua Snacks.bufdelete()<CR>",
 		desc = "Delete current buffer",
 		nowait = true,
 		remap = false,
 	},
-	{ ";<space>", "<cmd>Telescope<CR>", desc = "Telescope", nowait = true, remap = false },
+	{ ";<space>", "<cmd>lua Snacks.picker()<CR>", desc = "Picker", nowait = true, remap = false },
 	{
 		";A",
 		function()
@@ -163,55 +171,62 @@ require("which-key").add({
 	},
 	{
 		";b",
-		function()
-			require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({
-				previewer = false,
-			}))
-		end,
+		"<cmd>lua Snacks.picker.buffers()<CR>",
 		desc = "List open buffers",
 		nowait = true,
 		remap = false,
 	},
 	{
 		";c",
-		function()
-			require("telescope.builtin").colorscheme(require("telescope.themes").get_dropdown({
-				previewer = false,
-			}))
-		end,
+		"<cmd>lua Snacks.picker.colorschemes()<CR>",
 		desc = "List available color schemes",
 		nowait = true,
 		remap = false,
 	},
 	{ ";D", "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Show line diagnostics", nowait = true, remap = false },
-	{ ";d", "<cmd>silent Telescope diagnostics<CR>", desc = "List diagnostics", nowait = true, remap = false },
+	{
+		";d",
+		"<cmd>silent lua Snacks.picker.diagnostics()<CR>",
+		desc = "List diagnostics",
+		nowait = true,
+		remap = false,
+	},
 	{ ";e", ":e ", desc = "Edit file", nowait = true, remap = false, silent = false },
 	{
 		";F",
-		"<cmd>Telescope git_files<CR>",
+		"<cmd>lua Snacks.picker.git_files()<CR>",
 		desc = "Fuzzy search for files tracked by Git",
 		nowait = true,
 		remap = false,
 	},
-	{ ";f", "<cmd>Telescope find_files<CR>", desc = "Find files", nowait = true, remap = false },
-	{ ";G", "<cmd>Telescope grep_string<CR>", desc = "Grep string under the cursor", nowait = true, remap = false },
-	{ ";g", "<cmd>Telescope live_grep<CR>", desc = "Live grep", nowait = true, remap = false },
+	{ ";f", "<cmd>lua Snacks.picker.files()<CR>", desc = "Find files", nowait = true, remap = false },
+	{
+		";G",
+		"<cmd>lua Snacks.picker.grep_word()<CR>",
+		desc = "Grep string under the cursor",
+		nowait = true,
+		remap = false,
+	},
+	{ ";g", "<cmd>lua Snacks.picker.grep()<CR>", desc = "Live grep", nowait = true, remap = false },
 	{
 		";h",
 		":h ",
-		-- function()
-		-- 	require("telescope.builtin").help_tags(require("telescope.themes").get_dropdown({
-		-- 		previewer = false,
-		-- 	}))
-		-- end,
 		desc = "Help",
 		nowait = true,
 		remap = false,
 		silent = false,
 	},
 	{
+		";i",
+		"<cmd>lua Snacks.picker.icons()<cr>",
+		desc = "Icons",
+		nowait = true,
+		remap = false,
+		silent = true,
+	},
+	{
 		";l",
-		"<cmd>Telescope lsp_document_symbols<CR>",
+		"<cmd>lua Snacks.picker.lsp_symbols()<CR>",
 		desc = "Show LSP document symbols",
 		nowait = true,
 		remap = false,
@@ -236,6 +251,13 @@ require("which-key").add({
 		remap = false,
 	},
 	{
+		";N",
+		"<cmd>lua Snacks.explorer()<CR>",
+		desc = "Netrw",
+		nowait = true,
+		remap = false,
+	},
+	{
 		";n",
 		[[:call ToggleNetrw() | :sil! /<C-R>=expand("%:t")<CR><CR> :nohlsearch<CR>]],
 		-- "<cmd>topleft 40vsplit | Oil<CR>",
@@ -245,16 +267,13 @@ require("which-key").add({
 	},
 	{ ";O", "<cmd>silent !xdg-open %:p:h<CR>", desc = "Open the current directory", nowait = true, remap = false },
 	{ ";o", "<cmd>silent !xdg-open %<CR>", desc = "Open the current file", nowait = true, remap = false },
-	{ ";p", "<cmd>silent Telescope zoxide list<CR>", desc = "Projects", nowait = true, remap = false },
+	{ ";P", "<cmd>silent lua Snacks.picker.zoxide()<CR>", desc = "Projects (zoxide)", nowait = true, remap = false },
+	{ ";p", "<cmd>silent lua Snacks.picker.projects()<CR>", desc = "Projects", nowait = true, remap = false },
 	{ ";Q", vim.cmd.qall, desc = "Close all windows", nowait = true, remap = false },
 	{ ";q", vim.cmd.q, desc = "Close current window", nowait = true, remap = false },
 	{
 		";r",
-		function()
-			require("telescope.builtin").oldfiles(require("telescope.themes").get_dropdown({
-				previewer = false,
-			}))
-		end,
+		"<cmd>lua Snacks.picker.recent()<CR>",
 		desc = "Show recently opened files",
 		nowait = true,
 		remap = false,
@@ -275,8 +294,8 @@ require("which-key").add({
 		remap = false,
 		silent = false,
 	},
-	{ ";T", "<cmd>Telescope tags<CR>", desc = "tags", nowait = true, remap = false },
-	{ ";t", "<cmd>TodoTelescope<CR>", desc = "See notes/todos...", nowait = true, remap = false },
+	-- { ";T", "<cmd>Telescope tags<CR>", desc = "tags", nowait = true, remap = false },
+	{ ";t", "<cmd>lua Snacks.picker.todo_comments()<CR>", desc = "See notes/todos...", nowait = true, remap = false },
 	{ ";U", "<cmd>e!<CR>", desc = "Undo all changes to the file", nowait = true, remap = false },
 	{ ";u", vim.cmd.UndotreeToggle, desc = "Toggle Undotree", nowait = true, remap = false },
 	{
@@ -286,7 +305,7 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ ";z", "<cmd>ZenMode<CR>", desc = "Toggle Zen Mode", nowait = true, remap = false },
+	{ ";z", "<cmd>lua Snacks.zen()<CR>", desc = "Toggle Zen Mode", nowait = true, remap = false },
 	{ ";Z", "<C-w>|<C-w>_", desc = "Maximize the window", nowait = true, remap = false },
 	{ "<C-s>", "<cmd>silent update<CR>", desc = "Save buffer", nowait = true, remap = false },
 	{ "<M-Down>", "<cmd>resize +1<CR>", desc = "Decrease window height", nowait = true, remap = false },
@@ -503,7 +522,13 @@ require("which-key").add({
 	},
 	{ "<space>b", group = "Buffer", nowait = true, remap = false },
 	{ "<space>bO", "<cmd>silent %bd|e#|bd#<CR>|'\"", desc = "Close other buffers", nowait = true, remap = false },
-	{ "<space>bo", "<cmd>BufferLineCloseOthers<CR>|'\"", desc = "Close other buffers", nowait = true, remap = false },
+	{
+		"<space>bo",
+		"<cmd>lua Snacks.bufdelete.other()<CR>",
+		desc = "Close other buffers",
+		nowait = true,
+		remap = false,
+	},
 	{ "<space>bP", "<cmd>BufferLineTogglePin<CR>", desc = "Pin buffer", nowait = true, remap = false },
 	{ "<space>ba", "<cmd>bufdo bd<CR>", desc = "Close all buffers", nowait = true, remap = false },
 	{ "<space>bd", "<cmd>silent bd<CR>", desc = "Close this buffer", nowait = true, remap = false },
@@ -962,7 +987,13 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	{ "<space>go", "<cmd>silent GBrowse<CR>", desc = "Open in the browser", nowait = true, remap = false },
+	{
+		"<space>go",
+		"<cmd>silent lua Snacks.gitbrowse()<CR>",
+		desc = "Open in the browser",
+		nowait = true,
+		remap = false,
+	},
 	{ "<space>gp", "<cmd>silent G pull<CR>", desc = "Pull", nowait = true, remap = false },
 	{
 		"<space>gr",
@@ -983,7 +1014,7 @@ require("which-key").add({
 	{ "<space>gwu", ":G worktree unlock ", desc = "Unlock", nowait = true, remap = false, silent = false },
 	{ "<space>s", group = "Session", nowait = true, remap = false },
 	{ "<space>sd", "<cmd>silent Obsession!<CR>", desc = "Delete the session", nowait = true, remap = false },
-	{ "<space>ss", "<cmd>silent Obsession<CR>", desc = "Make a session", nowait = true, remap = false },
+	{ "<space>ss", "<cmd>silent Obsession<CR>", desc = "Start a session", nowait = true, remap = false },
 	{
 		"<space>r",
 		function()
@@ -1021,7 +1052,6 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
-	-- { "<space>tD", "<cmd>dig!<CR>", desc = "Digraphs", nowait = true, remap = false },
 	{
 		"<space>tD",
 		function()
@@ -1033,20 +1063,6 @@ require("which-key").add({
 		remap = false,
 	},
 	{ "<space>td", "<cmd>silent DBUIToggle<CR>", desc = "DB UI", nowait = true, remap = false },
-	{
-		"<space>te",
-		"<cmd>Telescope emoji<CR>",
-		desc = "Emoji",
-		nowait = true,
-		remap = false,
-	},
-	{
-		"<space>tg",
-		"<cmd>Telescope glyph<CR>",
-		desc = "Glyphs",
-		nowait = true,
-		remap = false,
-	},
 	{ "<space>tH", "<cmd>TSToggle highlight<CR>", desc = "Treesitter highlight", nowait = true, remap = false },
 	{
 		"<space>th",
@@ -1262,10 +1278,8 @@ require("which-key").add({
 		{ "<C-k>", "<C-o>C", desc = "Delete to the end of the line", nowait = false, remap = false },
 		{
 			"<c-k><c-k>",
-			function()
-				require("digraph-picker").insert_digraph()
-			end,
-			desc = "Digraph picker",
+			"<cmd>lua Snacks.picker.icons()<cr>",
+			desc = "Icons",
 			nowait = true,
 			remap = false,
 			silent = true,

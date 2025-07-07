@@ -85,6 +85,6 @@ function! CreateFileAndEdit()
   endtry
 
   " Close netrw (current window) and open the file
-  quit
+  " quit " this cause a problem while using noice.nvim
   execute 'edit ' . fnameescape(filename)
 endfunction

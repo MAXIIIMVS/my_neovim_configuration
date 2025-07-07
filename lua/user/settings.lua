@@ -384,7 +384,7 @@ autocmd FileType template set filetype=html
 " autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
 au FileType * set fo-=c fo-=r fo-=o
 
-autocmd FileType TelescopePrompt,dashboard setlocal nocursorline
+autocmd FileType dashboard setlocal nocursorline
 
 " Automatically open Quickfix window if there are errors after :make
 augroup auto_open_quickfix
@@ -414,11 +414,12 @@ else
   augroup END
 endif
 
-augroup CmdHeight
-    autocmd!
-    autocmd CmdlineEnter * if &cmdheight == 0 | let g:cmdheight_prev = 0 | set cmdheight=1 | endif
-    autocmd CmdlineLeave * if exists('g:cmdheight_prev') && g:cmdheight_prev == 0 | set cmdheight=0 | unlet! g:cmdheight_prev | endif
-augroup END
+" Disable while using noice.nvim
+" augroup CmdHeight
+"     autocmd!
+"     autocmd CmdlineEnter * if &cmdheight == 0 | let g:cmdheight_prev = 0 | set cmdheight=1 | endif
+"     autocmd CmdlineLeave * if exists('g:cmdheight_prev') && g:cmdheight_prev == 0 | set cmdheight=0 | unlet! g:cmdheight_prev | endif
+" augroup END
 
 " hide tmux
 " autocmd VimEnter,VimLeave * silent !tmux set status
@@ -459,7 +460,7 @@ function! OpenLazyGit()
   augroup LazyGit
     autocmd! * <buffer>
     autocmd WinResized <buffer> redraw
-    autocmd TermClose <buffer> :lua require("mini.bufremove").delete()
+    autocmd TermClose <buffer> :lua Snacks.bufdelete()
     autocmd TermClose * set termguicolors
   augroup END
 endfunction

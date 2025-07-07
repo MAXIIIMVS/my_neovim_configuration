@@ -126,27 +126,14 @@ return require("lazy").setup({
 			integrations = {
 				blink_cmp = { style = "bordered" },
 				gitsigns = true,
-				dashboard = true,
 				dadbod_ui = false,
 				dap = true,
 				dap_ui = true,
-				telescope = {
-					enabled = true,
-					-- style = "nvchad",
-				},
-				illuminate = {
-					enabled = true,
-					lsp = false,
-				},
-				indent_blankline = {
-					enabled = true,
-					scope_color = "", -- catppuccin color (eg. `lavender`) Default: text
-					colored_indent_levels = false,
-				},
 				which_key = false,
 				treesitter = true,
 				mason = false,
 				nvimtree = true,
+				noice = false,
 				lsp_saga = false,
 				markdown = true,
 				native_lsp = {
@@ -171,6 +158,10 @@ return require("lazy").setup({
 					enabled = true,
 					indentscope_color = "lavender",
 				},
+				snacks = {
+					enabled = true,
+					indent_scope_color = "lavender",
+				},
 				vimwiki = false,
 			},
 		},
@@ -188,7 +179,6 @@ return require("lazy").setup({
 	},
 	--D
 	--E
-	{ "echasnovski/mini.bufremove", version = false, opts = { silent = true }, lazy = true },
 	{
 		"echasnovski/mini.jump2d",
 		version = false,
@@ -251,6 +241,150 @@ return require("lazy").setup({
 	},
 	--F
 	{
+		"folke/noice.nvim",
+		event = "CmdlineEnter",
+		opts = {},
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
+	},
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		opts = {
+			animate = { enabled = true },
+			bigfile = { size = 1 * 1024 * 1024 },
+			bufdelete = { enabled = true },
+			explorer = { enabled = false },
+			gitbrowse = {
+				enabled = true,
+				what = "file", -- what to open. not all remotes support all types
+			},
+			indent = { enabled = true },
+			lazygit = { enabled = true },
+			notifier = { enabled = true },
+			quickfile = { enabled = true },
+			picker = {
+				enabled = true,
+				sources = {
+					explorer = { auto_close = true },
+				},
+				-- default, ivy, dropdown, ivy_split, left, right, select, sidebar,
+				-- telescope, top, vertical, vscode
+				-- e.g. layout = { preset = "telescope", reverse = true, layout = { box = "vertical" } },
+				layout = "telescope",
+			},
+			dashboard = {
+				enabled = true,
+				preset = {
+					header = [[
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⢹⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠀⢻⡾⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⢸⣼⠁⠀⠀⠄⠹⣿⣆⠀⠀⡰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠐⡀⠀⠀⠸⡄⢠⡿⠀⠀⣺⣿⢾⠀⠘⣿⣧⣼⠀⠀⠀⡰⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠐⢄⠀⠀⠀⢳⡀⣦⣹⣥⠆⠀⠀⠀⠈⠈⢀⠀⠈⣿⣷⡎⣰⠇⠀⠀⠀⠔⠀⠀⠀⠀⠀
+⠀⠀⢀⠀⠀⠀⠈⠳⣄⢳⣼⣿⣿⠁⢀⣠⣲⣾⣿⣿⣾⣷⣦⡀⢿⣿⣴⢋⣤⠋⠀⠀⠀⢀⠀⠀⠀
+⠀⠀⠀⠀⠉⠲⣤⡙⣶⣿⣿⡿⠀⠀⠀⠀⠀⢀⡀⢠⡠⠄⠀⠀⠀⢹⣿⣿⡞⣡⣴⠚⠁⠀⠀⠀⠀
+⠀⠈⠒⠦⣤⣈⣻⣿⣿⣿⠏⠀⢀⢴⣾⣿⣿⡿⠿⠿⠿⣿⣽⣿⠦⠀⠹⣿⣿⣾⣋⣠⡤⠖⠂⠁⠀
+⡀⠀⠀⡀⠒⠶⣾⣿⣿⠃⢀⣤⠟⠉⠀⠀⣠⣤⠀⠀⠀⠀⠀⠀⠀⠑⠀⠘⣿⢿⡶⠖⢀⠀⠀⠀⡀
+⠀⠀⠀⠤⠤⣤⣿⡿⠀⠐⠀⢠⣶⡄⡀⣆⠸⠿⠀⠀⠀⢰⣸⡇⣾⣆⠀⠀⠀⣿⣷⣤⠤⠄⠀⠀⠀
+⠒⠂⠉⠉⢹⣿⡟⢀⠤⠀⣼⣿⣿⣿⣆⠻⣯⣶⡶⠶⣿⡽⢋⣾⣿⡿⢀⣴⠇⠀⠿⢿⡉⠉⠉⠐⠂
+⠀⠀⣀⣴⣿⠏⠀⠀⢤⣛⣶⣤⣍⣿⣿⣿⣿⣶⣶⣶⣾⣿⣿⣷⣿⣋⣴⣨⣖⡀⠀⠀⠸⣄⡀⠀⠀
+⠀⢀⣾⢿⠃⠀⠀⠀⠼⡿⣷⣼⣧⣾⣦⢿⣿⣭⣭⣭⡴⠖⣻⣿⠶⢟⣉⣭⣶⠢⠄⠀⠀⠈⣦⠀⠀
+⣠⠿⠟⠀⠀⠀⠀⠀⠀⢀⣀⣀⣠⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⡀⣷⠀
+⠀⠀⠈⠈⢈⠜⠉⠉⠉⣸⠋⣼⢡⡟⣿⣿⢿⣿⣿⣿⣿⡿⡟⣿⠹⡌⢻⡀⠁⠀⠙⢄⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢀⠊⠀⠀⢠⠏⠰⠀⡿⢸⠀⡇⢸⠈⣇⠸⠀⢷⠀⠀⠈⢦⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠃⠀⠀⢰⠀⠀⠀⡇⠀⠀⢸⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠂⠀⠀⠀⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀ ⠀⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+MEMENTO MORI
+MEMENTO VIVERE]],
+					keys = {
+						{
+							icon = "📆  ",
+							desc = "Calendar",
+							action = ":Calendar",
+							key = "c",
+						},
+						{
+							icon = "📚 ",
+							desc = "Open Wiki",
+							action = ":VimwikiIndex",
+							key = "w",
+						},
+						{
+							-- icon = "🗂️ ",
+							icon = "💾 ",
+							desc = "Restore Session",
+							action = function()
+								local session_file = vim.fn.getcwd() .. "/Session.vim"
+								if vim.fn.filereadable(session_file) == 1 then
+									vim.cmd("silent! source Session.vim")
+								else
+									vim.notify("No session file found for this project.", vim.log.levels.WARN)
+								end
+							end,
+							key = "s",
+						},
+						{
+							icon = "⚡ ",
+							desc = "Manage LSP/Formatters/...                    ",
+							action = ":Mason",
+							key = "m",
+						},
+						{
+							icon = "🔧 ",
+							desc = "Extensions",
+							action = ":Lazy",
+							key = "x",
+						},
+						{
+							icon = "🛠️ ",
+							desc = "Neovim Config Files",
+							key = "v",
+							action = ":lua Snacks.picker.files({ cwd = '~/.config/nvim' })",
+						},
+						{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
+						{
+							align = "center",
+							text = "👑 " .. "Time Without Purpose Is a Prison" .. " 👑",
+						},
+					},
+				},
+				sections = {
+					{ section = "header" },
+					{ section = "keys", gap = 1, padding = 1 },
+					-- { section = "startup" },
+				},
+			},
+			zen = {
+				enabled = true,
+				toggles = {
+					dim = false,
+				},
+				show = {
+					statusline = true,
+					-- tabline = true,
+				},
+			},
+			styles = {
+				zen = {
+					width = 120,
+					backdrop = {
+						transparent = true,
+						blend = 0,
+						bg = "#171421",
+					},
+				},
+			},
+			-- TODO: checkout scratch
+			-- scroll = { enabled = true },
+			-- statuscolumn = { enabled = true },
+		},
+	},
+	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		lazy = true,
@@ -282,25 +416,7 @@ return require("lazy").setup({
 			win = { border = "rounded" },
 		},
 	},
-	{
-		"folke/zen-mode.nvim",
-		opts = {
-			window = { width = 100 },
-			-- on_open = function(win)
-			-- 	vim.cmd("normal zt<CR>")
-			-- end,
-			-- on_close = function(win)
-			-- 	vim.cmd("normal zt<CR>")
-			-- end,
-		},
-		cmd = { "ZenMode" },
-	},
 	--G
-	{
-		"ghassan0/telescope-glyph.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim" },
-		cmd = { "Telescope glyph" },
-	},
 	{ "godlygeek/tabular", cmd = "Tabularize" },
 	-- { "github/copilot.vim" },
 	--H
@@ -326,27 +442,20 @@ return require("lazy").setup({
 		end,
 	},
 	--J
-	{
-		"j-hui/fidget.nvim",
-		event = "LspAttach",
-		opts = {
-			notification = {
-				window = {
-					winblend = 0,
-					-- border = "rounded",
-				},
-			},
-		},
-	},
+	-- {
+	-- 	"j-hui/fidget.nvim",
+	-- 	enabled = false,
+	-- 	event = "LspAttach",
+	-- 	opts = {
+	-- 		notification = {
+	-- 			window = {
+	-- 				winblend = 0,
+	-- 				-- border = "rounded",
+	-- 			},
+	-- 		},
+	-- 	},
+	-- },
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
-	{
-		"jvgrootveld/telescope-zoxide",
-		cmd = { "Telescope zoxide list" },
-		dependencies = { "nvim-telescope/telescope.nvim" },
-		config = function()
-			require("telescope").load_extension("zoxide")
-		end,
-	},
 	--K
 	{
 		"KabbAmine/vCoolor.vim",
@@ -458,22 +567,6 @@ return require("lazy").setup({
 			vim.g.gutentags_generate_on_empty_buffer = false
 		end,
 	},
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		opts = {
-			scope = {
-				show_start = false,
-				show_end = false,
-			},
-			exclude = {
-				buftypes = { "terminal", "nofile" },
-				filetypes = { "help", "dashboard", "NvimTree", "mason", "fugitive", "git", "cmake", "dbout" },
-			},
-		},
-		event = { "BufReadPost", "BufNewFile" },
-	},
-	{ "LunarVim/bigfile.nvim", event = "BufReadPre", opts = { filesize = 1 } },
 	--M
 	{
 		"mbbill/undotree",
@@ -753,104 +846,6 @@ return require("lazy").setup({
 		end,
 	},
 	--N
-	{
-		"nvimdev/dashboard-nvim",
-		event = "UIEnter",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			theme = "doom", -- hyper
-			config = {
-				header = {
-					[[                                     ]],
-					[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⢹⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
-					[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠀⢻⡾⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
-					[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⢸⣼⠁⠀⠀⠄⠹⣿⣆⠀⠀⡰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
-					[[⠀⠀⠀⠀⠀⠀⠀⠐⡀⠀⠀⠸⡄⢠⡿⠀⠀⣺⣿⢾⠀⠘⣿⣧⣼⠀⠀⠀⡰⠀⠀⠀⠀⠀⠀⠀⠀]],
-					[[⠀⠀⠀⠀⠐⢄⠀⠀⠀⢳⡀⣦⣹⣥⠆⠀⠀⠀⠈⠈⢀⠀⠈⣿⣷⡎⣰⠇⠀⠀⠀⠔⠀⠀⠀⠀⠀]],
-					[[⠀⠀⢀⠀⠀⠀⠈⠳⣄⢳⣼⣿⣿⠁⢀⣠⣲⣾⣿⣿⣾⣷⣦⡀⢿⣿⣴⢋⣤⠋⠀⠀⠀⢀⠀⠀⠀]],
-					[[⠀⠀⠀⠀⠉⠲⣤⡙⣶⣿⣿⡿⠀⠀⠀⠀⠀⢀⡀⢠⡠⠄⠀⠀⠀⢹⣿⣿⡞⣡⣴⠚⠁⠀⠀⠀⠀]],
-					[[⠀⠈⠒⠦⣤⣈⣻⣿⣿⣿⠏⠀⢀⢴⣾⣿⣿⡿⠿⠿⠿⣿⣽⣿⠦⠀⠹⣿⣿⣾⣋⣠⡤⠖⠂⠁⠀]],
-					[[⡀⠀⠀⡀⠒⠶⣾⣿⣿⠃⢀⣤⠟⠉⠀⠀⣠⣤⠀⠀⠀⠀⠀⠀⠀⠑⠀⠘⣿⢿⡶⠖⢀⠀⠀⠀⡀]],
-					[[⠀⠀⠀⠤⠤⣤⣿⡿⠀⠐⠀⢠⣶⡄⡀⣆⠸⠿⠀⠀⠀⢰⣸⡇⣾⣆⠀⠀⠀⣿⣷⣤⠤⠄⠀⠀⠀]],
-					[[⠒⠂⠉⠉⢹⣿⡟⢀⠤⠀⣼⣿⣿⣿⣆⠻⣯⣶⡶⠶⣿⡽⢋⣾⣿⡿⢀⣴⠇⠀⠿⢿⡉⠉⠉⠐⠂]],
-					[[⠀⠀⣀⣴⣿⠏⠀⠀⢤⣛⣶⣤⣍⣿⣿⣿⣿⣶⣶⣶⣾⣿⣿⣷⣿⣋⣴⣨⣖⡀⠀⠀⠸⣄⡀⠀⠀]],
-					[[⠀⢀⣾⢿⠃⠀⠀⠀⠼⡿⣷⣼⣧⣾⣦⢿⣿⣭⣭⣭⡴⠖⣻⣿⠶⢟⣉⣭⣶⠢⠄⠀⠀⠈⣦⠀⠀]],
-					[[⣠⠿⠟⠀⠀⠀⠀⠀⠀⢀⣀⣀⣠⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⡀⣷⠀]],
-					[[⠀⠀⠈⠈⢈⠜⠉⠉⠉⣸⠋⣼⢡⡟⣿⣿⢿⣿⣿⣿⣿⡿⡟⣿⠹⡌⢻⡀⠁⠀⠙⢄⠀⠀⠀⠀⠀]],
-					[[⠀⠀⠀⠀⠀⠀⠀⢀⠊⠀⠀⢠⠏⠰⠀⡿⢸⠀⡇⢸⠈⣇⠸⠀⢷⠀⠀⠈⢦⠀⠀⠀⠀⠀⠀⠀⠀]],
-					[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠃⠀⠀⢰⠀⠀⠀⡇⠀⠀⢸⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
-					[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠂⠀⠀⠀⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
-					[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀ ⠀⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
-					[[             MEMENTO MORI            ]],
-					[[            MEMENTO VIVERE           ]],
-					[[                                     ]],
-				},
-				center = {
-					{
-						icon = "📆 ",
-						desc = "Calendar",
-						action = "Calendar",
-						key = "c",
-					},
-					{
-						icon = "📚 ",
-						desc = "Open Wiki",
-						action = "VimwikiIndex",
-						key = "w",
-					},
-					{
-						-- icon = "🗂️ ",
-						icon = "💾 ",
-						desc = "Restore Session",
-						action = function()
-							local session_file = vim.fn.getcwd() .. "/Session.vim"
-							if vim.fn.filereadable(session_file) == 1 then
-								vim.cmd("silent! source Session.vim")
-							else
-								vim.notify("No session file found for this project.", vim.log.levels.WARN)
-							end
-						end,
-						key = "s",
-					},
-					{
-						icon = "⚡ ",
-						desc = "Manage LSP/Formatters/...                    ",
-						action = "Mason",
-						key = "m",
-					},
-					{
-						icon = "🔧 ",
-						desc = "Extensions",
-						action = "Lazy",
-						key = "x",
-					},
-					{
-						icon = "🛠️ ",
-						desc = "Neovim Config Files",
-						key = "v",
-						action = function()
-							require("telescope.builtin").find_files({
-								prompt_title = "Neovim Config Files",
-								cwd = "~/.config/nvim",
-								hidden = true,
-							})
-						end,
-					},
-					{
-						icon = "⏻ ",
-						desc = "Quit",
-						action = "q",
-						key = "q",
-					},
-				},
-				-- He that lives upon hope will die fasting.
-				footer = {
-					"👑 " .. "Time Without Purpose Is a Prison" .. " 👑",
-				},
-				packages = { enable = true },
-			},
-		},
-	},
 	{
 		"nvimdev/lspsaga.nvim",
 		lazy = true,
@@ -1206,98 +1201,6 @@ return require("lazy").setup({
 		end,
 	},
 	{ "nvim-lua/plenary.nvim", lazy = true },
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		cmd = { "Telescope" },
-		config = function()
-			require("telescope").setup({
-				defaults = {
-					vimgrep_arguments = {
-						"rg",
-						"-L",
-						"--color=never",
-						"--no-heading",
-						"--with-filename",
-						"--line-number",
-						"--column",
-						"--smart-case",
-					},
-					layout_config = {
-						horizontal = {
-							prompt_position = "top",
-							preview_width = 0.55,
-						},
-						vertical = {
-							prompt_position = "top",
-							mirror = true,
-						},
-						flex = {
-							flip_columns = 120,
-						},
-						width = 0.90,
-						height = 0.85,
-						preview_cutoff = 0,
-					},
-					prompt_prefix = "   ",
-					selection_caret = " ",
-					entry_prefix = "  ",
-					sorting_strategy = "ascending",
-					layout_strategy = "flex",
-					file_sorter = require("telescope.sorters").get_fuzzy_file,
-					file_ignore_patterns = { "node_modules" },
-					generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-					path_display = { truncate = 3 },
-					-- path_display = { "filename_first" },
-					winblend = 0,
-					set_env = { ["COLORTERM"] = "truecolor" },
-					mappings = {
-						n = {
-							["q"] = require("telescope.actions").close,
-							["<C-c>"] = require("telescope.actions").close,
-							["<M-h>"] = "which_key",
-							["<C-r>"] = require("telescope.actions").delete_buffer
-								+ require("telescope.actions").move_to_top,
-						}, -- n
-						i = {
-							["<M-h>"] = "which_key",
-							["<C-r>"] = require("telescope.actions").delete_buffer
-								+ require("telescope.actions").move_to_top,
-						}, -- i
-					}, -- mappings
-				},
-				extensions = {
-					emoji = {
-						action = function(emoji)
-							vim.fn.setreg("*", emoji.value)
-							vim.api.nvim_put({ emoji.value }, "c", false, true)
-						end,
-					},
-					glyph = {
-						action = function(glyph)
-							vim.fn.setreg("*", glyph.value)
-							vim.api.nvim_put({ glyph.value }, "c", false, true)
-						end,
-					},
-					zoxide = { prompt_title = "Projects" },
-				},
-				extensions_list = { "emoji", "fzf", "glyph", "zoxide" },
-			})
-		end,
-	},
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "make",
-		lazy = true,
-		dependencies = { "nvim-telescope/telescope.nvim" },
-		ft = "TelescopePrompt",
-		cond = function()
-			return vim.fn.executable("make") == 1
-		end,
-		config = function()
-			require("telescope").load_extension("fzf")
-		end,
-	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true, opts = {} },
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -1578,7 +1481,17 @@ return require("lazy").setup({
 		opts = {
 			cmdline = {
 				enabled = false,
-				sources = {},
+				sources = { "path", "cmdline", "buffer" },
+				-- sources = function()
+				-- 	local type = vim.fn.getcmdtype()
+				-- 	if type == "/" or type == "?" then
+				-- 		return { "buffer" }
+				-- 	end
+				-- 	if type == ":" or type == "@" then
+				-- 		return { "cmdline", "buffer" }
+				-- 	end
+				-- 	return {}
+				-- end,
 			},
 			sources = {
 				default = { "lsp", "path", "buffer", "emoji", "dadbod", "snippets" },
@@ -1635,16 +1548,6 @@ return require("lazy").setup({
 			},
 		},
 		opts_extend = { "sources.default", "sources.providers" },
-	},
-	{
-		"srackham/digraph-picker.nvim",
-		keys = { "<c-k><c-k>", mode = { "i", "n" } },
-		event = "InsertEnter",
-		dependencies = {
-			"nvim-telescope/telescope.nvim",
-		},
-		version = "*",
-		opts = {},
 	},
 	{
 		"stevearc/oil.nvim",
@@ -1708,7 +1611,6 @@ return require("lazy").setup({
 			"GBrowse",
 		},
 	},
-	{ "tpope/vim-rhubarb", event = "UIEnter" },
 	{ "tpope/vim-rsi", event = "InsertEnter" },
 	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPre", "BufFilePre" } },
 	{ "tpope/vim-obsession", cmd = { "Obsession" } },
@@ -1756,6 +1658,7 @@ return require("lazy").setup({
 				ui = {
 					border = "rounded",
 					check_outdated_packages_on_open = true,
+					backdrop = 100,
 				},
 				max_concurrent_installers = 1,
 			})
@@ -1792,11 +1695,6 @@ return require("lazy").setup({
 	-- },
 	{ "windwp/nvim-ts-autotag", event = { "InsertEnter" } },
 	--X
-	{
-		"xiyaowong/telescope-emoji.nvim",
-		cmd = { "Telescope emoji" },
-		dependencies = { "nvim-telescope/telescope.nvim" },
-	},
 	--Y
 	--Z
 	-- {
