@@ -150,9 +150,7 @@ return require("lazy").setup({
 						warnings = { "underline" },
 						information = { "underline" },
 					},
-					inlay_hints = {
-						background = true,
-					},
+					inlay_hints = { background = true },
 				},
 				mini = {
 					enabled = true,
@@ -183,9 +181,7 @@ return require("lazy").setup({
 		"echasnovski/mini.jump2d",
 		version = false,
 		opts = {
-			mappings = {
-				start_jumping = ";j",
-			},
+			mappings = { start_jumping = ";j" },
 			view = {
 				dim = true,
 				n_steps_ahead = 2,
@@ -231,11 +227,7 @@ return require("lazy").setup({
 					transparent = vim.g.is_transparent,
 					terminal_colors = false,
 				},
-				groups = {
-					all = {
-						NormalFloat = { fg = "fg1", bg = "NONE" },
-					},
-				},
+				groups = { all = { NormalFloat = { fg = "fg1", bg = "NONE" } } },
 			})
 		end,
 	},
@@ -243,10 +235,13 @@ return require("lazy").setup({
 	{
 		"folke/noice.nvim",
 		event = "CmdlineEnter",
-		opts = {},
-		dependencies = {
-			"MunifTanjim/nui.nvim",
+		opts = {
+			lsp = {
+				hover = { enabled = false },
+				signature = { enabled = false },
+			},
 		},
+		dependencies = { "MunifTanjim/nui.nvim" },
 	},
 	{
 		"folke/snacks.nvim",
@@ -267,9 +262,7 @@ return require("lazy").setup({
 			quickfile = { enabled = true },
 			picker = {
 				enabled = true,
-				sources = {
-					explorer = { auto_close = true },
-				},
+				sources = { explorer = { auto_close = true } },
 				-- default, ivy, dropdown, ivy_split, left, right, select, sidebar,
 				-- telescope, top, vertical, vscode
 				-- e.g. layout = { preset = "telescope", reverse = true, layout = { box = "vertical" } },
@@ -361,9 +354,7 @@ MEMENTO VIVERE]],
 			},
 			zen = {
 				enabled = true,
-				toggles = {
-					dim = false,
-				},
+				toggles = { dim = false },
 				show = {
 					statusline = true,
 					-- tabline = true,
@@ -482,7 +473,11 @@ MEMENTO VIVERE]],
 		"kristijanhusak/vim-dadbod-ui",
 		dependencies = {
 			{ "tpope/vim-dadbod", lazy = true },
-			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
+			{
+				"kristijanhusak/vim-dadbod-completion",
+				ft = { "sql", "mysql", "plsql" },
+				lazy = true,
+			},
 			cmd = "DB",
 		},
 		cmd = {
@@ -889,9 +884,7 @@ MEMENTO VIVERE]],
 					color_mode = true,
 					delay = 0,
 				},
-				beacon = {
-					enable = false,
-				},
+				beacon = { enable = false },
 			})
 		end,
 	},
@@ -1277,16 +1270,12 @@ MEMENTO VIVERE]],
 					-- "latex",
 				},
 				sync_install = false,
-				indent = {
-					enable = true,
-				},
+				indent = { enable = true },
 				highlight = {
 					additional_vim_regex_highlighting = false,
 					enable = true,
 				},
-				autotag = {
-					enable = true,
-				},
+				autotag = { enable = true },
 			})
 		end,
 	},
@@ -1401,7 +1390,7 @@ MEMENTO VIVERE]],
 	--Q
 	--R
 	{ "rafamadriz/friendly-snippets", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
-	{ "ray-x/lsp_signature.nvim", event = "InsertEnter" },
+	{ "ray-x/lsp_signature.nvim", event = "LspAttach" },
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
@@ -1559,9 +1548,7 @@ MEMENTO VIVERE]],
 				["<C-s>"] = false,
 				["<C-v>"] = "actions.select_vsplit",
 			},
-			view_options = {
-				show_hidden = true,
-			},
+			view_options = { show_hidden = true },
 		},
 	},
 	--T
