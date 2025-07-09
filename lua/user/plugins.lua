@@ -13,7 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 return require("lazy").setup({
-	--A
+	-- ────────────────────────────────── A ──────────────────────────────────
 	{
 		"airblade/vim-rooter",
 		init = function()
@@ -91,8 +91,8 @@ return require("lazy").setup({
 			"TermExec",
 		},
 	},
-	--B
-	--C
+	-- ────────────────────────────────── B ──────────────────────────────────
+	-- ────────────────────────────────── C ──────────────────────────────────
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
@@ -121,6 +121,7 @@ return require("lazy").setup({
 						WinSeparator = { fg = "#554D80" },
 						NetrwTreeBar = { fg = colors.peach },
 						FloatBorder = { fg = "#6C70B8" },
+						BlinkCmpKind = { fg = "#137174" }, -- TODO: remove when fixed
 					}
 				end,
 			},
@@ -165,6 +166,7 @@ return require("lazy").setup({
 			},
 		},
 	},
+	{ "chentoast/marks.nvim", event = "BufReadPre", opts = {} },
 	{
 		"craftzdog/solarized-osaka.nvim",
 		lazy = true,
@@ -176,8 +178,8 @@ return require("lazy").setup({
 			},
 		},
 	},
-	--D
-	--E
+	-- ────────────────────────────────── D ──────────────────────────────────
+	-- ────────────────────────────────── E ──────────────────────────────────
 	{
 		"echasnovski/mini.jump2d",
 		version = false,
@@ -232,7 +234,7 @@ return require("lazy").setup({
 			})
 		end,
 	},
-	--F
+	-- ────────────────────────────────── F ──────────────────────────────────
 	{
 		"folke/noice.nvim",
 		event = "CmdlineEnter",
@@ -304,7 +306,7 @@ return require("lazy").setup({
 						},
 					},
 				},
-				formatters = { file = { truncate = 75 } },
+				formatters = { file = { truncate = 120 } },
 				win = {
 					input = {
 						keys = {
@@ -455,11 +457,11 @@ MEMENTO VIVERE]],
 			win = { border = "rounded" },
 		},
 	},
-	--G
+	-- ────────────────────────────────── G ──────────────────────────────────
 	{ "godlygeek/tabular", cmd = "Tabularize" },
 	-- { "github/copilot.vim" },
-	--H
-	--I
+	-- ────────────────────────────────── H ──────────────────────────────────
+	-- ────────────────────────────────── I ──────────────────────────────────
 	{
 		"itchyny/calendar.vim",
 		cmd = { "Calendar" },
@@ -480,7 +482,7 @@ MEMENTO VIVERE]],
 			-- vim.g.calendar_cache_directory = "~/notes/calendar.vim/"
 		end,
 	},
-	--J
+	-- ────────────────────────────────── J ──────────────────────────────────
 	-- {
 	-- 	"j-hui/fidget.nvim",
 	-- 	enabled = false,
@@ -495,7 +497,7 @@ MEMENTO VIVERE]],
 	-- 	},
 	-- },
 	{ "junkblocker/git-time-lapse", cmd = { "GitTimeLapse" } },
-	--K
+	-- ────────────────────────────────── K ──────────────────────────────────
 	{
 		"KabbAmine/vCoolor.vim",
 		cmd = {
@@ -555,7 +557,7 @@ MEMENTO VIVERE]],
 			{ "<C-g>S", mode = { "i" } },
 		},
 	},
-	--L
+	-- ────────────────────────────────── L ──────────────────────────────────
 	-- {
 	-- 	"L3MON4D3/LuaSnip",
 	-- 	dependencies = { "rafamadriz/friendly-snippets" },
@@ -610,7 +612,7 @@ MEMENTO VIVERE]],
 			vim.g.gutentags_generate_on_empty_buffer = false
 		end,
 	},
-	--M
+	-- ────────────────────────────────── M ──────────────────────────────────
 	{
 		"mbbill/undotree",
 		cmd = {
@@ -888,7 +890,7 @@ MEMENTO VIVERE]],
 			}
 		end,
 	},
-	--N
+	-- ────────────────────────────────── N ──────────────────────────────────
 	{
 		"nvimdev/lspsaga.nvim",
 		lazy = true,
@@ -1433,10 +1435,10 @@ MEMENTO VIVERE]],
 			},
 		},
 	},
-	--O
-	--P
-	--Q
-	--R
+	-- ────────────────────────────────── O ──────────────────────────────────
+	-- ────────────────────────────────── P ──────────────────────────────────
+	-- ────────────────────────────────── Q ──────────────────────────────────
+	-- ────────────────────────────────── R ──────────────────────────────────
 	{ "rafamadriz/friendly-snippets", event = { "BufNewFile", "BufReadPost", "BufFilePost" } },
 	{ "ray-x/lsp_signature.nvim", event = "LspAttach" },
 	{
@@ -1506,7 +1508,7 @@ MEMENTO VIVERE]],
 	},
 	{ "romainl/vim-cool", event = { "CmdlineEnter" }, keys = { "#", "*", "n", "N" } },
 	-- { "RRethy/vim-illuminate", cmd = "IlluminateToggle", event = "BufReadPost" },
-	--S
+	-- ────────────────────────────────── S ──────────────────────────────────
 	{
 		"saghen/blink.cmp",
 		event = "InsertEnter",
@@ -1514,7 +1516,7 @@ MEMENTO VIVERE]],
 			"rafamadriz/friendly-snippets",
 			"moyiz/blink-emoji.nvim",
 		},
-		version = "v0.*",
+		version = "1.*",
 		opts = {
 			-- enabled = function()
 			-- 	return vim.g.show_completion ~= false
@@ -1602,7 +1604,7 @@ MEMENTO VIVERE]],
 			view_options = { show_hidden = true },
 		},
 	},
-	--T
+	-- ────────────────────────────────── T ──────────────────────────────────
 	{
 		"theHamsta/nvim-dap-virtual-text",
 		dependencies = { "mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter" },
@@ -1653,8 +1655,8 @@ MEMENTO VIVERE]],
 	{ "tpope/vim-sleuth", event = { "BufNewFile", "BufReadPre", "BufFilePre" } },
 	{ "tpope/vim-obsession", cmd = { "Obsession" } },
 	{ "tpope/vim-speeddating", keys = { { "<c-a>", mode = { "n", "v" } }, { "<c-x>", mode = { "n", "v" } } } },
-	--U
-	--V
+	-- ────────────────────────────────── U ──────────────────────────────────
+	-- ────────────────────────────────── V ──────────────────────────────────
 	{
 		"vimwiki/vimwiki",
 		cmd = {
@@ -1682,7 +1684,7 @@ MEMENTO VIVERE]],
 			vim.g.vimwiki_ext2syntax = { [".md"] = "markdown", [".mkd"] = "markdown", [".wiki"] = "media" }
 		end,
 	},
-	--W
+	-- ────────────────────────────────── W ──────────────────────────────────
 	{
 		"williamboman/mason.nvim",
 		event = { "BufReadPre", "BufNewFile" },
@@ -1732,9 +1734,9 @@ MEMENTO VIVERE]],
 	-- 	priority = 1001,
 	-- },
 	{ "windwp/nvim-ts-autotag", event = { "InsertEnter" } },
-	--X
-	--Y
-	--Z
+	-- ────────────────────────────────── X ──────────────────────────────────
+	-- ────────────────────────────────── Y ──────────────────────────────────
+	-- ────────────────────────────────── Z ──────────────────────────────────
 	-- {
 	-- 	"zongben/capsoff.nvim",
 	-- 	build = ":CapsLockOffBuild",
