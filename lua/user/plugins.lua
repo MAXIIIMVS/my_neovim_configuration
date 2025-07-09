@@ -112,7 +112,8 @@ return require("lazy").setup({
 			},
 			color_overrides = {
 				-- #1A1A2F #1D182E #171421, terminal background: #171421
-				mocha = { base = "#191724" },
+				-- mocha = { base = "#191724" },
+				mocha = { base = "#1A1527" },
 			},
 			highlight_overrides = {
 				all = function(colors)
@@ -235,7 +236,12 @@ return require("lazy").setup({
 	{
 		"folke/noice.nvim",
 		event = "CmdlineEnter",
+		cmd = { "Noice", "NoiceEnable", "NoiceDisable" },
+		init = function()
+			vim.g.noice_enabled = true
+		end,
 		opts = {
+			messages = { view_search = false },
 			lsp = {
 				hover = { enabled = false },
 				signature = { enabled = false },
@@ -248,7 +254,7 @@ return require("lazy").setup({
 		priority = 1000,
 		lazy = false,
 		opts = {
-			animate = { enabled = true },
+			animate = { enabled = vim.fn.has("nvim-0.10") == 1 },
 			bigfile = { size = 1 * 1024 * 1024 },
 			bufdelete = { enabled = true },
 			explorer = { enabled = false },
@@ -257,16 +263,58 @@ return require("lazy").setup({
 				what = "file", -- what to open. not all remotes support all types
 			},
 			indent = { enabled = true },
-			lazygit = { enabled = true },
+			lazygit = { enabled = false },
 			notifier = { enabled = true },
 			quickfile = { enabled = true },
 			picker = {
 				enabled = true,
-				sources = { explorer = { auto_close = true } },
-				-- default, ivy, dropdown, ivy_split, left, right, select, sidebar,
-				-- telescope, top, vertical, vscode
-				-- e.g. layout = { preset = "telescope", reverse = true, layout = { box = "vertical" } },
-				layout = "telescope",
+				layout = {
+					preset = function()
+						return vim.o.columns <= 130 and "vertical" or "telescope"
+					end,
+				},
+				-- sources = { explorer = { auto_close = true } },
+				layouts = {
+					telescope = { -- override telescope layout, swap input and list place
+						reverse = false,
+						layout = {
+							box = "horizontal",
+							backdrop = false,
+							width = 0.8,
+							height = 0.9,
+							border = "none",
+							{
+								box = "vertical",
+								{
+									win = "input",
+									height = 1,
+									border = "rounded",
+									title = "{title} {live} {flags}",
+									title_pos = "center",
+								},
+								{ win = "list", title = " Results ", title_pos = "center", border = "rounded" },
+							},
+							{
+								win = "preview",
+								title = "{preview:Preview}",
+								width = 0.5,
+								border = "rounded",
+								title_pos = "center",
+							},
+						},
+					},
+				},
+				formatters = { file = { truncate = 75 } },
+				win = {
+					input = {
+						keys = {
+							["<c-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
+							["<c-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
+							["<c-f>"] = { "list_scroll_down", mode = { "i", "n" } },
+							["<c-b>"] = { "list_scroll_up", mode = { "i", "n" } },
+						},
+					},
+				},
 			},
 			dashboard = {
 				enabled = true,
@@ -1468,6 +1516,9 @@ MEMENTO VIVERE]],
 		},
 		version = "v0.*",
 		opts = {
+			-- enabled = function()
+			-- 	return vim.g.show_completion ~= false
+			-- end,
 			cmdline = {
 				enabled = false,
 				sources = { "path", "cmdline", "buffer" },
@@ -1516,7 +1567,7 @@ MEMENTO VIVERE]],
 			},
 			completion = {
 				menu = {
-					auto_show = false,
+					auto_show = true,
 					border = "rounded",
 					winhighlight = "Normal:None,CursorLine:BlinkCmpMenuSelection,Search:None",
 				},

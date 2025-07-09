@@ -33,17 +33,9 @@ require("which-key").add({
 	{ ",d", "<cmd>silent lua Snacks.dashboard()<CR>", desc = "dashboard", nowait = true, remap = false },
 	{ ",f", ":find ", desc = "find a file", nowait = true, remap = false, silent = false },
 	{
-		",G",
+		",g",
 		"<cmd>call OpenLazyGit()<CR>",
 		desc = "LazyGit",
-		remap = false,
-		silent = true,
-		nowait = true,
-	},
-	{
-		",g",
-		"<cmd>lua Snacks.lazygit()<CR>",
-		desc = "LazyGit (snacks)",
 		remap = false,
 		silent = true,
 		nowait = true,
@@ -252,13 +244,6 @@ require("which-key").add({
 	},
 	{
 		";n",
-		"<cmd>lua Snacks.explorer()<CR>",
-		desc = "Netrw",
-		nowait = true,
-		remap = false,
-	},
-	{
-		";N",
 		[[:call ToggleNetrw() | :sil! /<C-R>=expand("%:t")<CR><CR> :nohlsearch<CR>]],
 		-- "<cmd>topleft 40vsplit | Oil<CR>",
 		desc = "Netrw",
@@ -400,7 +385,7 @@ require("which-key").add({
 	{
 		"[f",
 		function()
-			local index = #flavors
+			local index = 1
 			for i, f in ipairs(flavors) do
 				if vim.g.colors_name == f then
 					index = i - 1
@@ -971,7 +956,15 @@ require("which-key").add({
 		remap = false,
 	},
 	{ "<space>gf", "<cmd>silent G fetch<CR>", desc = "Fetch", nowait = true, remap = false },
-	{ "<space>gg", ":Ggrep! -q ", desc = "Grep", nowait = true, remap = false, silent = false },
+	{ "<space>gG", ":Ggrep! -q ", desc = "Grep", nowait = true, remap = false, silent = false },
+	{
+		"<space>gg",
+		"<cmd>call OpenLazyGit()<CR>",
+		desc = "LazyGit",
+		remap = false,
+		silent = true,
+		nowait = true,
+	},
 	{ "<space>gh", get_git_hash, desc = "copy current git hash to g register", nowait = true, remap = false },
 	{
 		"<space>gN",
@@ -1100,6 +1093,16 @@ require("which-key").add({
 			end
 		end,
 		desc = "Cursor line",
+		nowait = true,
+		remap = false,
+	},
+	{
+		"<space>tn",
+		function()
+			require("noice").cmd(vim.g.noice_enabled and "disable" or "enable")
+			vim.g.noice_enabled = not vim.g.noice_enabled
+		end,
+		desc = "Noice",
 		nowait = true,
 		remap = false,
 	},

@@ -69,6 +69,17 @@ flavors = {
 	"catppuccin-latte",
 }
 
+vim.api.nvim_create_autocmd("ColorScheme", {
+	pattern = "*",
+	callback = function()
+		-- NOTE: requires https://github.com/catppuccin/lazygit
+		local base = vim.fn.expand("$HOME/.config/lazygit/")
+		local theme = vim.o.background == "dark" and "themes/catppuccin/themes-mergable/mocha/peach.yml"
+			or "themes/catppuccin/themes-mergable/latte/red.yml"
+		vim.env.LG_CONFIG_FILE = base .. "config.yml," .. base .. theme
+	end,
+})
+
 function open_todo_window()
 	if vim.g.is_todo_open then
 		vim.cmd("q")
@@ -450,8 +461,9 @@ autocmd BufEnter * call SyncTmuxOnColorSchemeChange()
 autocmd BufWinLeave * if &laststatus != 3 | set laststatus=3 | endif
 
 function! OpenLazyGit()
-  set notermguicolors
-  terminal lazygit
+  " set notermguicolors " uncomment this if you're not using a theme for lazygit
+	terminal lazygit
+	" terminal lazygit --use-config-file="$HOME/.config/lazygit/config.yml,$HOME/.config/lazygit/themes/catppuccin/themes-mergable/mocha/peach.yml"
   tnoremap <buffer> <ESC> <ESC>
   startinsert
   redraw!
@@ -459,7 +471,7 @@ function! OpenLazyGit()
     autocmd! * <buffer>
     autocmd WinResized <buffer> redraw
     autocmd TermClose <buffer> :lua Snacks.bufdelete()
-    autocmd TermClose * set termguicolors
+    " autocmd TermClose * set termguicolors " uncomment this if you're not using a theme for lazygit
   augroup END
 endfunction
 
@@ -471,7 +483,7 @@ function! OpenHtop()
   augroup HTOP
 	  autocmd! * <buffer>
 	  autocmd WinResized <buffer> redraw
-	  autocmd TermClose <buffer> :lua require("mini.bufremove").delete()
+	  autocmd TermClose <buffer> :lua Snacks.bufdelete()
 	  autocmd TermClose * set termguicolors | execute "tnoremap <ESC> \<C-\\>\<C-n>"
   augroup END
 endfunction
