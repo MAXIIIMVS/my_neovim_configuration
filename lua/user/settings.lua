@@ -5,53 +5,82 @@ local signs = {
 	Info = " ",
 }
 
--- TODO: figure out how to integrate friendly snippets with native
--- autocompletion, and remove blink.cmp.
--- enable autocompletion: nvim v.0.0.11
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
+-- TODO: uncomment when you're ready
+-- vim.lsp.handlers["textDocument/completion"] = function(err, result, ctx, config)
+-- 	if err or not result or not result.items then
+-- 		vim.lsp.handlers["textDocument/completion"](err, result, ctx, config)
+-- 		return
+-- 	end
+-- 	-- Sort so that snippets come first
+-- 	table.sort(result.items, function(a, b)
+-- 		local snippet_kind = 15
+-- 		if a.kind == snippet_kind and b.kind ~= snippet_kind then
+-- 			return true
+-- 		elseif b.kind == snippet_kind and a.kind ~= snippet_kind then
+-- 			return false
+-- 		else
+-- 			return (a.sortText or "") < (b.sortText or "")
+-- 		end
+-- 	end)
+-- 	vim.lsp.handlers["textDocument/completion"](err, result, ctx, config)
+-- end
+--
+-- -- enable autocompletion: nvim v.0.0.11
 -- vim.api.nvim_create_autocmd("LspAttach", {
 -- 	callback = function(event)
 -- 		local client = vim.lsp.get_client_by_id(event.data.client_id)
 -- 		if client:supports_method("textDocument/completion") then
--- 			vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = false })
+-- 			vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
 -- 		end
 -- 	end,
 -- })
+--
 -- vim.keymap.set("i", "<c-space>", vim.lsp.completion.get)
 --
 -- vim.keymap.set("i", "<CR>", function()
--- 	return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+-- 	if vim.fn.pumvisible() == 1 then
+-- 		local selected = vim.fn.complete_info({ "selected" }).selected
+-- 		-- If no item selected, select the first one manually
+-- 		if selected == -1 then
+-- 			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-n><C-y>", true, true, true), "n", true)
+-- 			return ""
+-- 		else
+-- 			return vim.api.nvim_replace_termcodes("<C-y>", true, true, true)
+-- 		end
+-- 	end
+-- 	return vim.api.nvim_replace_termcodes("<CR>", true, true, true)
 -- end, { expr = true, noremap = true })
 --
--- vim.keymap.set("i", "<Tab>", function()
--- 	-- return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
--- 	return vim.fn.pumvisible() == 1 and "<C-n>" or vim.lsp.completion.get()
--- end, { expr = true, noremap = true })
+-- vim.keymap.set({ "i", "s" }, "<Tab>", function()
+-- 	if vim.fn.pumvisible() == 1 then
+-- 		return "<C-n>"
+-- 	elseif vim.snippet.active({ direction = 1 }) then
+-- 		return "<Cmd>lua vim.snippet.jump(1)<CR>"
+-- 	else
+-- 		return vim.lsp.completion.get()
+-- 	end
+-- end, { expr = true, silent = true })
 --
--- vim.keymap.set("i", "<S-Tab>", function()
--- 	return vim.fn.pumvisible() == 1 and "<C-p>" or vim.lsp.completion.get()
--- end, { expr = true, noremap = true })
-
--- make the builtin K in normal to show hover info with a border.
--- local hover = vim.lsp.buf.hover
--- vim.lsp.buf.hover = function()
--- 	return hover({
--- 		border = "rounded",
--- 		-- max_width = 100,
--- 		max_width = math.floor(vim.o.columns * 0.7),
--- 		max_height = math.floor(vim.o.lines * 0.7),
--- 	})
--- end
+-- vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+-- 	if vim.fn.pumvisible() == 1 then
+-- 		return "<C-p>"
+-- 	elseif vim.snippet.active({ direction = -1 }) then
+-- 		return "<Cmd>lua vim.snippet.jump(-1)<CR>"
+-- 	else
+-- 		return vim.lsp.completion.get()
+-- 	end
+-- end, { expr = true, silent = true })
 
 -- enable diagnostics: nvim v.0.0.11
 -- vim.diagnostic.config({ virtual_text = true })
 -- vim.diagnostic.config({ virtual_text = { current_line = true } })
 -- vim.diagnostic.config({ virtual_lines = true })
 vim.diagnostic.config({ virtual_lines = { current_line = true } })
-
-for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
 
 flavors = {
 	"catppuccin-mocha",
@@ -585,7 +614,7 @@ ab :br: ♖
 
 -- Fundamental {{{
 -- vim.o.winborder = "rounded" -- this messes up telescope and other plugins
-vim.g.completeopt = "fuzzy"
+vim.o.completeopt = "menu,menuone,noinsert,noselect"
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
 vim.o.list = true

@@ -485,7 +485,6 @@ MEMENTO VIVERE]],
 	-- ────────────────────────────────── J ──────────────────────────────────
 	-- {
 	-- 	"j-hui/fidget.nvim",
-	-- 	enabled = false,
 	-- 	event = "LspAttach",
 	-- 	opts = {
 	-- 		notification = {
@@ -558,18 +557,6 @@ MEMENTO VIVERE]],
 		},
 	},
 	-- ────────────────────────────────── L ──────────────────────────────────
-	-- {
-	-- 	"L3MON4D3/LuaSnip",
-	-- 	dependencies = { "rafamadriz/friendly-snippets" },
-	-- 	event = { "BufNewFile", "BufReadPost", "BufFilePost" },
-	-- 	version = "v2.*",
-	-- 	build = "make install_jsregexp",
-	-- 	config = function()
-	-- 		require("luasnip.loaders.from_vscode").lazy_load()
-	-- 		require("luasnip").filetype_extend("vimwiki", { "markdown" })
-	-- 		require("luasnip").filetype_extend("scratch", { "markdown" })
-	-- 	end,
-	-- },
 	{ "leoluz/nvim-dap-go", config = true, ft = "go" },
 	{
 		"lervag/vimtex",
@@ -1249,6 +1236,7 @@ MEMENTO VIVERE]],
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		event = { "BufReadPost", "BufNewFile" },
+		branch = "master",
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				auto_install = true,
@@ -1325,7 +1313,6 @@ MEMENTO VIVERE]],
 					additional_vim_regex_highlighting = false,
 					enable = true,
 				},
-				autotag = { enable = true },
 			})
 		end,
 	},
@@ -1357,7 +1344,7 @@ MEMENTO VIVERE]],
 					require("null-ls").builtins.formatting.shfmt,
 					require("null-ls").builtins.formatting.csharpier,
 					-- require("null-ls").builtins.formatting.djlint,
-					require("null-ls").builtins.formatting.gofmt,
+					-- require("null-ls").builtins.formatting.gofmt,
 					require("null-ls").builtins.formatting.prettierd.with({
 						filetypes = {
 							"javascript",
@@ -1723,17 +1710,40 @@ MEMENTO VIVERE]],
 			require("config.native-lsp").setup(on_attach, capabilities)
 		end,
 	},
-	-- {
-	-- 	"willothy/flatten.nvim",
-	-- 	lazy = false,
-	-- 	opts = {
-	-- 		window = {
-	-- 			open = "alternate",
-	-- 		},
-	-- 	},
-	-- 	priority = 1001,
-	-- },
-	{ "windwp/nvim-ts-autotag", event = { "InsertEnter" } },
+	{
+		"willothy/flatten.nvim",
+		lazy = false,
+		opts = {
+			window = {
+				open = "alternate",
+			},
+		},
+		priority = 1001,
+	},
+	{
+		"windwp/nvim-ts-autotag",
+		opts = {},
+		ft = {
+			"astro",
+			"glimmer",
+			"handlebars",
+			"html",
+			"javascript",
+			"javascriptreact",
+			"jsx",
+			"liquid",
+			"markdown",
+			"php",
+			"rescript",
+			"svelte",
+			"tsx",
+			"twig",
+			"typescript",
+			"typescriptreact",
+			"vue",
+			"xml",
+		},
+	},
 	-- ────────────────────────────────── X ──────────────────────────────────
 	-- ────────────────────────────────── Y ──────────────────────────────────
 	-- ────────────────────────────────── Z ──────────────────────────────────
