@@ -121,12 +121,11 @@ return require("lazy").setup({
 						WinSeparator = { fg = "#554D80" },
 						NetrwTreeBar = { fg = colors.peach },
 						FloatBorder = { fg = "#6C70B8" },
-						BlinkCmpKind = { fg = "#137174" }, -- TODO: remove when fixed
 					}
 				end,
 			},
 			integrations = {
-				blink_cmp = { style = "bordered" },
+				cmp = true,
 				gitsigns = true,
 				dadbod_ui = false,
 				dap = true,
@@ -166,7 +165,7 @@ return require("lazy").setup({
 			},
 		},
 	},
-	{ "chentoast/marks.nvim", event = "BufReadPre", opts = {} },
+	-- { "chentoast/marks.nvim", event = "BufReadPre", opts = {} },
 	{
 		"craftzdog/solarized-osaka.nvim",
 		lazy = true,
@@ -264,7 +263,10 @@ return require("lazy").setup({
 				enabled = true,
 				what = "file", -- what to open. not all remotes support all types
 			},
-			indent = { enabled = true },
+			indent = {
+				enabled = true,
+				animate = { enabled = false },
+			},
 			lazygit = { enabled = false },
 			notifier = { enabled = true },
 			quickfile = { enabled = true },
@@ -461,6 +463,149 @@ MEMENTO VIVERE]],
 	{ "godlygeek/tabular", cmd = "Tabularize" },
 	-- { "github/copilot.vim" },
 	-- ────────────────────────────────── H ──────────────────────────────────
+	{
+		"hrsh7th/nvim-cmp",
+		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
+		config = function()
+			local has_words_before = function()
+				unpack = unpack or table.unpack
+				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+				return col ~= 0
+					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+			end
+
+			local function border(hl_name)
+				return {
+					{ "╭", hl_name },
+					{ "─", hl_name },
+					{ "╮", hl_name },
+					{ "│", hl_name },
+					{ "╯", hl_name },
+					{ "─", hl_name },
+					{ "╰", hl_name },
+					{ "│", hl_name },
+				}
+			end
+
+			local function disable_for_specific_commands()
+				local cmd_type = vim.fn.getcmdtype() -- Get command type (e.g., ':')
+				local cmd_line = vim.fn.getcmdline() -- Get the current command being typed (e.g., 'find')
+				if cmd_type == ":" and (vim.startswith(cmd_line, "find") or vim.startswith(cmd_line, "tabfind")) then
+					return true -- Disable completion
+				else
+					return false -- Enable completion for other commands
+				end
+			end
+
+			require("cmp.utils.window").info_ = require("cmp.utils.window").info
+			require("cmp.utils.window").info = function(self)
+				local info = self:info_()
+				info.scrollable = false
+				return info
+			end
+
+			require("cmp").setup.cmdline({ "/", "?" }, {
+				mapping = require("cmp").mapping.preset.cmdline(),
+				sources = {
+					{ name = "buffer" },
+				},
+			})
+
+			-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+			---@diagnostic disable-next-line: missing-fields
+			require("cmp").setup.cmdline(":", {
+				mapping = require("cmp").mapping.preset.cmdline(),
+				sources = require("cmp").config.sources({
+					{ name = "path" },
+				}, {
+					{ name = "cmdline" },
+				}),
+				enabled = function()
+					return not disable_for_specific_commands()
+				end,
+			})
+
+			require("cmp").setup({
+				preselect = require("cmp").PreselectMode.None,
+				completion = {
+					autocomplete = false,
+				},
+				window = {
+					completion = {
+						border = border("FloatBorder"),
+						winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
+						scrolloff = 0,
+						side_padding = 0,
+						col_offset = 0,
+					},
+					documentation = {
+						border = border("CmpDocBorder"),
+						scrolloff = 0,
+						side_padding = 0,
+						col_offset = 0,
+					},
+				},
+				snippet = {
+					expand = function(args)
+						require("luasnip").lsp_expand(args.body)
+					end,
+				},
+				mapping = require("cmp").mapping.preset.insert({
+					["<C-u>"] = require("cmp").mapping.scroll_docs(-4),
+					["<C-d>"] = require("cmp").mapping.scroll_docs(4),
+					["<C-Space>"] = require("cmp").mapping.complete({}),
+					["<C-c>"] = require("cmp").mapping.abort(),
+					["<CR>"] = require("cmp").mapping.confirm({ select = true }),
+					["<Tab>"] = require("cmp").mapping(function(fallback)
+						if require("cmp").visible() then
+							require("cmp").select_next_item()
+						elseif require("luasnip").expand_or_jumpable() then
+							require("luasnip").expand_or_jump()
+						elseif has_words_before() then
+							require("cmp").complete({})
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+					["<S-Tab>"] = require("cmp").mapping(function(fallback)
+						if require("cmp").visible() then
+							require("cmp").select_prev_item()
+						elseif require("luasnip").jumpable(-1) then
+							require("luasnip").jump(-1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+				}),
+				performance = {
+					debounce = 0,
+					throttle = 0,
+				},
+				sources = {
+					{ name = "calc" },
+					{ name = "nvim_lsp" },
+					{ name = "vim-dadbod-completion" },
+					{ name = "emoji", option = { insert = false } },
+					{
+						name = "luasnip",
+						entry_filter = function()
+							return not require("cmp.config.context").in_treesitter_capture("string")
+								and not require("cmp.config.context").in_syntax_group("String")
+						end,
+					},
+					{ name = "buffer" },
+					{ name = "path" },
+					-- { name = "nvim_lua" },
+				},
+			})
+		end,
+	},
+	{ "hrsh7th/cmp-buffer", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
+	{ "hrsh7th/cmp-calc", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
+	{ "hrsh7th/cmp-cmdline", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
+	{ "hrsh7th/cmp-emoji", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
+	{ "hrsh7th/cmp-nvim-lsp", event = "LspAttach", after = "nvim-cmp" },
+	{ "hrsh7th/cmp-path", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
 	-- ────────────────────────────────── I ──────────────────────────────────
 	{
 		"itchyny/calendar.vim",
@@ -557,6 +702,18 @@ MEMENTO VIVERE]],
 		},
 	},
 	-- ────────────────────────────────── L ──────────────────────────────────
+	{
+		"L3MON4D3/LuaSnip",
+		dependencies = { "rafamadriz/friendly-snippets" },
+		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
+		version = "v2.*",
+		build = "make install_jsregexp",
+		config = function()
+			require("luasnip.loaders.from_vscode").lazy_load()
+			require("luasnip").filetype_extend("vimwiki", { "markdown" })
+			require("luasnip").filetype_extend("scratch", { "markdown" })
+		end,
+	},
 	{ "leoluz/nvim-dap-go", config = true, ft = "go" },
 	{
 		"lervag/vimtex",
@@ -1494,89 +1651,11 @@ MEMENTO VIVERE]],
 		end,
 	},
 	{ "romainl/vim-cool", event = { "CmdlineEnter" }, keys = { "#", "*", "n", "N" } },
-	-- { "RRethy/vim-illuminate", cmd = "IlluminateToggle", event = "BufReadPost" },
 	-- ────────────────────────────────── S ──────────────────────────────────
 	{
-		"saghen/blink.cmp",
-		event = "InsertEnter",
-		dependencies = {
-			"rafamadriz/friendly-snippets",
-			"moyiz/blink-emoji.nvim",
-		},
-		version = "1.*",
-		opts = {
-			-- enabled = function()
-			-- 	return vim.g.show_completion ~= false
-			-- end,
-			cmdline = {
-				enabled = false,
-				sources = { "path", "cmdline", "buffer" },
-				-- sources = function()
-				-- 	local type = vim.fn.getcmdtype()
-				-- 	if type == "/" or type == "?" then
-				-- 		return { "buffer" }
-				-- 	end
-				-- 	if type == ":" or type == "@" then
-				-- 		return { "cmdline", "buffer" }
-				-- 	end
-				-- 	return {}
-				-- end,
-			},
-			sources = {
-				default = { "lsp", "path", "buffer", "emoji", "dadbod", "snippets" },
-				providers = {
-					dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
-					lsp = {
-						name = "LSP",
-						module = "blink.cmp.sources.lsp",
-						score_offset = 3,
-					},
-					snippets = {
-						name = "snippets",
-						module = "blink.cmp.sources.snippets",
-						score_offset = 4,
-					},
-					buffer = {
-						name = "buffer",
-						module = "blink.cmp.sources.buffer",
-						score_offset = 2,
-					},
-					path = {
-						name = "path",
-						module = "blink.cmp.sources.path",
-						score_offset = 5,
-					},
-					emoji = {
-						module = "blink-emoji",
-						name = "Emoji",
-						score_offset = 1, -- higher means it will be listed upper in the suggestions
-						opts = { insert = true },
-					},
-				},
-			},
-			completion = {
-				menu = {
-					auto_show = true,
-					border = "rounded",
-					winhighlight = "Normal:None,CursorLine:BlinkCmpMenuSelection,Search:None",
-				},
-				documentation = {
-					auto_show = true,
-					auto_show_delay_ms = 0,
-					window = { border = "rounded" },
-				},
-			},
-			keymap = {
-				["<CR>"] = { "accept", "fallback" },
-				["<C-d>"] = { "fallback", "scroll_documentation_down" },
-				["<C-u>"] = { "scroll_documentation_up", "fallback" },
-				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
-				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
-				["<C-n>"] = { "select_next", "fallback" },
-				["<C-p>"] = { "select_prev", "fallback" },
-			},
-		},
-		opts_extend = { "sources.default", "sources.providers" },
+		"saadparwaiz1/cmp_luasnip",
+		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
+		after = { "nvim-cmp", "LuaSnip" },
 	},
 	{
 		"stevearc/oil.nvim",
@@ -1678,7 +1757,6 @@ MEMENTO VIVERE]],
 		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate", "MasonUninstallAll" },
 		dependencies = {
 			"ray-x/lsp_signature.nvim",
-			"saghen/blink.cmp",
 		},
 		config = function()
 			require("mason").setup({
@@ -1690,7 +1768,8 @@ MEMENTO VIVERE]],
 				max_concurrent_installers = 1,
 			})
 
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
+			local capabilities =
+				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 			local on_attach = function(client, bufnr)
 				require("lsp_signature").on_attach({
 					hint_enable = false,
@@ -1710,16 +1789,16 @@ MEMENTO VIVERE]],
 			require("config.native-lsp").setup(on_attach, capabilities)
 		end,
 	},
-	{
-		"willothy/flatten.nvim",
-		lazy = false,
-		opts = {
-			window = {
-				open = "alternate",
-			},
-		},
-		priority = 1001,
-	},
+	-- {
+	-- 	"willothy/flatten.nvim",
+	-- 	lazy = false,
+	-- 	opts = {
+	-- 		window = {
+	-- 			open = "alternate",
+	-- 		},
+	-- 	},
+	-- 	priority = 1001,
+	-- },
 	{
 		"windwp/nvim-ts-autotag",
 		opts = {},
