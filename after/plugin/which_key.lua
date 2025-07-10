@@ -440,6 +440,24 @@ require("which-key").add({
 		nowait = true,
 		remap = false,
 	},
+	{
+		"dm",
+		function()
+			local mark = get_char(" ")
+			if mark == "" then
+				return
+			end
+			if mark == "!" then
+				vim.cmd("delmarks!")
+			else
+				vim.cmd("delmarks " .. mark)
+			end
+		end,
+		desc = "Delete marks",
+		silent = false,
+		nowait = true,
+		remap = false,
+	},
 	{ "g?", "<cmd>WhichKey<CR>", desc = "WhichKey", nowait = true, remap = false },
 	{ "gA", "<cmd>normal! ga<CR>", desc = "ASCII code", nowait = true, remap = false },
 	{ "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Go to declaration", nowait = true, remap = false },

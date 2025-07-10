@@ -12,6 +12,63 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local kind_icons = {
+	Text = "󰉿",
+	Method = "󰆧",
+	Function = "󰊕",
+	Constructor = "",
+	Field = "󰜢",
+	Variable = "󰀫",
+	Class = "󰠱",
+	Interface = "",
+	Module = "",
+	Property = "󰜢",
+	Unit = "󰑭",
+	Value = "󰎠",
+	Enum = "",
+	Keyword = "󰌋",
+	Snippet = "",
+	Color = "󰏘",
+	File = "󰈙",
+	Reference = "󰈇",
+	Folder = "󰉋",
+	EnumMember = "",
+	Constant = "󰏿",
+	Struct = "󰙅",
+	Event = "",
+	Operator = "󰆕",
+	TypeParameter = "",
+}
+
+-- NOTE: if you want to change the popup width, do this
+-- max_width = 50 -- you can set this in window.completion
+-- MAX_ABBR_WIDTH = 30
+-- MAX_MENU_WIDTH = 18
+
+-- Controls how wide the actual suggestion name (like strftime_l~) can be before truncating it.
+local MAX_ABBR_WIDTH = 35
+-- Controls the right-side column, like function signatures or [LSP].
+local MAX_MENU_WIDTH = 23
+
+local str_len = string.len
+local str_sub = string.sub
+
+local function format(entry, vim_item)
+	local icon = kind_icons[vim_item.kind] or ""
+	local abbr = vim_item.abbr
+	local menu = vim_item.menu or ""
+	if str_len(abbr) > MAX_ABBR_WIDTH then
+		abbr = str_sub(abbr, 1, MAX_ABBR_WIDTH - 1) .. "…"
+	end
+	if str_len(menu) > MAX_MENU_WIDTH then
+		menu = str_sub(menu, 1, MAX_MENU_WIDTH - 1) .. "…"
+	end
+	vim_item.abbr = icon .. " " .. abbr
+	vim_item.kind = ""
+	vim_item.menu = menu
+	return vim_item
+end
+
 return require("lazy").setup({
 	-- ────────────────────────────────── A ──────────────────────────────────
 	{
@@ -422,9 +479,8 @@ MEMENTO VIVERE]],
 					},
 				},
 			},
-			-- TODO: checkout scratch
 			-- scroll = { enabled = true },
-			-- statuscolumn = { enabled = true },
+			statuscolumn = { enabled = true },
 		},
 	},
 	{
@@ -526,20 +582,27 @@ MEMENTO VIVERE]],
 			})
 
 			require("cmp").setup({
+				formatting = { format = format },
 				preselect = require("cmp").PreselectMode.None,
-				completion = {
-					autocomplete = false,
-				},
+				-- completion = {
+				-- 	autocomplete = false,
+				-- },
 				window = {
 					completion = {
 						border = border("FloatBorder"),
 						winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
+						max_width = 60,
+						max_height = 10,
 						scrolloff = 0,
 						side_padding = 0,
 						col_offset = 0,
+						scrollbar = true,
 					},
 					documentation = {
 						border = border("CmpDocBorder"),
+						scrollbar = true,
+						-- max_width = 50,
+						-- max_height = 15,
 						scrolloff = 0,
 						side_padding = 0,
 						col_offset = 0,
