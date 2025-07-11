@@ -685,7 +685,7 @@ vim.o.errorbells = false
 vim.o.belloff = "all"
 vim.o.confirm = true
 if vim.fn.has("gui_running") == 1 then
-	vim.o.guifont = "FiraCode Nerd Font Mono SemiBold:h9"
+	vim.o.guifont = "FiraCode Nerd Font SemiBold:h9"
 end
 vim.g.scrollopt = "ver,hor,jump"
 vim.schedule(function()

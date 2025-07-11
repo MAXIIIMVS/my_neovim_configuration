@@ -495,13 +495,6 @@ require("which-key").add({
 		remap = false,
 	},
 	{
-		"z=",
-		"<cmd>lua Snacks.picker.spelling()<CR>",
-		desc = "Spelling suggestions",
-		nowait = true,
-		remap = false,
-	},
-	{
 		"|",
 		function()
 			vim.cmd("ToggleTerm size=80 direction=vertical")
