@@ -312,10 +312,8 @@ return require("lazy").setup({
 		priority = 1000,
 		lazy = false,
 		opts = {
-			animate = { enabled = vim.fn.has("nvim-0.10") == 1 },
 			bigfile = { size = 1 * 1024 * 1024 },
 			bufdelete = { enabled = true },
-			explorer = { enabled = false },
 			gitbrowse = {
 				enabled = true,
 				what = "file", -- what to open. not all remotes support all types
@@ -324,7 +322,6 @@ return require("lazy").setup({
 				enabled = true,
 				animate = { enabled = false },
 			},
-			lazygit = { enabled = false },
 			notifier = { enabled = true },
 			quickfile = { enabled = true },
 			picker = {
@@ -479,7 +476,6 @@ MEMENTO VIVERE]],
 					},
 				},
 			},
-			-- scroll = { enabled = true },
 			statuscolumn = { enabled = true },
 		},
 	},

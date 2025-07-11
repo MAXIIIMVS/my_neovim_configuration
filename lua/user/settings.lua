@@ -92,10 +92,10 @@ flavors = {
 	"nordfox",
 	"carbonfox",
 	"terafox",
-	"solarized-osaka-day",
+	-- "solarized-osaka-day",
+	"catppuccin-latte",
 	"dayfox",
 	"dawnfox",
-	"catppuccin-latte",
 }
 
 vim.api.nvim_create_autocmd("ColorScheme", {
@@ -684,7 +684,9 @@ vim.o.pumblend = 0
 vim.o.errorbells = false
 vim.o.belloff = "all"
 vim.o.confirm = true
-vim.opt.guifont = "FiraCode Nerd Font Mono Medium"
+if vim.fn.has("gui_running") == 1 then
+	vim.o.guifont = "FiraCode Nerd Font Mono SemiBold:h9"
+end
 vim.g.scrollopt = "ver,hor,jump"
 vim.schedule(function()
 	vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard

@@ -349,6 +349,7 @@ require("which-key").add({
 		"]F",
 		function()
 			vim.cmd.colorscheme(flavors[#flavors])
+			vim.notify(flavors[#flavors])
 		end,
 		desc = "Last flavor",
 		nowait = true,
@@ -368,6 +369,7 @@ require("which-key").add({
 				index = 1
 			end
 			vim.cmd.colorscheme(flavors[index])
+			vim.notify(flavors[index])
 		end,
 		desc = "Next flavor",
 		nowait = true,
@@ -377,6 +379,7 @@ require("which-key").add({
 		"[F",
 		function()
 			vim.cmd.colorscheme(flavors[1])
+			vim.notify(flavors[1])
 		end,
 		desc = "First flavor",
 		nowait = true,
@@ -385,9 +388,9 @@ require("which-key").add({
 	{
 		"[f",
 		function()
-			local index = 1
-			for i, f in ipairs(flavors) do
-				if vim.g.colors_name == f then
+			local index = #flavors
+			for i = #flavors, 1, -1 do
+				if vim.g.colors_name == flavors[i] then
 					index = i - 1
 					break
 				end
@@ -396,6 +399,7 @@ require("which-key").add({
 				index = #flavors
 			end
 			vim.cmd.colorscheme(flavors[index])
+			vim.notify(flavors[index])
 		end,
 		desc = "Previous flavor",
 		nowait = true,
@@ -1303,7 +1307,7 @@ require("which-key").add({
 	},
 	{
 		mode = { "i" },
-		-- { "<C-k>", "<C-o>C", desc = "Delete to the end of the line", nowait = false, remap = false },
+		{ "<C-k>", "<C-o>C", desc = "Delete to the end of the line", nowait = false, remap = false },
 		{
 			"<c-k><c-k>",
 			"<cmd>lua Snacks.picker.icons()<cr>",
