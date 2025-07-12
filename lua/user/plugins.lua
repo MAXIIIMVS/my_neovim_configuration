@@ -471,7 +471,8 @@ MEMENTO VIVERE]],
 					backdrop = {
 						transparent = true,
 						blend = 0,
-						bg = "#171421",
+						-- bg = "#171421",
+						bg = "#1B1725",
 					},
 				},
 			},
@@ -537,15 +538,15 @@ MEMENTO VIVERE]],
 				}
 			end
 
-			local function disable_for_specific_commands()
-				local cmd_type = vim.fn.getcmdtype() -- Get command type (e.g., ':')
-				local cmd_line = vim.fn.getcmdline() -- Get the current command being typed (e.g., 'find')
-				if cmd_type == ":" and (vim.startswith(cmd_line, "find") or vim.startswith(cmd_line, "tabfind")) then
-					return true -- Disable completion
-				else
-					return false -- Enable completion for other commands
-				end
-			end
+			-- local function disable_for_specific_commands()
+			-- 	local cmd_type = vim.fn.getcmdtype() -- Get command type (e.g., ':')
+			-- 	local cmd_line = vim.fn.getcmdline() -- Get the current command being typed (e.g., 'find')
+			-- 	if cmd_type == ":" and (vim.startswith(cmd_line, "find") or vim.startswith(cmd_line, "tabfind")) then
+			-- 		return true -- Disable completion
+			-- 	else
+			-- 		return false -- Enable completion for other commands
+			-- 	end
+			-- end
 
 			require("cmp.utils.window").info_ = require("cmp.utils.window").info
 			require("cmp.utils.window").info = function(self)
@@ -564,15 +565,23 @@ MEMENTO VIVERE]],
 			-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 			---@diagnostic disable-next-line: missing-fields
 			require("cmp").setup.cmdline(":", {
-				mapping = require("cmp").mapping.preset.cmdline(),
+				-- mapping = require("cmp").mapping.preset.cmdline(),
+				mapping = require("cmp").mapping.preset.cmdline({
+					["<Tab>"] = require("cmp").mapping.select_next_item({
+						behavior = require("cmp").SelectBehavior.Insert,
+					}),
+					["<S-Tab>"] = require("cmp").mapping.select_prev_item({
+						behavior = require("cmp").SelectBehavior.Insert,
+					}),
+				}),
 				sources = require("cmp").config.sources({
 					{ name = "path" },
 				}, {
 					{ name = "cmdline" },
 				}),
-				enabled = function()
-					return not disable_for_specific_commands()
-				end,
+				-- enabled = function()
+				-- 	return not disable_for_specific_commands()
+				-- end,
 			})
 
 			require("cmp").setup({
@@ -608,7 +617,13 @@ MEMENTO VIVERE]],
 					end,
 				},
 				mapping = require("cmp").mapping.preset.insert({
-					["<C-u>"] = require("cmp").mapping.scroll_docs(-4),
+					["<C-u>"] = require("cmp").mapping(function(fallback)
+						if require("cmp").visible_docs() then
+							require("cmp").mapping.scroll_docs(-4)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
 					["<C-d>"] = require("cmp").mapping.scroll_docs(4),
 					["<C-Space>"] = require("cmp").mapping.complete({}),
 					["<C-c>"] = require("cmp").mapping.abort(),
@@ -1397,23 +1412,15 @@ MEMENTO VIVERE]],
 
 					return msg
 				end,
-				color = { fg = colors.violet, gui = "bold" },
-				cond = conditions.hide_in_width,
-			})
-
-			ins_right({
-				"filesize",
-				fmt = string.upper,
-				cond = function()
-					return conditions.buffer_not_empty() and conditions.hide_in_width()
-				end,
+				color = { fg = colors.violet },
+				-- cond = conditions.hide_in_width,
 			})
 
 			ins_right({
 				"o:encoding", -- option component same as &encoding in viml
 				fmt = string.upper, -- I'm not sure why it's upper case either ;)
 				cond = conditions.hide_in_width,
-				color = { fg = colors.green, gui = "bold" },
+				color = { fg = colors.green },
 			})
 
 			ins_right({
@@ -1425,8 +1432,25 @@ MEMENTO VIVERE]],
 			})
 
 			ins_right({
-				"progress",
+				"filesize",
+				fmt = string.upper,
+				cond = function()
+					return conditions.buffer_not_empty() and conditions.hide_in_width()
+				end,
+				color = { fg = colors.cyan },
+			})
+
+			ins_right({
+				function()
+					return vim.api.nvim_buf_line_count(0)
+				end,
 				color = { fg = colors.cyan, gui = "bold" },
+				cond = conditions.hide_in_width,
+			})
+
+			ins_right({
+				"progress",
+				color = { fg = colors.cyan },
 				cond = conditions.hide_in_width,
 			})
 
