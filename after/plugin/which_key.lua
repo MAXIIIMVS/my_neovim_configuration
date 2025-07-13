@@ -1028,8 +1028,8 @@ require("which-key").add({
 	{ "<space>gwr", ":G worktree remove ", desc = "remove", nowait = true, remap = false, silent = false },
 	{ "<space>gwu", ":G worktree unlock ", desc = "Unlock", nowait = true, remap = false, silent = false },
 	{ "<space>s", group = "Session", nowait = true, remap = false },
-	{ "<space>sd", "<cmd>silent Obsession!<CR>", desc = "Delete the session", nowait = true, remap = false },
-	{ "<space>ss", "<cmd>silent Obsession<CR>", desc = "Start a session", nowait = true, remap = false },
+	{ "<space>sd", "<cmd>Obsession!<CR>", desc = "Delete the session", nowait = true, remap = false },
+	{ "<space>ss", "<cmd>Obsession<CR>", desc = "Start a session", nowait = true, remap = false },
 	{
 		"<space>r",
 		function()

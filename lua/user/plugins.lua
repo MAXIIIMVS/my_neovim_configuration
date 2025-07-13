@@ -54,6 +54,9 @@ local str_len = string.len
 local str_sub = string.sub
 
 local function format(entry, vim_item)
+	if vim.api.nvim_get_mode().mode == "c" then
+		return vim_item -- don't format in cmdline mode
+	end
 	local icon = kind_icons[vim_item.kind] or ""
 	local abbr = vim_item.abbr
 	local menu = vim_item.menu or ""
@@ -467,12 +470,14 @@ MEMENTO VIVERE]],
 			},
 			styles = {
 				zen = {
-					width = 120,
 					backdrop = {
 						transparent = true,
 						blend = 0,
 						-- bg = "#171421",
-						bg = "#1B1725",
+						-- bg = "#1B1725",
+						win = {
+							wo = { winhighlight = "Normal:BufferlineBackground" },
+						},
 					},
 				},
 			},
@@ -1870,16 +1875,16 @@ MEMENTO VIVERE]],
 			require("config.native-lsp").setup(on_attach, capabilities)
 		end,
 	},
-	-- {
-	-- 	"willothy/flatten.nvim",
-	-- 	lazy = false,
-	-- 	opts = {
-	-- 		window = {
-	-- 			open = "alternate",
-	-- 		},
-	-- 	},
-	-- 	priority = 1001,
-	-- },
+	{
+		"willothy/flatten.nvim",
+		lazy = false,
+		opts = {
+			window = {
+				open = "alternate",
+			},
+		},
+		priority = 1001,
+	},
 	{
 		"windwp/nvim-ts-autotag",
 		opts = {},
