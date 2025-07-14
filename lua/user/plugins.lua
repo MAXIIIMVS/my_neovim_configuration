@@ -505,25 +505,24 @@ MEMENTO VIVERE]],
 			-- Controls the right-side column, like function signatures or [LSP].
 			local MAX_MENU_WIDTH = 23
 
-			local str_len = string.len
-			local str_sub = string.sub
-
 			local function format(entry, vim_item)
 				if vim.api.nvim_get_mode().mode == "c" then
 					return vim_item -- don't format in cmdline mode
 				end
 				local icon = kind_icons[vim_item.kind] or ""
-				local abbr = vim_item.abbr
-				local menu = vim_item.menu or ""
-				if str_len(abbr) > MAX_ABBR_WIDTH then
-					abbr = str_sub(abbr, 1, MAX_ABBR_WIDTH - 1) .. "…"
-				end
-				if str_len(menu) > MAX_MENU_WIDTH then
-					menu = str_sub(menu, 1, MAX_MENU_WIDTH - 1) .. "…"
-				end
-				vim_item.abbr = icon .. " " .. abbr
+				-- local abbr = vim_item.abbr
+				-- local menu = vim_item.menu or ""
+				-- if string.len(abbr) > MAX_ABBR_WIDTH then
+				-- 	abbr = string.sub(abbr, 1, MAX_ABBR_WIDTH - 1) .. "…"
+				-- end
+				-- if string.len(menu) > MAX_MENU_WIDTH then
+				-- 	menu = string.sub(menu, 1, MAX_MENU_WIDTH - 1) .. "…"
+				-- end
+				-- vim_item.abbr = icon .. " " .. abbr .. " "
+				vim_item.abbr = icon .. " " .. vim_item.abbr .. " "
 				vim_item.kind = ""
-				vim_item.menu = menu
+				-- vim_item.menu = menu
+				vim_item.menu = ""
 				return vim_item
 			end
 
