@@ -12,66 +12,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local kind_icons = {
-	Text = "󰉿",
-	Method = "󰆧",
-	Function = "󰊕",
-	Constructor = "",
-	Field = "󰜢",
-	Variable = "󰀫",
-	Class = "󰠱",
-	Interface = "",
-	Module = "",
-	Property = "󰜢",
-	Unit = "󰑭",
-	Value = "󰎠",
-	Enum = "",
-	Keyword = "󰌋",
-	Snippet = "",
-	Color = "󰏘",
-	File = "󰈙",
-	Reference = "󰈇",
-	Folder = "󰉋",
-	EnumMember = "",
-	Constant = "󰏿",
-	Struct = "󰙅",
-	Event = "",
-	Operator = "󰆕",
-	TypeParameter = "",
-}
-
--- NOTE: if you want to change the popup width, do this
--- max_width = 50 -- you can set this in window.completion
--- MAX_ABBR_WIDTH = 30
--- MAX_MENU_WIDTH = 18
-
--- Controls how wide the actual suggestion name (like strftime_l~) can be before truncating it.
-local MAX_ABBR_WIDTH = 35
--- Controls the right-side column, like function signatures or [LSP].
-local MAX_MENU_WIDTH = 23
-
-local str_len = string.len
-local str_sub = string.sub
-
-local function format(entry, vim_item)
-	if vim.api.nvim_get_mode().mode == "c" then
-		return vim_item -- don't format in cmdline mode
-	end
-	local icon = kind_icons[vim_item.kind] or ""
-	local abbr = vim_item.abbr
-	local menu = vim_item.menu or ""
-	if str_len(abbr) > MAX_ABBR_WIDTH then
-		abbr = str_sub(abbr, 1, MAX_ABBR_WIDTH - 1) .. "…"
-	end
-	if str_len(menu) > MAX_MENU_WIDTH then
-		menu = str_sub(menu, 1, MAX_MENU_WIDTH - 1) .. "…"
-	end
-	vim_item.abbr = icon .. " " .. abbr
-	vim_item.kind = ""
-	vim_item.menu = menu
-	return vim_item
-end
-
 return require("lazy").setup({
 	-- ────────────────────────────────── A ──────────────────────────────────
 	{
@@ -84,10 +24,9 @@ return require("lazy").setup({
 		end,
 		event = "UIEnter",
 	},
-	{ "arthurxavierx/vim-unicoder", event = "InsertEnter" },
 	{
 		"akinsho/bufferline.nvim",
-		event = "UIEnter",
+		event = { "BufNewFile", "BufReadPre" },
 		dependencies = "nvim-tree/nvim-web-devicons",
 		opts = {
 			options = {
@@ -238,6 +177,7 @@ return require("lazy").setup({
 		},
 	},
 	-- ────────────────────────────────── D ──────────────────────────────────
+	{ "dmitmel/cmp-digraphs", event = "InsertEnter", dependencies = "hrsh7th/nvim-cmp" },
 	-- ────────────────────────────────── E ──────────────────────────────────
 	{
 		"echasnovski/mini.jump2d",
@@ -476,6 +416,7 @@ MEMENTO VIVERE]],
 						-- bg = "#171421",
 						-- bg = "#1B1725",
 						win = {
+							-- NOTE: you can use TabLineFill instead of BufferlineBackground
 							wo = { winhighlight = "Normal:BufferlineBackground" },
 						},
 					},
@@ -521,8 +462,71 @@ MEMENTO VIVERE]],
 	-- ────────────────────────────────── H ──────────────────────────────────
 	{
 		"hrsh7th/nvim-cmp",
-		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
+		event = { "InsertEnter", "CmdlineEnter" },
+		dependencies = { "L3MON4D3/LuaSnip" },
 		config = function()
+			local cmp = require("cmp")
+			local luasnip = require("luasnip")
+			local kind_icons = {
+				Text = "󰉿",
+				Method = "󰆧",
+				Function = "󰊕",
+				Constructor = "",
+				Field = "󰜢",
+				Variable = "󰀫",
+				Class = "󰠱",
+				Interface = "",
+				Module = "",
+				Property = "󰜢",
+				Unit = "󰑭",
+				Value = "󰎠",
+				Enum = "",
+				Keyword = "󰌋",
+				Snippet = "",
+				Color = "󰏘",
+				File = "󰈙",
+				Reference = "󰈇",
+				Folder = "󰉋",
+				EnumMember = "",
+				Constant = "󰏿",
+				Struct = "󰙅",
+				Event = "",
+				Operator = "󰆕",
+				TypeParameter = "",
+			}
+
+			-- NOTE: if you want to change the popup width, do this
+			-- max_width = 50 -- you can set this in window.completion
+			-- MAX_ABBR_WIDTH = 30
+			-- MAX_MENU_WIDTH = 18
+
+			-- Controls how wide the actual suggestion name (like strftime_l~) can be before truncating it.
+			local MAX_ABBR_WIDTH = 35
+			-- Controls the right-side column, like function signatures or [LSP].
+			local MAX_MENU_WIDTH = 23
+
+			local str_len = string.len
+			local str_sub = string.sub
+
+			local function format(entry, vim_item)
+				if vim.api.nvim_get_mode().mode == "c" then
+					return vim_item -- don't format in cmdline mode
+				end
+				local icon = kind_icons[vim_item.kind] or ""
+				local abbr = vim_item.abbr
+				local menu = vim_item.menu or ""
+				if str_len(abbr) > MAX_ABBR_WIDTH then
+					abbr = str_sub(abbr, 1, MAX_ABBR_WIDTH - 1) .. "…"
+				end
+				if str_len(menu) > MAX_MENU_WIDTH then
+					menu = str_sub(menu, 1, MAX_MENU_WIDTH - 1) .. "…"
+				end
+				vim_item.abbr = icon .. " " .. abbr
+				vim_item.kind = ""
+				vim_item.menu = menu
+				return vim_item
+			end
+
 			local has_words_before = function()
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -530,125 +534,116 @@ MEMENTO VIVERE]],
 					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
-			local function border(hl_name)
-				return {
-					{ "╭", hl_name },
-					{ "─", hl_name },
-					{ "╮", hl_name },
-					{ "│", hl_name },
-					{ "╯", hl_name },
-					{ "─", hl_name },
-					{ "╰", hl_name },
-					{ "│", hl_name },
-				}
-			end
-
-			-- local function disable_for_specific_commands()
-			-- 	local cmd_type = vim.fn.getcmdtype() -- Get command type (e.g., ':')
-			-- 	local cmd_line = vim.fn.getcmdline() -- Get the current command being typed (e.g., 'find')
-			-- 	if cmd_type == ":" and (vim.startswith(cmd_line, "find") or vim.startswith(cmd_line, "tabfind")) then
-			-- 		return true -- Disable completion
-			-- 	else
-			-- 		return false -- Enable completion for other commands
-			-- 	end
-			-- end
-
-			require("cmp.utils.window").info_ = require("cmp.utils.window").info
-			require("cmp.utils.window").info = function(self)
-				local info = self:info_()
-				info.scrollable = false
-				return info
-			end
-
-			require("cmp").setup.cmdline({ "/", "?" }, {
-				mapping = require("cmp").mapping.preset.cmdline(),
+			cmp.setup.cmdline({ "/", "?" }, {
+				mapping = cmp.mapping.preset.cmdline(),
 				sources = {
 					{ name = "buffer" },
 				},
 			})
 
-			-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-			---@diagnostic disable-next-line: missing-fields
-			require("cmp").setup.cmdline(":", {
+			-- (if you enabled `native_menu`, this won't work anymore).
+			cmp.setup.cmdline(":", {
 				-- mapping = require("cmp").mapping.preset.cmdline(),
-				mapping = require("cmp").mapping.preset.cmdline({
-					["<Tab>"] = require("cmp").mapping.select_next_item({
-						behavior = require("cmp").SelectBehavior.Insert,
-					}),
-					["<S-Tab>"] = require("cmp").mapping.select_prev_item({
-						behavior = require("cmp").SelectBehavior.Insert,
-					}),
+				mapping = cmp.mapping.preset.cmdline({
+					["<Tab>"] = {
+						c = function(_)
+							if cmp.visible() then
+								if #cmp.get_entries() == 1 then
+									cmp.confirm({ select = true })
+								else
+									cmp.select_next_item()
+								end
+							else
+								cmp.complete()
+								if #cmp.get_entries() == 1 then
+									cmp.confirm({ select = true })
+								end
+							end
+						end,
+					},
+					["<S-Tab>"] = {
+						c = function(_)
+							if cmp.visible() then
+								if #cmp.get_entries() == 1 then
+									cmp.confirm({ select = true })
+								else
+									cmp.select_prev_item()
+								end
+							else
+								cmp.complete()
+								if #cmp.get_entries() == 1 then
+									cmp.confirm({ select = true })
+								end
+							end
+						end,
+					},
 				}),
-				sources = require("cmp").config.sources({
+				sources = cmp.config.sources({
 					{ name = "path" },
 				}, {
 					{ name = "cmdline" },
 				}),
-				-- enabled = function()
-				-- 	return not disable_for_specific_commands()
-				-- end,
 			})
 
-			require("cmp").setup({
+			cmp.setup({
 				formatting = { format = format },
-				preselect = require("cmp").PreselectMode.None,
+				preselect = cmp.PreselectMode.None,
 				-- completion = {
 				-- 	autocomplete = false,
 				-- },
 				window = {
-					completion = {
-						border = border("FloatBorder"),
-						winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered({
 						max_width = 60,
 						max_height = 10,
-						scrolloff = 0,
-						side_padding = 0,
-						col_offset = 0,
-						scrollbar = true,
-					},
-					documentation = {
-						border = border("CmpDocBorder"),
-						scrollbar = true,
-						-- max_width = 50,
-						-- max_height = 15,
-						scrolloff = 0,
-						side_padding = 0,
-						col_offset = 0,
-					},
+					}),
 				},
 				snippet = {
 					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
+						luasnip.lsp_expand(args.body)
 					end,
 				},
-				mapping = require("cmp").mapping.preset.insert({
-					["<C-u>"] = require("cmp").mapping(function(fallback)
-						if require("cmp").visible_docs() then
-							require("cmp").mapping.scroll_docs(-4)
+				mapping = cmp.mapping.preset.insert({
+					["<C-u>"] = cmp.mapping.scroll_docs(-4),
+					["<C-d>"] = cmp.mapping.scroll_docs(4),
+					["<C-Space>"] = cmp.mapping.complete({}),
+					["<C-c>"] = cmp.mapping.abort(),
+					["<CR>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							if luasnip.expandable() then
+								luasnip.expand()
+							else
+								cmp.confirm({
+									select = true,
+								})
+							end
 						else
 							fallback()
 						end
-					end, { "i", "s" }),
-					["<C-d>"] = require("cmp").mapping.scroll_docs(4),
-					["<C-Space>"] = require("cmp").mapping.complete({}),
-					["<C-c>"] = require("cmp").mapping.abort(),
-					["<CR>"] = require("cmp").mapping.confirm({ select = true }),
-					["<Tab>"] = require("cmp").mapping(function(fallback)
-						if require("cmp").visible() then
-							require("cmp").select_next_item()
-						elseif require("luasnip").expand_or_jumpable() then
-							require("luasnip").expand_or_jump()
+					end),
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							if #cmp.get_entries() == 1 then
+								cmp.confirm({ select = true })
+							else
+								cmp.select_next_item()
+							end
+						elseif luasnip.locally_jumpable(1) then
+							luasnip.jump(1)
 						elseif has_words_before() then
-							require("cmp").complete({})
+							cmp.complete()
+							if #cmp.get_entries() == 1 then
+								cmp.confirm({ select = true })
+							end
 						else
 							fallback()
 						end
 					end, { "i", "s" }),
-					["<S-Tab>"] = require("cmp").mapping(function(fallback)
-						if require("cmp").visible() then
-							require("cmp").select_prev_item()
-						elseif require("luasnip").jumpable(-1) then
-							require("luasnip").jump(-1)
+					["<S-Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item()
+						elseif luasnip.jumpable(-1) then
+							luasnip.jump(-1)
 						else
 							fallback()
 						end
@@ -658,11 +653,10 @@ MEMENTO VIVERE]],
 					debounce = 0,
 					throttle = 0,
 				},
-				sources = {
-					{ name = "calc" },
+				sources = cmp.config.sources({
+					{ name = "path" },
 					{ name = "nvim_lsp" },
 					{ name = "vim-dadbod-completion" },
-					{ name = "emoji", option = { insert = false } },
 					{
 						name = "luasnip",
 						entry_filter = function()
@@ -670,19 +664,22 @@ MEMENTO VIVERE]],
 								and not require("cmp.config.context").in_syntax_group("String")
 						end,
 					},
+					{ name = "emoji", option = { insert = false } },
 					{ name = "buffer" },
-					{ name = "path" },
+					{ name = "digraphs" },
+				}, {
+					{ name = "calc" },
 					-- { name = "nvim_lua" },
-				},
+				}),
 			})
 		end,
 	},
-	{ "hrsh7th/cmp-buffer", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
-	{ "hrsh7th/cmp-calc", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
-	{ "hrsh7th/cmp-cmdline", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
-	{ "hrsh7th/cmp-emoji", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
-	{ "hrsh7th/cmp-nvim-lsp", event = "LspAttach", after = "nvim-cmp" },
-	{ "hrsh7th/cmp-path", event = { "BufNewFile", "BufReadPost", "BufFilePost" }, after = "nvim-cmp" },
+	{ "hrsh7th/cmp-buffer", event = { "InsertEnter", "CmdlineEnter" }, dependencies = "hrsh7th/nvim-cmp" },
+	{ "hrsh7th/cmp-calc", event = { "InsertEnter" }, dependencies = "hrsh7th/nvim-cmp" },
+	{ "hrsh7th/cmp-cmdline", event = { "CmdlineEnter", "InsertEnter" }, dependencies = "hrsh7th/nvim-cmp" },
+	{ "hrsh7th/cmp-emoji", event = { "InsertEnter" }, dependencies = "hrsh7th/nvim-cmp" },
+	{ "hrsh7th/cmp-nvim-lsp", event = "LspAttach", dependencies = "hrsh7th/nvim-cmp" },
+	{ "hrsh7th/cmp-path", event = { "InsertEnter", "CmdlineEnter" }, dependencies = "hrsh7th/nvim-cmp" },
 	-- ────────────────────────────────── I ──────────────────────────────────
 	{
 		"itchyny/calendar.vim",
@@ -1741,7 +1738,7 @@ MEMENTO VIVERE]],
 	{
 		"saadparwaiz1/cmp_luasnip",
 		event = { "BufNewFile", "BufReadPost", "BufFilePost" },
-		after = { "nvim-cmp", "LuaSnip" },
+		dependencies = { "nvim-cmp", "LuaSnip" },
 	},
 	{
 		"stevearc/oil.nvim",
@@ -1854,8 +1851,7 @@ MEMENTO VIVERE]],
 				max_concurrent_installers = 1,
 			})
 
-			local capabilities =
-				require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local on_attach = function(client, bufnr)
 				require("lsp_signature").on_attach({
 					hint_enable = false,
