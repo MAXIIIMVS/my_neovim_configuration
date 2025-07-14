@@ -177,7 +177,6 @@ return require("lazy").setup({
 		},
 	},
 	-- ────────────────────────────────── D ──────────────────────────────────
-	{ "dmitmel/cmp-digraphs", event = "InsertEnter", dependencies = "hrsh7th/nvim-cmp" },
 	-- ────────────────────────────────── E ──────────────────────────────────
 	{
 		"echasnovski/mini.jump2d",
@@ -607,19 +606,7 @@ MEMENTO VIVERE]],
 					["<C-d>"] = cmp.mapping.scroll_docs(4),
 					["<C-Space>"] = cmp.mapping.complete({}),
 					["<C-c>"] = cmp.mapping.abort(),
-					["<CR>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							if luasnip.expandable() then
-								luasnip.expand()
-							else
-								cmp.confirm({
-									select = true,
-								})
-							end
-						else
-							fallback()
-						end
-					end),
+					["<CR>"] = require("cmp").mapping.confirm({ select = true }),
 					["<Tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							if #cmp.get_entries() == 1 then
@@ -653,9 +640,6 @@ MEMENTO VIVERE]],
 					throttle = 0,
 				},
 				sources = cmp.config.sources({
-					{ name = "path" },
-					{ name = "nvim_lsp" },
-					{ name = "vim-dadbod-completion" },
 					{
 						name = "luasnip",
 						entry_filter = function()
@@ -663,10 +647,12 @@ MEMENTO VIVERE]],
 								and not require("cmp.config.context").in_syntax_group("String")
 						end,
 					},
-					{ name = "emoji", option = { insert = false } },
+					{ name = "nvim_lsp" },
 					{ name = "buffer" },
-					{ name = "digraphs" },
+					{ name = "emoji", option = { insert = false } },
+					{ name = "path" },
 				}, {
+					{ name = "vim-dadbod-completion" },
 					{ name = "calc" },
 					-- { name = "nvim_lua" },
 				}),
