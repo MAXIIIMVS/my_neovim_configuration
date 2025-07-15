@@ -4,7 +4,49 @@ local M = {}
 
 function M.setup(on_attach, capabilities)
 	local mason_registry = require("mason-registry")
-	local ensure_installed = {}
+	local ensure_installed = {
+		-- "asmfmt",
+		-- "awk-language-server",
+		-- "bash-language-server",
+		-- "buf",
+		"clangd",
+		-- "codelldb",
+		-- "cpptools",
+		-- "csharp-language-server",
+		-- "csharpier",
+		"css-lsp",
+		"delve",
+		-- "deno",
+		-- "docker-compose-language-service",
+		-- "dockerfile-language-server",
+		"emmet-ls",
+		"eslint_d",
+		-- "glsl_analyzer",
+		-- "go-debug-adapter",
+		"gopls",
+		-- "html-lsp",
+		-- "htmx-lsp",
+		-- "intelephense",
+		-- "jinja-lsp",
+		-- "js-debug-adapter",
+		-- "json-lsp",
+		-- "lemminx",
+		-- "lua-language-server",
+		-- "neocmakelsp",
+		-- "node-debug2-adapter",
+		-- "phpactor",
+		"prettierd",
+		-- "prisma-language-server",
+		"pyright",
+		"rust-analyzer",
+		"shfmt",
+		"stylua",
+		-- "templ",
+		-- "texlab",
+		"typescript-language-server",
+		-- "vim-language-server",
+		-- "yaml-language-server",
+	}
 
 	local servers = {
 		awk_ls = {
@@ -166,6 +208,10 @@ function M.setup(on_attach, capabilities)
 			cmd = { "lemminx" },
 			filetypes = { "xml", "xsd", "xsl", "xslt", "svg" },
 		},
+		-- lua_ls = {
+		-- 	cmd = { "lua-language-server" },
+		-- 	filetypes = { "lua" },
+		-- },
 		neocmake = {
 			cmd = { "neocmakelsp", "--stdio" },
 			filetypes = { "cmake" },

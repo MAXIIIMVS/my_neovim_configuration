@@ -312,6 +312,7 @@ return require("lazy").setup({
 							["<c-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
 							["<c-f>"] = { "list_scroll_down", mode = { "i", "n" } },
 							["<c-b>"] = { "list_scroll_up", mode = { "i", "n" } },
+							["<C-c>"] = { "close", mode = { "i", "n" } },
 						},
 					},
 				},
@@ -607,6 +608,17 @@ MEMENTO VIVERE]],
 					["<C-Space>"] = cmp.mapping.complete({}),
 					["<C-c>"] = cmp.mapping.abort(),
 					["<CR>"] = require("cmp").mapping.confirm({ select = true }),
+					-- ["<CR>"] = cmp.mapping({
+					-- 	i = function(fallback)
+					-- 		if cmp.visible() and cmp.get_active_entry() then
+					-- 			cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+					-- 		else
+					-- 			fallback()
+					-- 		end
+					-- 	end,
+					-- 	s = cmp.mapping.confirm({ select = true }),
+					-- 	c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+					-- }),
 					["<Tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							if #cmp.get_entries() == 1 then
@@ -816,6 +828,44 @@ MEMENTO VIVERE]],
 		end,
 	},
 	-- ────────────────────────────────── M ──────────────────────────────────
+	{
+		"mason-org/mason.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate", "MasonUninstallAll" },
+		dependencies = {
+			"ray-x/lsp_signature.nvim",
+			"hrsh7th/cmp-nvim-lsp",
+		},
+		config = function()
+			require("mason").setup({
+				ui = {
+					border = "rounded",
+					check_outdated_packages_on_open = true,
+					backdrop = 100,
+				},
+				max_concurrent_installers = 1,
+			})
+
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local on_attach = function(client, bufnr)
+				require("lsp_signature").on_attach({
+					hint_enable = false,
+					bind = true,
+					handler_opts = { border = "rounded" },
+				}, bufnr)
+
+				if client:supports_method("textDocument/formatting") then
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						buffer = bufnr,
+						callback = function()
+							vim.lsp.buf.format({ async = false })
+						end,
+					})
+				end
+			end
+			require("config.native-lsp").setup(on_attach, capabilities)
+		end,
+	},
 	{
 		"mbbill/undotree",
 		cmd = {
@@ -1819,43 +1869,6 @@ MEMENTO VIVERE]],
 		end,
 	},
 	-- ────────────────────────────────── W ──────────────────────────────────
-	{
-		"williamboman/mason.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate", "MasonUninstallAll" },
-		dependencies = {
-			"ray-x/lsp_signature.nvim",
-		},
-		config = function()
-			require("mason").setup({
-				ui = {
-					border = "rounded",
-					check_outdated_packages_on_open = true,
-					backdrop = 100,
-				},
-				max_concurrent_installers = 1,
-			})
-
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local on_attach = function(client, bufnr)
-				require("lsp_signature").on_attach({
-					hint_enable = false,
-					bind = true,
-					handler_opts = { border = "rounded" },
-				}, bufnr)
-
-				if client:supports_method("textDocument/formatting") then
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						buffer = bufnr,
-						callback = function()
-							vim.lsp.buf.format({ async = false })
-						end,
-					})
-				end
-			end
-			require("config.native-lsp").setup(on_attach, capabilities)
-		end,
-	},
 	{
 		"willothy/flatten.nvim",
 		lazy = false,
