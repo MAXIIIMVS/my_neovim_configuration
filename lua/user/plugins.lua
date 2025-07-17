@@ -90,6 +90,16 @@ return require("lazy").setup({
 			"TermExec",
 		},
 	},
+	-- {
+	-- 	"alex-popov-tech/store.nvim",
+	-- 	cmd = "Store",
+	-- 	keys = {
+	-- 		{ "<space>tx", "<cmd>Store<cr>", desc = "Store" },
+	-- 	},
+	-- 	opts = {
+	-- 		proportions = { list = 0.4, preview = 0.6 },
+	-- 	},
+	-- },
 	-- ────────────────────────────────── B ──────────────────────────────────
 	-- ────────────────────────────────── C ──────────────────────────────────
 	{
@@ -235,7 +245,7 @@ return require("lazy").setup({
 	-- ────────────────────────────────── F ──────────────────────────────────
 	{
 		"folke/noice.nvim",
-		event = "CmdlineEnter",
+		event = { "CmdlineEnter", "BufReadPost" },
 		cmd = { "Noice", "NoiceEnable", "NoiceDisable" },
 		init = function()
 			vim.g.noice_enabled = true
@@ -519,6 +529,7 @@ MEMENTO VIVERE]],
 				-- 	menu = string.sub(menu, 1, MAX_MENU_WIDTH - 1) .. "…"
 				-- end
 				-- vim_item.abbr = icon .. " " .. abbr .. " "
+				-- vim_item.abbr = icon .. " " .. vim_item.abbr .. " (" .. vim_item.kind .. ")"
 				vim_item.abbr = icon .. " " .. vim_item.abbr .. " "
 				vim_item.kind = ""
 				-- vim_item.menu = menu
@@ -652,6 +663,8 @@ MEMENTO VIVERE]],
 					throttle = 0,
 				},
 				sources = cmp.config.sources({
+					{ name = "vim-dadbod-completion" },
+					{ name = "nvim_lsp" },
 					{
 						name = "luasnip",
 						entry_filter = function()
@@ -659,12 +672,10 @@ MEMENTO VIVERE]],
 								and not require("cmp.config.context").in_syntax_group("String")
 						end,
 					},
-					{ name = "nvim_lsp" },
 					{ name = "buffer" },
 					{ name = "emoji", option = { insert = false } },
 					{ name = "path" },
 				}, {
-					{ name = "vim-dadbod-completion" },
 					{ name = "calc" },
 					-- { name = "nvim_lua" },
 				}),

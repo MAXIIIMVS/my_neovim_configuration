@@ -40,8 +40,7 @@ require("which-key").add({
 		silent = true,
 		nowait = true,
 	},
-	{ ",H", "<cmd>silent lua Snacks.picker.keymaps()<CR>", desc = "Keymaps", nowait = true, remap = false },
-	{ ",h", ":Man ", desc = "Show man pages", nowait = true, remap = false, silent = false },
+	{ ",h", "<cmd>silent lua Snacks.picker.keymaps()<CR>", desc = "Keymaps", nowait = true, remap = false },
 	{ ",m", "<cmd>messages<CR>", desc = "Messages", nowait = true, remap = false },
 	{ ",q", "<cmd>tabclose<CR>", desc = "Close tab", nowait = true, remap = false },
 	{
@@ -200,6 +199,7 @@ require("which-key").add({
 		remap = false,
 	},
 	{ ";g", "<cmd>lua Snacks.picker.grep()<CR>", desc = "Live grep", nowait = true, remap = false },
+	{ ";H", ":Man ", desc = "Show man pages", nowait = true, remap = false, silent = false },
 	{
 		";h",
 		":h ",
