@@ -79,6 +79,7 @@ return require("lazy").setup({
 				winblend = 0,
 			},
 			autochdir = false,
+			winbar = { enabled = true },
 		},
 		cmd = {
 			"ToggleTerm",
@@ -400,7 +401,7 @@ MEMENTO VIVERE]],
 						{ icon = "󰈆 ", key = "q", desc = "Quit", action = ":qa" },
 						{
 							align = "center",
-							text = "󰆥 " .. "Time Without Purpose Is a Prison" .. " 󰆥",
+							text = "󰆥 " .. "Life begins at the end of your comfort zone" .. " 󰆥",
 						},
 					},
 				},

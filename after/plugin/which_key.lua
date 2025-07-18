@@ -1,4 +1,6 @@
 require("which-key").add({
+	-- { "<MouseMove>", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover info" }, -- vim.o.mousemoveevent = true
+	{ "<RightMouse>", "<LeftMouse><cmd>Lspsaga hover_doc<CR>", desc = "Hover info" },
 	{ "<Nop>", "<Plug>VimwikiRemoveHeaderLevel", desc = "disabled", nowait = true, remap = false },
 	{ ",", group = "Miscellaneous", nowait = true, remap = false },
 	{
@@ -497,7 +499,8 @@ require("which-key").add({
 	{
 		"|",
 		function()
-			vim.cmd("ToggleTerm size=80 direction=vertical")
+			local size = vim.o.columns / 2
+			vim.cmd("ToggleTerm size=" .. size .. " direction=vertical")
 		end,
 		desc = "Vertical",
 		nowait = true,
@@ -518,7 +521,10 @@ require("which-key").add({
 		function()
 			require("toggleterm")
 			if vim.fn.winwidth(0) > vim.g.big_screen_size then
-				vim.cmd('execute "99ToggleTerm size=80 direction=vertical dir=' .. vim.fn.expand("%:p:h") .. '"')
+				local size = vim.o.columns / 2
+				vim.cmd(
+					'execute "99ToggleTerm size=' .. size .. " direction=vertical dir=" .. vim.fn.expand("%:p:h") .. '"'
+				)
 			else
 				vim.cmd('execute "99ToggleTerm dir=' .. vim.fn.expand("%:p:h") .. '"')
 			end
@@ -1738,5 +1744,9 @@ require("which-key").add({
 			nowait = true,
 			remap = false,
 		},
+	},
+	{
+		mode = { "i", "n", "v" },
+		{ "<c-e>", "<Plug>(VM-Select-All)", desc = "Select all", nowait = true, remap = false },
 	},
 })

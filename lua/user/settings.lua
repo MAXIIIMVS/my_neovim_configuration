@@ -692,6 +692,7 @@ vim.schedule(function()
 	vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 end)
 vim.o.mouse = "a"
+-- vim.o.mousemoveevent = true
 vim.o.autoread = true
 vim.bo.swapfile = false
 vim.opt.swapfile = false
@@ -740,4 +741,8 @@ vim.g.netrw_browse_split = 4
 vim.g.netrw_fastbrowse = false
 vim.g.netrw_liststyle = 3
 -- vim.g.netrw_hide = true
+-- }}}
+
+-- Vim Visual Multi{{{
+vim.g.VM_set_statusline = false
 -- }}}
